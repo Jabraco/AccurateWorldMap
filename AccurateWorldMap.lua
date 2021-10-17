@@ -103,6 +103,13 @@ local function debugOutput(int)
 end
 
 
+local function printCurrentMapIndex()
+  
+  d("Current Map Index: "..GetCurrentMapIndex())
+  
+end
+
+
 local function MoveWayshrines()
   
   local zos_GetFastTravelNodeInfo = GetFastTravelNodeInfo
@@ -148,8 +155,40 @@ local function MoveWayshrines()
         normalizedY = 0.186
       end
       
+      
+      -- Houses
+      
+      if nodeIndex == 325 then -- Topal Hideaway
+        normalizedX = 0.627
+        normalizedY = 0.744
+      end
+      
     end
     
+    
+    if GetCurrentMapIndex() == 38 then -- Check to see if we are inside the Western Skyrim zone
+      
+      if nodeIndex == 434 then -- Kyne's Aegis
+        normalizedX = 0.442
+        normalizedY = 0.193
+      end
+      
+    end
+    
+    if GetCurrentMapIndex() == 14 then -- Check to see if we are inside the Western Skyrim zone
+      
+      
+    if nodeIndex == 236 then -- Imperial City Prison
+        normalizedX = 0.523
+        normalizedY = 0.382
+      end
+      
+      if nodeIndex == 247 then -- White Gold Tower
+        normalizedX = 0.497
+        normalizedY = 0.428
+      end
+      
+    end
     
 		return known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked, disabled
 	end
@@ -189,6 +228,7 @@ local function OnAddonLoaded(event, addonName)
     MoveWayshrines()
     
     SLASH_COMMANDS["/awm_debug"] = debugOutput
+    SLASH_COMMANDS["/awm_map_index"] = printCurrentMapIndex
     
     GetMapTileTexture = AWM.GetMapTileTexture
     GetMapCustomMaxZoom = AWM.GetMapCustomMaxZoom
