@@ -62,25 +62,33 @@ end
 
 local _GetMapCustomMaxZoom = GetMapCustomMaxZoom
 
-
-local function debugOutput()
+local providedPoiType = 1
+local function debugOutput(int)
+  
+  providedPoiType = tonumber(int)
+  
+  d(providedPoiType)
+  
+  if providedPoiType == nil then
+    providedPoiType = 1
+  end
+  
   
   local totalNodes = GetNumFastTravelNodes()
-  d("TotalNodes: "..totalNodes)
+  d("Total Fast Travel Nodes: "..totalNodes)
   local i = 1
-  
   local zos_GetFastTravelNodeInfo = GetFastTravelNodeInfo
   
   
   while i <= totalNodes do
-
     
     GetFastTravelNodeInfo = function(nodeIndex)
       local known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked = zos_GetFastTravelNodeInfo(nodeIndex)
 
-      if poiType == 6 then
-        d("Node: "..nodeIndex)
-        d(name)
+      if poiType == providedPoiType then
+        d("Current Node: "..nodeIndex)
+        d("Name: "..name)
+        d(" ")
       end
       return known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked
     end
@@ -105,20 +113,39 @@ local function MoveWayshrines()
 		local disabled = false
     
     
-    if GetCurrentMapIndex() == 1 then --Check to see if we are inside the "Tamriel" map
+    if GetCurrentMapIndex() == 1 then -- Check to see if we are inside the "Tamriel" map
+
+      -- Wayshrines
       
       if nodeIndex == 172 then --Bleakrock Isle Wayshrine
-          isLocatedInCurrentMap = true
-          normalizedX = 0.613
-          normalizedY = 0.236
+        normalizedX = 0.613
+        normalizedY = 0.236
       end
       
       
       
-    if nodeIndex == 424 then --Icereach dungeon
-          isLocatedInCurrentMap = true
-          normalizedX = 0.403
-          normalizedY = 0.156
+      -- Dungeons
+      
+      if nodeIndex == 424 then -- Icereach
+        normalizedX = 0.403
+        normalizedY = 0.156
+      end
+      
+      if nodeIndex == 236 then -- Imperial City Prison
+        normalizedX = 0.542
+        normalizedY = 0.475
+      end
+      
+      if nodeIndex == 247 then -- White Gold Tower
+        normalizedX = 0.536
+        normalizedY = 0.486
+      end
+      
+      -- Trials
+      
+      if nodeIndex == 434 then -- Kyne's Aegis
+        normalizedX = 0.408
+        normalizedY = 0.186
       end
       
     end
@@ -161,7 +188,7 @@ local function OnAddonLoaded(event, addonName)
 
     MoveWayshrines()
     
-    SLASH_COMMANDS["/awm"] = debugOutput
+    SLASH_COMMANDS["/awm_debug"] = debugOutput
     
     GetMapTileTexture = AWM.GetMapTileTexture
     GetMapCustomMaxZoom = AWM.GetMapCustomMaxZoom
