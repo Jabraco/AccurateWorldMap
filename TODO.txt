@@ -1,0 +1,34 @@
+
+
+- Move CoH to here
+
+https://cdn.discordapp.com/attachments/466037728040058911/899387169368580126/CoH.png
+
+- add balfiera's tail islands
+
+- move Balfiera closer to high rock
+
+Just so it's closer to High Rock and properly within its area
+ESO has it closer to Hammerfell which is already weird, but then you can't even see it from the Alik'r zone at all anyway
+
+
+- add clickable area to arcane university battleground
+
+do the same for falkreath hold
+
+add tempest island underneath stirk
+
+location here: https://cdn.discordapp.com/attachments/722226183290355713/899384333243121735/Screenshot_20211017_215142.PNG
+
+island looks like this:
+
+https://cdn.discordapp.com/attachments/722226183290355713/899384483927715840/Screenshot_20211017_215242.PNG
+
+move forgemaster falls to here:
+
+https://cdn.discordapp.com/attachments/722226183290355713/899385156543082566/Screenshot_20211017_215513.PNG
+
+
+add to readme:
+
+the addons Destinations and Map Pins will add the old locations for certain wayshrines/dungeons to the map. Untick "unknown poi"'s to fix this

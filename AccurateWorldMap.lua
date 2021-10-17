@@ -148,6 +148,12 @@ local function MoveWayshrines()
         normalizedY = 0.486
       end
       
+      if nodeIndex == 341 then -- Fang Lair
+        normalizedX = 0.405
+        normalizedY = 0.348
+      end
+      
+      
       -- Trials
       
       if nodeIndex == 434 then -- Kyne's Aegis
@@ -157,6 +163,11 @@ local function MoveWayshrines()
       
       
       -- Houses
+      
+      if nodeIndex == 428 then -- Forgemaster Falls
+        normalizedX = 0.214
+        normalizedY = 0.250
+      end
       
       if nodeIndex == 325 then -- Topal Hideaway
         normalizedX = 0.627
