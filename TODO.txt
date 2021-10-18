@@ -4,31 +4,40 @@
 
 https://cdn.discordapp.com/attachments/466037728040058911/899387169368580126/CoH.png
 
-- add balfiera's tail islands
 
-- move Balfiera closer to high rock
 
-Just so it's closer to High Rock and properly within its area
-ESO has it closer to Hammerfell which is already weird, but then you can't even see it from the Alik'r zone at all anyway
-
+"Fans have been asking ZOS for years to fix the ESO World Map, and they still haven't done it. So, we thought we'd fix it ourselves."
 
 - add clickable area to arcane university battleground
 
-do the same for falkreath hold
-
-add tempest island underneath stirk
-
-location here: https://cdn.discordapp.com/attachments/722226183290355713/899384333243121735/Screenshot_20211017_215142.PNG
-
-island looks like this:
-
-https://cdn.discordapp.com/attachments/722226183290355713/899384483927715840/Screenshot_20211017_215242.PNG
-
-move forgemaster falls to here:
-
-https://cdn.discordapp.com/attachments/722226183290355713/899385156543082566/Screenshot_20211017_215513.PNG
 
 
 add to readme:
 
 the addons Destinations and Map Pins will add the old locations for certain wayshrines/dungeons to the map. Untick "unknown poi"'s to fix this
+
+
+Note: after installing, some dungeon, wayshrines will be moved to a more lore friendly location, and thus will NOT match the in-game locations. This is intentional, and will not be changed.
+
+the local zone map locations for dungeons remain as-is.
+
+thanks to Guild Shrines, Highly Detailed World Map, World Wayshrine Commander
+
+
+"The player location is wrong"
+
+yes, this is because ZOS's zones are in the wrong position, and it is something we can't fix. ZOS themselves have run up to this issue with northern elsweyr, when you go up to the reapers march entrance, it puts you in cyrodiil
+
+
+even if you don't care about the correctness of the map, this addon still offers something for you! it helps keep the worldmap clear of icon spam by moving some dungeons to their physical locations instead of where their entrances are
+
+
+
+
+
+
+
+
+
+
+

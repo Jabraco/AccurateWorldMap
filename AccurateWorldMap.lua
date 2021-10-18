@@ -120,9 +120,50 @@ local function MoveWayshrines()
 		local disabled = false
     
     
-    if GetCurrentMapIndex() == 1 then -- Check to see if we are inside the "Tamriel" map
+    if GetCurrentMapIndex() == 1 then -- Check to see if we are inside the Tamriel map
 
-      -- Wayshrines
+      -- Cyrodiil --
+      
+      if nodeIndex == 200 then --Western Elsweyr Wayshrine
+        normalizedX = 0.509
+        normalizedY = 0.593
+        name = "Western Elsweyr Gate Wayshrine"
+      end
+      
+      if nodeIndex == 201 then --Eastern Elsweyr Wayshrine
+        normalizedX = 0.556
+        normalizedY = 0.594
+        name = "Eastern Elsweyr Gate Wayshrine"
+      end
+      
+      if nodeIndex == 202 then --Northern Morrowind Wayshrine
+        normalizedX = 0.622
+        normalizedY = 0.410
+        name = "Northern Morrowind Gate Wayshrine"
+      end
+      
+      if nodeIndex == 203 then --Southern Morrowind Wayshrine
+        normalizedX = 0.643
+        normalizedY = 0.455
+        name = "Southern Morrowind Gate Wayshrine"
+      end
+      
+      if nodeIndex == 170 then --Northern Hammerfell Wayshrine
+        normalizedX = 0.449
+        normalizedY = 0.411
+        name = "Northern Hammerfell Gate Wayshrine"
+      end
+      
+      if nodeIndex == 199 then --Southern Hammerfell Wayshrine
+        normalizedX = 0.429
+        normalizedY = 0.449
+        name = "Southern Hammerfell Gate Wayshrine"
+      end
+      
+      
+      
+      
+      
       
       if nodeIndex == 172 then --Bleakrock Isle Wayshrine
         normalizedX = 0.613
@@ -186,7 +227,7 @@ local function MoveWayshrines()
       
     end
     
-    if GetCurrentMapIndex() == 14 then -- Check to see if we are inside the Western Skyrim zone
+    if GetCurrentMapIndex() == 14 then -- Check to see if we are inside the Cyrodiil zone
       
       
     if nodeIndex == 236 then -- Imperial City Prison
@@ -197,6 +238,30 @@ local function MoveWayshrines()
       if nodeIndex == 247 then -- White Gold Tower
         normalizedX = 0.497
         normalizedY = 0.428
+      end
+      
+      if nodeIndex == 202 then --Northern Morrowind Wayshrine
+        name = "Northern Morrowind Gate Wayshrine"
+      end
+      
+      if nodeIndex == 203 then --Southern Morrowind Wayshrine
+        name = "Southern Morrowind Gate Wayshrine"
+      end
+      
+      if nodeIndex == 170 then --Northern Hammerfell Wayshrine
+        name = "Northern Hammerfell Gate Wayshrine"
+      end
+      
+      if nodeIndex == 199 then --Southern Hammerfell Wayshrine
+        name = "Southern Hammerfell Gate Wayshrine"
+      end
+      
+      if nodeIndex == 200 then --Western Elsweyr Wayshrine
+        name = "Western Elsweyr Gate Wayshrine"
+      end
+      
+      if nodeIndex == 201 then --Eastern Elsweyr Wayshrine
+        name = "Eastern Elsweyr Gate Wayshrine"
       end
       
     end
