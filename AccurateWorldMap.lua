@@ -110,10 +110,32 @@ local function printCurrentMapIndex()
 end
 
 
+local function YourCustomData(x, y)
+
+  local locationName = "hello cidhna mine"
+  local textureFile = "/art/maps/tamriel/tamriel-eastmarch.dds"
+  local widthN = 0.4
+  local heightN = 0.4
+  local locXN = y
+  local locYN = x
+  return locationName, textureFile, widthN, heightN, locXN, locYN
+
+end
+
+
+
 local function MoveWayshrines()
   
   local zos_GetFastTravelNodeInfo = GetFastTravelNodeInfo
 
+  local originalGetMapMouseoverInfo = GetMapMouseoverInfo
+  
+  function GetMapMouseoverInfo(x, y)
+    return YourCustomData(0.5, 0.5)
+  end
+  
+  originalGetMapMouseoverInfo(0.5, 0.5)
+  
   
   GetFastTravelNodeInfo = function(nodeIndex)
 		local known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked = zos_GetFastTravelNodeInfo(nodeIndex)
@@ -124,13 +146,13 @@ local function MoveWayshrines()
 
       -- Cyrodiil --
       
-      if nodeIndex == 200 then --Western Elsweyr Wayshrine
+      if nodeIndex == 201 then --Western Elsweyr Wayshrine
         normalizedX = 0.509
         normalizedY = 0.593
         name = "Western Elsweyr Gate Wayshrine"
       end
       
-      if nodeIndex == 201 then --Eastern Elsweyr Wayshrine
+      if nodeIndex == 200 then --Eastern Elsweyr Wayshrine
         normalizedX = 0.556
         normalizedY = 0.594
         name = "Eastern Elsweyr Gate Wayshrine"
@@ -256,12 +278,12 @@ local function MoveWayshrines()
         name = "Southern Hammerfell Gate Wayshrine"
       end
       
-      if nodeIndex == 200 then --Western Elsweyr Wayshrine
-        name = "Western Elsweyr Gate Wayshrine"
+      if nodeIndex == 200 then --Eastern Elsweyr Wayshrine
+        name = "Eastern Elsweyr Gate Wayshrine"
       end
       
-      if nodeIndex == 201 then --Eastern Elsweyr Wayshrine
-        name = "Eastern Elsweyr Gate Wayshrine"
+      if nodeIndex == 201 then --Western Elsweyr Wayshrine
+        name = "Western Elsweyr Gate Wayshrine"
       end
       
     end
