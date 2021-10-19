@@ -109,16 +109,17 @@ local function printCurrentMapIndex()
   
 end
 
+-- Function to add custom blobs to the map
 
 local function YourCustomData(x, y)
 
-  local locationName = "hello cidhna mine"
-  local textureFile = "/art/maps/tamriel/tamriel-eastmarch.dds"
-  local widthN = 0.4
-  local heightN = 0.4
-  local locXN = y
-  local locYN = x
-  return locationName, textureFile, widthN, heightN, locXN, locYN
+  local locationName = "Eastmarch"
+  local textureFile = "AccurateWorldMap/blobs/tamriel-eastmarch.dds"
+  local normalisedWidth = 0.109375
+  local normalisedHeight = 0.109375
+  local normalisedX = 0.518
+  local normalisedY = 0.233
+  return locationName, textureFile, normalisedWidth, normalisedHeight, normalisedX, normalisedY
 
 end
 
