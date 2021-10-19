@@ -124,6 +124,18 @@ local function YourCustomData(x, y)
 end
 
 
+local function YourCustomData2(x, y)
+
+  local locationName = "Glenumbra"
+  local textureFile = "AccurateWorldMap/blobs/tamriel-glenumbra.dds"
+  local normalisedWidth = 0.15625
+  local normalisedHeight = 0.15625
+  local normalisedX = 0.023
+  local normalisedY = 0.265
+  return locationName, textureFile, normalisedWidth, normalisedHeight, normalisedX, normalisedY
+
+end
+
 
 local function MoveWayshrines()
   
@@ -184,9 +196,78 @@ local function MoveWayshrines()
       end
       
       
+      -- Eastmarch --
+      
+      if nodeIndex == 87 then -- Windhelm Wayshrine
+        normalizedX = 0.585
+        normalizedY = 0.258
+      end
       
       
       
+      if nodeIndex == 88 then -- Fort Morvunskar Wayshrine
+        normalizedX = 0.567
+        normalizedY = 0.281
+      end
+      
+      if nodeIndex == 89 then -- Kynesgrove Wayshrine
+        normalizedX = 0.581
+        normalizedY = 0.279
+      end
+      
+      if nodeIndex == 90 then -- Voljar Meadery Wayshrine
+        normalizedX = 0.571
+        normalizedY = 0.269
+      end
+      
+      if nodeIndex == 91 then -- Cradlecrush Wayshrine
+        normalizedX = 0.544
+        normalizedY = 0.284
+      end
+      
+      if nodeIndex == 92 then -- Fort Amol Wayshrine
+        normalizedX = 0.544
+        normalizedY = 0.308
+      end
+      
+      if nodeIndex == 93 then -- Wittestadr Wayshrine
+        normalizedX = 0.573
+        normalizedY = 0.304
+      end
+      
+      if nodeIndex == 94 then -- Mistwatch Wayshrine
+        normalizedX = 0.583
+        normalizedY = 0.323
+      end
+      
+      if nodeIndex == 95 then -- Jorunn's Stand Wayshrine
+        normalizedX = 0.610
+        normalizedY = 0.313
+      end
+      
+      if nodeIndex == 96 then -- Logging Camp Wayshrine
+        normalizedX = 0.600
+        normalizedY = 0.306
+      end
+      
+      if nodeIndex == 97 then -- Skuldafn Wayshrine
+        normalizedX = 0
+        normalizedY = 0
+        disabled = true
+      end
+      
+      if nodeIndex == 195 then -- Direfrost Keep Dungeon
+        normalizedX = 0.621
+        normalizedY = 0.320
+      end
+      
+      if nodeIndex == 389 then -- Frostvault Dungeon
+        normalizedX = 0.552
+        normalizedY = 0.281
+      end
+      
+    
+      -- Bleakrock Isle --
       
       if nodeIndex == 172 then --Bleakrock Isle Wayshrine
         normalizedX = 0.613
