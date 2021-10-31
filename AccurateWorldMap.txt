@@ -4,7 +4,7 @@
 
 ## Title: Accurate World Map
 ## Description: The world map meticulously made accuate to lore, in an all new map in the style of vanilla.
-## Author: Breaux & Thal-J
+## Author: |C42ffbdBreaux|r & |C6b51faThal-J|r
 ## Version: 1.0
 ## APIVersion: 100035
 ## DependsOn: LibAddonMenu-2.0

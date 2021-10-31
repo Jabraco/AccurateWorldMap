@@ -1,5 +1,15 @@
 
 
+- Remastered, vanilla-style map
+
+- Lore friendly overhaul of the map in line with previous games
+
+- Dungeon and wayshrines have been moved to compensate
+
+- Dungeons in their lore friendly places
+
+
+
 - Move CoH to here
 
 https://cdn.discordapp.com/attachments/466037728040058911/899387169368580126/CoH.png
@@ -30,6 +40,22 @@ yes, this is because ZOS's zones are in the wrong position, and it is something 
 
 
 even if you don't care about the correctness of the map, this addon still offers something for you! it helps keep the worldmap clear of icon spam by moving some dungeons to their physical locations instead of where their entrances are
+
+
+
+
+Thanks To:
+
+
+- Breaux, for drawing up the map
+- [Author of highly detailed world map], for inspiration
+- Emily, for help along the way
+- TPC9000, for coding help
+- ESOUI addon community for their help and assistance
+- votan, sirinsinirator, sharlikan
+
+
+
 
 
 
