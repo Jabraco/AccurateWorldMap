@@ -74,17 +74,6 @@ local globalWayshrines = {
     [434] = { xN = 0.408, yN = 0.186 }, -- Kyne's Aegis Trial
 
 
-
-    -- Abah's Landing --
-    [255] = { xN = 0.261, yN = 0.504 }, -- Abah's Landing Wayshrine
-    [257] = { xN = 0.261, yN = 0.526 }, -- No Shira Citadel Wayshrine 
-    [256] = { xN = 0.245, yN = 0.510 }, -- Zeht's Displeasure Wayshrine 
-
-
-
-
-
-
     -- Craglorn --
     [217] = { xN = 0.379, yN = 0.374 }, -- Seeker's Archive Wayshrine
     [341] = { xN = 0.405, yN = 0.348 }, -- Fang Lair Dungeon
@@ -105,6 +94,11 @@ local globalWayshrines = {
     [230] = { xN = 0.344, yN = 0.380 }, -- Hel Ra Citadel Trial
     [232] = { xN = 0.366, yN = 0.330 }, -- Sanctum Ophidia Trial 
 
+    -- Abah's Landing --
+    [255] = { xN = 0.261, yN = 0.504 }, -- Abah's Landing Wayshrine
+    [257] = { xN = 0.261, yN = 0.526 }, -- No Shira Citadel Wayshrine 
+    [256] = { xN = 0.245, yN = 0.510 }, -- Zeht's Displeasure Wayshrine 
+
 
     -- Cyrodiil --
     [201] = { xN = 0.509, yN = 0.593, name = "Western Elsweyr Gate Wayshrine" }, -- Western Elsweyr Wayshrine
@@ -113,12 +107,36 @@ local globalWayshrines = {
     [203] = { xN = 0.643, yN = 0.455, name = "Southern Morrowind Gate Wayshrine" }, -- Southern Morrowind Wayshrine
     [170] = { xN = 0.449, yN = 0.411, name = "Northern Hammerfell Gate Wayshrine" }, -- Northern Hammerfell Wayshrine
     [199] = { xN = 0.429, yN = 0.449, name = "Southern Hammerfell Gate Wayshrine" }, -- Southern Hammerfell Wayshrine
-
     [236] = { xN = 0.542, yN = 0.475 }, -- Imperial City Prison Dungeon
     [247] = { xN = 0.536, yN = 0.486 }, -- White Gold Tower Dungeon
 
     -- Gold Coast --
     [390] = { xN = 0.304, yN = 0.559 }, -- Depths of Malatar Dungeon 
+
+
+
+
+    -- Murkmire --
+    [376] = { xN = 0.706, yN = 0.759 }, -- Dead-Water Wayshrine 
+    [378] = { xN = 0.712, yN = 0.769 }, -- Blackrose Prison Dungeon
+    [379] = { xN = 0.725, yN = 0.780 }, -- Blackrose Prison Wayshrine 
+    [375] = { xN = 0.755, yN = 0.782 }, -- Bright-Throat Wayshrine 
+    [377] = { xN = 0.762, yN = 0.740 }, -- Root-Whisper Wayshrine
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     -- Malabal Tor --
     [188] = { xN = 0.283, yN = 0.604 }, -- Tempest Island Dungeon
