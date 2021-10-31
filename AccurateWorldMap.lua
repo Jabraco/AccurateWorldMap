@@ -27,8 +27,7 @@ local tiles = {
 }
 
 
--- Table of all the wayshrines we want to move, sorted by map (zone). Inner zone names are just for readability and do not actually affect zones themselves.
--- Some wayshrines have been renamed to be more consistent and lore friendly, this is denoted by the "name=blah" attribute.
+-- Table of all the wayshrines we want to move, sorted by map (zone). Some wayshrines have been renamed to be more consistent and lore friendly, this is denoted by the "name=blah" attribute.
 
 -- Wayshrine template: |[x] = { xN = x, yN = y }, -- |
 
@@ -69,12 +68,20 @@ local globalWayshrines = {
     [116] = { xN = 0.533, yN = 0.340 }, -- Geirmund's Hall Wayshrine 
     [114] = { xN = 0.592, yN = 0.345 }, -- Fallowstone Hall Wayshrine 
     [115] = { xN = 0.573, yN = 0.345 }, -- Northwind Mine Wayshrine 
-    
-
 
     -- Western Skyrim --
-    [424] = { xN = 0.403, yN = 0.156 }, -- Icereach Dungeon
+    [424] = { xN = 0.404, yN = 0.157 }, -- Icereach Dungeon
     [434] = { xN = 0.408, yN = 0.186 }, -- Kyne's Aegis Trial
+
+
+
+    -- Abah's Landing --
+    [255] = { xN = 0.261, yN = 0.504 }, -- Abah's Landing Wayshrine
+    [257] = { xN = 0.261, yN = 0.526 }, -- No Shira Citadel Wayshrine 
+    [256] = { xN = 0.245, yN = 0.510 }, -- Zeht's Displeasure Wayshrine 
+
+
+
 
 
 
@@ -95,12 +102,10 @@ local globalWayshrines = {
     [235] = { xN = 0.388, yN = 0.350 }, -- Valley of Scars Wayshrine 
     [218] = { xN = 0.344, yN = 0.353 }, -- Shada's Tear Wayshrine 
     [234] = { xN = 0.362, yN = 0.349 }, -- Skyreach Wayshrine 
-    [230] = { xN = 0.344, yN = 0.377 }, -- Hel Ra Citadel Trial
+    [230] = { xN = 0.344, yN = 0.380 }, -- Hel Ra Citadel Trial
     [232] = { xN = 0.366, yN = 0.330 }, -- Sanctum Ophidia Trial 
 
 
-
-    
     -- Cyrodiil --
     [201] = { xN = 0.509, yN = 0.593, name = "Western Elsweyr Gate Wayshrine" }, -- Western Elsweyr Wayshrine
     [200] = { xN = 0.556, yN = 0.594, name = "Eastern Elsweyr Gate Wayshrine" }, -- Eastern Elsweyr Wayshrine
@@ -111,6 +116,13 @@ local globalWayshrines = {
 
     [236] = { xN = 0.542, yN = 0.475 }, -- Imperial City Prison Dungeon
     [247] = { xN = 0.536, yN = 0.486 }, -- White Gold Tower Dungeon
+
+    -- Gold Coast --
+    [390] = { xN = 0.304, yN = 0.559 }, -- Depths of Malatar Dungeon 
+
+    -- Malabal Tor --
+    [188] = { xN = 0.283, yN = 0.604 }, -- Tempest Island Dungeon
+    
 
   },
 
