@@ -32,7 +32,6 @@ local tiles = {
 }
 
 -- Table of all the wayshrines we want to move, sorted by map (zone). Some wayshrines have been renamed to be more consistent and lore friendly.
-
 local globalWayshrines = {
 
   -- Tamriel Map --
@@ -329,14 +328,35 @@ local globalWayshrines = {
   [38] = {
     [434] = { xN = 0.442, yN = 0.193 }, -- Kyne's Aegis
   }
-
-
 }
 
+-- zoneBlobData = {
+
+--   [1] = {
+
+--   }
+
+--   [24]{}
+
+
+
+--           texture = "AccurateWorldMap/blobs/tamriel-eastmarch.dds",
+--           xN = 0.4,
+--           yN = 0.4,
+--         },
+--         zonePolygonData = {
+--           -- generate polygon based on texture? edge detection? (for each zone that would be slooow on startup)
+--           -- way to move existing polygons? by zoneID?
+--         },
+--     },
+
+-- };
+
 
 
     
-    
+  
+local blobFilePathPrefix = "AccurateWorldMap/blobs/tamriel-" --don't forget .dds at the end!
 
 local enabled = true
 local spoilers = false -- Set this to true if you want the map containing spoilers by default
@@ -464,15 +484,21 @@ end
 
 
 local function initialise()
-  
 
-  local originalGetMapMouseoverInfo = GetMapMouseoverInfo
+
+
+
   
+  if IsShiftKeyDown() then
+
+  end
+
   function GetMapMouseoverInfo(x, y)
     return YourCustomData(0.5, 0.5)
   end
+
   
-  originalGetMapMouseoverInfo(0.5, 0.5)
+
 
 
 
@@ -521,20 +547,7 @@ end
 
   
     
-  
 
-  --         zoneBlobData = {
---           texture = "AccurateWorldMap/blobs/tamriel-eastmarch.dds",
---           xN = 0.4,
---           yN = 0.4,
---         },
---         zonePolygonData = {
---           -- generate polygon based on texture? edge detection? (for each zone that would be slooow on startup)
---           -- way to move existing polygons? by zoneID?
---         },
---     },
-
--- };
 
 
 -- local function parseWayshrines()
@@ -549,6 +562,31 @@ end
 --     end
 --   end
 -- end
+
+
+local function isMouseWithinMapWindow()
+
+  local mouseOverControl = WINDOW_MANAGER:GetMouseOverControl()
+
+  if (not ZO_WorldMapContainer:IsHidden() and (mouseOverControl == ZO_WorldMapContainer or mouseOverControl:GetParent() == ZO_WorldMapContainer)) then
+
+    return true
+
+  else
+
+    return false
+  end
+
+end
+
+local function clickListener()
+
+  if isMouseWithinMapWindow() then
+    d("Map clicked!")
+  end
+
+end
+
 
 
 
@@ -578,6 +616,16 @@ local function OnAddonLoaded(event, addonName)
 
     initialise()
 
+
+    local mouseOverControl = WINDOW_MANAGER:GetMouseOverControl()
+
+    if (not ZO_WorldMapContainer:IsHidden() and (mouseOverControl == ZO_WorldMapContainer or mouseOverControl:GetParent() == ZO_WorldMapContainer)) then
+  
+      d("user's mouse is moving within map window!") -- this isn't spamming chat as expected, why?
+  
+  
+    end
+
     SLASH_COMMANDS["/awm_debug"] = toggleDebugOutput
     SLASH_COMMANDS["/map_index"] = printCurrentMapIndex
     SLASH_COMMANDS["/zones_debug"] = initialise
@@ -594,3 +642,4 @@ end
 -- register events
 LAM:RegisterOptionControls(panelName, optionsData)
 EVENT_MANAGER:RegisterForEvent(addon.name, EVENT_ADD_ON_LOADED, OnAddonLoaded)
+EVENT_MANAGER:RegisterForEvent("Click Listener", EVENT_GLOBAL_MOUSE_DOWN, clickListener)

@@ -1,6 +1,25 @@
 
 
-- fix double log spam
+- add a way to convert between vanilla mouseover behaviour and your custom one
+
+
+- put names of zones in the zone data, "Bleackrock Isle"
+
+- split zone data between worldspace maps (1 and 0)
+
+- make a fuction that removes punctuation from the name of the zone and then appends it to the blob filename uri
+
+- send current coordinates of mouse to function
+
+- if mouse click 
+
+
+
+
+
+
+
+
 
 - Remastered, vanilla-style map
 
