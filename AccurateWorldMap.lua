@@ -374,8 +374,8 @@ local panelData = {
     author = "Breaux & Thal-J",
 }
 
-function addon.log(text)
-    d(text)
+local function print(message, ...)
+	df("[%s] %s", addon.name, message:format(...))
 end
 
 
@@ -582,8 +582,13 @@ end
 local function clickListener()
 
   if isMouseWithinMapWindow() then
-    d("Map clicked!")
+    print("Map clicked!")
   end
+
+  if IsControlKeyDown() then
+    print("booba")
+  end
+
 
 end
 
@@ -629,6 +634,10 @@ local function OnAddonLoaded(event, addonName)
     SLASH_COMMANDS["/awm_debug"] = toggleDebugOutput
     SLASH_COMMANDS["/map_index"] = printCurrentMapIndex
     SLASH_COMMANDS["/zones_debug"] = initialise
+
+  --   SLASH_COMMANDS["/joke"] = function() 
+  --     d(GetRandomElement(jokes)) 
+  -- end
     
     GetMapTileTexture = addon.GetMapTileTexture
     GetMapCustomMaxZoom = addon.GetMapCustomMaxZoom
