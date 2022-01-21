@@ -31,6 +31,12 @@ local tiles = {
     "Art/maps/tamriel/Tamriel_15.dds",
 }
 
+
+
+
+local normalisedMouseX = 0
+local normalisedMouseY = 0
+
 -- Table of all the wayshrines we want to move, sorted by map (zone). Some wayshrines have been renamed to be more consistent and lore friendly.
 local globalWayshrines = {
 
@@ -375,7 +381,7 @@ local panelData = {
 }
 
 local function print(message, ...)
-	df("[%s] %s", addon.name, message:format(...))
+	df("[%s] %s", addon.name, tostring(message:format(...)))
 end
 
 
@@ -397,6 +403,12 @@ end
 local _GetMapCustomMaxZoom = GetMapCustomMaxZoom
 
 local providedPoiType = 1
+local mouseOverControl = WINDOW_MANAGER:GetMouseOverControl()
+
+
+
+local interval = 200 --milliseconds
+
 
 local function toggleDebugOutput()
 
@@ -563,25 +575,16 @@ end
 --   end
 -- end
 
-
+-- function to check if the mouse cursor is within or over the map window
 local function isMouseWithinMapWindow()
-
   local mouseOverControl = WINDOW_MANAGER:GetMouseOverControl()
-
-  if (not ZO_WorldMapContainer:IsHidden() and (mouseOverControl == ZO_WorldMapContainer or mouseOverControl:GetParent() == ZO_WorldMapContainer)) then
-
-    return true
-
-  else
-
-    return false
-  end
-
+  return (not ZO_WorldMapContainer:IsHidden() and (mouseOverControl == ZO_WorldMapContainer or mouseOverControl:GetParent() == ZO_WorldMapContainer))
 end
 
 local function clickListener()
 
   if isMouseWithinMapWindow() then
+    PlaySound(SOUNDS.COUNTDOWN_TICK)
     print("Map clicked!")
   end
 
@@ -595,6 +598,30 @@ end
 
 
 
+local function mapTick()
+  if isMouseWithinMapWindow() then
+
+
+    local mouseX, mouseY = GetUIMousePosition()
+
+    local currentOffsetX = ZO_WorldMapContainer:GetLeft()
+    local currentOffsetY = ZO_WorldMapContainer:GetTop()
+    local parentOffsetX = ZO_WorldMap:GetLeft()
+    local parentOffsetY = ZO_WorldMap:GetTop()
+    local mapWidth, mapHeight = ZO_WorldMapContainer:GetDimensions()
+    local parentWidth, parentHeight = ZO_WorldMap:GetDimensions()
+
+    normalisedMouseX = math.floor((((mouseX - currentOffsetX) / mapWidth) * 1000) + 0.5)/1000
+    normalisedMouseY = math.floor((((mouseY - currentOffsetY) / mapHeight) * 1000) + 0.5)/1000
+    local xStr = string.format("%.03f", normalisedMouseX)
+    local yStr = string.format("%.03f", normalisedMouseY)
+
+    print("Coordinates: " .. tostring(xStr) .. ", " .. tostring(yStr))
+
+
+  end
+
+end
 
 function addon.GetMapCustomMaxZoom()
     if not enabled then return _GetMapCustomMaxZoom() end
@@ -621,16 +648,6 @@ local function OnAddonLoaded(event, addonName)
 
     initialise()
 
-
-    local mouseOverControl = WINDOW_MANAGER:GetMouseOverControl()
-
-    if (not ZO_WorldMapContainer:IsHidden() and (mouseOverControl == ZO_WorldMapContainer or mouseOverControl:GetParent() == ZO_WorldMapContainer)) then
-  
-      d("user's mouse is moving within map window!") -- this isn't spamming chat as expected, why?
-  
-  
-    end
-
     SLASH_COMMANDS["/awm_debug"] = toggleDebugOutput
     SLASH_COMMANDS["/map_index"] = printCurrentMapIndex
     SLASH_COMMANDS["/zones_debug"] = initialise
@@ -652,3 +669,4 @@ end
 LAM:RegisterOptionControls(panelName, optionsData)
 EVENT_MANAGER:RegisterForEvent(addon.name, EVENT_ADD_ON_LOADED, OnAddonLoaded)
 EVENT_MANAGER:RegisterForEvent("Click Listener", EVENT_GLOBAL_MOUSE_DOWN, clickListener)
+EVENT_MANAGER:RegisterForUpdate("uniqueName", interval, mapTick)
