@@ -1,5 +1,7 @@
 
 
+- fix double log spam
+
 - Remastered, vanilla-style map
 
 - Lore friendly overhaul of the map in line with previous games
@@ -8,11 +10,6 @@
 
 - Dungeons in their lore friendly places
 
-
-
-- Move CoH to here
-
-https://cdn.discordapp.com/attachments/466037728040058911/899387169368580126/CoH.png
 
 
 

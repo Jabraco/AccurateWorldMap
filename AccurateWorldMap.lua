@@ -1,5 +1,10 @@
 -- define root addon object
-local AWM = {
+
+
+
+-- ascii title art done on https://texteditor.com/ascii-art/
+
+local addon = {
 	name = "AccurateWorldMap",
 	title = "Accurate World Map",
 	version = "1.0",
@@ -26,16 +31,20 @@ local tiles = {
     "Art/maps/tamriel/Tamriel_15.dds",
 }
 
-
--- Table of all the wayshrines we want to move, sorted by map (zone). Some wayshrines have been renamed to be more consistent and lore friendly, this is denoted by the "name=blah" attribute.
-
--- Wayshrine template: |[x] = { xN = x, yN = y }, -- |
+-- Table of all the wayshrines we want to move, sorted by map (zone). Some wayshrines have been renamed to be more consistent and lore friendly.
 
 local globalWayshrines = {
 
   -- Tamriel Map --
   [1] = { 
 
+    -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+    -- ██░▄▄▄░██░█▀▄██░███░██░▄▄▀█▄░▄██░▄▀▄░██
+    -- ██▄▄▄▀▀██░▄▀███▄▀▀▀▄██░▀▀▄██░███░█░█░██
+    -- ██░▀▀▀░██░██░████░████░██░█▀░▀██░███░██
+    -- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+    -- [x] = { xN = x, yN = y }, -- 
+    
     -- Bleakrock Isle --
     [172] = { xN = 0.613, yN = 0.236 }, -- Bleakrock Isle Wayshrine
 
@@ -73,6 +82,64 @@ local globalWayshrines = {
     [424] = { xN = 0.404, yN = 0.157 }, -- Icereach Dungeon
     [434] = { xN = 0.408, yN = 0.186 }, -- Kyne's Aegis Trial
 
+    -- The Reach --
+    [445] = { xN = 0.377, yN = 0.270 }, -- Karthwasten Wayshrine
+    [221] = { xN = 0.337, yN = 0.275 }, -- The Earth Forge Wayshrine
+
+
+    -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+    -- ██░▄▄▀██░███░██░▄▄▀██░▄▄▄░██░▄▄▀█▄░▄█▄░▄██░█████
+    -- ██░█████▄▀▀▀▄██░▀▀▄██░███░██░██░██░███░███░█████
+    -- ██░▀▀▄████░████░██░██░▀▀▀░██░▀▀░█▀░▀█▀░▀██░▀▀░██
+    -- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+    -- [x] = { xN = x, yN = y }, -- 
+    
+    -- Cyrodiil --
+    [201] = { xN = 0.509, yN = 0.593, name = "Western Elsweyr Gate Wayshrine" }, -- Western Elsweyr Wayshrine
+    [200] = { xN = 0.556, yN = 0.594, name = "Eastern Elsweyr Gate Wayshrine" }, -- Eastern Elsweyr Wayshrine
+    [202] = { xN = 0.622, yN = 0.410, name = "Northern Morrowind Gate Wayshrine" }, -- Northern Morrowind Wayshrine
+    [203] = { xN = 0.643, yN = 0.455, name = "Southern Morrowind Gate Wayshrine" }, -- Southern Morrowind Wayshrine
+    [170] = { xN = 0.449, yN = 0.411, name = "Northern Hammerfell Gate Wayshrine" }, -- Northern Hammerfell Wayshrine
+    [199] = { xN = 0.429, yN = 0.449, name = "Southern Hammerfell Gate Wayshrine" }, -- Southern Hammerfell Wayshrine
+    [236] = { xN = 0.542, yN = 0.475 }, -- Imperial City Prison Dungeon
+    [247] = { xN = 0.536, yN = 0.486 }, -- White Gold Tower Dungeon
+
+    -- Gold Coast --
+    [390] = { xN = 0.304, yN = 0.559 }, -- Depths of Malatar Dungeon 
+
+    -- Blackwood --
+    [458] = { xN = 0.597, yN = 0.685 }, -- Leyawiin Wayshrine 
+    [467] = { xN = 0.601, yN = 0.677 }, -- Leyawin Outskirts Wayshrine
+    [471] = { xN = 0.600, yN = 0.683 }, -- Pilgrim's Rest House 
+    [469] = { xN = 0.664, yN = 0.610 }, -- The Dread Cellar Dungeon 
+    [481] = { xN = 0.617, yN = 0.627 }, -- Doomvault Vulpinaz Wayshrine 
+    [461] = { xN = 0.611, yN = 0.645 }, -- Fort Redmane Wayshrine 
+    [482] = { xN = 0.630, yN = 0.680 }, -- Blackwood Crosslands Wayshrine
+    [460] = { xN = 0.590, yN = 0.653 }, -- Borderwatch Wayshrine 
+    [463] = { xN = 0.620, yN = 0.703 }, -- Blueblood Wayshrine
+    [472] = { xN = 0.603, yN = 0.687 }, -- Water's Edge House
+
+
+    -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+    -- ██░██░█▄░▄██░▄▄░██░██░████░▄▄▀██░▄▄▄░██░▄▄▀██░█▀▄██
+    -- ██░▄▄░██░███░█▀▀██░▄▄░████░▀▀▄██░███░██░█████░▄▀███
+    -- ██░██░█▀░▀██░▀▀▄██░██░████░██░██░▀▀▀░██░▀▀▄██░██░██
+    -- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+    -- [x] = { xN = x, yN = y }, -- 
+
+    -- Rivenspire --
+    [428] = { xN = 0.214, yN = 0.250 }, -- Forgemaster Falls House
+
+    -- Wrothgar --
+    [250] = { xN = 0.310, yN = 0.221 }, -- Maelstrom Arena Trial
+
+
+    -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+    -- ██░██░█░▄▄▀██░▄▀▄░██░▄▀▄░██░▄▄▄██░▄▄▀██░▄▄▄██░▄▄▄██░█████░█████
+    -- ██░▄▄░█░▀▀░██░█░█░██░█░█░██░▄▄▄██░▀▀▄██░▄▄███░▄▄▄██░█████░█████
+    -- ██░██░█░██░██░███░██░███░██░▀▀▀██░██░██░█████░▀▀▀██░▀▀░██░▀▀░██
+    -- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+    -- [x] = { xN = x, yN = y }, -- 
 
     -- Craglorn --
     [217] = { xN = 0.379, yN = 0.374 }, -- Seeker's Archive Wayshrine
@@ -84,7 +151,7 @@ local globalWayshrines = {
     [227] = { xN = 0.421, yN = 0.367 }, -- Inazzur's Hold Wayshrine
     [229] = { xN = 0.420, yN = 0.382 }, -- Elinhir Wayshrine 
     [231] = { xN = 0.428, yN = 0.377 }, -- Aetherian Archive Trial 
-    [332] = { xN = 0.449, yN = 0.357 }, -- Falkreath Hold Dungeon 
+    [332] = { xN = 0.435, yN = 0.383 }, -- Falkreath Hold Dungeon 
     [233] = { xN = 0.334, yN = 0.338 }, -- Dragonstar Wayshrine 
     [270] = { xN = 0.335, yN = 0.324 }, -- Dragonstar Arena Dungeon
     [219] = { xN = 0.354, yN = 0.373 }, -- Sandy Path Wayshrine
@@ -100,47 +167,147 @@ local globalWayshrines = {
     [256] = { xN = 0.245, yN = 0.510 }, -- Zeht's Displeasure Wayshrine 
 
 
-    -- Cyrodiil --
-    [201] = { xN = 0.509, yN = 0.593, name = "Western Elsweyr Gate Wayshrine" }, -- Western Elsweyr Wayshrine
-    [200] = { xN = 0.556, yN = 0.594, name = "Eastern Elsweyr Gate Wayshrine" }, -- Eastern Elsweyr Wayshrine
-    [202] = { xN = 0.622, yN = 0.410, name = "Northern Morrowind Gate Wayshrine" }, -- Northern Morrowind Wayshrine
-    [203] = { xN = 0.643, yN = 0.455, name = "Southern Morrowind Gate Wayshrine" }, -- Southern Morrowind Wayshrine
-    [170] = { xN = 0.449, yN = 0.411, name = "Northern Hammerfell Gate Wayshrine" }, -- Northern Hammerfell Wayshrine
-    [199] = { xN = 0.429, yN = 0.449, name = "Southern Hammerfell Gate Wayshrine" }, -- Southern Hammerfell Wayshrine
-    [236] = { xN = 0.542, yN = 0.475 }, -- Imperial City Prison Dungeon
-    [247] = { xN = 0.536, yN = 0.486 }, -- White Gold Tower Dungeon
+    -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+    -- ██░▄▀▄░██░▄▄▄░██░▄▄▀██░▄▄▀██░▄▄▄░██░███░█▄░▄██░▀██░██░▄▄▀██
+    -- ██░█░█░██░███░██░▀▀▄██░▀▀▄██░███░██░█░█░██░███░█░█░██░██░██
+    -- ██░███░██░▀▀▀░██░██░██░██░██░▀▀▀░██▄▀▄▀▄█▀░▀██░██▄░██░▀▀░██
+    -- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+    -- [x] = { xN = x, yN = y }, -- 
 
-    -- Gold Coast --
-    [390] = { xN = 0.304, yN = 0.559 }, -- Depths of Malatar Dungeon 
+    -- Vvardenfell --
+    [330] = { xN = 0.685, yN = 0.266 }, -- Urskilaku Camp Wayshrine
+    [282] = { xN = 0.757, yN = 0.265 }, -- Valley of the Wind Wayshrine
+    [280] = { xN = 0.777, yN = 0.278 }, -- Tel Mora Wayshrine
+    [273] = { xN = 0.671, yN = 0.290 }, -- Gnisis Wayshrine
+    [329] = { xN = 0.691, yN = 0.308 }, -- West Gash Wayshrine
+    [274] = { xN = 0.710, yN = 0.315 }, -- Ald'ruhn Wayshrine
+    [281] = { xN = 0.812, yN = 0.324 }, -- Sadrith Mora Wayshrine 
+    [331] = { xN = 0.798, yN = 0.336 }, -- Halls of Fabrication Trial
+    [279] = { xN = 0.774, yN = 0.346 }, -- Nchuleftingth Wayshrine 
+    [275] = { xN = 0.714, yN = 0.359 }, -- Balmora Wayshrine
+    [276] = { xN = 0.750, yN = 0.369 }, -- Suran Wayshrine
+    [277] = { xN = 0.796, yN = 0.377 }, -- Molag Mar Wayshrine 
+    [278] = { xN = 0.796, yN = 0.407 }, -- Tel Branora Wayshrine
+    [272] = { xN = 0.716, yN = 0.384 }, -- Seyda Neen Wayshrine 
+    [284] = { xN = 0.733, yN = 0.398 }, -- Vivec City Wayshrine 
+    [333] = { xN = 0.741, yN = 0.402 }, -- Saint Delyn Penthouse 
+    [328] = { xN = 0.744, yN = 0.407 }, -- Vivec Temple Wayshrine
+    [334] = { xN = 0.725, yN = 0.374 }, -- Amanya Lake Lodge House
+    [335] = { xN = 0.673, yN = 0.269 }, -- Ald Velothi Harbour House
 
 
-
+    -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+    -- ██░▄▄▀██░████░▄▄▀██░▄▄▀██░█▀▄████░▄▀▄░█░▄▄▀██░▄▄▀██░▄▄▄░██░██░██
+    -- ██░▄▄▀██░████░▀▀░██░█████░▄▀█████░█░█░█░▀▀░██░▀▀▄██▄▄▄▀▀██░▄▄░██
+    -- ██░▀▀░██░▀▀░█░██░██░▀▀▄██░██░████░███░█░██░██░██░██░▀▀▀░██░██░██
+    -- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+    -- [x] = { xN = x, yN = y }, -- 
+    
+    -- Shadowfen --
+    [48] = { xN = 0.748, yN = 0.584 }, -- Stormhold Wayshrine
+    [260] = { xN = 0.712, yN = 0.582 }, -- Ruins of Mazzatun Dungeon 
+    [171] = { xN = 0.760, yN = 0.593 }, -- Bogmother Wayshrine
+    [85] = { xN = 0.777, yN = 0.605 }, -- Forsaken Hamlet Wayshrine 
+    [47] = { xN = 0.722, yN = 0.593 }, -- Stillrise Wayshrine
+    [261] = { xN = 0.716, yN = 0.594 }, -- Cradle of Shadows Dungeon
+    [78] = { xN = 0.721, yN = 0.611 }, -- Venomnous Fens Wayshrine 
+    [49] = { xN = 0.754, yN = 0.627 }, -- Hatching Pools Wayshrine 
+    [50] = { xN = 0.765, yN = 0.625 }, -- Alten Corimont Wayshrine 
+    [51] = { xN = 0.771, yN = 0.647 }, -- Perlocating Mire Wayshrine
+    [192] = { xN = 0.707, yN = 0.622 }, -- Arx Corinium Dungeon
+    [52] = { xN = 0.739, yN = 0.639 }, -- Hissmir Wayshrine 
+    [53] = { xN = 0.712, yN = 0.641 }, -- Loriasel Wayshrine 
 
     -- Murkmire --
-    [376] = { xN = 0.706, yN = 0.759 }, -- Dead-Water Wayshrine 
+    [376] = { xN = 0.703, yN = 0.754 }, -- Dead-Water Wayshrine 
     [378] = { xN = 0.712, yN = 0.769 }, -- Blackrose Prison Dungeon
     [379] = { xN = 0.725, yN = 0.780 }, -- Blackrose Prison Wayshrine 
     [375] = { xN = 0.755, yN = 0.782 }, -- Bright-Throat Wayshrine 
-    [377] = { xN = 0.762, yN = 0.740 }, -- Root-Whisper Wayshrine
+    [377] = { xN = 0.758, yN = 0.739 }, -- Root-Whisper Wayshrine
+
+    -- Blackwood --
+    [462] = { xN = 0.671, yN = 0.631 }, -- Bloodrun Wayshrine 
+    [483] = { xN = 0.673, yN = 0.657 }, -- Hutan-Tzel Wayshrine
+    [459] = { xN = 0.654, yN = 0.680 }, -- Gideon Wayshrine 
+    [464] = { xN = 0.662, yN = 0.721 }, -- Stonewastes Wayshrine
+    [484] = { xN = 0.688, yN = 0.714 }, -- Vunalk Wayshrine
+    [468] = { xN = 0.684, yN = 0.742 }, -- Rockgrove Trial
+
+    -- Topal Hideout --
+    [325] = { xN = 0.627, yN = 0.744 }, -- Topal Hideaway House
+
+
+    -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+    -- ██░▄▄▄██░█████░▄▄▄░██░███░██░▄▄▄██░███░██░▄▄▀██
+    -- ██░▄▄▄██░█████▄▄▄▀▀██░█░█░██░▄▄▄██▄▀▀▀▄██░▀▀▄██
+    -- ██░▀▀▀██░▀▀░██░▀▀▀░██▄▀▄▀▄██░▀▀▀████░████░██░██
+    -- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+    -- [x] = { xN = x, yN = y }, -- 
+
+    -- Southern Elsweyr --
+    [407] = { xN = 0.614, yN = 0.790 }, -- Dragonguard Sanctum Wayshrine
+
+
+    -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+    -- ██░███░█░▄▄▀██░█████░▄▄▄██░▀██░██░███░██░▄▄▄░██░▄▄▄░██░▄▄▀██
+    -- ███░█░██░▀▀░██░█████░▄▄▄██░█░█░██░█░█░██░███░██░███░██░██░██
+    -- ███▄▀▄██░██░██░▀▀░██░▀▀▀██░██▄░██▄▀▄▀▄██░▀▀▀░██░▀▀▀░██░▀▀░██
+    -- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+    -- [x] = { xN = x, yN = y }, -- 
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    -- Reapers March --
+    [158] = { xN = 0.461, yN = 0.564 }, -- Arenthia Wayshrine
+    [156] = { xN = 0.436, yN = 0.569 }, -- Fort Grimwatch Wayshrine
+    [144] = { xN = 0.420, yN = 0.600 }, -- Vinedusk Wayshrine
+    [157] = { xN = 0.481, yN = 0.569 }, -- Fort Sphinxmoth Wayshrine
+    [371] = { xN = 0.450, yN = 0.556 }, -- Moon Hunter Keep Dungeon
 
     -- Malabal Tor --
     [188] = { xN = 0.283, yN = 0.604 }, -- Tempest Island Dungeon
+
+
+    -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+    -- ██░▄▄▄░██░██░██░▄▀▄░██░▄▀▄░██░▄▄▄██░▄▄▀██░▄▄▄░██░▄▄▄█▄▄░▄▄███▄░▄██░▄▄▄░██░█████░▄▄▄██░▄▄▄░██
+    -- ██▄▄▄▀▀██░██░██░█░█░██░█░█░██░▄▄▄██░▀▀▄██▄▄▄▀▀██░▄▄▄███░██████░███▄▄▄▀▀██░█████░▄▄▄██▄▄▄▀▀██
+    -- ██░▀▀▀░██▄▀▀▄██░███░██░███░██░▀▀▀██░██░██░▀▀▀░██░▀▀▀███░█████▀░▀██░▀▀▀░██░▀▀░██░▀▀▀██░▀▀▀░██
+    -- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+    -- [x] = { xN = x, yN = y }, -- 
+
+    -- Summerset Isle --
+    [369] = { xN = 0.131, yN = 0.627 }, -- Veyond Wyte Wayshrine 
+    [349] = { xN = 0.157, yN = 0.660 }, -- King's Haven Pass Wayshrine 
+    [359] = { xN = 0.164, yN = 0.688 }, -- Eldbur Ruins Wayshrine
+    [350] = { xN = 0.166, yN = 0.715 }, -- Shimmerene Wayshrine 
+    [351] = { xN = 0.195, yN = 0.748 }, -- Sil-Var-Woad Wayshrine 
+    [357] = { xN = 0.182, yN = 0.768 }, -- Eastern Pass Wayshrine
+    [365] = { xN = 0.143, yN = 0.782 }, -- Sunhold Wayshrine
+    [352] = { xN = 0.132, yN = 0.714 }, -- Russafield Heights Wayshrine
+    [364] = { xN = 0.134, yN = 0.679 }, -- Cloudrest Trial
+    [358] = { xN = 0.090, yN = 0.656 }, -- Crystal Tower Wayshrine
+    [354] = { xN = 0.104, yN = 0.687 }, -- Ebon Stadmont Wayshrine
+    [356] = { xN = 0.058, yN = 0.703 }, -- Lilandril Wayshrine
+    [353] = { xN = 0.093, yN = 0.729 }, -- Cey-Tarn Keep Wayshrine
+    [366] = { xN = 0.090, yN = 0.747 }, -- Golden Gryphon Garret House
+    [355] = { xN = 0.094, yN = 0.757 }, -- Alinor Wayshrine
+
+    -- Auridon --
+    [194] = { xN = 0.185, yN = 0.594 }, -- Banished Cells I Dungeon 
+    [262] = { xN = 0.185, yN = 0.594 }, -- Banished Cells II Dungeon 
+    [175] = { xN = 0.192, yN = 0.619 }, -- Firsthold Wayshrine 
+    [124] = { xN = 0.177, yN = 0.626 }, -- Greenwater Wayshrine 
+    [123] = { xN = 0.218, yN = 0.631 }, -- College Wayshrine 
+    [122] = { xN = 0.231, yN = 0.648 }, -- Quendeluun Wayshrine
+    [121] = { xN = 0.237, yN = 0.662 }, -- Skywatch Wayshrine 
+    [176] = { xN = 0.219, yN = 0.674 }, -- Mathiisen Wayshrine 
+    [174] = { xN = 0.221, yN = 0.698 }, -- Tanzelwil Wayshrine
+    [178] = { xN = 0.232, yN = 0.706 }, -- Phaer Wayshrine 
+    [127] = { xN = 0.222, yN = 0.715 }, -- Windy Glade Wayshrine
+    [288] = { xN = 0.236, yN = 0.725 }, -- Mara's Kiss Public House 
+    [211] = { xN = 0.247, yN = 0.730 }, -- The Harborage 
+    [177] = { xN = 0.237, yN = 0.728 }, -- Vulkhel Guard Wayshrine
     
+    -- Eyevea --
+    [215] = { xN = 0.077, yN = 0.598 }, -- Eyevea Wayshrine
 
   },
 
@@ -163,19 +330,23 @@ local globalWayshrines = {
     [434] = { xN = 0.442, yN = 0.193 }, -- Kyne's Aegis
   }
 
-  --TODO: add earthforge to the reach map as well
 
 }
+
+
+
     
     
 
 local enabled = true
 local spoilers = false -- Set this to true if you want the map containing spoilers by default
+local debug = false
+local debugOutput = false
 local _GetMapTileTexture = GetMapTileTexture
 
 local LAM = LibAddonMenu2
 local saveData = {} -- TODO this should be a reference to your actual saved variables table
-local panelName = "AWMvar" -- TODO the name will be used to create a global variable, pick something unique or you may overwrite an existing variable!
+local panelName = "addonvar" -- TODO the name will be used to create a global variable, pick something unique or you may overwrite an existing variable!
 
 local panelData = {
     type = "panel",
@@ -183,20 +354,20 @@ local panelData = {
     author = "Breaux & Thal-J",
 }
 
-function AWM.log(text)
+function addon.log(text)
     d(text)
 end
 
 
-function AWM.GetMapTileTexture(index)
+function addon.GetMapTileTexture(index)
     local tex = _GetMapTileTexture(index)
     if not enabled then return tex end
     for i = 1, 16 do
         if tiles[i] == tex then
             ---- Replace certain tiles if you are on live server and have spoilers enabled
-            --if GetAPIVersion() == 100035 and not spoilers and (i == 99) then
-            --    i = tostring(i) .. "_spoilerfree"  
-            --end
+            if debug then
+               i = tostring(i) .. "_debug"  
+            end
             return "AccurateWorldMap/tiles/tamriel_" .. i .. ".dds"
         end
     end
@@ -207,42 +378,50 @@ local _GetMapCustomMaxZoom = GetMapCustomMaxZoom
 
 local providedPoiType = 1
 
-local function debugOutput(int)
-  
-  providedPoiType = tonumber(int)
-  
-  d(providedPoiType)
-  
-  if providedPoiType == nil then
-    providedPoiType = 1
-  end
-  
-  
-  local totalNodes = GetNumFastTravelNodes()
-  d("Total Fast Travel Nodes: "..totalNodes)
-  local i = 1
-  local zos_GetFastTravelNodeInfo = GetFastTravelNodeInfo
-  
-  
-  while i <= totalNodes do
-    
-    GetFastTravelNodeInfo = function(nodeIndex)
-      local known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked = zos_GetFastTravelNodeInfo(nodeIndex)
+local function toggleDebugOutput()
 
-      if poiType == providedPoiType then
-        d("Current Node: "..nodeIndex)
-        d("Name: "..name)
-        d(" ")
-      end
-      return known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked
-    end
-    
-    
-    GetFastTravelNodeInfo(i)
-    
-    
-    i = i + 1
+  if debugOutput == true then
+    d("Debug output turned off")
   end
+
+  if debugOutput == false then
+    d("Debug output turned on")
+  end
+
+  debugOutput = not debugOutput
+
+
+  
+  -- providedPoiType = tonumber(int)
+  
+  -- d(providedPoiType)
+  
+  -- if providedPoiType == nil then
+  --   providedPoiType = 1
+  -- end
+  
+  
+  -- local totalNodes = GetNumFastTravelNodes()
+  -- d("Total Fast Travel Nodes: "..totalNodes)
+  -- local i = 1
+  -- local zos_GetFastTravelNodeInfo = GetFastTravelNodeInfo
+  
+  
+  -- while i <= totalNodes do
+    
+  --   GetFastTravelNodeInfo = function(nodeIndex)
+  --     local known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked = zos_GetFastTravelNodeInfo(nodeIndex)
+
+
+  --     return known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked
+  --   end
+    
+    
+  --   GetFastTravelNodeInfo(i)
+    
+    
+  --   i = i + 1
+  -- end
   
 end
 
@@ -284,7 +463,7 @@ end
 
 
 
-local function MoveZones()
+local function initialise()
   
 
   local originalGetMapMouseoverInfo = GetMapMouseoverInfo
@@ -302,7 +481,13 @@ local function MoveZones()
     local known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked = zos_GetFastTravelNodeInfo(nodeIndex)
     local disabled = false
 
-    --d("Currently Selected Node: "..name.." ("..nodeIndex..")")
+
+    if debugOutput == true then
+          d("Current Node: "..nodeIndex)
+          d("Name: "..name)
+          d(" ")
+    end
+
 
     if globalWayshrines[GetCurrentMapIndex()] ~= nil then
 
@@ -336,30 +521,6 @@ end
 
   
     
-
-    
-
-
-    
-
-    
-    
---     -- Houses
-    
---     if nodeIndex == 428 then -- Forgemaster Falls
---       normalizedX = 0.214
---       normalizedY = 0.250
---     end
-    
---     if nodeIndex == 325 then -- Topal Hideaway
---       normalizedX = 0.627
---       normalizedY = 0.744
---     end
-    
---   end
-  
-  
-
   
 
   --         zoneBlobData = {
@@ -392,7 +553,7 @@ end
 
 
 
-function AWM.GetMapCustomMaxZoom()
+function addon.GetMapCustomMaxZoom()
     if not enabled then return _GetMapCustomMaxZoom() end
     if GetMapName() == "Tamriel" then
         return 3
@@ -405,31 +566,31 @@ local panel = LAM:RegisterAddonPanel(panelName, panelData)
 local optionsData = {
     {
         type = "checkbox",
-        name = "My First Checkbox",
+        name = "Enable debug tiles",
         getFunc = function() return saveData.myValue end,
-        setFunc = function(value) saveData.myValue = value end
+        setFunc = function(value) debug = value end
     }
 }
 
 local function OnAddonLoaded(event, addonName)
-    if addonName ~= AWM.name then return end
-    EVENT_MANAGER:UnregisterForEvent(AWM.name, EVENT_ADD_ON_LOADED)
+    if addonName ~= addon.name then return end
+    EVENT_MANAGER:UnregisterForEvent(addon.name, EVENT_ADD_ON_LOADED)
 
-    MoveZones()
+    initialise()
 
-
-    
-    SLASH_COMMANDS["/awm_debug"] = debugOutput
+    SLASH_COMMANDS["/awm_debug"] = toggleDebugOutput
     SLASH_COMMANDS["/map_index"] = printCurrentMapIndex
-    SLASH_COMMANDS["/zones_debug"] = MoveZones
+    SLASH_COMMANDS["/zones_debug"] = initialise
     
-    GetMapTileTexture = AWM.GetMapTileTexture
-    GetMapCustomMaxZoom = AWM.GetMapCustomMaxZoom
+    GetMapTileTexture = addon.GetMapTileTexture
+    GetMapCustomMaxZoom = addon.GetMapCustomMaxZoom
     
 
 end
 
--- register events
 
+
+
+-- register events
 LAM:RegisterOptionControls(panelName, optionsData)
-EVENT_MANAGER:RegisterForEvent(AWM.name, EVENT_ADD_ON_LOADED, OnAddonLoaded)
+EVENT_MANAGER:RegisterForEvent(addon.name, EVENT_ADD_ON_LOADED, OnAddonLoaded)
