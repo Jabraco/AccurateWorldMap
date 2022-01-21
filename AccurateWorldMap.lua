@@ -36,6 +36,9 @@ local tiles = {
 
 local normalisedMouseX = 0
 local normalisedMouseY = 0
+local oldGetMapMouseoverInfo = GetMapMouseoverInfo -- store old function
+
+
 
 -- Table of all the wayshrines we want to move, sorted by map (zone). Some wayshrines have been renamed to be more consistent and lore friendly.
 local globalWayshrines = {
@@ -505,9 +508,7 @@ local function initialise()
 
   end
 
-  function GetMapMouseoverInfo(x, y)
-    return YourCustomData(0.5, 0.5)
-  end
+
 
   
 
@@ -597,29 +598,49 @@ end
 
 
 
+function GetMapMouseoverInfo(x, y)
+  return YourCustomData(0.5, 0.5)
+end
+
+
 
 local function mapTick()
-  if isMouseWithinMapWindow() then
 
 
-    local mouseX, mouseY = GetUIMousePosition()
-
-    local currentOffsetX = ZO_WorldMapContainer:GetLeft()
-    local currentOffsetY = ZO_WorldMapContainer:GetTop()
-    local parentOffsetX = ZO_WorldMap:GetLeft()
-    local parentOffsetY = ZO_WorldMap:GetTop()
-    local mapWidth, mapHeight = ZO_WorldMapContainer:GetDimensions()
-    local parentWidth, parentHeight = ZO_WorldMap:GetDimensions()
-
-    normalisedMouseX = math.floor((((mouseX - currentOffsetX) / mapWidth) * 1000) + 0.5)/1000
-    normalisedMouseY = math.floor((((mouseY - currentOffsetY) / mapHeight) * 1000) + 0.5)/1000
-    local xStr = string.format("%.03f", normalisedMouseX)
-    local yStr = string.format("%.03f", normalisedMouseY)
-
-    print("Coordinates: " .. tostring(xStr) .. ", " .. tostring(yStr))
 
 
+  local mouseX, mouseY = GetUIMousePosition()
+
+  local currentOffsetX = ZO_WorldMapContainer:GetLeft()
+  local currentOffsetY = ZO_WorldMapContainer:GetTop()
+  local parentOffsetX = ZO_WorldMap:GetLeft()
+  local parentOffsetY = ZO_WorldMap:GetTop()
+  local mapWidth, mapHeight = ZO_WorldMapContainer:GetDimensions()
+  local parentWidth, parentHeight = ZO_WorldMap:GetDimensions()
+
+  normalisedMouseX = math.floor((((mouseX - currentOffsetX) / mapWidth) * 1000) + 0.5)/1000
+  normalisedMouseY = math.floor((((mouseY - currentOffsetY) / mapHeight) * 1000) + 0.5)/1000
+  local xStr = string.format("%.03f", normalisedMouseX)
+  local yStr = string.format("%.03f", normalisedMouseY)
+
+  print("Coordinates: " .. tostring(xStr) .. ", " .. tostring(yStr))
+
+
+
+  if IsControlKeyDown() then
+    print("CONTROL IS DOWN!")
+
+    GetMapMouseoverInfo(x, y)
+
+  else 
+    oldGetMapMouseoverInfo(normalisedMouseX, normalisedMouseY)
   end
+
+
+
+
+
+
 
 end
 
@@ -641,6 +662,16 @@ local optionsData = {
         setFunc = function(value) debug = value end
     }
 }
+
+local function checkIfCanTick()
+
+  if isMouseWithinMapWindow() then
+    mapTick()
+  end
+
+
+end
+
 
 local function OnAddonLoaded(event, addonName)
     if addonName ~= addon.name then return end
@@ -669,4 +700,4 @@ end
 LAM:RegisterOptionControls(panelName, optionsData)
 EVENT_MANAGER:RegisterForEvent(addon.name, EVENT_ADD_ON_LOADED, OnAddonLoaded)
 EVENT_MANAGER:RegisterForEvent("Click Listener", EVENT_GLOBAL_MOUSE_DOWN, clickListener)
-EVENT_MANAGER:RegisterForUpdate("uniqueName", interval, mapTick)
+EVENT_MANAGER:RegisterForUpdate("uniqueName", interval, checkIfCanTick)
