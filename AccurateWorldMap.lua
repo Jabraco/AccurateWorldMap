@@ -1,17 +1,18 @@
--- define root addon object
-
-
+-- Hi, welcome to the code for AccurateWorldMap
+-- Thanks to the esoui glitter community and the authors of Highly Detailed World Map, uespLog, GuildShrines and World Wayshrine Controller for me 
+-- being able to figure out how to make this work
 
 -- ascii title art done on https://texteditor.com/ascii-art/
 
+-- define root addon object
 local addon = {
 	name = "AccurateWorldMap",
 	title = "Accurate World Map",
 	version = "1.0",
 	author = "|CFF0000Breaux|r & |C6b51faThal-J|r",
-	defaults = {}, --put default variables here
 }
 
+-- Base tamriel map tiles
 local tiles = {
     "Art/maps/tamriel/Tamriel_0.dds",
     "Art/maps/tamriel/Tamriel_1.dds",
@@ -31,16 +32,31 @@ local tiles = {
     "Art/maps/tamriel/Tamriel_15.dds",
 }
 
-
-
-
+-- defaults
 local normalisedMouseX = 0
 local normalisedMouseY = 0
-local oldGetMapMouseoverInfo = GetMapMouseoverInfo -- store old function
+local oldGetMapMouseoverInfo = GetMapMouseoverInfo -- backup old mouseover function
+
+local tickInterval = 150 --milliseconds
+
+local blobFilePathPrefix = "AccurateWorldMap/blobs/tamriel-" --don't forget .dds at the end!
+local enabled = true
+local debug = false
+local debugOutput = false
+local _GetMapTileTexture = GetMapTileTexture
+
+local LAM = LibAddonMenu2
+local saveData = {} -- TODO this should be a reference to your actual saved variables table
+local panelName = "addonvar" -- TODO the name will be used to create a global variable, pick something unique or you may overwrite an existing variable!
+
+local panelData = {
+    type = "panel",
+    name = "Accurate World Map",
+    author = "Breaux & Thal-J",
+}
 
 
-
--- Table of all the wayshrines we want to move, sorted by map (zone). Some wayshrines have been renamed to be more consistent and lore friendly.
+-- Table of all the wayshrines we want to move, sorted by map (zone)
 local globalWayshrines = {
 
   -- Tamriel Map --
@@ -339,49 +355,39 @@ local globalWayshrines = {
   }
 }
 
--- zoneBlobData = {
 
---   [1] = {
+-- Table of all the zones & blobs we want to create
+-- We use the zone's name as a base to get the correct zone texture (and later texture dimensions) to draw on the map
 
---   }
+-- except for when the current map index is 24 (Aurbis), as it only has two blobs, tamriel and the circles
+zoneBlobData = {
 
---   [24]{}
+  -- Tamriel Worldmap
+  [1] = {
 
+    -- Eastmarch --
+    [13] = {
+      zoneName = "Eastmarch",
+      xN = "0.518",
+      yN = "0.265",
+      zonePolygonData = {
+        -- generate polygon based on texture? edge detection? (for each zone that would be slooow on startup)
+        -- way to move existing polygons? by zoneID?
+      }
+    }
+  },
 
-
---           texture = "AccurateWorldMap/blobs/tamriel-eastmarch.dds",
---           xN = 0.4,
---           yN = 0.4,
---         },
---         zonePolygonData = {
---           -- generate polygon based on texture? edge detection? (for each zone that would be slooow on startup)
---           -- way to move existing polygons? by zoneID?
---         },
---     },
-
--- };
-
-
-
-    
-  
-local blobFilePathPrefix = "AccurateWorldMap/blobs/tamriel-" --don't forget .dds at the end!
-
-local enabled = true
-local spoilers = false -- Set this to true if you want the map containing spoilers by default
-local debug = false
-local debugOutput = false
-local _GetMapTileTexture = GetMapTileTexture
-
-local LAM = LibAddonMenu2
-local saveData = {} -- TODO this should be a reference to your actual saved variables table
-local panelName = "addonvar" -- TODO the name will be used to create a global variable, pick something unique or you may overwrite an existing variable!
-
-local panelData = {
-    type = "panel",
-    name = "Accurate World Map",
-    author = "Breaux & Thal-J",
+  -- Aurbis Map
+  [24] = {} -- Nothing here for now
 }
+
+
+local function zoneNameToBlob(zoneName)
+
+
+
+end
+
 
 local function print(message, ...)
 	df("[%s] %s", addon.name, tostring(message:format(...)))
@@ -410,9 +416,6 @@ local mouseOverControl = WINDOW_MANAGER:GetMouseOverControl()
 
 
 
-local interval = 200 --milliseconds
-
-
 local function toggleDebugOutput()
 
   if debugOutput == true then
@@ -427,37 +430,6 @@ local function toggleDebugOutput()
 
 
   
-  -- providedPoiType = tonumber(int)
-  
-  -- d(providedPoiType)
-  
-  -- if providedPoiType == nil then
-  --   providedPoiType = 1
-  -- end
-  
-  
-  -- local totalNodes = GetNumFastTravelNodes()
-  -- d("Total Fast Travel Nodes: "..totalNodes)
-  -- local i = 1
-  -- local zos_GetFastTravelNodeInfo = GetFastTravelNodeInfo
-  
-  
-  -- while i <= totalNodes do
-    
-  --   GetFastTravelNodeInfo = function(nodeIndex)
-  --     local known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked = zos_GetFastTravelNodeInfo(nodeIndex)
-
-
-  --     return known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked
-  --   end
-    
-    
-  --   GetFastTravelNodeInfo(i)
-    
-    
-  --   i = i + 1
-  -- end
-  
 end
 
 
@@ -471,6 +443,9 @@ end
 
 local function YourCustomData(x, y)
 
+
+  -- if x and y is inside a certain polygon, return that polygon's data
+
   local locationName = "Eastmarch"
   local textureFile = "AccurateWorldMap/blobs/tamriel-eastmarch.dds"
   local normalisedWidth = 0.109375
@@ -481,23 +456,6 @@ local function YourCustomData(x, y)
 
 end
 
-
-local function YourCustomData2(x, y)
-
-  local locationName = "Glenumbra"
-  local textureFile = "AccurateWorldMap/blobs/tamriel-glenumbra.dds"
-  local normalisedWidth = 0.15625
-  local normalisedHeight = 0.15625
-  local normalisedX = 0.023
-  local normalisedY = 0.265
-  return locationName, textureFile, normalisedWidth, normalisedHeight, normalisedX, normalisedY
-
-end
-
-
-
-
-
 local function initialise()
 
 
@@ -507,11 +465,6 @@ local function initialise()
   if IsShiftKeyDown() then
 
   end
-
-
-
-  
-
 
 
 
@@ -561,21 +514,6 @@ end
   
     
 
-
-
--- local function parseWayshrines()
-
---   for mapID, mapData in pairs(zoneData) do
---     local wayshrines = mapData.wayshrines
-    
---     if (wayshrines ~= nil) then
---       for wayshrineID, wayshrineData in pairs(wayshrines) do
---         globalWayshrines[wayshrineID] = wayshrineData
---       end
---     end
---   end
--- end
-
 -- function to check if the mouse cursor is within or over the map window
 local function isMouseWithinMapWindow()
   local mouseOverControl = WINDOW_MANAGER:GetMouseOverControl()
@@ -609,6 +547,8 @@ local function mapTick()
 
 
 
+
+
   local mouseX, mouseY = GetUIMousePosition()
 
   local currentOffsetX = ZO_WorldMapContainer:GetLeft()
@@ -626,6 +566,7 @@ local function mapTick()
   print("Coordinates: " .. tostring(xStr) .. ", " .. tostring(yStr))
 
 
+  --print(MouseIsOver(normalisedMouseX, normalisedMouseY))
 
   if IsControlKeyDown() then
     print("CONTROL IS DOWN!")
@@ -679,6 +620,13 @@ local function OnAddonLoaded(event, addonName)
 
     initialise()
 
+    local polygon = ZO_WorldMapContainer:CreateControl("MyPolygon3", CT_POLYGON)
+    polygon:SetAnchorFill(ZO_WorldMapContainer)
+    polygon:AddPoint(0, 0.5)
+    polygon:AddPoint(0.5, 0.5)
+    polygon:AddPoint(0, 1)
+    polygon:SetCenterColor(0, 1, 0, 1)
+
     SLASH_COMMANDS["/awm_debug"] = toggleDebugOutput
     SLASH_COMMANDS["/map_index"] = printCurrentMapIndex
     SLASH_COMMANDS["/zones_debug"] = initialise
@@ -700,4 +648,56 @@ end
 LAM:RegisterOptionControls(panelName, optionsData)
 EVENT_MANAGER:RegisterForEvent(addon.name, EVENT_ADD_ON_LOADED, OnAddonLoaded)
 EVENT_MANAGER:RegisterForEvent("Click Listener", EVENT_GLOBAL_MOUSE_DOWN, clickListener)
-EVENT_MANAGER:RegisterForUpdate("uniqueName", interval, checkIfCanTick)
+EVENT_MANAGER:RegisterForUpdate("uniqueName", tickInterval, checkIfCanTick)
+
+
+
+  
+  -- providedPoiType = tonumber(int)
+  
+  -- d(providedPoiType)
+  
+  -- if providedPoiType == nil then
+  --   providedPoiType = 1
+  -- end
+  
+  
+  -- local totalNodes = GetNumFastTravelNodes()
+  -- d("Total Fast Travel Nodes: "..totalNodes)
+  -- local i = 1
+  -- local zos_GetFastTravelNodeInfo = GetFastTravelNodeInfo
+  
+  
+  -- while i <= totalNodes do
+    
+  --   GetFastTravelNodeInfo = function(nodeIndex)
+  --     local known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked = zos_GetFastTravelNodeInfo(nodeIndex)
+
+
+  --     return known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked
+  --   end
+    
+    
+  --   GetFastTravelNodeInfo(i)
+    
+    
+  --   i = i + 1
+  -- end
+
+
+
+
+
+-- local function parseWayshrines()
+
+--   for mapID, mapData in pairs(zoneData) do
+--     local wayshrines = mapData.wayshrines
+    
+--     if (wayshrines ~= nil) then
+--       for wayshrineID, wayshrineData in pairs(wayshrines) do
+--         globalWayshrines[wayshrineID] = wayshrineData
+--       end
+--     end
+--   end
+-- end
+

@@ -1,4 +1,15 @@
 
+- refactor
+
+- use normal polygon or controls to make polygons anchored to the map
+
+don't use pins apparently because they're too complicated
+
+
+- start working on the data structure for zone info
+
+- iterate though that zone structure, do the texture control trick to get the dimensions and then store the normalised height/width in the data structure
+
 
 - add a way to convert between vanilla mouseover behaviour and your custom one
 
