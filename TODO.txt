@@ -1,7 +1,8 @@
 
-- fix the rest of the houses breaux wanted
 
-- refactor
+
+
+
 
 - use normal polygon or controls to make polygons anchored to the map
 
@@ -27,11 +28,34 @@
 
 
 
+Mini zone list:
+
+- Tempest Island
+- Stirk
+- Icereach
+- Balfiera
+- Wasten Coraldale
+- Eyevea
+- Topal Isle
+- Firemoth Island
+- Halls of Colossus
+- Blackwood Borderlands
+- Fort Grief isle (in middle of niben basin)
+- Jerral Mountains Logging Track
+
+(remove sheogorad from vvardenfell zone)
 
 
+- Rename Northern Elsweyr to Anequinna
+- Rename Southern Elsweyr to Quin-Rawl
+- Rename Summerset to Summerset Isle
 
+- Remove dragonhold from the map when you've done the quest
 
+Breaux needs to give me:
 
+- Norg-Tzel blob
+- Greyhome blob
 
 - Remastered, vanilla-style map
 
