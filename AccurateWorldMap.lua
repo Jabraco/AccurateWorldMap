@@ -207,9 +207,9 @@ local globalWayshrines = {
     [310] = { xN = 0.432, yN = 0.381 }, -- Domus Phrasticus House
 
     -- Abah's Landing --
-    [255] = { xN = 0.261, yN = 0.504 }, -- Abah's Landing Wayshrine
-    [257] = { xN = 0.261, yN = 0.526 }, -- No Shira Citadel Wayshrine 
-    [256] = { xN = 0.245, yN = 0.510 }, -- Zeht's Displeasure Wayshrine 
+    [255] = { xN = 0.261, yN = 0.500 }, -- Abah's Landing Wayshrine
+    [257] = { xN = 0.263, yN = 0.524 }, -- No Shira Citadel Wayshrine 
+    [256] = { xN = 0.250, yN = 0.510 }, -- Zeht's Displeasure Wayshrine 
 
     -- Stros M'Kai --
     [179] = { xN = 0.169, yN = 0.534 }, -- Sandy Grotto Wayshrine 

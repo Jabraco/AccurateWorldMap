@@ -1,5 +1,8 @@
 
 
+- do the texture control trick to get the dimensions and then store the normalised height/width in the data structure
+
+- iterate though that zone structure
 
 
 
@@ -10,13 +13,12 @@
 
 - start working on the data structure for zone info
 
-- iterate though that zone structure, do the texture control trick to get the dimensions and then store the normalised height/width in the data structure
 
 
 - add a way to convert between vanilla mouseover behaviour and your custom one
 
 
-- put names of zones in the zone data, "Bleackrock Isle"
+- put names of zones in the zone data, "Bleakrock Isle"
 
 - split zone data between worldspace maps (1 and 0)
 
@@ -24,7 +26,7 @@
 
 - send current coordinates of mouse to function
 
-- if mouse click 
+- if mouse click , check if can click, if so, change map to that zone
 
 
 
@@ -42,6 +44,7 @@ Mini zone list:
 - Blackwood Borderlands
 - Fort Grief isle (in middle of niben basin)
 - Jerral Mountains Logging Track
+- Arcane University (in cyrodiil)
 
 (remove sheogorad from vvardenfell zone)
 
