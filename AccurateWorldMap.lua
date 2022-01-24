@@ -121,6 +121,9 @@ local globalWayshrines = {
     [445] = { xN = 0.377, yN = 0.270 }, -- Karthwasten Wayshrine
     [221] = { xN = 0.337, yN = 0.275 }, -- The Earth Forge Wayshrine
 
+    -- Falkreath Hold --
+    [332] = { xN = 0.451, yN = 0.356 }, -- Falkreath Hold Dungeon 
+
 
     -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
     -- ██░▄▄▀██░███░██░▄▄▀██░▄▄▄░██░▄▄▀█▄░▄█▄░▄██░█████
@@ -168,6 +171,11 @@ local globalWayshrines = {
     -- Wrothgar --
     [250] = { xN = 0.310, yN = 0.221 }, -- Maelstrom Arena Trial
 
+    -- Betnikh --
+    [182] = { xN = 0.074, yN = 0.435 }, -- Grimfield Wayshrine 
+    [181] = { xN = 0.082, yN = 0.436 }, -- Stonetooth Wayshrine
+    [183] = { xN = 0.082, yN = 0.444 }, -- Carved Hills Wayshrine
+
 
     -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
     -- ██░██░█░▄▄▀██░▄▀▄░██░▄▀▄░██░▄▄▄██░▄▄▀██░▄▄▄██░▄▄▄██░█████░█████
@@ -181,12 +189,11 @@ local globalWayshrines = {
     [341] = { xN = 0.405, yN = 0.348 }, -- Fang Lair Dungeon
     [225] = { xN = 0.392, yN = 0.377 }, -- Spellscar Wayshrine 
     [220] = { xN = 0.387, yN = 0.387 }, -- Belkarth Wayshrine 
-    [326] = { xN = 0.410, yN = 0.394 }, -- Bloodroot Forge Dungeon 
+    [326] = { xN = 0.404, yN = 0.395 }, -- Bloodroot Forge Dungeon 
     [226] = { xN = 0.401, yN = 0.359 }, -- Mountain Overlook Wayshrine 
     [227] = { xN = 0.421, yN = 0.367 }, -- Inazzur's Hold Wayshrine
     [229] = { xN = 0.420, yN = 0.382 }, -- Elinhir Wayshrine 
     [231] = { xN = 0.428, yN = 0.377 }, -- Aetherian Archive Trial 
-    [332] = { xN = 0.435, yN = 0.383 }, -- Falkreath Hold Dungeon 
     [233] = { xN = 0.334, yN = 0.338 }, -- Dragonstar Wayshrine 
     [270] = { xN = 0.335, yN = 0.324 }, -- Dragonstar Arena Dungeon
     [219] = { xN = 0.354, yN = 0.373 }, -- Sandy Path Wayshrine
@@ -194,12 +201,21 @@ local globalWayshrines = {
     [218] = { xN = 0.344, yN = 0.353 }, -- Shada's Tear Wayshrine 
     [234] = { xN = 0.362, yN = 0.349 }, -- Skyreach Wayshrine 
     [230] = { xN = 0.344, yN = 0.380 }, -- Hel Ra Citadel Trial
-    [232] = { xN = 0.366, yN = 0.330 }, -- Sanctum Ophidia Trial 
+    [232] = { xN = 0.366, yN = 0.330 }, -- Sanctum Ophidia Trial
+    [327] = { xN = 0.328, yN = 0.351 }, -- Earthtear Caverns
+    [395] = { xN = 0.410, yN = 0.394 }, -- Elinhir Private Arena House
+    [310] = { xN = 0.432, yN = 0.381 }, -- Domus Phrasticus House
 
     -- Abah's Landing --
     [255] = { xN = 0.261, yN = 0.504 }, -- Abah's Landing Wayshrine
     [257] = { xN = 0.261, yN = 0.526 }, -- No Shira Citadel Wayshrine 
     [256] = { xN = 0.245, yN = 0.510 }, -- Zeht's Displeasure Wayshrine 
+
+    -- Stros M'Kai --
+    [179] = { xN = 0.169, yN = 0.534 }, -- Sandy Grotto Wayshrine 
+    [180] = { xN = 0.159, yN = 0.551 }, -- Saintsport Wayshrine 
+    [324] = { xN = 0.167, yN = 0.547 }, -- Hunding's Palatial Hall House
+    [138] = { xN = 0.159, yN = 0.542 }, -- Port Hunding Wayshrine 
 
 
     -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
@@ -348,6 +364,8 @@ local globalWayshrines = {
     [288] = { xN = 0.236, yN = 0.725 }, -- Mara's Kiss Public House 
     [211] = { xN = 0.247, yN = 0.730 }, -- The Harborage 
     [177] = { xN = 0.237, yN = 0.728 }, -- Vulkhel Guard Wayshrine
+    [315] = { xN = 0.231, yN = 0.688 }, -- Mathiisen Manor House
+    [285] = { xN = 0.245, yN = 0.668 }, -- Barbed Hook Private Room House
     
     -- Eyevea --
     [215] = { xN = 0.077, yN = 0.598 }, -- Eyevea Wayshrine
