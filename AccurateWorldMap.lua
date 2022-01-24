@@ -92,6 +92,8 @@ local globalWayshrines = {
     [97] = { xN = 0.614, yN = 0.297 }, -- Skuldafn Wayshrine
     [195] = { xN = 0.621, yN = 0.320 }, -- Direfrost Keep Dungeon
     [389] = { xN = 0.552, yN = 0.281 }, -- Frostvault Dungeon
+    [312] = { xN = 0.590, yN = 0.258 }, -- Grymhearth's Woe House
+    [392] = { xN = 0.550, yN = 0.282 }, -- Frostvault Chasm House
     
     -- The Rift --
     [109] = { xN = 0.603, yN = 0.366 }, -- Riften Wayshrine
@@ -107,6 +109,9 @@ local globalWayshrines = {
     [116] = { xN = 0.533, yN = 0.340 }, -- Geirmund's Hall Wayshrine 
     [114] = { xN = 0.592, yN = 0.345 }, -- Fallowstone Hall Wayshrine 
     [115] = { xN = 0.573, yN = 0.345 }, -- Northwind Mine Wayshrine 
+    [322] = { xN = 0.608, yN = 0.370 }, -- Old Mistveil Manor House 
+    [372] = { xN = 0.609, yN = 0.354 }, -- Hunter's Glade House 
+    [301] = { xN = 0.556, yN = 0.341 }, -- Autumn's Gate House 
 
     -- Western Skyrim --
     [424] = { xN = 0.404, yN = 0.157 }, -- Icereach Dungeon
@@ -224,6 +229,7 @@ local globalWayshrines = {
     [328] = { xN = 0.744, yN = 0.407 }, -- Vivec Temple Wayshrine
     [334] = { xN = 0.725, yN = 0.374 }, -- Amanya Lake Lodge House
     [335] = { xN = 0.673, yN = 0.269 }, -- Ald Velothi Harbour House
+    [465] = { xN = 0.718, yN = 0.261 }, -- Kushalit Sanctuary House
 
 
     -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
@@ -247,6 +253,8 @@ local globalWayshrines = {
     [192] = { xN = 0.707, yN = 0.622 }, -- Arx Corinium Dungeon
     [52] = { xN = 0.739, yN = 0.639 }, -- Hissmir Wayshrine 
     [53] = { xN = 0.712, yN = 0.641 }, -- Loriasel Wayshrine 
+    [305] = { xN = 0.734, yN = 0.583 }, -- The Ample Domicile House 
+    [316] = { xN = 0.755, yN = 0.611 }, -- Stay-Moist Mansion House
 
     -- Murkmire --
     [376] = { xN = 0.703, yN = 0.754 }, -- Dead-Water Wayshrine 
@@ -254,6 +262,7 @@ local globalWayshrines = {
     [379] = { xN = 0.725, yN = 0.780 }, -- Blackrose Prison Wayshrine 
     [375] = { xN = 0.755, yN = 0.782 }, -- Bright-Throat Wayshrine 
     [377] = { xN = 0.758, yN = 0.739 }, -- Root-Whisper Wayshrine
+    [388] = { xN = 0.724, yN = 0.735 }, -- Lakemire Xanmeer Manor House 
 
     -- Blackwood --
     [462] = { xN = 0.671, yN = 0.631 }, -- Bloodrun Wayshrine 
@@ -262,6 +271,7 @@ local globalWayshrines = {
     [464] = { xN = 0.662, yN = 0.721 }, -- Stonewastes Wayshrine
     [484] = { xN = 0.688, yN = 0.714 }, -- Vunalk Wayshrine
     [468] = { xN = 0.684, yN = 0.742 }, -- Rockgrove Trial
+    [473] = { xN = 0.687, yN = 0.624 }, -- Pantherfang Chapel House 
 
     -- Topal Hideout --
     [325] = { xN = 0.627, yN = 0.744 }, -- Topal Hideaway House
@@ -291,6 +301,7 @@ local globalWayshrines = {
     [144] = { xN = 0.420, yN = 0.600 }, -- Vinedusk Wayshrine
     [157] = { xN = 0.481, yN = 0.569 }, -- Fort Sphinxmoth Wayshrine
     [371] = { xN = 0.450, yN = 0.556 }, -- Moon Hunter Keep Dungeon
+    [321] = { xN = 0.483, yN = 0.579 }, -- Dawnshadow House
 
     -- Malabal Tor --
     [188] = { xN = 0.283, yN = 0.604 }, -- Tempest Island Dungeon
@@ -319,6 +330,8 @@ local globalWayshrines = {
     [353] = { xN = 0.093, yN = 0.729 }, -- Cey-Tarn Keep Wayshrine
     [366] = { xN = 0.090, yN = 0.747 }, -- Golden Gryphon Garret House
     [355] = { xN = 0.094, yN = 0.757 }, -- Alinor Wayshrine
+    [367] = { xN = 0.089, yN = 0.760 }, -- Alinor Crest Townhouse 
+    [368] = { xN = 0.177, yN = 0.797 }, -- Colossal Aldmeri Grotto
 
     -- Auridon --
     [194] = { xN = 0.185, yN = 0.594 }, -- Banished Cells I Dungeon 

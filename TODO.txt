@@ -1,10 +1,11 @@
 
+- fix the rest of the houses breaux wanted
+
 - refactor
 
 - use normal polygon or controls to make polygons anchored to the map
 
-don't use pins apparently because they're too complicated
-
+- extract zone polygons
 
 - start working on the data structure for zone info
 
