@@ -1,8 +1,51 @@
 
+- follow the sirinsidious tutorial on controls
+
+- make a texture control
+
+- set the size to 1x1, load the textures in  and set it to resize
+
+- record those textures and iterate through the zone data list
+
 
 - do the texture control trick to get the dimensions and then store the normalised height/width in the data structure
 
 - iterate though that zone structure
+
+
+
+todo: also find a way to call when on map open
+
+
+* EVENT_SHOW_WORLD_MAP
+
+* EVENT_ZONE_CHANGED (*string* _zoneName_, *string* _subZoneName_, *bool* _newSubzone_, *integer* _zoneId_, *integer* _subZoneId_)
+
+
+* EVENT_GROUP_TYPE_CHANGED (*bool* _largeGroup_)
+* EVENT_GROUP_UPDATE
+* EVENT_GROUP_MEMBER_JOINED (*string* _memberCharacterName_, *string* _memberDisplayName_, *bool* _isLocalPlayer_)
+* EVENT_GROUP_MEMBER_LEFT (*string* _memberCharacterName_, *[GroupLeaveReason|#GroupLeaveReason]* _reason_, *bool* _isLocalPlayer_, *bool* _isLeader_, *string* _memberDisplayName_, *bool* _actionRequiredVote_)
+* EVENT_GROUP_MEMBER_ROLE_CHANGED (*string* _unitTag_, *[LFGRole|#LFGRole]* _newRole_)
+* EVENT_GROUP_MEMBER_SUBZONE_CHANGED
+
+* EVENT_QUEST_ADVANCED (*luaindex* _journalIndex_, *string* _questName_, *bool* _isPushed_, *bool* _isComplete_, *bool* _mainStepChanged_)
+* EVENT_QUEST_COMPLETE (*string* _questName_, *integer* _level_, *integer* _previousExperience_, *integer* _currentExperience_, *integer* _championPoints_, *[QuestType|#QuestType]* _questType_, *[InstanceDisplayType|#InstanceDisplayType]* _instanceDisplayType_)
+
+- merge wayshrinedata and zoneblob data into one big structure called mapData
+
+- add an event on map change to iterate through this list
+
+- check if the current map id is in mapData, if it is, go inside
+
+- does wayshrineData exist for this map? if yes, iterate through that
+
+- does zoneData exist for this map? if yes, iterate through that
+
+- blob data has an Exclusive attribute which defines whether the custom blobs defined here should prevent the vanilla ones from working, or 
+is additive
+
+if mapData[mapID].zoneData != nil then...
 
 
 
