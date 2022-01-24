@@ -37,6 +37,8 @@ local normalisedMouseX = 0
 local normalisedMouseY = 0
 local oldGetMapMouseoverInfo = GetMapMouseoverInfo -- backup old mouseover function
 
+local recordCoordinates = false
+
 local tickInterval = 150 --milliseconds
 
 local blobFilePathPrefix = "AccurateWorldMap/blobs/tamriel-" --don't forget .dds at the end!
@@ -54,6 +56,10 @@ local panelData = {
     name = "Accurate World Map",
     author = "Breaux & Thal-J",
 }
+
+local currentCoordinateCount = 0
+
+local polygonData = {}
 
 
 -- Table of all the wayshrines we want to move, sorted by map (zone)
@@ -523,7 +529,17 @@ end
 local function clickListener()
 
   if isMouseWithinMapWindow() then
-    PlaySound(SOUNDS.COUNTDOWN_TICK)
+
+    if (recordCoordinates) then 
+      PlaySound(SOUNDS.COUNTDOWN_TICK)
+
+      table.insert(polygonData, {xN = normalisedMouseX, yN = normalisedMouseY})
+      currentCoordinateCount = currentCoordinateCount + 1
+
+    end
+
+
+
     print("Map clicked!")
   end
 
@@ -539,6 +555,7 @@ end
 function GetMapMouseoverInfo(x, y)
   return YourCustomData(0.5, 0.5)
 end
+
 
 
 
@@ -563,7 +580,7 @@ local function mapTick()
   local xStr = string.format("%.03f", normalisedMouseX)
   local yStr = string.format("%.03f", normalisedMouseY)
 
-  print("Coordinates: " .. tostring(xStr) .. ", " .. tostring(yStr))
+  --print("Coordinates: " .. tostring(xStr) .. ", " .. tostring(yStr))
 
 
   --print(MouseIsOver(normalisedMouseX, normalisedMouseY))
@@ -614,22 +631,94 @@ local function checkIfCanTick()
 end
 
 
+
+
+local function createZonePolygon(table)
+
+  local polygon = ZO_WorldMapContainer:CreateControl("MyPolygon3", CT_POLYGON)
+  polygon:SetAnchorFill(ZO_WorldMapContainer)
+
+
+  for key, data in pairs(polygonData) do
+    print(tostring("Coordinate set "..key .. ": "))
+
+    print("X: "..tostring(data.xN))
+    print("Y: "..tostring(data.yN))
+
+
+    polygon:AddPoint(data.xN, data.yN)
+
+
+  end
+
+  polygon:SetCenterColor(0, 1, 0, 0.5)
+
+  polygon:SetMouseEnabled(true)
+
+
+  polygon:SetHandler("OnMouseEnter", function()
+    print("User has entered zone hitbox")
+  end)
+  polygon:SetHandler("OnMouseExit", function()
+    print("User has left zone hitbox")
+  end)
+
+
+end
+
+local function recordPolygon()
+
+
+
+
+
+  if recordCoordinates == true then
+    d("Coordinates recorded.")
+
+    createZonePolygon(polygonData)
+
+
+    polygonData = {}
+    currentCoordinateCount = 0
+    recordCoordinates = false
+  end
+
+  if recordCoordinates == false then
+    d("Recording coordinates... click on the map to draw a polygon")
+    recordCoordinates = true
+  end
+
+
+end
+
+
+
 local function OnAddonLoaded(event, addonName)
     if addonName ~= addon.name then return end
     EVENT_MANAGER:UnregisterForEvent(addon.name, EVENT_ADD_ON_LOADED)
 
     initialise()
 
-    local polygon = ZO_WorldMapContainer:CreateControl("MyPolygon3", CT_POLYGON)
-    polygon:SetAnchorFill(ZO_WorldMapContainer)
-    polygon:AddPoint(0, 0.5)
-    polygon:AddPoint(0.5, 0.5)
-    polygon:AddPoint(0, 1)
-    polygon:SetCenterColor(0, 1, 0, 1)
+    -- local polygon = ZO_WorldMapContainer:CreateControl("MyPolygon3", CT_POLYGON)
+    -- polygon:SetAnchorFill(ZO_WorldMapContainer)
+    -- polygon:AddPoint(0, 0.5)
+    -- polygon:AddPoint(0.5, 0.5)
+    -- polygon:AddPoint(0, 1)
+    -- polygon:SetCenterColor(0, 1, 0, 0.5)
+
+    -- polygon:SetMouseEnabled(true)
+    -- polygon:SetHandler("OnMouseEnter", function()
+    --   print("User has entered zone hitbox")
+    -- end)
+    -- polygon:SetHandler("OnMouseExit", function()
+    --   print("User has left zone hitbox")
+    -- end)
+
 
     SLASH_COMMANDS["/awm_debug"] = toggleDebugOutput
     SLASH_COMMANDS["/map_index"] = printCurrentMapIndex
     SLASH_COMMANDS["/zones_debug"] = initialise
+    SLASH_COMMANDS["/record_polygon"] = recordPolygon
 
   --   SLASH_COMMANDS["/joke"] = function() 
   --     d(GetRandomElement(jokes)) 
