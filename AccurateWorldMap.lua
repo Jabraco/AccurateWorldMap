@@ -97,6 +97,52 @@ local mapData = {
         [389] = { xN = 0.552, yN = 0.281 }, -- Frostvault Dungeon
         [312] = { xN = 0.590, yN = 0.258 }, -- Grymhearth's Woe House
         [392] = { xN = 0.550, yN = 0.282 }, -- Frostvault Chasm House
+
+        zoneData = {
+          zoneName = "Eastmarch",
+          xN = "0.518",
+          yN = "0.265",
+          zonePolygonData = {
+            { xN = 0.624, yN = 0.323 },
+            { xN = 0.623, yN = 0.316 },
+            { xN = 0.620, yN = 0.304 },
+            { xN = 0.613, yN = 0.295 },
+            { xN = 0.608, yN = 0.286 },
+            { xN = 0.605, yN = 0.277 },
+            { xN = 0.608, yN = 0.268 },
+            { xN = 0.613, yN = 0.262 },
+            { xN = 0.616, yN = 0.253 },
+            { xN = 0.614, yN = 0.250 },
+            { xN = 0.610, yN = 0.249 },
+            { xN = 0.605, yN = 0.252 },
+            { xN = 0.598, yN = 0.252 },
+            { xN = 0.597, yN = 0.240 },
+            { xN = 0.592, yN = 0.241 },
+            { xN = 0.588, yN = 0.247 },
+            { xN = 0.575, yN = 0.244 },
+            { xN = 0.559, yN = 0.248 },
+            { xN = 0.551, yN = 0.255 },
+            { xN = 0.546, yN = 0.264 },
+            { xN = 0.547, yN = 0.273 },
+            { xN = 0.538, yN = 0.278 },
+            { xN = 0.532, yN = 0.279 },
+            { xN = 0.522, yN = 0.290 },
+            { xN = 0.519, yN = 0.298 },
+            { xN = 0.522, yN = 0.311 },
+            { xN = 0.526, yN = 0.321 },
+            { xN = 0.536, yN = 0.325 },
+            { xN = 0.550, yN = 0.328 },
+            { xN = 0.558, yN = 0.332 },
+            { xN = 0.584, yN = 0.333 },
+            { xN = 0.593, yN = 0.327 },
+            { xN = 0.596, yN = 0.326 },
+            { xN = 0.605, yN = 0.325 },
+            { xN = 0.613, yN = 0.327 },
+            { xN = 0.616, yN = 0.323 },
+            { xN = 0.619, yN = 0.323 }
+            }
+          }
+        }
         
         -- The Rift --
         [109] = { xN = 0.603, yN = 0.366 }, -- Riften Wayshrine
@@ -376,16 +422,51 @@ local mapData = {
     },
 
     zoneData = {
+      exclusive = true,
 
       -- Eastmarch --
-
       [13] = {
         zoneName = "Eastmarch",
         xN = "0.518",
         yN = "0.265",
         zonePolygonData = {
-          -- generate polygon based on texture? edge detection? (for each zone that would be slooow on startup)
-          -- way to move existing polygons? by zoneID?
+          { xN = 0.624, yN = 0.323 },
+          { xN = 0.623, yN = 0.316 },
+          { xN = 0.620, yN = 0.304 },
+          { xN = 0.613, yN = 0.295 },
+          { xN = 0.608, yN = 0.286 },
+          { xN = 0.605, yN = 0.277 },
+          { xN = 0.608, yN = 0.268 },
+          { xN = 0.613, yN = 0.262 },
+          { xN = 0.616, yN = 0.253 },
+          { xN = 0.614, yN = 0.250 },
+          { xN = 0.610, yN = 0.249 },
+          { xN = 0.605, yN = 0.252 },
+          { xN = 0.598, yN = 0.252 },
+          { xN = 0.597, yN = 0.240 },
+          { xN = 0.592, yN = 0.241 },
+          { xN = 0.588, yN = 0.247 },
+          { xN = 0.575, yN = 0.244 },
+          { xN = 0.559, yN = 0.248 },
+          { xN = 0.551, yN = 0.255 },
+          { xN = 0.546, yN = 0.264 },
+          { xN = 0.547, yN = 0.273 },
+          { xN = 0.538, yN = 0.278 },
+          { xN = 0.532, yN = 0.279 },
+          { xN = 0.522, yN = 0.290 },
+          { xN = 0.519, yN = 0.298 },
+          { xN = 0.522, yN = 0.311 },
+          { xN = 0.526, yN = 0.321 },
+          { xN = 0.536, yN = 0.325 },
+          { xN = 0.550, yN = 0.328 },
+          { xN = 0.558, yN = 0.332 },
+          { xN = 0.584, yN = 0.333 },
+          { xN = 0.593, yN = 0.327 },
+          { xN = 0.596, yN = 0.326 },
+          { xN = 0.605, yN = 0.325 },
+          { xN = 0.613, yN = 0.327 },
+          { xN = 0.616, yN = 0.323 },
+          { xN = 0.619, yN = 0.323 }
         }
       }
     }
@@ -394,7 +475,7 @@ local mapData = {
   },
 
   
-  [24] = {}, -- Aurbis Map (nothing here for now)
+  [24] = {}, -- Aurbis Map (nothing here, for now)
 
 
   -- Cyrodiil PVP Map --
@@ -482,21 +563,21 @@ local function YourCustomData(x, y)
 
 end
 
-local function initialise()
+-- local function initialise()
 
 
 
 
   
-  if IsShiftKeyDown() then
+--   if IsShiftKeyDown() then
 
-  end
-
-
+--   end
 
 
 
-end
+
+
+-- end
 
 local function moveWayshrines(wayshrineData, mapIndex)
 
@@ -735,22 +816,6 @@ local function OnAddonLoaded(event, addonName)
     if addonName ~= addon.name then return end
     EVENT_MANAGER:UnregisterForEvent(addon.name, EVENT_ADD_ON_LOADED)
 
-    --initialise()
-
-    -- local polygon = ZO_WorldMapContainer:CreateControl("MyPolygon3", CT_POLYGON)
-    -- polygon:SetAnchorFill(ZO_WorldMapContainer)
-    -- polygon:AddPoint(0, 0.5)
-    -- polygon:AddPoint(0.5, 0.5)
-    -- polygon:AddPoint(0, 1)
-    -- polygon:SetCenterColor(0, 1, 0, 0.5)
-
-    -- polygon:SetMouseEnabled(true)
-    -- polygon:SetHandler("OnMouseEnter", function()
-    --   print("User has entered zone hitbox")
-    -- end)
-    -- polygon:SetHandler("OnMouseExit", function()
-    --   print("User has left zone hitbox")
-    -- end)
 
 
     SLASH_COMMANDS["/awm_debug"] = toggleDebugOutput
@@ -787,19 +852,75 @@ local function onZoneChanged()
     if (mapData[mapIndex] ~= nil) then
       
       print("This map has custom data!")
-
       if (mapData[mapIndex].wayshrineData ~= nil) then
-
         print("This map has custom wayshrines!")
-
         local wayshrineData = mapData[mapIndex].wayshrineData
-
         moveWayshrines(wayshrineData, mapIndex)
+      end
+
+      if (mapData[mapIndex].zoneData ~= nil) then
+        print("This map has custom zone data!")
+
+        zoneData = mapData[mapIndex].zoneData
+
+
+        -- isExclusive controls whether the zone blobs we are adding to the map will replace the vanilla ones in their entirety, be exclusive, or simply be additive
+        local isExclusive
+        if (zoneData.exclusive ~= nil) then
+          isExclusive = zoneData.exclusive
+        else
+          isExclusive = false
+        end
+
+        for zoneID, zoneInfo in pairs(zoneData) do
+
+
+          -- check to make sure that the zoneID is a number, since we have the isExclusive boolean from before
+          if tonumber(zoneID) ~= nil then
+
+
+            if (zoneInfo.zoneName ~= nil) then
+
+              print(zoneInfo.zoneName)
+
+              if (zoneInfo.xN ~= nil and zoneInfo.yN ~= nil) then
+                if (zoneInfo.blobTexture ~= nil) then
+                  if (zoneInfo.blobTextureHeight ~= nil and zoneInfo.blobTextureWidth ~= nil) then
+                    if (zoneInfo.zonePolygonData ~= nil) then
+
+
+                                          -- add polygons, make zone data
+
+                    else 
+                      print("Warning: Custom Zone "..zoneInfo.zoneName.." ".."is missing its hitbox polygon!")
+                    end
+                  else
+                    print("Warning: Custom Zone "..zoneInfo.zoneName.." ".."is missing its normalised blob width/height!")
+                  end
+                else
+                  print("Warning: Custom Zone "..zoneInfo.zoneName.." ".."has no blob texture!")
+                end
+              else
+                print("Warning: Custom Zone "..zoneInfo.zoneName.." ".." has invalid zone coordinates!")
+              end
+            else
+              print("Warning: Custom Zone ID #"..tostring(zoneID).." has no name!")
+            end
+          end
+
+
+
+
+
 
       end
 
 
+
     end
+
+  end
+
 
 
 
@@ -820,6 +941,19 @@ EVENT_MANAGER:RegisterForEvent(addon.name, EVENT_ADD_ON_LOADED, OnAddonLoaded)
 EVENT_MANAGER:RegisterForEvent("Click Listener", EVENT_GLOBAL_MOUSE_DOWN, clickListener)
 EVENT_MANAGER:RegisterForUpdate("uniqueName", tickInterval, checkIfCanTick)
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", onZoneChanged)
+
+
+
+
+        --   local wayshrines = mapData.wayshrines
+    
+        --   if (wayshrines ~= nil) then
+        --     for wayshrineID, wayshrineData in pairs(wayshrines) do
+        --       globalWayshrines[wayshrineID] = wayshrineData
+        --     end
+        --   end
+        --   end
+        -- end
 
 
 

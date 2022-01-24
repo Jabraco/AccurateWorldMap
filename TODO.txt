@@ -1,4 +1,7 @@
 
+- merge wayshrine stuff and zone stuff into a single, flat data structure called Zone data, wayshrines have numbered indexes, zoneinfo is its own key
+
+
 - follow the sirinsidious tutorial on controls
 
 - make a texture control
@@ -12,7 +15,7 @@
 
 - iterate though that zone structure
 
-
+set up GetMapMouseoverInfo to be like getFastTravelNode info, overwrite the function and return vanilla/modded data depending on circumstances
 
 todo: also find a way to call when on map open
 
