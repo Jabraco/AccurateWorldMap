@@ -10,6 +10,16 @@
 
 - record those textures and iterate through the zone data list
 
+Tex01 = wm:CreateControl(nil, Tex01, CT_TEXTURE)
+Tex01:SetTexture("TestAddon/tex/Tex01.dds")
+Tex01:SetDimensions(1,1)
+Tex01:SetResizeToFitFile(true)
+Tex01:SetResizeToFitDescendents(true)
+
+
+- use that texture control to verify that the texture paths exist with 
+
+you can just set that path on the texture control and then check if IsTextureLoaded returns true? if it doesn't load it either doesn't exist or there is an error loading the file
 
 - do the texture control trick to get the dimensions and then store the normalised height/width in the data structure
 
