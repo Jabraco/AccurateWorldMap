@@ -41,7 +41,7 @@ local recordCoordinates = false
 
 local tickInterval = 150 --milliseconds
 
-local blobFilePathPrefix = "AccurateWorldMap/blobs/tamriel-" --don't forget .dds at the end!
+
 local enabled = true
 local debug = false
 local UNITTAG_PLAYER = 'player' 
@@ -62,6 +62,8 @@ local currentCoordinateCount = 0
 
 local polygonData = {}
 
+local mapDimensions = 4096 -- px
+
 
 local hackyTable = {}
 
@@ -70,19 +72,13 @@ local function hackyJoin(extra)
     return hackyTable
 end
 
-
-local testStructure = {
-    zoneData = hackyJoin({stuff = true}),
-    zoneData = hackyJoin({moreStuff = true}),
-    zoneData = hackyJoin({x = 1, y = 2, z = 3})
-}
-
+local isInBlobHitbox = false
 
 
 -- Data table of all the wayshrine nodes and zone blobs we want to modify or move, sorted by map (zone).
 -- We use the zone's name as a base to get the correct zone texture (and later texture dimensions) to draw on the map
 
-local mapData = {
+mapData = {
 
   [1] = { -- Tamriel World Map
         
@@ -628,7 +624,16 @@ end
 
 
 function GetMapMouseoverInfo(x, y)
-  return YourCustomData(0.5, 0.5)
+
+  if (x ~= nil and y ~= nil) then
+
+    if (isInBlobHitbox) then 
+      return YourCustomData(0.5, 0.5)
+    end
+
+  else
+    return "", "", 0, 0, 0, 0
+  end
 end
 
 
@@ -663,10 +668,10 @@ local function mapTick()
   if IsControlKeyDown() then
     print("CONTROL IS DOWN!")
 
-    GetMapMouseoverInfo(x, y)
+    --GetMapMouseoverInfo(x, y)
 
   else 
-    oldGetMapMouseoverInfo(normalisedMouseX, normalisedMouseY)
+    --oldGetMapMouseoverInfo(normalisedMouseX, normalisedMouseY)
   end
 
 
@@ -708,10 +713,14 @@ end
 
 
 
-local function createZonePolygon(table)
+local function createZonePolygon(polygonData, zoneInfo, isDebug)
 
-  local polygon = ZO_WorldMapContainer:CreateControl("MyPolygon3", CT_POLYGON)
+  local polygonID = "blobHitbox"..zoneInfo.zoneID.."-"..zoneInfo.zoneName
+
+  local polygon = ZO_WorldMapContainer:CreateControl(polygonID, CT_POLYGON)
   polygon:SetAnchorFill(ZO_WorldMapContainer)
+
+
 
 
   for key, data in pairs(polygonData) do
@@ -726,16 +735,28 @@ local function createZonePolygon(table)
 
   end
 
-  polygon:SetCenterColor(0, 1, 0, 0.5)
+
+  if (isDebug) then
+    polygon:SetCenterColor(0, 1, 0, 0.5)
+  else
+    polygon:SetCenterColor(0, 0, 0, 0)
+  end
+  
+
+
 
   polygon:SetMouseEnabled(true)
 
 
   polygon:SetHandler("OnMouseEnter", function()
+    isInBlobHitbox = true
     print("User has entered zone hitbox")
+    GetMapMouseoverInfo(mouseX, mouseY)
   end)
   polygon:SetHandler("OnMouseExit", function()
     print("User has left zone hitbox")
+    GetMapMouseoverInfo(0 ,0)
+    isInBlobHitbox = false
   end)
 
 
@@ -766,6 +787,103 @@ local function recordPolygon()
 
 end
 
+local function getFileDirectoryFromZoneName(providedZoneName)
+
+  local providedZoneName = providedZoneName
+
+  providedZoneName = providedZoneName:gsub("'", "") -- replace all instances of `'` with empty string
+  providedZoneName = providedZoneName:gsub(" ", "") -- replace all instances of `'` with empty string
+
+  providedZoneName = providedZoneName:lower()
+
+  local blobFileDirectory = ("AccurateWorldMap/blobs/tamriel-"..providedZoneName..".dds")
+
+  return blobFileDirectory
+end
+
+
+
+AccurateWorldMapTLC = CreateTopLevelWindow("AccurateWorldMapTLC")
+AccurateWorldMapTLC:SetResizeToFitDescendents(true) --will make the TLC window resize with it's childen -> the Tex01 texture control
+AccurateWorldMapTex01 = CreateControl("AccurateWorldMapTex01", AccurateWorldMapTLC, CT_TEXTURE)
+AccurateWorldMapTex01:SetResizeToFitFile(true)
+
+
+local function getBlobTextureDetails()
+
+  print("getting blob info!")
+
+
+  -- iterate through all of mapData
+  for mapID, zoneData in pairs(mapData) do
+
+
+    if (zoneData.zoneData ~= nil) then
+
+      print("got to here!")
+
+      local zoneInfo = zoneData.zoneData
+
+      for zoneIndex, zoneInfo in pairs(zoneInfo) do
+
+        print("checking zone info!")
+
+        if (zoneInfo.zoneName ~= nil) then
+
+          print("there is a zone name!")
+
+          if (zoneInfo.blobTexture == nil or zoneInfo.nBlobTextureHeight == nil or zoneInfo.nBlobTextureWidth == nil ) then
+
+            print("displaying textures!")
+
+            local textureDirectory = getFileDirectoryFromZoneName(zoneInfo.zoneName)
+
+
+
+
+            -- load texture into control from name
+            AccurateWorldMapTex01:SetTexture(textureDirectory)
+
+            -- check if texture exists before doing stuff
+            if (AccurateWorldMapTex01:IsTextureLoaded()) then
+
+              -- get the dimensions
+              local textureHeight, textureWidth = AccurateWorldMapTex01:GetTextureFileDimensions()
+
+              -- save texture name and dimensions
+              mapData[mapID].zoneData[zoneIndex].blobTexture = textureDirectory
+              mapData[mapID].zoneData[zoneIndex].nBlobTextureHeight = textureHeight / mapDimensions
+              mapData[mapID].zoneData[zoneIndex].nBlobTextureWidth = textureWidth / mapDimensions
+
+
+
+
+
+            else
+
+              print("The following texture failed to load: "..textureDirectory)
+
+
+            end
+
+
+
+
+
+
+
+
+
+          end
+
+
+        end
+
+      end
+    end
+  end
+end
+
 
 
 local function OnAddonLoaded(event, addonName)
@@ -773,11 +891,26 @@ local function OnAddonLoaded(event, addonName)
     EVENT_MANAGER:UnregisterForEvent(addon.name, EVENT_ADD_ON_LOADED)
 
 
-    Tex01 = WINDOW_MANAGER:CreateControl("Tex01", nil, CT_TEXTURE)
-    Tex01:SetTexture("AccurateWorldMap/blobs/tamriel-glenumbra.dds") -- <<<< 777
-    Tex01:SetDimensions(1,1)
-    Tex01:SetResizeToFitFile(true)
-    Tex01:SetResizeToFitDescendents(true)
+
+
+    --AccurateWorldMapTex01:SetTexture("AccurateWorldMap/blobs/tamriel-glenumbra.dds")
+
+    getBlobTextureDetails()
+
+    -- uncomment these two to hide the control
+
+    --AccurateWorldMapTex01:SetAnchorFill()
+    --AccurateWorldMapTLC:SetHidden(false) 
+
+    
+    
+
+
+
+    --AccurateWorldMapTex01:SetTexture("AccurateWorldMap/blobs/tamriel-glenumbra.dds")
+
+
+
 
 
 
@@ -785,6 +918,7 @@ local function OnAddonLoaded(event, addonName)
     SLASH_COMMANDS["/map_index"] = printCurrentMapIndex
     SLASH_COMMANDS["/zones_debug"] = initialise
     SLASH_COMMANDS["/record_polygon"] = recordPolygon
+    SLASH_COMMANDS["/get_blobs"] = getBlobTextureDetails
 
   --   SLASH_COMMANDS["/joke"] = function() 
   --     d(GetRandomElement(jokes)) 
@@ -797,8 +931,12 @@ local function OnAddonLoaded(event, addonName)
 end
 
 
--- Function that gets called whenever the user changes zone, or clicks to a new zone on the world map.
 
+
+
+
+
+-- Function that gets called whenever the user changes zone, or clicks to a new zone on the world map.
 
 local function onZoneChanged()
 
@@ -806,6 +944,9 @@ local function onZoneChanged()
   local mapIndex = GetCurrentMapIndex()
 
   print("Zone changed!")
+
+
+  print(getFileDirectoryFromZoneName("Summerset Isles"))
 
 
   -- TODO: Delete any existing controls on the world map before iterating over anything else
@@ -830,6 +971,7 @@ local function onZoneChanged()
       
       print("This map has custom data!")
 
+
       -- assume that there's wayshrines
       moveWayshrines(zoneData, mapIndex)
 
@@ -849,21 +991,23 @@ local function onZoneChanged()
             print(tostring(zoneInfo))
 
             if (zoneInfo.xN ~= nil and zoneInfo.yN ~= nil) then
-              if (zoneInfo.blobTexture ~= nil) then
-                if (zoneInfo.blobTextureHeight ~= nil and zoneInfo.blobTextureWidth ~= nil) then
-                  if (zoneInfo.zonePolygonData ~= nil) then
+              if (zoneInfo.blobTexture ~= nil and zoneInfo.nBlobTextureHeight ~= nil and zoneInfo.nBlobTextureHeight ~= nil ) then
+                if (zoneInfo.zonePolygonData ~= nil) then
+
+                  createZonePolygon(zoneInfo.zonePolygonData, zoneInfo)
 
 
-                                        -- add polygons, make zone data
+                  -- add polygons, make zone data
 
-                  else 
-                    print("Warning: Custom Zone "..zoneInfo.zoneName.." ".."is missing its hitbox polygon!")
-                  end
-                else
-                  print("Warning: Custom Zone "..zoneInfo.zoneName.." ".."is missing its normalised blob width/height!")
+                else 
+                  print("Warning: Custom Zone "..zoneInfo.zoneName.." ".."is missing its hitbox polygon!")
                 end
               else
-                print("Warning: Custom Zone "..zoneInfo.zoneName.." ".."has no blob texture!")
+                print("Warning: Custom Zone "..zoneInfo.zoneName.." ".."is missing its texture details!")
+
+                -- rerun texture details for this zone
+                -- getTextureDetails() --getTextureDetails(nil)
+
               end
             else
               print("Warning: Custom Zone "..zoneInfo.zoneName.." ".." has invalid zone coordinates!")
@@ -871,9 +1015,6 @@ local function onZoneChanged()
           else
             print("Warning: Custom Zone ID #"..tostring(zoneInfo.zoneID).." has no name!")
           end
-
-
-
         end
       end
     end
