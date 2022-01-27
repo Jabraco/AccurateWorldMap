@@ -1,31 +1,9 @@
 
-- merge wayshrine stuff and zone stuff into a single, flat data structure called Zone data, wayshrines have numbered indexes, zoneinfo is its own key
+
+- add a way to convert between vanilla mouseover behaviour and your custom one
 
 
-- follow the sirinsidious tutorial on controls
-
-- make a texture control
-
-- set the size to 1x1, load the textures in  and set it to resize
-
-- record those textures and iterate through the zone data list
-
-Tex01 = wm:CreateControl(nil, Tex01, CT_TEXTURE)
-Tex01:SetTexture("TestAddon/tex/Tex01.dds")
-Tex01:SetDimensions(1,1)
-Tex01:SetResizeToFitFile(true)
-Tex01:SetResizeToFitDescendents(true)
-
-
-- use that texture control to verify that the texture paths exist with 
-
-you can just set that path on the texture control and then check if IsTextureLoaded returns true? if it doesn't load it either doesn't exist or there is an error loading the file
-
-- do the texture control trick to get the dimensions and then store the normalised height/width in the data structure
-
-- iterate though that zone structure
-
-set up GetMapMouseoverInfo to be like getFastTravelNode info, overwrite the function and return vanilla/modded data depending on circumstances
+- set up GetMapMouseoverInfo to be like getFastTravelNode info, overwrite the function and return vanilla/modded data depending on circumstances
 
 todo: also find a way to call when on map open
 
@@ -67,18 +45,13 @@ if mapData[mapID].zoneData != nil then...
 
 - extract zone polygons
 
-- start working on the data structure for zone info
 
 
-
-- add a way to convert between vanilla mouseover behaviour and your custom one
 
 
 - put names of zones in the zone data, "Bleakrock Isle"
 
 - split zone data between worldspace maps (1 and 0)
-
-- make a fuction that removes punctuation from the name of the zone and then appends it to the blob filename uri
 
 - send current coordinates of mouse to function
 

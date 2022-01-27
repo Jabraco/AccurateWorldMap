@@ -35,7 +35,6 @@ local tiles = {
 -- defaults
 local normalisedMouseX = 0
 local normalisedMouseY = 0
-local oldGetMapMouseoverInfo = GetMapMouseoverInfo -- backup old mouseover function
 
 local recordCoordinates = false
 
@@ -452,8 +451,6 @@ mapData = {
 }
 
 
-
-
 local function print(message, ...)
 	df("[%s] %s", addon.name, tostring(message:format(...)))
 end
@@ -498,97 +495,103 @@ local function toggleDebugOutput()
 end
 
 
--- Function to add custom blobs to the map
-
-local function YourCustomData(x, y)
-
-
-  -- if x and y is inside a certain polygon, return that polygon's data
-
-  local locationName = "Eastmarch"
-  local textureFile = "AccurateWorldMap/blobs/tamriel-eastmarch.dds"
-  local normalisedWidth = 0.109375
-  local normalisedHeight = 0.109375
-  local normalisedX = 0.518
-  local normalisedY = 0.233
-  return locationName, textureFile, normalisedWidth, normalisedHeight, normalisedX, normalisedY
-
-end
-
--- local function initialise()
+local zos_GetFastTravelNodeInfo = GetFastTravelNodeInfo    
+GetFastTravelNodeInfo = function(nodeIndex)
+  local known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked = zos_GetFastTravelNodeInfo(nodeIndex)
+  local disabled = false
 
 
+  if debugOutput == true then
+        d("Current Node: "..nodeIndex)
+        d("Name: "..name)
+        d(" ")
+  end
+
+  mapIndex = GetCurrentMapIndex()
 
 
-  
---   if IsShiftKeyDown() then
+  if (mapData[mapIndex] ~= nil) then
 
---   end
+    if (mapData[mapIndex][nodeIndex] ~= nil) then
 
+      local zoneData = mapData[mapIndex]
 
-
-
-
--- end
-
-local function moveWayshrines(zoneData, mapIndex)
-
-  local zos_GetFastTravelNodeInfo = GetFastTravelNodeInfo    
-  GetFastTravelNodeInfo = function(nodeIndex)
-    local known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked = zos_GetFastTravelNodeInfo(nodeIndex)
-    local disabled = false
+      if (zoneData[nodeIndex] ~= nil) then 
 
 
-    if debugOutput == true then
-          d("Current Node: "..nodeIndex)
-          d("Name: "..name)
-          d(" ")
-    end
-
-    mapIndex = GetCurrentMapIndex()
-
-
-    if (mapData[mapIndex] ~= nil) then
-
-      if (mapData[mapIndex][nodeIndex] ~= nil) then
-
-        local zoneData = mapData[mapIndex]
-  
-        if (zoneData[nodeIndex] ~= nil) then 
-  
-  
-          if zoneData[nodeIndex].xN ~= nil then
-            normalizedX = zoneData[nodeIndex].xN
-          end
-  
-          if zoneData[nodeIndex].yN ~= nil then
-            normalizedY = zoneData[nodeIndex].yN
-          end
-  
-          if zoneData[nodeIndex].name ~= nil then
-            name = zoneData[nodeIndex].name
-          end
-  
-  
+        if zoneData[nodeIndex].xN ~= nil then
+          normalizedX = zoneData[nodeIndex].xN
         end
-  
-  
+
+        if zoneData[nodeIndex].yN ~= nil then
+          normalizedY = zoneData[nodeIndex].yN
+        end
+
+        if zoneData[nodeIndex].name ~= nil then
+          name = zoneData[nodeIndex].name
+        end
+
+
       end
 
+
     end
-
-
-
-    return known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked, disabled
 
   end
 
 
+
+  return known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked, disabled
+
+end
+
+  
+local zos_GetMapMouseoverInfo = GetMapMouseoverInfo
+GetMapMouseoverInfo = function(xN, yN)
+  local locationName, textureFile, widthN, heightN, locXN, locYN = zos_GetMapMouseoverInfo(xN, yN)
+
+
+
+  -- do some magic here to return custom data
+
+  return locationName, textureFile, widthN, heightN, locXN, locYN
+
+
 end
 
 
+-- function GetMapMouseoverInfo(x, y)
 
-  
+--   if (x ~= nil and y ~= nil) then
+
+--     if (isInBlobHitbox) then 
+--       return YourCustomData(0.5, 0.5)
+--     end
+
+--   else
+--     return "", "", 0, 0, 0, 0
+--   end
+-- end
+
+
+-- Function to add custom blobs to the map
+
+-- local function YourCustomData(x, y)
+
+
+--   -- if x and y is inside a certain polygon, return that polygon's data
+
+--   local locationName = "Eastmarch"
+--   local textureFile = "AccurateWorldMap/blobs/tamriel-eastmarch.dds"
+--   local normalisedWidth = 0.109375
+--   local normalisedHeight = 0.109375
+--   local normalisedX = 0.518
+--   local normalisedY = 0.233
+--   return locationName, textureFile, normalisedWidth, normalisedHeight, normalisedX, normalisedY
+
+-- end
+
+
     
 
 -- function to check if the mouse cursor is within or over the map window
@@ -623,18 +626,6 @@ end
 
 
 
-function GetMapMouseoverInfo(x, y)
-
-  if (x ~= nil and y ~= nil) then
-
-    if (isInBlobHitbox) then 
-      return YourCustomData(0.5, 0.5)
-    end
-
-  else
-    return "", "", 0, 0, 0, 0
-  end
-end
 
 
 
@@ -668,16 +659,7 @@ local function mapTick()
   if IsControlKeyDown() then
     print("CONTROL IS DOWN!")
 
-    --GetMapMouseoverInfo(x, y)
-
-  else 
-    --oldGetMapMouseoverInfo(normalisedMouseX, normalisedMouseY)
   end
-
-
-
-
-
 
 
 end
@@ -751,11 +733,9 @@ local function createZonePolygon(polygonData, zoneInfo, isDebug)
   polygon:SetHandler("OnMouseEnter", function()
     isInBlobHitbox = true
     print("User has entered zone hitbox")
-    GetMapMouseoverInfo(mouseX, mouseY)
   end)
   polygon:SetHandler("OnMouseExit", function()
     print("User has left zone hitbox")
-    GetMapMouseoverInfo(0 ,0)
     isInBlobHitbox = false
   end)
 
@@ -792,7 +772,7 @@ local function getFileDirectoryFromZoneName(providedZoneName)
   local providedZoneName = providedZoneName
 
   providedZoneName = providedZoneName:gsub("'", "") -- replace all instances of `'` with empty string
-  providedZoneName = providedZoneName:gsub(" ", "") -- replace all instances of `'` with empty string
+  providedZoneName = providedZoneName:gsub(" ", "") -- replace all instances of ` ` with empty string
 
   providedZoneName = providedZoneName:lower()
 
@@ -855,24 +835,12 @@ local function getBlobTextureDetails()
               mapData[mapID].zoneData[zoneIndex].nBlobTextureHeight = textureHeight / mapDimensions
               mapData[mapID].zoneData[zoneIndex].nBlobTextureWidth = textureWidth / mapDimensions
 
-
-
-
-
             else
 
               print("The following texture failed to load: "..textureDirectory)
 
 
             end
-
-
-
-
-
-
-
-
 
           end
 
@@ -891,23 +859,14 @@ local function OnAddonLoaded(event, addonName)
     EVENT_MANAGER:UnregisterForEvent(addon.name, EVENT_ADD_ON_LOADED)
 
 
-
-
-    --AccurateWorldMapTex01:SetTexture("AccurateWorldMap/blobs/tamriel-glenumbra.dds")
-
     getBlobTextureDetails()
 
-    -- uncomment these two to hide the control
-
+    -- comment these two to hide the control
     --AccurateWorldMapTex01:SetAnchorFill()
-    --AccurateWorldMapTLC:SetHidden(false) 
+    AccurateWorldMapTLC:SetHidden(true) 
 
     
     
-
-
-
-    --AccurateWorldMapTex01:SetTexture("AccurateWorldMap/blobs/tamriel-glenumbra.dds")
 
 
 
@@ -972,8 +931,6 @@ local function onZoneChanged()
       print("This map has custom data!")
 
 
-      -- assume that there's wayshrines
-      moveWayshrines(zoneData, mapIndex)
 
 
       if (mapData[mapIndex].zoneData ~= nil) then
@@ -1030,55 +987,4 @@ EVENT_MANAGER:RegisterForEvent(addon.name, EVENT_ADD_ON_LOADED, OnAddonLoaded)
 EVENT_MANAGER:RegisterForEvent("Click Listener", EVENT_GLOBAL_MOUSE_DOWN, clickListener)
 EVENT_MANAGER:RegisterForUpdate("uniqueName", tickInterval, checkIfCanTick)
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", onZoneChanged)
-
-
-
-  
-  -- providedPoiType = tonumber(int)
-  
-  -- d(providedPoiType)
-  
-  -- if providedPoiType == nil then
-  --   providedPoiType = 1
-  -- end
-  
-  
-  -- local totalNodes = GetNumFastTravelNodes()
-  -- d("Total Fast Travel Nodes: "..totalNodes)
-  -- local i = 1
-  -- local zos_GetFastTravelNodeInfo = GetFastTravelNodeInfo
-  
-  
-  -- while i <= totalNodes do
-    
-  --   GetFastTravelNodeInfo = function(nodeIndex)
-  --     local known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked = zos_GetFastTravelNodeInfo(nodeIndex)
-
-
-  --     return known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked
-  --   end
-    
-    
-  --   GetFastTravelNodeInfo(i)
-    
-    
-  --   i = i + 1
-  -- end
-
-
-
-
-
--- local function parseWayshrines()
-
---   for mapID, mapData in pairs(zoneData) do
---     local wayshrines = mapData.wayshrines
-    
---     if (wayshrines ~= nil) then
---       for wayshrineID, zoneData in pairs(wayshrines) do
---         globalWayshrines[wayshrineID] = zoneData
---       end
---     end
---   end
--- end
 
