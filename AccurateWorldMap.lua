@@ -72,6 +72,8 @@ local function hackyJoin(extra)
 end
 
 local isInBlobHitbox = false
+local currentlySelectedBlobName = ""
+local currentZoneInfo = {}
 
 
 -- Data table of all the wayshrine nodes and zone blobs we want to modify or move, sorted by map (zone).
@@ -112,8 +114,8 @@ mapData = {
     zoneData = hackyJoin({
       zoneName = "Eastmarch",
       zoneID = 13,
-      xN = "0.518",
-      yN = "0.265",
+      xN = "0.521",
+      yN = "0.235",
       zonePolygonData = {
         { xN = 0.624, yN = 0.323 },
         { xN = 0.623, yN = 0.316 },
@@ -494,6 +496,77 @@ local function toggleDebugOutput()
   
 end
 
+local function getCurrentZoneID()
+
+  local zoneID = GetCurrentMapIndex()
+
+  if (zoneID == nil) then
+
+    -- do something, get the subzone id or figure out why it is nil in the first place
+    zoneID = 0
+  end
+
+
+  return zoneID
+
+end
+
+
+
+
+local function getZoneInfoByID(zoneID)
+
+
+  local zoneData = mapData[getCurrentZoneID()]
+  local zoneInfo = zoneData.zoneData
+
+  for zoneIndex, zoneInfo in pairs(zoneInfo) do
+
+    if (zoneInfo.zoneID == zoneID) then
+      return zoneInfo
+    end
+  end
+end
+
+
+local function getZoneIDFromPolygonName(polygonName)
+  return tonumber(string.match (polygonName, "%d+"))
+end
+
+
+local zos_GetMapMouseoverInfo = GetMapMouseoverInfo
+GetMapMouseoverInfo = function(xN, yN)
+  local locationName, textureFile, widthN, heightN, locXN, locYN = zos_GetMapMouseoverInfo(xN, yN)
+
+  local mapIndex = getCurrentZoneID()
+
+
+  if (mapData[mapIndex] ~= nil) then
+
+    if (isInBlobHitbox) then 
+
+        print(tostring(getZoneIDFromPolygonName(currentlySelectedBlobName)))
+
+        locationName = currentZoneInfo.zoneName
+        textureFile = currentZoneInfo.blobTexture
+        widthN = currentZoneInfo.nBlobTextureWidth
+        heightN = currentZoneInfo.nBlobTextureHeight
+        locXN = currentZoneInfo.xN
+        locYN = currentZoneInfo.yN
+        
+    end
+
+  end
+
+
+
+
+
+  return locationName, textureFile, widthN, heightN, locXN, locYN
+
+
+end
+
 
 local zos_GetFastTravelNodeInfo = GetFastTravelNodeInfo    
 GetFastTravelNodeInfo = function(nodeIndex)
@@ -507,7 +580,7 @@ GetFastTravelNodeInfo = function(nodeIndex)
         d(" ")
   end
 
-  mapIndex = GetCurrentMapIndex()
+  local mapIndex = getCurrentZoneID()
 
 
   if (mapData[mapIndex] ~= nil) then
@@ -546,50 +619,6 @@ GetFastTravelNodeInfo = function(nodeIndex)
 end
 
   
-local zos_GetMapMouseoverInfo = GetMapMouseoverInfo
-GetMapMouseoverInfo = function(xN, yN)
-  local locationName, textureFile, widthN, heightN, locXN, locYN = zos_GetMapMouseoverInfo(xN, yN)
-
-
-
-  -- do some magic here to return custom data
-
-  return locationName, textureFile, widthN, heightN, locXN, locYN
-
-
-end
-
-
--- function GetMapMouseoverInfo(x, y)
-
---   if (x ~= nil and y ~= nil) then
-
---     if (isInBlobHitbox) then 
---       return YourCustomData(0.5, 0.5)
---     end
-
---   else
---     return "", "", 0, 0, 0, 0
---   end
--- end
-
-
--- Function to add custom blobs to the map
-
--- local function YourCustomData(x, y)
-
-
---   -- if x and y is inside a certain polygon, return that polygon's data
-
---   local locationName = "Eastmarch"
---   local textureFile = "AccurateWorldMap/blobs/tamriel-eastmarch.dds"
---   local normalisedWidth = 0.109375
---   local normalisedHeight = 0.109375
---   local normalisedX = 0.518
---   local normalisedY = 0.233
---   return locationName, textureFile, normalisedWidth, normalisedHeight, normalisedX, normalisedY
-
--- end
 
 
     
@@ -634,7 +663,7 @@ local function mapTick()
 
 
 
-
+  --print(currentlySelectedBlobName)
 
 
   local mouseX, mouseY = GetUIMousePosition()
@@ -694,50 +723,66 @@ end
 
 
 
-
 local function createZonePolygon(polygonData, zoneInfo, isDebug)
 
-  local polygonID = "blobHitbox"..zoneInfo.zoneID.."-"..zoneInfo.zoneName
+  local polygonID = "blobHitbox-"..zoneInfo.zoneID.."-"..zoneInfo.zoneName
 
-  local polygon = ZO_WorldMapContainer:CreateControl(polygonID, CT_POLYGON)
-  polygon:SetAnchorFill(ZO_WorldMapContainer)
-
+  if (WINDOW_MANAGER:GetControlByName(polygonID) == nil) then
 
 
-
-  for key, data in pairs(polygonData) do
-    print(tostring("Coordinate set "..key .. ": "))
-
-    print("X: "..tostring(data.xN))
-    print("Y: "..tostring(data.yN))
-
-
-    polygon:AddPoint(data.xN, data.yN)
-
-
-  end
-
-
-  if (isDebug) then
-    polygon:SetCenterColor(0, 1, 0, 0.5)
-  else
-    polygon:SetCenterColor(0, 0, 0, 0)
-  end
+    local polygon = ZO_WorldMapContainer:CreateControl(polygonID, CT_POLYGON)
+    polygon:SetAnchorFill(ZO_WorldMapContainer)
   
+  
+  
+  
+    for key, data in pairs(polygonData) do
+      print(tostring("Coordinate set "..key .. ": "))
+  
+      print("X: "..tostring(data.xN))
+      print("Y: "..tostring(data.yN))
+  
+  
+      polygon:AddPoint(data.xN, data.yN)
+  
+  
+    end
+  
+  
+    if (isDebug) then
+      polygon:SetCenterColor(0, 1, 0, 0.5)
+    else
+      polygon:SetCenterColor(0, 0, 0, 0)
+    end
+    
+  
+  
+  
+    polygon:SetMouseEnabled(true)
+  
+  
+    polygon:SetHandler("OnMouseEnter", function()
+      isInBlobHitbox = true
+      print("User has entered zone hitbox")
+  
+      -- update with current zone info
+  
+      currentZoneInfo = getZoneInfoByID(getZoneIDFromPolygonName(polygon:GetName()))
+    end)
+    polygon:SetHandler("OnMouseExit", function()
+      print("User has left zone hitbox")
+      isInBlobHitbox = false
+  
+  
+  
+      -- make sure the user has actually left the hitbox and is not just hovering over a wayshrine or something
+      currentZoneInfo = {}
+    end)
+
+  end
 
 
 
-  polygon:SetMouseEnabled(true)
-
-
-  polygon:SetHandler("OnMouseEnter", function()
-    isInBlobHitbox = true
-    print("User has entered zone hitbox")
-  end)
-  polygon:SetHandler("OnMouseExit", function()
-    print("User has left zone hitbox")
-    isInBlobHitbox = false
-  end)
 
 
 end
@@ -853,6 +898,25 @@ local function getBlobTextureDetails()
 end
 
 
+local function deleteZoneBlobs()
+
+
+  local numChildren = ZO_WorldMapContainer:GetNumChildren()
+
+
+  for i = 1, numChildren do
+
+
+    local childControl = ZO_WorldMapContainer:GetChild(i)
+    print(childControl:GetName())
+    print(tostring(childControl:GetType()))
+
+  end
+
+
+
+
+end
 
 local function OnAddonLoaded(event, addonName)
     if addonName ~= addon.name then return end
@@ -862,7 +926,6 @@ local function OnAddonLoaded(event, addonName)
     getBlobTextureDetails()
 
     -- comment these two to hide the control
-    --AccurateWorldMapTex01:SetAnchorFill()
     AccurateWorldMapTLC:SetHidden(true) 
 
     
@@ -878,6 +941,7 @@ local function OnAddonLoaded(event, addonName)
     SLASH_COMMANDS["/zones_debug"] = initialise
     SLASH_COMMANDS["/record_polygon"] = recordPolygon
     SLASH_COMMANDS["/get_blobs"] = getBlobTextureDetails
+    SLASH_COMMANDS["/get_controls"] = deleteZoneBlobs
 
   --   SLASH_COMMANDS["/joke"] = function() 
   --     d(GetRandomElement(jokes)) 
@@ -894,13 +958,12 @@ end
 
 
 
-
 -- Function that gets called whenever the user changes zone, or clicks to a new zone on the world map.
 
 local function onZoneChanged()
 
   local zoneName = GetUnitZone(UNITTAG_PLAYER)
-  local mapIndex = GetCurrentMapIndex()
+  local mapIndex = getCurrentZoneID()
 
   print("Zone changed!")
 
@@ -909,6 +972,8 @@ local function onZoneChanged()
 
 
   -- TODO: Delete any existing controls on the world map before iterating over anything else
+
+  --deleteZoneBlobs()
 
 
 
@@ -988,3 +1053,25 @@ EVENT_MANAGER:RegisterForEvent("Click Listener", EVENT_GLOBAL_MOUSE_DOWN, clickL
 EVENT_MANAGER:RegisterForUpdate("uniqueName", tickInterval, checkIfCanTick)
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", onZoneChanged)
 
+
+
+-- frame.edit = CHAIN(wm:CreateControlFromVirtual("$(parent)_Edit",
+-- frame, "ZO_DefaultEditMultiLine"))
+-- :SetAnchor(TOPLEFT, frame, TOPLEFT, 2, 2)
+-- :SetAnchor(BOTTOMRIGHT, frame, BOTTOMRIGHT, -2, -2)
+-- :SetMaxInputChars(2000)
+-- :SetFont("ZoFontGame")
+-- :SetHidden(true)
+-- :SetHandler("OnShow", function()
+-- -- hide all line controls
+-- for i, line in ipairs(FRAME_LINES) do
+-- line:SetHidden(true)
+-- end
+-- -- disable Zgoo:Update() while this box is shown
+-- frame.lines = nil
+-- end)
+-- :SetHandler("OnHide", function()
+-- frame.lines = FRAME_LINES
+-- Zgoo:Update()
+-- end)
+-- .__END

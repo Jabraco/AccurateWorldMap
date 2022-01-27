@@ -8,5 +8,6 @@
 ## Version: 1.0
 ## APIVersion: 100035
 ## DependsOn: LibAddonMenu-2.0
+## DependsOn: LibGPS>=30
 
 AccurateWorldMap.lua
