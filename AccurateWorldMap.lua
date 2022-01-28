@@ -84,6 +84,8 @@ local isExclusive = false
 mapData = {
 
   [27] = { -- Tamriel World Map
+
+    isExclusive = true, -- TODO: Change this while getting clicking on custom zones to work
         
     -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
     -- ██░▄▄▄░██░█▀▄██░███░██░▄▄▀█▄░▄██░▄▀▄░██
@@ -545,16 +547,27 @@ end
 
 local zos_GetMapMouseoverInfo = GetMapMouseoverInfo
 GetMapMouseoverInfo = function(xN, yN)
-  local locationName, textureFile, widthN, heightN, locXN, locYN = zos_GetMapMouseoverInfo(xN, yN)
 
   local mapIndex = getCurrentZoneID()
 
+  -- invisible blank default mouseover data
+  local locationName = ""
+  local textureFile = ""
+  local widthN = 0.01
+  local heightN = 0.01
+  local locXN = 0
+  local locYN = 0
+
+
+  if (isExclusive == false or mapData[mapIndex] == nil) then
+    locationName, textureFile, widthN, heightN, locXN, locYN = zos_GetMapMouseoverInfo(xN, yN)
+
+  end
 
   if (mapData[mapIndex] ~= nil) then
 
     if (isInBlobHitbox) then 
 
-        print(tostring(getZoneIDFromPolygonName(currentlySelectedBlobName)))
 
         locationName = currentZoneInfo.zoneName
         textureFile = currentZoneInfo.blobTexture
@@ -619,11 +632,10 @@ GetFastTravelNodeInfo = function(nodeIndex)
 
 end
 
-local zos_WouldProcessMapClick = WouldProcessMapClick    
-WouldProcessMapClick = function(x, y)
-  local wouldProcessClick, resultingMapIndex = zos_WouldProcessMapClick(x, y)
+local zos_ProcessMapClick = ProcessMapClick    
+ProcessMapClick = function(x, y)
+  local resultingMapIndex = zos_ProcessMapClick(x, y)
 
-  print(tostring(wouldProcessClick))
 
   print(tostring(resultingMapIndex))
 
@@ -633,7 +645,7 @@ WouldProcessMapClick = function(x, y)
 
 
 
-  return false, 5
+  return resultingMapIndex
   
 end
 
@@ -740,23 +752,30 @@ end
 
 
 
-local function createZonePolygon(polygonData, zoneInfo, isDebug)
+local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
 
-  local polygonID = "blobHitbox-"..zoneInfo.zoneID.."-"..zoneInfo.zoneName
-
-
+  local polygonID
 
 
+  if (zoneInfo ~= nil) then
 
+    polygonID = "blobHitbox-"..zoneInfo.zoneID.."-"..zoneInfo.zoneName
+
+
+  else
+
+    isDebug = true
+    polygonID = "debugPolygon"
+
+  end
+
+  -- check if polygon by this name exists
   if (WINDOW_MANAGER:GetControlByName(polygonID) == nil) then
 
 
     local polygon = ZO_WorldMapContainer:CreateControl(polygonID, CT_POLYGON)
     polygon:SetAnchorFill(ZO_WorldMapContainer)
-  
-  
-  
-  
+
     for key, data in pairs(polygonData) do
       print(tostring("Coordinate set "..key .. ": "))
   
@@ -807,12 +826,12 @@ local function createZonePolygon(polygonData, zoneInfo, isDebug)
       currentZoneInfo = {}
     end)
 
+  
+  else 
+    -- it already exists, we just need to show it again
+    WINDOW_MANAGER:GetControlByName(polygonID):SetHidden(false)
+    WINDOW_MANAGER:GetControlByName(polygonID):SetMouseEnabled(true)
   end
-
-
-
-
-
 end
 
 local function recordPolygon()
@@ -820,7 +839,7 @@ local function recordPolygon()
   if recordCoordinates == true then
     d("Coordinates recorded.")
 
-    createZonePolygon(newPolygonData)
+    createOrShowZonePolygon(newPolygonData)
 
 
     newPolygonData = {}
@@ -918,14 +937,12 @@ local function getBlobTextureDetails()
 
       end
 
-      AccurateWorldMapTLC:SetHidden(true) 
     end
   end
 end
 
 
-local function deleteZoneBlobs()
-
+local function cleanUpZoneBlobs()
 
   local numChildren = ZO_WorldMapContainer:GetNumChildren()
 
@@ -934,8 +951,13 @@ local function deleteZoneBlobs()
 
 
     local childControl = ZO_WorldMapContainer:GetChild(i)
-    print(childControl:GetName())
-    print(tostring(childControl:GetType()))
+    local controlName = childControl:GetName()
+
+    if (string.match(controlName, "blobHitbox-")) then
+      childControl:SetHidden(true)
+      childControl:SetMouseEnabled(false)
+
+    end
 
   end
 
@@ -967,7 +989,7 @@ local function OnAddonLoaded(event, addonName)
     SLASH_COMMANDS["/zones_debug"] = initialise
     SLASH_COMMANDS["/record_polygon"] = recordPolygon
     SLASH_COMMANDS["/get_blobs"] = getBlobTextureDetails
-    SLASH_COMMANDS["/get_controls"] = deleteZoneBlobs
+    SLASH_COMMANDS["/get_controls"] = cleanUpZoneBlobs
 
   --   SLASH_COMMANDS["/joke"] = function() 
   --     d(GetRandomElement(jokes)) 
@@ -995,18 +1017,8 @@ local function onZoneChanged()
 
 
 
-  -- TODO: Delete any existing controls on the world map before iterating over anything else
-
-  --deleteZoneBlobs()
-
-
-
-  -- TODO: Iterate over the mapData table and update anything that needs to get updated
-
-
-
-
-  -- if mapIndex is nil, try and get subzone id instead
+  -- Delete any existing controls on the world map before iterating over anything else
+  cleanUpZoneBlobs()
 
   if (mapIndex ~= nil) then
 
@@ -1020,6 +1032,11 @@ local function onZoneChanged()
       print("This map has custom data!")
 
 
+      if (mapData[mapIndex].isExclusive ~= nil) then
+        isExclusive = mapData[mapIndex].isExclusive
+      else
+        isExclusive = false
+      end
 
 
       if (mapData[mapIndex].zoneData ~= nil) then
@@ -1040,7 +1057,7 @@ local function onZoneChanged()
               if (zoneInfo.blobTexture ~= nil and zoneInfo.nBlobTextureHeight ~= nil and zoneInfo.nBlobTextureHeight ~= nil ) then
                 if (zoneInfo.zonePolygonData ~= nil) then
 
-                  createZonePolygon(zoneInfo.zonePolygonData, zoneInfo)
+                  createOrShowZonePolygon(zoneInfo.zonePolygonData, zoneInfo)
 
 
                   -- add polygons, make zone data
@@ -1063,8 +1080,12 @@ local function onZoneChanged()
           end
         end
       end
+
+    else
+      isExclusive = false
     end
   end
+  print("isExclusive: "..tostring(isExclusive))
 end
 
 

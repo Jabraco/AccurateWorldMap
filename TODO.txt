@@ -1,18 +1,5 @@
 
 
-- add a way to convert between vanilla mouseover behaviour and your custom one
-
-
-
-- find a way to get subzone id
-
-- ask how to change the map to things like greyhome when they do not have a map index
-
-
-- set up GetMapMouseoverInfo to be like getFastTravelNode info, overwrite the function and return vanilla/modded data depending on circumstances
-
-todo: also find a way to call when on map open
-
 
 * EVENT_SHOW_WORLD_MAP
 
