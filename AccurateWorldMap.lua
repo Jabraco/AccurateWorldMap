@@ -60,6 +60,7 @@ local panelData = {
 local currentCoordinateCount = 0
 
 local polygonData = {}
+local newPolygonData = {}
 
 local mapDimensions = 4096 -- px
 
@@ -74,6 +75,7 @@ end
 local isInBlobHitbox = false
 local currentlySelectedBlobName = ""
 local currentZoneInfo = {}
+local isExclusive = false
 
 
 -- Data table of all the wayshrine nodes and zone blobs we want to modify or move, sorted by map (zone).
@@ -534,6 +536,13 @@ local function getZoneIDFromPolygonName(polygonName)
 end
 
 
+
+-- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+-- ██░▄▄▄░██░▄▄▄░██░▄▄▄░████░▄▄▄██░██░██░▀██░██░▄▄▀█▄▄░▄▄█▄░▄██░▄▄▄░██░▀██░██░▄▄▄░██
+-- ██▀▀▀▄▄██░███░██▄▄▄▀▀████░▄▄███░██░██░█░█░██░██████░████░███░███░██░█░█░██▄▄▄▀▀██
+-- ██░▀▀▀░██░▀▀▀░██░▀▀▀░████░█████▄▀▀▄██░██▄░██░▀▀▄███░███▀░▀██░▀▀▀░██░██▄░██░▀▀▀░██
+-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+
 local zos_GetMapMouseoverInfo = GetMapMouseoverInfo
 GetMapMouseoverInfo = function(xN, yN)
   local locationName, textureFile, widthN, heightN, locXN, locYN = zos_GetMapMouseoverInfo(xN, yN)
@@ -558,13 +567,7 @@ GetMapMouseoverInfo = function(xN, yN)
 
   end
 
-
-
-
-
   return locationName, textureFile, widthN, heightN, locXN, locYN
-
-
 end
 
 
@@ -612,13 +615,27 @@ GetFastTravelNodeInfo = function(nodeIndex)
 
   end
 
-
-
   return known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked, disabled
 
 end
 
+local zos_WouldProcessMapClick = WouldProcessMapClick    
+WouldProcessMapClick = function(x, y)
+  local wouldProcessClick, resultingMapIndex = zos_WouldProcessMapClick(x, y)
+
+  print(tostring(wouldProcessClick))
+
+  print(tostring(resultingMapIndex))
+
+
+  -- check 
+  -- if isExclusive is true
+
+
+
+  return false, 5
   
+end
 
 
     
@@ -636,7 +653,7 @@ local function clickListener()
     if (recordCoordinates) then 
       PlaySound(SOUNDS.COUNTDOWN_TICK)
 
-      table.insert(polygonData, {xN = normalisedMouseX, yN = normalisedMouseY})
+      table.insert(newPolygonData, {xN = normalisedMouseX, yN = normalisedMouseY})
       currentCoordinateCount = currentCoordinateCount + 1
 
     end
@@ -727,6 +744,10 @@ local function createZonePolygon(polygonData, zoneInfo, isDebug)
 
   local polygonID = "blobHitbox-"..zoneInfo.zoneID.."-"..zoneInfo.zoneName
 
+
+
+
+
   if (WINDOW_MANAGER:GetControlByName(polygonID) == nil) then
 
 
@@ -759,6 +780,13 @@ local function createZonePolygon(polygonData, zoneInfo, isDebug)
   
   
     polygon:SetMouseEnabled(true)
+
+    polygon:SetHandler("OnMouseDown", function()
+
+      ZO_WorldMap_MouseDown(MOUSE_BUTTON_INDEX_LEFT)
+
+    end)
+    polygon:SetHandler("OnMouseUp", ZO_WorldMap_MouseUp)
   
   
     polygon:SetHandler("OnMouseEnter", function()
@@ -789,17 +817,13 @@ end
 
 local function recordPolygon()
 
-
-
-
-
   if recordCoordinates == true then
     d("Coordinates recorded.")
 
-    createZonePolygon(polygonData)
+    createZonePolygon(newPolygonData)
 
 
-    polygonData = {}
+    newPolygonData = {}
     currentCoordinateCount = 0
     recordCoordinates = false
   end
@@ -893,6 +917,8 @@ local function getBlobTextureDetails()
         end
 
       end
+
+      AccurateWorldMapTLC:SetHidden(true) 
     end
   end
 end
@@ -926,7 +952,7 @@ local function OnAddonLoaded(event, addonName)
     getBlobTextureDetails()
 
     -- comment these two to hide the control
-    AccurateWorldMapTLC:SetHidden(true) 
+    AccurateWorldMapTLC:SetAlpha(0)
 
     
     
