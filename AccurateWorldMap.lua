@@ -85,7 +85,7 @@ mapData = {
 
   [27] = { -- Tamriel World Map
 
-    isExclusive = true, -- TODO: Change this while getting clicking on custom zones to work
+    isExclusive = false, -- TODO: Change this while getting clicking on custom zones to work
         
     -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
     -- ██░▄▄▄░██░█▀▄██░███░██░▄▄▀█▄░▄██░▄▀▄░██
@@ -95,7 +95,29 @@ mapData = {
     -- [x] = { xN = x, yN = y }, -- 
 
     -- Bleakrock Isle --
+
     [172] = { xN = 0.613, yN = 0.236 }, -- Bleakrock Isle Wayshrine
+
+    zoneData = hackyJoin({
+      zoneName = "Bleakrock Isle",
+      zoneID = 74,
+      xN = "0.603",
+      yN = "0.227",
+      zonePolygonData = {
+        { xN = 0.625, yN = 0.234 },
+        { xN = 0.622, yN = 0.241 },
+        { xN = 0.619, yN = 0.245 },
+        { xN = 0.615, yN = 0.246 },
+        { xN = 0.610, yN = 0.247 },
+        { xN = 0.606, yN = 0.242 },
+        { xN = 0.602, yN = 0.238 },
+        { xN = 0.601, yN = 0.231 },
+        { xN = 0.605, yN = 0.226 },
+        { xN = 0.612, yN = 0.225 },
+        { xN = 0.619, yN = 0.227 },
+        { xN = 0.622, yN = 0.231 },
+      }
+    }),
 
     -- Eastmarch --
 
@@ -538,7 +560,6 @@ local function getZoneIDFromPolygonName(polygonName)
 end
 
 
-
 -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
 -- ██░▄▄▄░██░▄▄▄░██░▄▄▄░████░▄▄▄██░██░██░▀██░██░▄▄▀█▄▄░▄▄█▄░▄██░▄▄▄░██░▀██░██░▄▄▄░██
 -- ██▀▀▀▄▄██░███░██▄▄▄▀▀████░▄▄███░██░██░█░█░██░██████░████░███░███░██░█░█░██▄▄▄▀▀██
@@ -558,16 +579,14 @@ GetMapMouseoverInfo = function(xN, yN)
   local locXN = 0
   local locYN = 0
 
-
+  -- if the current map is not set to exclusive, or we don't have any data for it, get vanilla values
   if (isExclusive == false or mapData[mapIndex] == nil) then
     locationName, textureFile, widthN, heightN, locXN, locYN = zos_GetMapMouseoverInfo(xN, yN)
-
   end
 
   if (mapData[mapIndex] ~= nil) then
 
     if (isInBlobHitbox) then 
-
 
         locationName = currentZoneInfo.zoneName
         textureFile = currentZoneInfo.blobTexture
@@ -681,10 +700,6 @@ local function clickListener()
 
 
 end
-
-
-
-
 
 
 
@@ -817,13 +832,16 @@ local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
       currentZoneInfo = getZoneInfoByID(getZoneIDFromPolygonName(polygon:GetName()))
     end)
     polygon:SetHandler("OnMouseExit", function()
-      print("User has left zone hitbox")
-      isInBlobHitbox = false
-  
-  
-  
-      -- make sure the user has actually left the hitbox and is not just hovering over a wayshrine or something
-      currentZoneInfo = {}
+
+      -- check to make sure that the user has actually left the hitbox, and is not just hovering over a wayshrine
+
+      if (WINDOW_MANAGER:GetMouseOverControl():GetName() ~= polygon:GetName()) then
+        print("User has left zone hitbox")
+        isInBlobHitbox = false
+        currentZoneInfo = {}
+
+      end
+
     end)
 
   
@@ -974,7 +992,8 @@ local function OnAddonLoaded(event, addonName)
     getBlobTextureDetails()
 
     -- comment these two to hide the control
-    AccurateWorldMapTLC:SetAlpha(0)
+    AccurateWorldMapTLC:SetAlpha(1)
+    AccurateWorldMapTLC:SetHidden(false)
 
     
     

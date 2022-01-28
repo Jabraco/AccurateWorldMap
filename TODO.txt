@@ -1,4 +1,31 @@
 
+- stop hitbox from being deselected when merely above wayshrine above a zone
+
+
+
+- add notebook utility to spam polygon coords to textbox so you can easily copy paste
+
+
+- update zoneinfo checker so that it isn't reliant on texture info and both normalised coords  to do anything
+
+
+- update print function to only print out if isDebug is enabled
+
+
+- remove AWM options panel and dependency if you're not using it
+
+
+- if mouse click , check if can click, if so, change map to that zone
+
+
+
+
+
+
+
+
+
+
 
 
 * EVENT_SHOW_WORLD_MAP
@@ -16,39 +43,8 @@
 * EVENT_QUEST_ADVANCED (*luaindex* _journalIndex_, *string* _questName_, *bool* _isPushed_, *bool* _isComplete_, *bool* _mainStepChanged_)
 * EVENT_QUEST_COMPLETE (*string* _questName_, *integer* _level_, *integer* _previousExperience_, *integer* _currentExperience_, *integer* _championPoints_, *[QuestType|#QuestType]* _questType_, *[InstanceDisplayType|#InstanceDisplayType]* _instanceDisplayType_)
 
-- merge wayshrinedata and zoneblob data into one big structure called mapData
-
-- add an event on map change to iterate through this list
-
-- check if the current map id is in mapData, if it is, go inside
-
-- does wayshrineData exist for this map? if yes, iterate through that
-
-- does zoneData exist for this map? if yes, iterate through that
-
-- blob data has an Exclusive attribute which defines whether the custom blobs defined here should prevent the vanilla ones from working, or 
-is additive
-
-if mapData[mapID].zoneData != nil then...
 
 
-
-
-- use normal polygon or controls to make polygons anchored to the map
-
-- extract zone polygons
-
-
-
-
-
-- put names of zones in the zone data, "Bleakrock Isle"
-
-- split zone data between worldspace maps (1 and 0)
-
-- send current coordinates of mouse to function
-
-- if mouse click , check if can click, if so, change map to that zone
 
 
 
