@@ -83,7 +83,7 @@ local isExclusive = false
 
 mapData = {
 
-  [1] = { -- Tamriel World Map
+  [27] = { -- Tamriel World Map
         
     -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
     -- ██░▄▄▄░██░█▀▄██░███░██░▄▄▀█▄░▄██░▄▀▄░██
@@ -115,7 +115,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Eastmarch",
-      zoneID = 13,
+      zoneID = 61,
       xN = "0.521",
       yN = "0.235",
       zonePolygonData = {
@@ -436,9 +436,9 @@ mapData = {
 
   },
 
-  [24] = {}, -- Aurbis Map (nothing here, for now)
+  [439] = {}, -- Aurbis Map (nothing here, for now)
 
-  [14] = {  -- Cyrodiil PVP Map --
+  [16] = {  -- Cyrodiil PVP Map --
     [202] = { name = "Northern Morrowind Gate Wayshrine" }, -- Northern Morrowind Wayshrine
     [203] = { name = "Southern Morrowind Gate Wayshrine" }, -- Southern Morrowind Wayshrine
     [170] = { name = "Northern Hammerfell Gate Wayshrine" }, -- Northern Hammerfell Wayshrine
@@ -449,7 +449,7 @@ mapData = {
     [247] = { xN = 0.497, yN = 0.428 }, -- White Gold Tower Dungeon
   },
 
-  [38] = { -- Western Skyrim Map 
+  [1719] = { -- Western Skyrim Map 
     [434] = { xN = 0.442, yN = 0.193 }, -- Kyne's Aegis
   },
 }
@@ -500,7 +500,7 @@ end
 
 local function getCurrentZoneID()
 
-  local zoneID = GetCurrentMapIndex()
+  local zoneID = GetCurrentMapId()
 
   if (zoneID == nil) then
 
@@ -963,7 +963,7 @@ local function OnAddonLoaded(event, addonName)
 
 
     SLASH_COMMANDS["/awm_debug"] = toggleDebugOutput
-    SLASH_COMMANDS["/map_index"] = printCurrentMapIndex
+    SLASH_COMMANDS["/get_map_id"] = function() print(tostring(GetCurrentMapId())) end
     SLASH_COMMANDS["/zones_debug"] = initialise
     SLASH_COMMANDS["/record_polygon"] = recordPolygon
     SLASH_COMMANDS["/get_blobs"] = getBlobTextureDetails
@@ -994,8 +994,6 @@ local function onZoneChanged()
   print("Zone changed!")
 
 
-  print(getFileDirectoryFromZoneName("Summerset Isles"))
-
 
   -- TODO: Delete any existing controls on the world map before iterating over anything else
 
@@ -1013,7 +1011,7 @@ local function onZoneChanged()
   if (mapIndex ~= nil) then
 
 
-    print("Current map index: ".. mapIndex)
+    print("Current map id: ".. mapIndex)
 
 
     -- Check if the current zone/map has any custom map data set to it
