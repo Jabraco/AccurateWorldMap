@@ -694,6 +694,24 @@ end
 
     
 
+local function onMouseUp()
+
+  if (isInBlobHitbox and currentZoneInfo ~= nil) then
+
+
+    if (currentPolygon ~= nil) then
+      print("go to zone")
+      currentPolygon = nil
+      isInBlobHitbox = false
+
+      SetMapToMapId(currentZoneInfo.zoneID)
+      currentZoneInfo = {}
+      CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
+    end
+
+  end
+end
+
 -- function to check if the mouse cursor is within or over the map window
 local function isMouseWithinMapWindow()
   local mouseOverControl = WINDOW_MANAGER:GetMouseOverControl()
@@ -838,29 +856,14 @@ local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
       polygon:SetCenterColor(0, 0, 0, 0)
     end
     
-  
-  
-  
     polygon:SetMouseEnabled(true)
-
     polygon:SetHandler("OnMouseDown", function()
-
-
-      mouseDownOnPolygon = true
-      ZO_WorldMap_MouseDown(MOUSE_BUTTON_INDEX_LEFT)
-
+      currentPolygon = polygon
+      ZO_WorldMap_MouseDown(MOUSE_BUTTON_INDEX_LEFT, IsControlKeyDown(), IsAltKeyDown(), IsShiftKeyDown())    
     end)
-    polygon:SetHandler("OnMouseUp", function()
 
-      -- travel to zone
-
-
-      ZO_WorldMap_MouseUp(MOUSE_BUTTON_INDEX_LEFT)
+    polygon:SetHandler("OnMouseUp", ZO_WorldMap_MouseUp)
       
-    end)
-      
-      
-  
   
     polygon:SetHandler("OnMouseEnter", function()
       isInBlobHitbox = true
@@ -1136,12 +1139,18 @@ end
 
 
 
+
+
 -- Registering events and callbacks
 LAM:RegisterOptionControls(panelName, optionsData)
 EVENT_MANAGER:RegisterForEvent(addon.name, EVENT_ADD_ON_LOADED, OnAddonLoaded)
+EVENT_MANAGER:RegisterForEvent("onMouseUp", EVENT_GLOBAL_MOUSE_UP, onMouseUp)
 EVENT_MANAGER:RegisterForEvent("Click Listener", EVENT_GLOBAL_MOUSE_DOWN, clickListener)
 EVENT_MANAGER:RegisterForUpdate("uniqueName", 0, checkIfCanTick)
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", onZoneChanged)
+
+
+
 
 
 
