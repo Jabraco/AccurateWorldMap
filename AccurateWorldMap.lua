@@ -38,7 +38,7 @@ local normalisedMouseY = 0
 
 local recordCoordinates = false
 
-local tickInterval = 150 --milliseconds
+local mouseDownOnPolygon = false
 
 
 local enabled = true
@@ -59,6 +59,7 @@ local panelData = {
 
 local currentCoordinateCount = 0
 
+local currentPolygon = nil
 local polygonData = {}
 local newPolygonData = {}
 
@@ -85,7 +86,7 @@ mapData = {
 
   [27] = { -- Tamriel World Map
 
-    isExclusive = false, -- TODO: Change this while getting clicking on custom zones to work
+    isExclusive = true,
         
     -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
     -- ██░▄▄▄░██░█▀▄██░███░██░▄▄▀█▄░▄██░▄▀▄░██
@@ -334,6 +335,28 @@ mapData = {
     [334] = { xN = 0.725, yN = 0.374 }, -- Amanya Lake Lodge House
     [335] = { xN = 0.673, yN = 0.269 }, -- Ald Velothi Harbour House
     [465] = { xN = 0.718, yN = 0.261 }, -- Kushalit Sanctuary House
+
+    -- Firemoth Island --
+
+    zoneData = hackyJoin({
+      zoneName = "Firemoth Island",
+      zoneID = 1313,
+      xN = "0.674",
+      yN = "0.381",
+      zonePolygonData = {
+        { xN = 0.682, yN = 0.403 },
+        { xN = 0.688, yN = 0.399 },
+        { xN = 0.694, yN = 0.394 },
+        { xN = 0.696, yN = 0.387 },
+        { xN = 0.694, yN = 0.380 },
+        { xN = 0.686, yN = 0.379 },
+        { xN = 0.679, yN = 0.383 },
+        { xN = 0.676, yN = 0.387 },
+        { xN = 0.672, yN = 0.396 },
+        { xN = 0.674, yN = 0.400 },
+        { xN = 0.678, yN = 0.402 },
+      }
+    }),
 
 
     -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
@@ -703,12 +726,9 @@ end
 
 
 
+
+
 local function mapTick()
-
-
-
-  --print(currentlySelectedBlobName)
-
 
   local mouseX, mouseY = GetUIMousePosition()
 
@@ -721,19 +741,27 @@ local function mapTick()
 
   normalisedMouseX = math.floor((((mouseX - currentOffsetX) / mapWidth) * 1000) + 0.5)/1000
   normalisedMouseY = math.floor((((mouseY - currentOffsetY) / mapHeight) * 1000) + 0.5)/1000
-  local xStr = string.format("%.03f", normalisedMouseX)
-  local yStr = string.format("%.03f", normalisedMouseY)
-
-  --print("Coordinates: " .. tostring(xStr) .. ", " .. tostring(yStr))
 
 
-  --print(MouseIsOver(normalisedMouseX, normalisedMouseY))
 
-  if IsControlKeyDown() then
-    print("CONTROL IS DOWN!")
+  if (currentPolygon ~= nil) then
+
+    -- check to make sure that the user has actually left the hitbox, and is not just hovering over a wayshrine
+    if (currentPolygon:IsPointInside(mouseX , mouseY)) then
+
+      --print("still in hitbox!")
+
+
+    else
+
+      --print("left hitbox!")
+      isInBlobHitbox = false
+      currentPolygon = nil
+      currentZoneInfo = {}
+
+    end
 
   end
-
 
 end
 
@@ -817,33 +845,31 @@ local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
 
     polygon:SetHandler("OnMouseDown", function()
 
+
+      mouseDownOnPolygon = true
       ZO_WorldMap_MouseDown(MOUSE_BUTTON_INDEX_LEFT)
 
     end)
-    polygon:SetHandler("OnMouseUp", ZO_WorldMap_MouseUp)
+    polygon:SetHandler("OnMouseUp", function()
+
+      -- travel to zone
+
+
+      ZO_WorldMap_MouseUp(MOUSE_BUTTON_INDEX_LEFT)
+      
+    end)
+      
+      
   
   
     polygon:SetHandler("OnMouseEnter", function()
       isInBlobHitbox = true
-      print("User has entered zone hitbox")
+      --print("User has entered zone hitbox")
+      currentPolygon = polygon
   
       -- update with current zone info
-  
       currentZoneInfo = getZoneInfoByID(getZoneIDFromPolygonName(polygon:GetName()))
     end)
-    polygon:SetHandler("OnMouseExit", function()
-
-      -- check to make sure that the user has actually left the hitbox, and is not just hovering over a wayshrine
-
-      if (WINDOW_MANAGER:GetMouseOverControl():GetName() ~= polygon:GetName()) then
-        print("User has left zone hitbox")
-        isInBlobHitbox = false
-        currentZoneInfo = {}
-
-      end
-
-    end)
-
   
   else 
     -- it already exists, we just need to show it again
@@ -1114,7 +1140,7 @@ end
 LAM:RegisterOptionControls(panelName, optionsData)
 EVENT_MANAGER:RegisterForEvent(addon.name, EVENT_ADD_ON_LOADED, OnAddonLoaded)
 EVENT_MANAGER:RegisterForEvent("Click Listener", EVENT_GLOBAL_MOUSE_DOWN, clickListener)
-EVENT_MANAGER:RegisterForUpdate("uniqueName", tickInterval, checkIfCanTick)
+EVENT_MANAGER:RegisterForUpdate("uniqueName", 0, checkIfCanTick)
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", onZoneChanged)
 
 

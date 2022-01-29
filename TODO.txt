@@ -1,6 +1,6 @@
 
-- stop hitbox from being deselected when merely above wayshrine above a zone
-
+- when mousedown on polygon, bool mouseDownOnPolygon true
+- when moouse up on polygon, bool mouseDownOnPolygon false and change map
 
 
 - add notebook utility to spam polygon coords to textbox so you can easily copy paste
