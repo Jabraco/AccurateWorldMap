@@ -340,7 +340,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Firemoth Island",
-      zoneID = 1313,
+      zoneID = 1248,
       xN = "0.674",
       yN = "0.381",
       zonePolygonData = {
@@ -589,6 +589,55 @@ end
 -- ██░▀▀▀░██░▀▀▀░██░▀▀▀░████░█████▄▀▀▄██░██▄░██░▀▀▄███░███▀░▀██░▀▀▀░██░██▄░██░▀▀▀░██
 -- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
 
+
+
+
+
+
+
+-- * WouldProcessMapClick(*number* _normalizedClickX_, *number* _normalizedClickY_)
+-- ** _Returns:_ *bool* _wouldProcess_, *luaindex:nilable* _resultingMapIndex_
+
+local zos_WouldProcessMapClick = WouldProcessMapClick
+WouldProcessMapClick = function(xN, yN)
+  local wouldProcess, resultingMapIndex = zos_WouldProcessMapClick(xN, yN)
+
+  -- check if we are currently hovering over a custom polygon
+  if (isInBlobHitbox and currentZoneInfo ~= nil) then
+    wouldProcess = false
+    resultingMapIndex = currentZoneInfo.zoneID
+  end
+
+  if (isExclusive) then
+    wouldProcess = false
+    resultingMapIndex = 0
+  end
+
+  return wouldProcess, resultingMapIndex
+end
+
+
+-- * ProcessMapClick(*number* _normalizedClickX_, *number* _normalizedClickY_)
+-- ** _Returns:_ *[SetMapResultCode|#SetMapResultCode]* _setMapResult_
+
+local zos_ProcessMapClick = ProcessMapClick
+ProcessMapClick = function(xN, yN)
+
+  local setMapResult = zos_ProcessMapClick(xN, yN)
+
+    -- check if we are currently hovering over a custom polygon
+    if (isInBlobHitbox and currentZoneInfo ~= nil) then
+      setMapResult = SET_MAP_RESULT_CURRENT_MAP_UNCHANGED
+    end
+  
+    if (isExclusive) then
+      setMapResult = SET_MAP_RESULT_CURRENT_MAP_UNCHANGED
+    end
+
+  return setMapResult
+
+end
+
 local zos_GetMapMouseoverInfo = GetMapMouseoverInfo
 GetMapMouseoverInfo = function(xN, yN)
 
@@ -673,34 +722,14 @@ GetFastTravelNodeInfo = function(nodeIndex)
   return known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked, disabled
 
 end
-
-local zos_ProcessMapClick = ProcessMapClick    
-ProcessMapClick = function(x, y)
-  local resultingMapIndex = zos_ProcessMapClick(x, y)
-
-
-  print(tostring(resultingMapIndex))
-
-
-  -- check 
-  -- if isExclusive is true
-
-
-
-  return resultingMapIndex
-  
-end
-
-
     
 
-local function onMouseUp()
+local function onMouseReleased()
 
   if (isInBlobHitbox and currentZoneInfo ~= nil) then
 
 
     if (currentPolygon ~= nil) then
-      print("go to zone")
       currentPolygon = nil
       isInBlobHitbox = false
 
@@ -1013,6 +1042,19 @@ local function cleanUpZoneBlobs()
 
 end
 
+
+local function setMapTo(int)
+
+  currentPolygon = nil
+  isInBlobHitbox = false
+
+  SetMapToMapId(int)
+  currentZoneInfo = {}
+  CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
+
+end
+
+
 local function OnAddonLoaded(event, addonName)
     if addonName ~= addon.name then return end
     EVENT_MANAGER:UnregisterForEvent(addon.name, EVENT_ADD_ON_LOADED)
@@ -1038,6 +1080,7 @@ local function OnAddonLoaded(event, addonName)
     SLASH_COMMANDS["/record_polygon"] = recordPolygon
     SLASH_COMMANDS["/get_blobs"] = getBlobTextureDetails
     SLASH_COMMANDS["/get_controls"] = cleanUpZoneBlobs
+    SLASH_COMMANDS["/set_map_to"] = setMapTo
 
   --   SLASH_COMMANDS["/joke"] = function() 
   --     d(GetRandomElement(jokes)) 
@@ -1144,7 +1187,7 @@ end
 -- Registering events and callbacks
 LAM:RegisterOptionControls(panelName, optionsData)
 EVENT_MANAGER:RegisterForEvent(addon.name, EVENT_ADD_ON_LOADED, OnAddonLoaded)
-EVENT_MANAGER:RegisterForEvent("onMouseUp", EVENT_GLOBAL_MOUSE_UP, onMouseUp)
+EVENT_MANAGER:RegisterForEvent("onMouseUp", EVENT_GLOBAL_MOUSE_UP, onMouseReleased)
 EVENT_MANAGER:RegisterForEvent("Click Listener", EVENT_GLOBAL_MOUSE_DOWN, clickListener)
 EVENT_MANAGER:RegisterForUpdate("uniqueName", 0, checkIfCanTick)
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", onZoneChanged)
