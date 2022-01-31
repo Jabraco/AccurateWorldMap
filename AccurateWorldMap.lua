@@ -105,7 +105,6 @@ mapData = {
 
 
     -- Bleakrock Isle --
-
     [172] = { xN = 0.613, yN = 0.236 }, -- Bleakrock Isle Wayshrine
 
     zoneData = hackyJoin({
@@ -130,7 +129,6 @@ mapData = {
     }),
 
     -- Eastmarch --
-
     [87] = { xN = 0.585, yN = 0.258 }, -- Windhelm Wayshrine
     [88] = { xN = 0.567, yN = 0.281 }, -- Fort Morvunskar Wayshrine
     [89] = { xN = 0.581, yN = 0.279 }, -- Kynesgrove Wayshrine
@@ -211,15 +209,118 @@ mapData = {
     [372] = { xN = 0.609, yN = 0.354 }, -- Hunter's Glade House 
     [301] = { xN = 0.556, yN = 0.341 }, -- Autumn's Gate House 
 
-    -- Western Skyrim --
+    zoneData = hackyJoin({
+      zoneName = "The Rift",
+      zoneID = 125,
+      xN = "0.508",
+      yN = "0.321",
+      zonePolygonData = {
+        { xN = 0.528, yN = 0.322 },
+        { xN = 0.535, yN = 0.327 },
+        { xN = 0.552, yN = 0.333 },
+        { xN = 0.559, yN = 0.333 },
+        { xN = 0.570, yN = 0.333 },
+        { xN = 0.582, yN = 0.333 },
+        { xN = 0.592, yN = 0.332 },
+        { xN = 0.598, yN = 0.329 },
+        { xN = 0.605, yN = 0.327 },
+        { xN = 0.613, yN = 0.328 },
+        { xN = 0.618, yN = 0.325 },
+        { xN = 0.624, yN = 0.325 },
+        { xN = 0.623, yN = 0.329 },
+        { xN = 0.621, yN = 0.333 },
+        { xN = 0.621, yN = 0.340 },
+        { xN = 0.629, yN = 0.346 },
+        { xN = 0.628, yN = 0.358 },
+        { xN = 0.628, yN = 0.365 },
+        { xN = 0.629, yN = 0.374 },
+        { xN = 0.632, yN = 0.379 },
+        { xN = 0.630, yN = 0.386 },
+        { xN = 0.628, yN = 0.392 },
+        { xN = 0.626, yN = 0.398 },
+        { xN = 0.620, yN = 0.399 },
+        { xN = 0.614, yN = 0.403 },
+        { xN = 0.608, yN = 0.404 },
+        { xN = 0.604, yN = 0.406 },
+        { xN = 0.599, yN = 0.406 },
+        { xN = 0.595, yN = 0.403 },
+        { xN = 0.587, yN = 0.402 },
+        { xN = 0.578, yN = 0.400 },
+        { xN = 0.570, yN = 0.403 },
+        { xN = 0.562, yN = 0.403 },
+        { xN = 0.557, yN = 0.398 },
+        { xN = 0.546, yN = 0.397 },
+        { xN = 0.540, yN = 0.396 },
+        { xN = 0.530, yN = 0.393 },
+        { xN = 0.531, yN = 0.387 },
+        { xN = 0.529, yN = 0.378 },
+        { xN = 0.523, yN = 0.373 },
+        { xN = 0.518, yN = 0.357 },
+        { xN = 0.520, yN = 0.352 },
+        { xN = 0.519, yN = 0.344 },
+        { xN = 0.516, yN = 0.339 },
+        { xN = 0.520, yN = 0.329 },
+        { xN = 0.526, yN = 0.322 },
+      }
+    }),
 
+    -- Western Skyrim --
     [424] = { xN = 0.404, yN = 0.157 }, -- Icereach Dungeon
     [434] = { xN = 0.408, yN = 0.186 }, -- Kyne's Aegis Trial
 
-    -- Greyhome --
-
     zoneData = hackyJoin({
-      zoneName = "Greyhome",
+      zoneName = "Western Skyrim",
+      zoneID = 1719,
+      xN = "0.352",
+      yN = "0.166",
+      zonePolygonData = {
+        { xN = 0.464, yN = 0.279 },
+        { xN = 0.469, yN = 0.273 },
+        { xN = 0.468, yN = 0.270 },
+        { xN = 0.477, yN = 0.253 },
+        { xN = 0.473, yN = 0.234 },
+        { xN = 0.478, yN = 0.221 },
+        { xN = 0.476, yN = 0.213 },
+        { xN = 0.478, yN = 0.210 },
+        { xN = 0.471, yN = 0.207 },
+        { xN = 0.469, yN = 0.197 },
+        { xN = 0.464, yN = 0.198 },
+        { xN = 0.444, yN = 0.205 },
+        { xN = 0.437, yN = 0.203 },
+        { xN = 0.436, yN = 0.190 },
+        { xN = 0.435, yN = 0.185 },
+        { xN = 0.420, yN = 0.182 },
+        { xN = 0.411, yN = 0.179 },
+        { xN = 0.405, yN = 0.180 },
+        { xN = 0.387, yN = 0.183 },
+        { xN = 0.384, yN = 0.178 },
+        { xN = 0.349, yN = 0.192 },
+        { xN = 0.354, yN = 0.221 },
+        { xN = 0.358, yN = 0.234 },
+        { xN = 0.352, yN = 0.244 },
+        { xN = 0.358, yN = 0.247 },
+        { xN = 0.361, yN = 0.251 },
+        { xN = 0.367, yN = 0.250 },
+        { xN = 0.369, yN = 0.256 },
+        { xN = 0.373, yN = 0.257 },
+        { xN = 0.377, yN = 0.261 },
+        { xN = 0.382, yN = 0.259 },
+        { xN = 0.387, yN = 0.266 },
+        { xN = 0.384, yN = 0.272 },
+        { xN = 0.387, yN = 0.282 },
+        { xN = 0.397, yN = 0.284 },
+        { xN = 0.406, yN = 0.281 },
+        { xN = 0.418, yN = 0.277 },
+        { xN = 0.429, yN = 0.270 },
+        { xN = 0.448, yN = 0.270 },
+        { xN = 0.448, yN = 0.274 },
+        { xN = 0.460, yN = 0.279 },
+      }
+    }),
+
+    -- Grayhome --
+    zoneData = hackyJoin({
+      zoneName = "Grayhome",
       zoneID = 1864,
       xN = "0.242",
       yN = "0.125",
@@ -236,7 +337,6 @@ mapData = {
     }),
 
     -- Icereach --
-
     zoneData = hackyJoin({
       zoneName = "Icereach",
       zoneID = 1737,
@@ -313,6 +413,23 @@ mapData = {
     [182] = { xN = 0.074, yN = 0.435 }, -- Grimfield Wayshrine 
     [181] = { xN = 0.082, yN = 0.436 }, -- Stonetooth Wayshrine
     [183] = { xN = 0.082, yN = 0.444 }, -- Carved Hills Wayshrine
+
+    zoneData = hackyJoin({
+      zoneName = "Balfiera",
+      zoneID = 1997,
+      xN = "0.136",
+      yN = "0.331",
+      zonePolygonData = {
+        { xN = 0.137, yN = 0.341 },
+        { xN = 0.142, yN = 0.345 },
+        { xN = 0.143, yN = 0.350 },
+        { xN = 0.158, yN = 0.354 },
+        { xN = 0.159, yN = 0.343 },
+        { xN = 0.152, yN = 0.340 },
+        { xN = 0.149, yN = 0.342 },
+        { xN = 0.139, yN = 0.336 },
+      }
+    }),
 
 
     -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
@@ -450,7 +567,6 @@ mapData = {
     }),
 
     -- Firemoth Island --
-
     zoneData = hackyJoin({
       zoneName = "Firemoth Island",
       zoneID = 1248,
@@ -470,6 +586,73 @@ mapData = {
         { xN = 0.678, yN = 0.402 },
       }
     }),
+
+    -- Stonefalls --
+    zoneData = hackyJoin({
+      zoneName = "Stonefalls",
+      zoneID = 7,
+      xN = "0.663",
+      yN = "0.397",
+      zonePolygonData = {
+        { xN = 0.678, yN = 0.406 },
+        { xN = 0.682, yN = 0.405 },
+        { xN = 0.688, yN = 0.400 },
+        { xN = 0.697, yN = 0.398 },
+        { xN = 0.702, yN = 0.403 },
+        { xN = 0.707, yN = 0.407 },
+        { xN = 0.711, yN = 0.406 },
+        { xN = 0.711, yN = 0.412 },
+        { xN = 0.720, yN = 0.419 },
+        { xN = 0.719, yN = 0.426 },
+        { xN = 0.717, yN = 0.433 },
+        { xN = 0.715, yN = 0.437 },
+        { xN = 0.726, yN = 0.448 },
+        { xN = 0.731, yN = 0.447 },
+        { xN = 0.736, yN = 0.441 },
+        { xN = 0.732, yN = 0.433 },
+        { xN = 0.733, yN = 0.428 },
+        { xN = 0.738, yN = 0.423 },
+        { xN = 0.743, yN = 0.428 },
+        { xN = 0.746, yN = 0.435 },
+        { xN = 0.764, yN = 0.425 },
+        { xN = 0.773, yN = 0.420 },
+        { xN = 0.781, yN = 0.419 },
+        { xN = 0.793, yN = 0.423 },
+        { xN = 0.796, yN = 0.428 },
+        { xN = 0.797, yN = 0.434 },
+        { xN = 0.795, yN = 0.438 },
+        { xN = 0.795, yN = 0.443 },
+        { xN = 0.794, yN = 0.447 },
+        { xN = 0.794, yN = 0.453 },
+        { xN = 0.796, yN = 0.454 },
+        { xN = 0.786, yN = 0.461 },
+        { xN = 0.783, yN = 0.467 },
+        { xN = 0.783, yN = 0.475 },
+        { xN = 0.773, yN = 0.478 },
+        { xN = 0.764, yN = 0.479 },
+        { xN = 0.751, yN = 0.487 },
+        { xN = 0.745, yN = 0.485 },
+        { xN = 0.737, yN = 0.488 },
+        { xN = 0.730, yN = 0.489 },
+        { xN = 0.720, yN = 0.486 },
+        { xN = 0.701, yN = 0.491 },
+        { xN = 0.695, yN = 0.485 },
+        { xN = 0.685, yN = 0.484 },
+        { xN = 0.679, yN = 0.473 },
+        { xN = 0.674, yN = 0.471 },
+        { xN = 0.672, yN = 0.463 },
+        { xN = 0.668, yN = 0.460 },
+        { xN = 0.668, yN = 0.453 },
+        { xN = 0.671, yN = 0.449 },
+        { xN = 0.668, yN = 0.440 },
+        { xN = 0.669, yN = 0.436 },
+        { xN = 0.674, yN = 0.431 },
+        { xN = 0.675, yN = 0.426 },
+        { xN = 0.675, yN = 0.415 },
+        { xN = 0.677, yN = 0.406 },        
+      }
+    }),
+
 
 
     -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
@@ -1077,7 +1260,7 @@ local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
 
           print(tostring(deltaX))
 
-          if (deltaX <= 15 and deltaX <= 15) then
+          if (deltaX <= 10 and deltaX <= 10) then
 
             currentPolygon = nil
             isInBlobHitbox = false
