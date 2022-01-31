@@ -103,6 +103,7 @@ mapData = {
     -- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
     -- [x] = { xN = x, yN = y }, -- 
 
+
     -- Bleakrock Isle --
 
     [172] = { xN = 0.613, yN = 0.236 }, -- Bleakrock Isle Wayshrine
@@ -211,8 +212,48 @@ mapData = {
     [301] = { xN = 0.556, yN = 0.341 }, -- Autumn's Gate House 
 
     -- Western Skyrim --
+
     [424] = { xN = 0.404, yN = 0.157 }, -- Icereach Dungeon
     [434] = { xN = 0.408, yN = 0.186 }, -- Kyne's Aegis Trial
+
+    -- Greyhome --
+
+    zoneData = hackyJoin({
+      zoneName = "Greyhome",
+      zoneID = 1864,
+      xN = "0.242",
+      yN = "0.125",
+      zonePolygonData = {
+        { xN = 0.247, yN = 0.144 },
+        { xN = 0.254, yN = 0.144 },
+        { xN = 0.261, yN = 0.136 },
+        { xN = 0.258, yN = 0.126 },
+        { xN = 0.248, yN = 0.122 },
+        { xN = 0.241, yN = 0.126 },
+        { xN = 0.239, yN = 0.134 },
+        { xN = 0.243, yN = 0.140 },
+      }
+    }),
+
+    -- Icereach --
+
+    zoneData = hackyJoin({
+      zoneName = "Icereach",
+      zoneID = 1737,
+      xN = "0.390",
+      yN = "0.146",
+      zonePolygonData = {
+        { xN = 0.389, yN = 0.164 },
+        { xN = 0.398, yN = 0.166 },
+        { xN = 0.410, yN = 0.165 },
+        { xN = 0.417, yN = 0.162 },
+        { xN = 0.420, yN = 0.155},
+        { xN = 0.414, yN = 0.150 },
+        { xN = 0.397, yN = 0.151 },
+        { xN = 0.386, yN = 0.152 },
+        { xN = 0.386, yN = 0.159 },
+      }
+    }),
 
     -- The Reach --
     [445] = { xN = 0.377, yN = 0.270 }, -- Karthwasten Wayshrine
@@ -951,11 +992,10 @@ local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
 
           print(tostring(deltaX))
 
-          if (deltaX <= 20 and deltaX <= 20) then
+          if (deltaX <= 15 and deltaX <= 15) then
 
             currentPolygon = nil
             isInBlobHitbox = false
-
       
             SetMapToMapId(currentZoneInfo.zoneID)
             currentZoneInfo = {}

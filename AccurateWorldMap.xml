@@ -5,20 +5,14 @@
     	<Controls>
 				<Texture name="AWM_TextureControl" textureFile="/esoui/art/miscellaneous/horizontaldivider.dds" tier="HIGH" resizeToFitFile="true"></Texture>
     	</Controls>
-
     </TopLevelControl>
-
 
     <TopLevelControl name="AWM_Notebook" mouseEnabled="true" movable="true" clampedToScreen="true">
       <Dimensions x="200" y="25" />
       <Anchor point="BOTTOM" relativeTo="GuiRoot" relativePoint="CENTER" offsetY="-20" />
       <OnInitialized>
-          AWM_Notebook:SetHidden(false)
-      </OnInitialized>
-      <OnMoveStop>
-        -- FooAddon.OnIndicatorMoveStop()
-      </OnMoveStop>
- 
+          AWM_Notebook:SetHidden(true)
+      </OnInitialized> 
       <Controls>
         <Label name="$(parent)Label" width="200" height="25" font="ZoFontWinH1" inheritAlpha="true" color="FF0000"
             wrapMode="TRUNCATE" verticalAlignment="TOP" horizontalAlignment="CENTER" text="Fighting!">
