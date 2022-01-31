@@ -385,6 +385,70 @@ mapData = {
     [335] = { xN = 0.673, yN = 0.269 }, -- Ald Velothi Harbour House
     [465] = { xN = 0.718, yN = 0.261 }, -- Kushalit Sanctuary House
 
+    zoneData = hackyJoin({
+      zoneName = "Vvardenfell",
+      zoneID = 1060,
+      xN = "0.649",
+      yN = "0.219",
+      zonePolygonData = {
+        { xN = 0.712, yN = 0.218 },
+        { xN = 0.710, yN = 0.223 },
+        { xN = 0.712, yN = 0.228 },
+        { xN = 0.709, yN = 0.233 },
+        { xN = 0.704, yN = 0.232 },
+        { xN = 0.700, yN = 0.238 },
+        { xN = 0.691, yN = 0.249 },
+        { xN = 0.671, yN = 0.263 },
+        { xN = 0.660, yN = 0.270 },
+        { xN = 0.649, yN = 0.272 },
+        { xN = 0.649, yN = 0.276 },
+        { xN = 0.654, yN = 0.281 },
+        { xN = 0.664, yN = 0.296 },
+        { xN = 0.675, yN = 0.312 },
+        { xN = 0.681, yN = 0.333 },
+        { xN = 0.682, yN = 0.352 },
+        { xN = 0.688, yN = 0.367 },
+        { xN = 0.691, yN = 0.376 },
+        { xN = 0.698, yN = 0.379 },
+        { xN = 0.701, yN = 0.387 },
+        { xN = 0.713, yN = 0.395 },
+        { xN = 0.725, yN = 0.408 },
+        { xN = 0.730, yN = 0.413 },
+        { xN = 0.747, yN = 0.413 },
+        { xN = 0.757, yN = 0.415 },
+        { xN = 0.772, yN = 0.408 },
+        { xN = 0.783, yN = 0.405 },
+        { xN = 0.797, yN = 0.414 },
+        { xN = 0.805, yN = 0.413 },
+        { xN = 0.805, yN = 0.399 },
+        { xN = 0.808, yN = 0.391 },
+        { xN = 0.817, yN = 0.388 },
+        { xN = 0.822, yN = 0.389 },
+        { xN = 0.829, yN = 0.384 },
+        { xN = 0.825, yN = 0.343 },
+        { xN = 0.829, yN = 0.343 },
+        { xN = 0.832, yN = 0.322 },
+        { xN = 0.831, yN = 0.316 },
+        { xN = 0.820, yN = 0.305 },
+        { xN = 0.812, yN = 0.296 },
+        { xN = 0.803, yN = 0.294 },
+        { xN = 0.802, yN = 0.286 },
+        { xN = 0.801, yN = 0.281 },
+        { xN = 0.797, yN = 0.274 },
+        { xN = 0.801, yN = 0.271 },
+        { xN = 0.797, yN = 0.262 },
+        { xN = 0.787, yN = 0.262 },
+        { xN = 0.786, yN = 0.248 },
+        { xN = 0.788, yN = 0.243 },
+        { xN = 0.786, yN = 0.234 },
+        { xN = 0.768, yN = 0.234 },
+        { xN = 0.758, yN = 0.219 },
+        { xN = 0.736, yN = 0.219 },
+        { xN = 0.715, yN = 0.217 },
+        { xN = 0.710, yN = 0.220 },
+      }
+    }),
+
     -- Firemoth Island --
 
     zoneData = hackyJoin({
@@ -931,7 +995,21 @@ local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
     local polygon = ZO_WorldMapContainer:CreateControl(polygonID, CT_POLYGON)
     polygon:SetAnchorFill(ZO_WorldMapContainer)
 
+
+    local polygonCode = ""
+
+    if (isDebug) then
+      AWM_EditTextWindow:SetHidden(false)
+    end
+
+
     for key, data in pairs(polygonData) do
+
+      if (isDebug) then
+        polygonCode = polygonCode .. ("{ xN = "..string.format("%.03f", data.xN)..", yN = "..string.format("%.03f", data.yN).." },\n")  
+      end
+
+
       print(tostring("Coordinate set "..key .. ": "))
   
       print("X: "..tostring(data.xN))
@@ -942,6 +1020,13 @@ local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
   
   
     end
+
+    if (isDebug) then
+      AWM_EditTextTextBox:SetText(polygonCode)
+    end
+
+
+
   
   
     if (isDebug) then

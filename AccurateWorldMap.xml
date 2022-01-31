@@ -7,18 +7,25 @@
     	</Controls>
     </TopLevelControl>
 
-    <TopLevelControl name="AWM_Notebook" mouseEnabled="true" movable="true" clampedToScreen="true">
-      <Dimensions x="200" y="25" />
-      <Anchor point="BOTTOM" relativeTo="GuiRoot" relativePoint="CENTER" offsetY="-20" />
-      <OnInitialized>
-          AWM_Notebook:SetHidden(true)
-      </OnInitialized> 
+    <TopLevelControl name="AWM_EditTextWindow" mouseEnabled="true" movable="true" clampedToScreen="true" resizeHandleSize="8" hidden="true">
+      <Dimensions x="250" y="400" />
+      <DimensionConstraints minX="250" minY="200" />
+      <Anchor point="RIGHT" />
       <Controls>
-        <Label name="$(parent)Label" width="200" height="25" font="ZoFontWinH1" inheritAlpha="true" color="FF0000"
-            wrapMode="TRUNCATE" verticalAlignment="TOP" horizontalAlignment="CENTER" text="Fighting!">
-          <Anchor point="TOP" relativeTo="$(parent)" relativePoint="TOP" />
-        </Label>
+
+      <Label name="$(parent)NoteIndex" font="ZoFontWinT2" text="Polygon Code">
+          <Anchor point="TOPCENTER" offsetX="10" offsetY="10" />
+      </Label>
+        <Backdrop name="$(parent)Bg" inherits="ZO_DefaultBackdrop"></Backdrop>
+        <Backdrop name="$(parent)Text" inherits="ZO_MultiLineEditBackdrop_Keyboard">
+            <Anchor point="TOPLEFT" offsetY="30" />
+            <Anchor point="BOTTOMRIGHT" offsetX="-2" offsetY="-40" />
+            <Controls>
+                <EditBox name="AWM_EditTextTextBox" inherits="ZO_DefaultEditMultiLineForBackdrop" maxInputCharacters="999999" />
+            </Controls>
+        </Backdrop>
       </Controls>
     </TopLevelControl>
+
   </Controls>
 </GuiXml>
