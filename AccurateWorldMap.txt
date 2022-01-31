@@ -10,4 +10,5 @@
 ## DependsOn: LibAddonMenu-2.0
 ## DependsOn: LibGPS>=30
 
+AccurateWorldMap.xml
 AccurateWorldMap.lua

@@ -600,6 +600,21 @@ end
 -- * WouldProcessMapClick(*number* _normalizedClickX_, *number* _normalizedClickY_)
 -- ** _Returns:_ *bool* _wouldProcess_, *luaindex:nilable* _resultingMapIndex_
 
+
+-- local zos_GetNormalisedOffsetAndZoom = GetNormalizedPositionFocusZoomAndOffset
+-- GetNormalizedPositionFocusZoomAndOffset = function(normalizedX, normalizedY, useCurrentZoom)
+
+--   local targetNormalizedZoom, offsetX, offsetY = zos_GetNormalisedOffsetAndZoom(normalizedX, normalizedY, useCurrentZoom)
+
+
+--   print(tostring(offsetX))
+--   print(tostring(offsetY))
+
+
+--   return targetNormalizedZoom, offsetX, offsetY
+-- end
+
+
 local zos_WouldProcessMapClick = WouldProcessMapClick
 WouldProcessMapClick = function(xN, yN)
   local wouldProcess, resultingMapIndex = zos_WouldProcessMapClick(xN, yN)
@@ -642,6 +657,14 @@ end
 
 local zos_GetMapMouseoverInfo = GetMapMouseoverInfo
 GetMapMouseoverInfo = function(xN, yN)
+
+
+  -- local targetNormalizedZoom, offsetX, offsetY = ZO_MapPanAndZoom:GetNormalizedPositionFocusZoomAndOffset(xN, yN, true)
+
+
+  -- print("Target offset X:"..offsetX.." Target offsetY:"..offsetY)
+
+
 
   local mapIndex = getCurrentZoneID()
 
@@ -760,6 +783,16 @@ end
 
 local function mapTick()
 
+
+
+
+
+  
+
+
+
+  
+
   local mouseX, mouseY = GetUIMousePosition()
 
   local currentOffsetX = ZO_WorldMapContainer:GetLeft()
@@ -771,6 +804,12 @@ local function mapTick()
 
   normalisedMouseX = math.floor((((mouseX - currentOffsetX) / mapWidth) * 1000) + 0.5)/1000
   normalisedMouseY = math.floor((((mouseY - currentOffsetY) / mapHeight) * 1000) + 0.5)/1000
+
+
+
+
+
+
 
 
 
@@ -988,13 +1027,13 @@ local function getBlobTextureDetails()
 
 
             -- load texture into control from name
-            AccurateWorldMapTex01:SetTexture(textureDirectory)
+            AWM_TextureControl:SetTexture(textureDirectory)
 
             -- check if texture exists before doing stuff
-            if (AccurateWorldMapTex01:IsTextureLoaded()) then
+            if (AWM_TextureControl:IsTextureLoaded()) then
 
               -- get the dimensions
-              local textureHeight, textureWidth = AccurateWorldMapTex01:GetTextureFileDimensions()
+              local textureHeight, textureWidth = AWM_TextureControl:GetTextureFileDimensions()
 
               -- save texture name and dimensions
               mapData[mapID].zoneData[zoneIndex].blobTexture = textureDirectory
@@ -1057,24 +1096,33 @@ local function setMapTo(int)
 end
 
 
+
+
+
 local function OnAddonLoaded(event, addonName)
   if addonName ~= addon.name then return end
   EVENT_MANAGER:UnregisterForEvent(addon.name, EVENT_ADD_ON_LOADED)
 
 
 
-  AccurateWorldMapTLC = CreateTopLevelWindow("AccurateWorldMapTLC")
-  AccurateWorldMapTLC:SetResizeToFitDescendents(true) --will make the TLC window resize with it's childen -> the Tex01 texture control
-  AccurateWorldMapTex01 = CreateControl("AccurateWorldMapTex01", AccurateWorldMapTLC, CT_TEXTURE)
-  AccurateWorldMapTex01:SetResizeToFitFile(true)
-
-  -- comment these two to hide the control
-  --AccurateWorldMapTLC:SetAlpha(1)
 
   
 
 
   getBlobTextureDetails()
+
+
+  -- AccurateWorldMapTLC = CreateTopLevelWindow("AccurateWorldMapTLC")
+  -- AccurateWorldMapTLC:SetResizeToFitDescendents(true) --will make the TLC window resize with it's childen -> the Tex01 texture control
+  -- comment these two to hide the control
+  --AccurateWorldMapTLC:SetAlpha(1)
+
+  -- AccurateWorldMapPolyBoxTLC = CreateTopLevelWindow("AccurateWorldMapPolyBoxTLC")
+	-- AccurateWorldMapPolyBox = WINDOW_MANAGER:CreateControlFromVirtual("AccurateWorldMapPolyBoxEdit", AccurateWorldMapPolyBoxTLC, "CT_EDITBOX")
+	-- AccurateWorldMapPolyBox:SetMaxInputChars(3000)
+  -- AccurateWorldMapPolyBox:SetText("ligma")
+
+
 
 
     

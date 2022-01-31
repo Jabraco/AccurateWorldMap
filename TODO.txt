@@ -1,6 +1,8 @@
 
 - figure out why texture control isn't working on startup, have to hide/show it
 
+- determine if the map is being dragged somehow
+
 
 ask the chat to see if there is a way to get the mouse cursor type
 
