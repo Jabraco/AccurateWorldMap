@@ -78,12 +78,13 @@ local currentlySelectedBlobName = ""
 local currentZoneInfo = {}
 local isExclusive = false
 local hasDragged = false
-local waitForRelease = false
 
-local preDragPolyCentreX
-local preDragPolyCentreY
 
 local currentMapIndex
+
+local waitForRelease = false
+local currentMapOffsetX
+local currentMapOffsetY
 
 
 -- Data table of all the wayshrine nodes and zone blobs we want to modify or move, sorted by map (zone).
@@ -780,18 +781,17 @@ end
 
 
 
+local function getWorldMapOffsets()
+
+  local currentOffsetX =  math.floor(ZO_WorldMapContainer:GetLeft())
+  local currentOffsetY = math.floor(ZO_WorldMapContainer:GetTop())
+
+  return currentOffsetX, currentOffsetY
+
+end
+
 
 local function mapTick()
-
-
-
-
-
-  
-
-
-
-  
 
   local mouseX, mouseY = GetUIMousePosition()
 
@@ -801,6 +801,8 @@ local function mapTick()
   local parentOffsetY = ZO_WorldMap:GetTop()
   local mapWidth, mapHeight = ZO_WorldMapContainer:GetDimensions()
   local parentWidth, parentHeight = ZO_WorldMap:GetDimensions()
+
+  --print(currentOffsetX.." "..currentOffsetY)
 
   normalisedMouseX = math.floor((((mouseX - currentOffsetX) / mapWidth) * 1000) + 0.5)/1000
   normalisedMouseY = math.floor((((mouseY - currentOffsetY) / mapHeight) * 1000) + 0.5)/1000
@@ -909,6 +911,13 @@ local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
     
     polygon:SetMouseEnabled(true)
     polygon:SetHandler("OnMouseDown", function(control, button, ctrl, alt, shift, command)
+
+      if (waitForRelease == false) then
+        currentMapOffsetX, currentMapOffsetY = getWorldMapOffsets()
+        waitForRelease = true
+      end
+
+
       currentPolygon = polygon
       ZO_WorldMap_MouseDown(button, ctrl, alt, shift)    
     end)
@@ -918,20 +927,49 @@ local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
       ZO_WorldMap_MouseUp(control, button, upInside)
 
 
-      print(tostring(upInside))
-
 
       if (currentZoneInfo ~= nil and upInside and button == MOUSE_BUTTON_INDEX_LEFT) then
-    
-          currentPolygon = nil
-          isInBlobHitbox = false
-          waitForRelease = false
-    
-          SetMapToMapId(currentZoneInfo.zoneID)
-          currentZoneInfo = {}
-          CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
-    
+
+        if (waitForRelease) then
+
+          local mapOffsetX, mapOffsetY = getWorldMapOffsets()
+
+          local deltaX, deltaY
+
+
+          if (mapOffsetX >= currentMapOffsetX) then
+            deltaX = mapOffsetX - currentMapOffsetX
+          else 
+            deltaX = currentMapOffsetX - mapOffsetX
+          end
+
+          if (mapOffsetY >= currentMapOffsetY) then
+            deltaY = mapOffsetY - currentMapOffsetY
+          else 
+            deltaY = currentMapOffsetY - mapOffsetY
+          end
+
+          print(tostring(deltaX))
+
+          if (deltaX <= 20 and deltaX <= 20) then
+
+            currentPolygon = nil
+            isInBlobHitbox = false
+
+      
+            SetMapToMapId(currentZoneInfo.zoneID)
+            currentZoneInfo = {}
+            CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
+
+          end
+
+
+        end
+
+
       end
+
+      waitForRelease = false
 
     end)
       
