@@ -212,8 +212,8 @@ mapData = {
     zoneData = hackyJoin({
       zoneName = "The Rift",
       zoneID = 125,
-      xN = "0.508",
-      yN = "0.321",
+      xN = "0.518",
+      yN = "0.308",
       zonePolygonData = {
         { xN = 0.528, yN = 0.322 },
         { xN = 0.535, yN = 0.327 },
@@ -380,21 +380,88 @@ mapData = {
     [236] = { xN = 0.542, yN = 0.475 }, -- Imperial City Prison Dungeon
     [247] = { xN = 0.536, yN = 0.486 }, -- White Gold Tower Dungeon
 
+    zoneData = hackyJoin({
+      zoneName = "Cyrodiil",
+      zoneID = 16,
+      xN = "0.396",
+      yN = "0.396",
+      zonePolygonData = {
+        { xN = 0.445, yN = 0.397 },
+        { xN = 0.464, yN = 0.400 },
+        { xN = 0.479, yN = 0.404 },
+        { xN = 0.488, yN = 0.395 },
+        { xN = 0.496, yN = 0.394 },
+        { xN = 0.506, yN = 0.396 },
+        { xN = 0.509, yN = 0.400 },
+        { xN = 0.518, yN = 0.399 },
+        { xN = 0.523, yN = 0.395 },
+        { xN = 0.531, yN = 0.394 },
+        { xN = 0.541, yN = 0.398 },
+        { xN = 0.548, yN = 0.401 },
+        { xN = 0.557, yN = 0.402 },
+        { xN = 0.566, yN = 0.404 },
+        { xN = 0.570, yN = 0.406 },
+        { xN = 0.579, yN = 0.403 },
+        { xN = 0.589, yN = 0.405 },
+        { xN = 0.595, yN = 0.405 },
+        { xN = 0.604, yN = 0.409 },
+        { xN = 0.616, yN = 0.403 },
+        { xN = 0.625, yN = 0.399 },
+        { xN = 0.627, yN = 0.399 },
+        { xN = 0.630, yN = 0.405 },
+        { xN = 0.633, yN = 0.406 },
+        { xN = 0.640, yN = 0.422 },
+        { xN = 0.637, yN = 0.431 },
+        { xN = 0.642, yN = 0.436 },
+        { xN = 0.646, yN = 0.443 },
+        { xN = 0.651, yN = 0.447 },
+        { xN = 0.652, yN = 0.459 },
+        { xN = 0.644, yN = 0.471 },
+        { xN = 0.636, yN = 0.478 },
+        { xN = 0.632, yN = 0.482 },
+        { xN = 0.627, yN = 0.498 },
+        { xN = 0.619, yN = 0.504 },
+        { xN = 0.616, yN = 0.515 },
+        { xN = 0.614, yN = 0.523 },
+        { xN = 0.597, yN = 0.552 },
+        { xN = 0.582, yN = 0.560 },
+        { xN = 0.579, yN = 0.575 },
+        { xN = 0.574, yN = 0.579 },
+        { xN = 0.566, yN = 0.579 },
+        { xN = 0.564, yN = 0.588 },
+        { xN = 0.562, yN = 0.603 },
+        { xN = 0.552, yN = 0.602 },
+        { xN = 0.542, yN = 0.606 },
+        { xN = 0.537, yN = 0.604 },
+        { xN = 0.516, yN = 0.601 },
+        { xN = 0.507, yN = 0.603 },
+        { xN = 0.504, yN = 0.602 },
+        { xN = 0.497, yN = 0.588 },
+        { xN = 0.491, yN = 0.586 },
+        { xN = 0.488, yN = 0.578 },
+        { xN = 0.491, yN = 0.574 },
+        { xN = 0.492, yN = 0.569 },
+        { xN = 0.488, yN = 0.563 },
+        { xN = 0.480, yN = 0.558 },
+        { xN = 0.473, yN = 0.548 },
+        { xN = 0.464, yN = 0.536 },
+        { xN = 0.460, yN = 0.527 },
+        { xN = 0.461, yN = 0.522 },
+        { xN = 0.456, yN = 0.503 },
+        { xN = 0.451, yN = 0.501 },
+        { xN = 0.445, yN = 0.484 },
+        { xN = 0.436, yN = 0.481 },
+        { xN = 0.418, yN = 0.449 },
+        { xN = 0.420, yN = 0.436 },
+        { xN = 0.432, yN = 0.418 },
+        { xN = 0.438, yN = 0.413 },
+        { xN = 0.441, yN = 0.408 },
+        { xN = 0.443, yN = 0.400 },        
+      }
+    }),
+
     -- Gold Coast --
     [390] = { xN = 0.304, yN = 0.559 }, -- Depths of Malatar Dungeon 
-
-    -- Blackwood --
-    [458] = { xN = 0.597, yN = 0.685 }, -- Leyawiin Wayshrine 
-    [467] = { xN = 0.601, yN = 0.677 }, -- Leyawin Outskirts Wayshrine
-    [471] = { xN = 0.600, yN = 0.683 }, -- Pilgrim's Rest House 
-    [469] = { xN = 0.664, yN = 0.610 }, -- The Dread Cellar Dungeon 
-    [481] = { xN = 0.617, yN = 0.627 }, -- Doomvault Vulpinaz Wayshrine 
-    [461] = { xN = 0.611, yN = 0.645 }, -- Fort Redmane Wayshrine 
-    [482] = { xN = 0.630, yN = 0.680 }, -- Blackwood Crosslands Wayshrine
-    [460] = { xN = 0.590, yN = 0.653 }, -- Borderwatch Wayshrine 
-    [463] = { xN = 0.620, yN = 0.703 }, -- Blueblood Wayshrine
-    [472] = { xN = 0.603, yN = 0.687 }, -- Water's Edge House
-
 
     -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
     -- ██░██░█▄░▄██░▄▄░██░██░████░▄▄▀██░▄▄▄░██░▄▄▀██░█▀▄██
@@ -414,6 +481,7 @@ mapData = {
     [181] = { xN = 0.082, yN = 0.436 }, -- Stonetooth Wayshrine
     [183] = { xN = 0.082, yN = 0.444 }, -- Carved Hills Wayshrine
 
+    -- Balfiera --
     zoneData = hackyJoin({
       zoneName = "Balfiera",
       zoneID = 1997,
@@ -505,8 +573,8 @@ mapData = {
     zoneData = hackyJoin({
       zoneName = "Vvardenfell",
       zoneID = 1060,
-      xN = "0.649",
-      yN = "0.219",
+      xN = "0.646",
+      yN = "0.220",
       zonePolygonData = {
         { xN = 0.712, yN = 0.218 },
         { xN = 0.710, yN = 0.223 },
@@ -653,6 +721,61 @@ mapData = {
       }
     }),
 
+    -- Deshaan --
+    zoneData = hackyJoin({
+      zoneName = "Deshaan",
+      zoneID = 13,
+      xN = "0.680",
+      yN = "0.480",
+      zonePolygonData = {
+        { xN = 0.701, yN = 0.493 },
+        { xN = 0.697, yN = 0.498 },
+        { xN = 0.698, yN = 0.509 },
+        { xN = 0.699, yN = 0.516 },
+        { xN = 0.701, yN = 0.518 },
+        { xN = 0.698, yN = 0.520 },
+        { xN = 0.697, yN = 0.529 },
+        { xN = 0.707, yN = 0.534 },
+        { xN = 0.721, yN = 0.531 },
+        { xN = 0.727, yN = 0.530 },
+        { xN = 0.735, yN = 0.534 },
+        { xN = 0.742, yN = 0.534 },
+        { xN = 0.753, yN = 0.539 },
+        { xN = 0.774, yN = 0.539 },
+        { xN = 0.787, yN = 0.539 },
+        { xN = 0.800, yN = 0.537 },
+        { xN = 0.807, yN = 0.538 },
+        { xN = 0.844, yN = 0.522 },
+        { xN = 0.847, yN = 0.515 },
+        { xN = 0.847, yN = 0.511 },
+        { xN = 0.846, yN = 0.508 },
+        { xN = 0.848, yN = 0.505 },
+        { xN = 0.847, yN = 0.500 },
+        { xN = 0.849, yN = 0.496 },
+        { xN = 0.847, yN = 0.492 },
+        { xN = 0.844, yN = 0.483 },
+        { xN = 0.837, yN = 0.480 },
+        { xN = 0.828, yN = 0.477 },
+        { xN = 0.822, yN = 0.476 },
+        { xN = 0.815, yN = 0.478 },
+        { xN = 0.804, yN = 0.480 },
+        { xN = 0.799, yN = 0.474 },
+        { xN = 0.792, yN = 0.471 },
+        { xN = 0.784, yN = 0.475 },
+        { xN = 0.778, yN = 0.479 },
+        { xN = 0.768, yN = 0.481 },
+        { xN = 0.762, yN = 0.481 },
+        { xN = 0.750, yN = 0.488 },
+        { xN = 0.745, yN = 0.488 },
+        { xN = 0.740, yN = 0.490 },
+        { xN = 0.731, yN = 0.490 },
+        { xN = 0.724, yN = 0.489 },
+        { xN = 0.719, yN = 0.489 },
+        { xN = 0.713, yN = 0.491 },
+        { xN = 0.706, yN = 0.492 },
+        { xN = 0.702, yN = 0.493 },
+      }
+    }),
 
 
     -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
@@ -679,6 +802,32 @@ mapData = {
     [305] = { xN = 0.734, yN = 0.583 }, -- The Ample Domicile House 
     [316] = { xN = 0.755, yN = 0.611 }, -- Stay-Moist Mansion House
 
+    zoneData = hackyJoin({
+      zoneName = "Shadowfen",
+      zoneID = 26,
+      xN = "0.694",
+      yN = "0.565",
+      zonePolygonData = {
+        { xN = 0.692, yN = 0.653 },
+        { xN = 0.691, yN = 0.646 },
+        { xN = 0.705, yN = 0.605 },
+        { xN = 0.705, yN = 0.586 },
+        { xN = 0.712, yN = 0.573 },
+        { xN = 0.718, yN = 0.567 },
+        { xN = 0.750, yN = 0.575 },
+        { xN = 0.775, yN = 0.576 },
+        { xN = 0.785, yN = 0.581 },
+        { xN = 0.793, yN = 0.598 },
+        { xN = 0.797, yN = 0.615 },
+        { xN = 0.797, yN = 0.619 },
+        { xN = 0.804, yN = 0.626 },
+        { xN = 0.804, yN = 0.651 },
+        { xN = 0.796, yN = 0.657 },
+        { xN = 0.779, yN = 0.659 },
+        { xN = 0.693, yN = 0.654 },
+      }
+    }),
+
     -- Murkmire --
     [376] = { xN = 0.703, yN = 0.754 }, -- Dead-Water Wayshrine 
     [378] = { xN = 0.712, yN = 0.769 }, -- Blackrose Prison Dungeon
@@ -686,6 +835,24 @@ mapData = {
     [375] = { xN = 0.755, yN = 0.782 }, -- Bright-Throat Wayshrine 
     [377] = { xN = 0.758, yN = 0.739 }, -- Root-Whisper Wayshrine
     [388] = { xN = 0.724, yN = 0.735 }, -- Lakemire Xanmeer Manor House 
+
+    -- Norg-Tzel --
+    zoneData = hackyJoin({
+      zoneName = "Norg-Tzel",
+      zoneID = 1552,
+      xN = "0.792",
+      yN = "0.791",
+      zonePolygonData = {
+        { xN = 0.798, yN = 0.799 },
+        { xN = 0.803, yN = 0.807 },
+        { xN = 0.815, yN = 0.804 },
+        { xN = 0.814, yN = 0.799 },
+        { xN = 0.807, yN = 0.796 },
+        { xN = 0.804, yN = 0.790 },
+        { xN = 0.798, yN = 0.794 },
+        { xN = 0.797, yN = 0.796 },        
+      }
+    }),
 
     -- Blackwood --
     [462] = { xN = 0.671, yN = 0.631 }, -- Bloodrun Wayshrine 
@@ -695,6 +862,86 @@ mapData = {
     [484] = { xN = 0.688, yN = 0.714 }, -- Vunalk Wayshrine
     [468] = { xN = 0.684, yN = 0.742 }, -- Rockgrove Trial
     [473] = { xN = 0.687, yN = 0.624 }, -- Pantherfang Chapel House 
+    [458] = { xN = 0.597, yN = 0.685 }, -- Leyawiin Wayshrine 
+    [467] = { xN = 0.601, yN = 0.677 }, -- Leyawin Outskirts Wayshrine
+    [471] = { xN = 0.600, yN = 0.683 }, -- Pilgrim's Rest House 
+    [469] = { xN = 0.664, yN = 0.610 }, -- The Dread Cellar Dungeon 
+    [481] = { xN = 0.617, yN = 0.627 }, -- Doomvault Vulpinaz Wayshrine 
+    [461] = { xN = 0.611, yN = 0.645 }, -- Fort Redmane Wayshrine 
+    [482] = { xN = 0.630, yN = 0.680 }, -- Blackwood Crosslands Wayshrine
+    [460] = { xN = 0.590, yN = 0.653 }, -- Borderwatch Wayshrine 
+    [463] = { xN = 0.620, yN = 0.703 }, -- Blueblood Wayshrine
+    [472] = { xN = 0.603, yN = 0.687 }, -- Water's Edge House
+
+    zoneData = hackyJoin({
+      zoneName = "Blackwood",
+      zoneID = 1887,
+      xN = "0.581",
+      yN = "0.594",
+      zonePolygonData = {
+        { xN = 0.593, yN = 0.708 },
+        { xN = 0.583, yN = 0.696 },
+        { xN = 0.582, yN = 0.690 },
+        { xN = 0.586, yN = 0.681 },
+        { xN = 0.587, yN = 0.675 },
+        { xN = 0.585, yN = 0.656 },
+        { xN = 0.583, yN = 0.650 },
+        { xN = 0.585, yN = 0.646 },
+        { xN = 0.588, yN = 0.637 },
+        { xN = 0.589, yN = 0.628 },
+        { xN = 0.601, yN = 0.631 },
+        { xN = 0.608, yN = 0.631 },
+        { xN = 0.612, yN = 0.627 },
+        { xN = 0.615, yN = 0.620 },
+        { xN = 0.618, yN = 0.609 },
+        { xN = 0.623, yN = 0.599 },
+        { xN = 0.628, yN = 0.598 },
+        { xN = 0.636, yN = 0.605 },
+        { xN = 0.646, yN = 0.609 },
+        { xN = 0.660, yN = 0.607 },
+        { xN = 0.675, yN = 0.613 },
+        { xN = 0.683, yN = 0.617 },
+        { xN = 0.687, yN = 0.620 },
+        { xN = 0.697, yN = 0.620 },
+        { xN = 0.693, yN = 0.633 },
+        { xN = 0.690, yN = 0.641 },
+        { xN = 0.691, yN = 0.654 },
+        { xN = 0.693, yN = 0.661 },
+        { xN = 0.695, yN = 0.665 },
+        { xN = 0.692, yN = 0.676 },
+        { xN = 0.691, yN = 0.680 },
+        { xN = 0.694, yN = 0.688 },
+        { xN = 0.700, yN = 0.691 },
+        { xN = 0.702, yN = 0.701 },
+        { xN = 0.700, yN = 0.705 },
+        { xN = 0.704, yN = 0.711 },
+        { xN = 0.707, yN = 0.716 },
+        { xN = 0.706, yN = 0.722 },
+        { xN = 0.704, yN = 0.725 },
+        { xN = 0.711, yN = 0.732 },
+        { xN = 0.706, yN = 0.739 },
+        { xN = 0.698, yN = 0.738 },
+        { xN = 0.694, yN = 0.743 },
+        { xN = 0.683, yN = 0.750 },
+        { xN = 0.682, yN = 0.752 },
+        { xN = 0.674, yN = 0.747 },
+        { xN = 0.669, yN = 0.748 },
+        { xN = 0.664, yN = 0.747 },
+        { xN = 0.651, yN = 0.744 },
+        { xN = 0.653, yN = 0.738 },
+        { xN = 0.650, yN = 0.731 },
+        { xN = 0.642, yN = 0.723 },
+        { xN = 0.638, yN = 0.714 },
+        { xN = 0.633, yN = 0.714 },
+        { xN = 0.631, yN = 0.719 },
+        { xN = 0.624, yN = 0.720 },
+        { xN = 0.622, yN = 0.716 },
+        { xN = 0.614, yN = 0.713 },
+        { xN = 0.603, yN = 0.701 },
+        { xN = 0.594, yN = 0.707 },        
+      }
+    }),
+
 
     -- Topal Hideout --
     [325] = { xN = 0.627, yN = 0.744 }, -- Topal Hideaway House
@@ -1329,6 +1576,7 @@ local function getFileDirectoryFromZoneName(providedZoneName)
 
   providedZoneName = providedZoneName:gsub("'", "") -- replace all instances of `'` with empty string
   providedZoneName = providedZoneName:gsub(" ", "") -- replace all instances of ` ` with empty string
+  providedZoneName = providedZoneName:gsub("-", "") -- replace all instances of ` ` with empty string
 
   providedZoneName = providedZoneName:lower()
 
@@ -1585,39 +1833,9 @@ local function onZoneChanged()
 end
 
 
-
-
-
-
 -- Registering events and callbacks
 LAM:RegisterOptionControls(panelName, optionsData)
 EVENT_MANAGER:RegisterForEvent(addon.name, EVENT_ADD_ON_LOADED, OnAddonLoaded)
 EVENT_MANAGER:RegisterForEvent("onMouseDown", EVENT_GLOBAL_MOUSE_DOWN, onMousePressed)
 EVENT_MANAGER:RegisterForUpdate("uniqueName", 0, checkIfCanTick)
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", onZoneChanged)
-
-
-
-
-
-
--- frame.edit = CHAIN(wm:CreateControlFromVirtual("$(parent)_Edit",
--- frame, "ZO_DefaultEditMultiLine"))
--- :SetAnchor(TOPLEFT, frame, TOPLEFT, 2, 2)
--- :SetAnchor(BOTTOMRIGHT, frame, BOTTOMRIGHT, -2, -2)
--- :SetMaxInputChars(2000)
--- :SetFont("ZoFontGame")
--- :SetHidden(true)
--- :SetHandler("OnShow", function()
--- -- hide all line controls
--- for i, line in ipairs(FRAME_LINES) do
--- line:SetHidden(true)
--- end
--- -- disable Zgoo:Update() while this box is shown
--- frame.lines = nil
--- end)
--- :SetHandler("OnHide", function()
--- frame.lines = FRAME_LINES
--- Zgoo:Update()
--- end)
--- .__END
