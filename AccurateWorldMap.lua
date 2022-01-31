@@ -77,6 +77,13 @@ local isInBlobHitbox = false
 local currentlySelectedBlobName = ""
 local currentZoneInfo = {}
 local isExclusive = false
+local hasDragged = false
+local waitForRelease = false
+
+local preDragPolyCentreX
+local preDragPolyCentreY
+
+local currentMapIndex
 
 
 -- Data table of all the wayshrine nodes and zone blobs we want to modify or move, sorted by map (zone).
@@ -590,11 +597,6 @@ end
 -- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
 
 
-
-
-
-
-
 -- * WouldProcessMapClick(*number* _normalizedClickX_, *number* _normalizedClickY_)
 -- ** _Returns:_ *bool* _wouldProcess_, *luaindex:nilable* _resultingMapIndex_
 
@@ -605,12 +607,12 @@ WouldProcessMapClick = function(xN, yN)
   -- check if we are currently hovering over a custom polygon
   if (isInBlobHitbox and currentZoneInfo ~= nil) then
     wouldProcess = false
-    resultingMapIndex = currentZoneInfo.zoneID
+    resultingMapIndex = GetMapIndexByZoneId(currentZoneInfo.zoneID)
   end
 
   if (isExclusive) then
     wouldProcess = false
-    resultingMapIndex = 0
+    resultingMapIndex = nil
   end
 
   return wouldProcess, resultingMapIndex
@@ -627,11 +629,11 @@ ProcessMapClick = function(xN, yN)
 
     -- check if we are currently hovering over a custom polygon
     if (isInBlobHitbox and currentZoneInfo ~= nil) then
-      setMapResult = SET_MAP_RESULT_CURRENT_MAP_UNCHANGED
+      setMapResult = SET_MAP_RESULT_FAILED
     end
   
     if (isExclusive) then
-      setMapResult = SET_MAP_RESULT_CURRENT_MAP_UNCHANGED
+      setMapResult = SET_MAP_RESULT_FAILED
     end
 
   return setMapResult
@@ -724,30 +726,13 @@ GetFastTravelNodeInfo = function(nodeIndex)
 end
     
 
-local function onMouseReleased()
-
-  if (isInBlobHitbox and currentZoneInfo ~= nil) then
-
-
-    if (currentPolygon ~= nil) then
-      currentPolygon = nil
-      isInBlobHitbox = false
-
-      SetMapToMapId(currentZoneInfo.zoneID)
-      currentZoneInfo = {}
-      CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
-    end
-
-  end
-end
-
 -- function to check if the mouse cursor is within or over the map window
 local function isMouseWithinMapWindow()
   local mouseOverControl = WINDOW_MANAGER:GetMouseOverControl()
   return (not ZO_WorldMapContainer:IsHidden() and (mouseOverControl == ZO_WorldMapContainer or mouseOverControl:GetParent() == ZO_WorldMapContainer))
 end
 
-local function clickListener()
+local function onMousePressed()
 
   if isMouseWithinMapWindow() then
 
@@ -759,13 +744,11 @@ local function clickListener()
 
     end
 
-
-
     print("Map clicked!")
   end
 
   if IsControlKeyDown() then
-    print("booba")
+    print("ctrl + click")
   end
 
 
@@ -794,7 +777,7 @@ local function mapTick()
   if (currentPolygon ~= nil) then
 
     -- check to make sure that the user has actually left the hitbox, and is not just hovering over a wayshrine
-    if (currentPolygon:IsPointInside(mouseX , mouseY)) then
+    if (currentPolygon:IsPointInside(mouseX , mouseY) and currentMapIndex == GetCurrentMapIndex()) then
 
       --print("still in hitbox!")
 
@@ -886,15 +869,39 @@ local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
     end
     
     polygon:SetMouseEnabled(true)
-    polygon:SetHandler("OnMouseDown", function()
+    polygon:SetHandler("OnMouseDown", function(control, button, ctrl, alt, shift, command)
       currentPolygon = polygon
-      ZO_WorldMap_MouseDown(MOUSE_BUTTON_INDEX_LEFT, IsControlKeyDown(), IsAltKeyDown(), IsShiftKeyDown())    
+      ZO_WorldMap_MouseDown(button, ctrl, alt, shift)    
     end)
 
-    polygon:SetHandler("OnMouseUp", ZO_WorldMap_MouseUp)
+    polygon:SetHandler("OnMouseUp", function(control, button, upInside, ctrl, alt, shift, command)
+      
+      ZO_WorldMap_MouseUp(control, button, upInside)
+
+
+      print(tostring(upInside))
+
+
+      if (currentZoneInfo ~= nil and upInside and button == MOUSE_BUTTON_INDEX_LEFT) then
+    
+          currentPolygon = nil
+          isInBlobHitbox = false
+          waitForRelease = false
+    
+          SetMapToMapId(currentZoneInfo.zoneID)
+          currentZoneInfo = {}
+          CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
+    
+      end
+
+    end)
+      
+      
       
   
     polygon:SetHandler("OnMouseEnter", function()
+
+      currentMapIndex = GetCurrentMapIndex()
       isInBlobHitbox = true
       --print("User has entered zone hitbox")
       currentPolygon = polygon
@@ -946,11 +953,6 @@ local function getFileDirectoryFromZoneName(providedZoneName)
 end
 
 
-
-AccurateWorldMapTLC = CreateTopLevelWindow("AccurateWorldMapTLC")
-AccurateWorldMapTLC:SetResizeToFitDescendents(true) --will make the TLC window resize with it's childen -> the Tex01 texture control
-AccurateWorldMapTex01 = CreateControl("AccurateWorldMapTex01", AccurateWorldMapTLC, CT_TEXTURE)
-AccurateWorldMapTex01:SetResizeToFitFile(true)
 
 
 local function getBlobTextureDetails()
@@ -1056,15 +1058,24 @@ end
 
 
 local function OnAddonLoaded(event, addonName)
-    if addonName ~= addon.name then return end
-    EVENT_MANAGER:UnregisterForEvent(addon.name, EVENT_ADD_ON_LOADED)
+  if addonName ~= addon.name then return end
+  EVENT_MANAGER:UnregisterForEvent(addon.name, EVENT_ADD_ON_LOADED)
 
 
-    getBlobTextureDetails()
 
-    -- comment these two to hide the control
-    AccurateWorldMapTLC:SetAlpha(1)
-    AccurateWorldMapTLC:SetHidden(false)
+  AccurateWorldMapTLC = CreateTopLevelWindow("AccurateWorldMapTLC")
+  AccurateWorldMapTLC:SetResizeToFitDescendents(true) --will make the TLC window resize with it's childen -> the Tex01 texture control
+  AccurateWorldMapTex01 = CreateControl("AccurateWorldMapTex01", AccurateWorldMapTLC, CT_TEXTURE)
+  AccurateWorldMapTex01:SetResizeToFitFile(true)
+
+  -- comment these two to hide the control
+  --AccurateWorldMapTLC:SetAlpha(1)
+
+  
+
+
+  getBlobTextureDetails()
+
 
     
     
@@ -1074,21 +1085,21 @@ local function OnAddonLoaded(event, addonName)
 
 
 
-    SLASH_COMMANDS["/awm_debug"] = toggleDebugOutput
-    SLASH_COMMANDS["/get_map_id"] = function() print(tostring(GetCurrentMapId())) end
-    SLASH_COMMANDS["/zones_debug"] = initialise
-    SLASH_COMMANDS["/record_polygon"] = recordPolygon
-    SLASH_COMMANDS["/get_blobs"] = getBlobTextureDetails
-    SLASH_COMMANDS["/get_controls"] = cleanUpZoneBlobs
-    SLASH_COMMANDS["/set_map_to"] = setMapTo
+  SLASH_COMMANDS["/awm_debug"] = toggleDebugOutput
+  SLASH_COMMANDS["/get_map_id"] = function() print(tostring(GetCurrentMapId())) end
+  SLASH_COMMANDS["/zones_debug"] = initialise
+  SLASH_COMMANDS["/record_polygon"] = recordPolygon
+  SLASH_COMMANDS["/get_blobs"] = getBlobTextureDetails
+  SLASH_COMMANDS["/get_controls"] = cleanUpZoneBlobs
+  SLASH_COMMANDS["/set_map_to"] = setMapTo
 
-  --   SLASH_COMMANDS["/joke"] = function() 
-  --     d(GetRandomElement(jokes)) 
-  -- end
-    
-    GetMapTileTexture = addon.GetMapTileTexture
-    GetMapCustomMaxZoom = addon.GetMapCustomMaxZoom
-    
+--   SLASH_COMMANDS["/joke"] = function() 
+--     d(GetRandomElement(jokes)) 
+-- end
+  
+  GetMapTileTexture = addon.GetMapTileTexture
+  GetMapCustomMaxZoom = addon.GetMapCustomMaxZoom
+  
 
 end
 
@@ -1187,8 +1198,7 @@ end
 -- Registering events and callbacks
 LAM:RegisterOptionControls(panelName, optionsData)
 EVENT_MANAGER:RegisterForEvent(addon.name, EVENT_ADD_ON_LOADED, OnAddonLoaded)
-EVENT_MANAGER:RegisterForEvent("onMouseUp", EVENT_GLOBAL_MOUSE_UP, onMouseReleased)
-EVENT_MANAGER:RegisterForEvent("Click Listener", EVENT_GLOBAL_MOUSE_DOWN, clickListener)
+EVENT_MANAGER:RegisterForEvent("onMouseDown", EVENT_GLOBAL_MOUSE_DOWN, onMousePressed)
 EVENT_MANAGER:RegisterForUpdate("uniqueName", 0, checkIfCanTick)
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", onZoneChanged)
 
