@@ -1,7 +1,9 @@
 
 - figure out why texture control isn't working on startup, have to hide/show it
 
+- move topal hideaway to new island
 
+- set up aurbis textures
 
 
  - ask chat if zoneIDs are atomic and do not change per update
