@@ -126,21 +126,21 @@ mapData = {
     }),
 
     -- Eastmarch --
-    [87] = { xN = 0.585, yN = 0.258 }, -- Windhelm Wayshrine
-    [88] = { xN = 0.567, yN = 0.281 }, -- Fort Morvunskar Wayshrine
-    [89] = { xN = 0.581, yN = 0.279 }, -- Kynesgrove Wayshrine
-    [90] = { xN = 0.571, yN = 0.269 }, -- Voljar Meadery Wayshrine
-    [91] = { xN = 0.544, yN = 0.284 }, -- Cradlecrush Wayshrine
-    [92] = { xN = 0.544, yN = 0.308 }, -- Fort Amol Wayshrine
-    [93] = { xN = 0.573, yN = 0.304 }, -- Wittestadr Wayshrine
-    [94] = { xN = 0.583, yN = 0.323 }, -- Mistwatch Wayshrine
-    [95] = { xN = 0.610, yN = 0.313 }, -- Jorunn's Stand Wayshrine
-    [96] = { xN = 0.600, yN = 0.306 }, -- Logging Camp Wayshrine
-    [97] = { xN = 0.614, yN = 0.297 }, -- Skuldafn Wayshrine
-    [195] = { xN = 0.621, yN = 0.320 }, -- Direfrost Keep Dungeon
-    [389] = { xN = 0.552, yN = 0.281 }, -- Frostvault Dungeon
-    [312] = { xN = 0.590, yN = 0.258 }, -- Grymhearth's Woe House
-    [392] = { xN = 0.550, yN = 0.282 }, -- Frostvault Chasm House
+    [88] = { xN = 0.559, yN = 0.287 }, -- Fort Morvunskar Wayshrine
+    [90] = { xN = 0.565, yN = 0.274 }, -- Voljar Meadery Wayshrine
+    [89] = { xN = 0.575, yN = 0.283 }, -- Kynesgrove Wayshrine
+    [93] = { xN = 0.569, yN = 0.308 }, -- Wittestadr Wayshrine
+    [97] = { xN = 0.608, yN = 0.306 }, -- Skuldafn Wayshrine
+    [96] = { xN = 0.592, yN = 0.308 }, -- Logging Camp Wayshrine
+    [95] = { xN = 0.601, yN = 0.314 }, -- Jorunn's Stand Wayshrine
+    [91] = { xN = 0.541, yN = 0.289 }, -- Cradlecrush Wayshrine
+    [392] = { xN = 0.547, yN = 0.286 }, -- Frostvault Chasm House
+    [389] = { xN = 0.548, yN = 0.284 }, -- Frostvault Dungeon
+    [312] = { xN = 0.582, yN = 0.264 }, -- Grymhearth's Woe House
+    [87] = { xN = 0.578, yN = 0.264 }, -- Windhelm Wayshrine
+    [94] = { xN = 0.576, yN = 0.324 }, -- Mistwatch Wayshrine
+    [195] = { xN = 0.610, yN = 0.328 }, -- Direfrost Keep Dungeon
+    [92] = { xN = 0.539, yN = 0.310 }, -- Fort Amol Wayshrine
 
     zoneData = hackyJoin({
       zoneName = "Eastmarch",
@@ -193,12 +193,7 @@ mapData = {
     }),
     
     -- The Rift --
-    [109] = { xN = 0.603, yN = 0.366 }, -- Riften Wayshrine
-    [111] = { xN = 0.616, yN = 0.388 }, -- Trollhetta Wayshrine
-    [112] = { xN = 0.615, yN = 0.399 }, -- Trollhetta Summit Wayshrine 
-    [187] = { xN = 0.626, yN = 0.387 }, -- Blessed Crucible Dungeon
-    [120] = { xN = 0.620, yN = 0.375 }, -- Fullhelm Fort Wayshrine
-    [110] = { xN = 0.595, yN = 0.374 }, -- Skald's Retreat Wayshrine
+
     [113] = { xN = 0.568, yN = 0.372 }, -- Honrich Tower Wayshrine
     [119] = { xN = 0.549, yN = 0.363 }, -- Ragged Hills Wayshrine
     [118] = { xN = 0.541, yN = 0.353 }, -- Nimalten Wayshrine
@@ -206,17 +201,60 @@ mapData = {
     [116] = { xN = 0.533, yN = 0.340 }, -- Geirmund's Hall Wayshrine 
     [114] = { xN = 0.592, yN = 0.345 }, -- Fallowstone Hall Wayshrine 
     [115] = { xN = 0.573, yN = 0.345 }, -- Northwind Mine Wayshrine 
-    [322] = { xN = 0.608, yN = 0.370 }, -- Old Mistveil Manor House 
     [372] = { xN = 0.609, yN = 0.354 }, -- Hunter's Glade House 
     [301] = { xN = 0.556, yN = 0.341 }, -- Autumn's Gate House 
+
+    [110] = { xN = 0.599, yN = 0.371 }, -- Skald's Retreat Wayshrine
+    [322] = { xN = 0.610, yN = 0.372 }, -- Old Mistveil Manor House 
+    [109] = { xN = 0.607, yN = 0.363 }, -- Riften Wayshrine
+    [112] = { xN = 0.611, yN = 0.396 }, -- Trollhetta Summit Wayshrine 
+    [111] = { xN = 0.616, yN = 0.385 }, -- Trollhetta Wayshrine
+    [120] = { xN = 0.620, yN = 0.373 }, -- Fullhelm Fort Wayshrine
+    [187] = { xN = 0.628, yN = 0.379 }, -- Blessed Crucible Dungeon
 
     zoneData = hackyJoin({
       zoneName = "The Rift",
       zoneID = 125,
-      xN = "0.518",
-      yN = "0.308",
+      xN = "0.5275",
+      yN = "0.3145",
       zonePolygonData = {
-
+        { xN = 0.626, yN = 0.397 },
+        { xN = 0.625, yN = 0.391 },
+        { xN = 0.630, yN = 0.384 },
+        { xN = 0.633, yN = 0.379 },
+        { xN = 0.631, yN = 0.361 },
+        { xN = 0.627, yN = 0.358 },
+        { xN = 0.621, yN = 0.340 },
+        { xN = 0.617, yN = 0.331 },
+        { xN = 0.607, yN = 0.334 },
+        { xN = 0.600, yN = 0.334 },
+        { xN = 0.588, yN = 0.331 },
+        { xN = 0.568, yN = 0.335 },
+        { xN = 0.566, yN = 0.335 },
+        { xN = 0.557, yN = 0.332 },
+        { xN = 0.549, yN = 0.332 },
+        { xN = 0.541, yN = 0.328 },
+        { xN = 0.531, yN = 0.326 },
+        { xN = 0.527, yN = 0.335 },
+        { xN = 0.527, yN = 0.340 },
+        { xN = 0.528, yN = 0.348 },
+        { xN = 0.527, yN = 0.353 },
+        { xN = 0.527, yN = 0.356 },
+        { xN = 0.529, yN = 0.364 },
+        { xN = 0.534, yN = 0.378 },
+        { xN = 0.536, yN = 0.386 },
+        { xN = 0.533, yN = 0.394 },
+        { xN = 0.542, yN = 0.397 },
+        { xN = 0.552, yN = 0.400 },
+        { xN = 0.555, yN = 0.399 },
+        { xN = 0.564, yN = 0.403 },
+        { xN = 0.571, yN = 0.404 },
+        { xN = 0.580, yN = 0.400 },
+        { xN = 0.594, yN = 0.404 },
+        { xN = 0.602, yN = 0.408 },
+        { xN = 0.609, yN = 0.403 },
+        { xN = 0.619, yN = 0.400 },
+        { xN = 0.623, yN = 0.397 },        
       }
     }),
 
@@ -339,8 +377,8 @@ mapData = {
     zoneData = hackyJoin({
       zoneName = "Cyrodiil",
       zoneID = 16,
-      xN = "0.396",
-      yN = "0.396",
+      xN = "0.420",
+      yN = "0.384",
       zonePolygonData = {
         { xN = 0.445, yN = 0.397 },
         { xN = 0.464, yN = 0.400 },
@@ -595,7 +633,7 @@ mapData = {
       zoneName = "Firemoth Island",
       zoneID = 1248,
       xN = "0.674",
-      yN = "0.382",
+      yN = "0.3815",
       zonePolygonData = {
         { xN = 0.682, yN = 0.403 },
         { xN = 0.688, yN = 0.399 },
@@ -674,6 +712,32 @@ mapData = {
         { xN = 0.675, yN = 0.426 },
         { xN = 0.675, yN = 0.415 },
         { xN = 0.677, yN = 0.406 },        
+      }
+    }),
+
+    -- Bal Foyen --
+    zoneData = hackyJoin({
+      zoneName = "Bal Foyen",
+      zoneID = 75,
+      xN = "0.795",
+      yN = "0.428",
+      zonePolygonData = {
+        { xN = 0.796, yN = 0.454 },
+        { xN = 0.802, yN = 0.459 },
+        { xN = 0.810, yN = 0.461 },
+        { xN = 0.818, yN = 0.456 },
+        { xN = 0.821, yN = 0.448 },
+        { xN = 0.827, yN = 0.442 },
+        { xN = 0.821, yN = 0.438 },
+        { xN = 0.818, yN = 0.432 },
+        { xN = 0.814, yN = 0.430 },
+        { xN = 0.807, yN = 0.433 },
+        { xN = 0.798, yN = 0.429 },
+        { xN = 0.797, yN = 0.435 },
+        { xN = 0.795, yN = 0.440 },
+        { xN = 0.797, yN = 0.444 },
+        { xN = 0.795, yN = 0.450 },
+        { xN = 0.795, yN = 0.452 },        
       }
     }),
 
@@ -792,6 +856,59 @@ mapData = {
     [377] = { xN = 0.758, yN = 0.739 }, -- Root-Whisper Wayshrine
     [388] = { xN = 0.724, yN = 0.735 }, -- Lakemire Xanmeer Manor House 
 
+    zoneData = hackyJoin({
+      zoneName = "Murkmire",
+      zoneID = 1484,
+      xN = "0.677",
+      yN = "0.720",
+      zonePolygonData = {
+        { xN = 0.682, yN = 0.752 },
+        { xN = 0.686, yN = 0.748 },
+        { xN = 0.694, yN = 0.744 },
+        { xN = 0.699, yN = 0.739 },
+        { xN = 0.704, yN = 0.739 },
+        { xN = 0.708, yN = 0.738 },
+        { xN = 0.711, yN = 0.733 },
+        { xN = 0.721, yN = 0.725 },
+        { xN = 0.727, yN = 0.721 },
+        { xN = 0.731, yN = 0.721 },
+        { xN = 0.739, yN = 0.727 },
+        { xN = 0.749, yN = 0.729 },
+        { xN = 0.757, yN = 0.728 },
+        { xN = 0.771, yN = 0.730 },
+        { xN = 0.768, yN = 0.739 },
+        { xN = 0.766, yN = 0.746 },
+        { xN = 0.762, yN = 0.746 },
+        { xN = 0.765, yN = 0.760 },
+        { xN = 0.762, yN = 0.765 },
+        { xN = 0.759, yN = 0.764 },
+        { xN = 0.759, yN = 0.767 },
+        { xN = 0.764, yN = 0.771 },
+        { xN = 0.763, yN = 0.779 },
+        { xN = 0.767, yN = 0.780 },
+        { xN = 0.774, yN = 0.778 },
+        { xN = 0.778, yN = 0.780 },
+        { xN = 0.782, yN = 0.792 },
+        { xN = 0.784, yN = 0.799 },
+        { xN = 0.782, yN = 0.806 },
+        { xN = 0.769, yN = 0.811 },
+        { xN = 0.758, yN = 0.807 },
+        { xN = 0.748, yN = 0.804 },
+        { xN = 0.745, yN = 0.806 },
+        { xN = 0.738, yN = 0.804 },
+        { xN = 0.734, yN = 0.800 },
+        { xN = 0.722, yN = 0.793 },
+        { xN = 0.718, yN = 0.795 },
+        { xN = 0.704, yN = 0.787 },
+        { xN = 0.704, yN = 0.780 },
+        { xN = 0.698, yN = 0.780 },
+        { xN = 0.689, yN = 0.770 },
+        { xN = 0.685, yN = 0.766 },
+        { xN = 0.685, yN = 0.759 },
+        { xN = 0.683, yN = 0.753 },        
+      }
+    }),
+
     -- Norg-Tzel --
     zoneData = hackyJoin({
       zoneName = "Norg-Tzel",
@@ -899,8 +1016,8 @@ mapData = {
     }),
 
 
-    -- Topal Hideout --
-    [325] = { xN = 0.627, yN = 0.744 }, -- Topal Hideaway House
+    -- Grand Topal Hideaway --
+    [325] = { xN = 0.641, yN = 0.738 }, -- Grand Topal Hideaway House
 
 
     -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
@@ -928,6 +1045,7 @@ mapData = {
     [157] = { xN = 0.481, yN = 0.569 }, -- Fort Sphinxmoth Wayshrine
     [371] = { xN = 0.450, yN = 0.556 }, -- Moon Hunter Keep Dungeon
     [321] = { xN = 0.483, yN = 0.579 }, -- Dawnshadow House
+    [320] = { xN = 0.472, yN = 0.560 }, -- Strident Springs Demesne House
 
     -- Malabal Tor --
     [188] = { xN = 0.283, yN = 0.604 }, -- Tempest Island Dungeon
