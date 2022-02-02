@@ -1,3 +1,19 @@
+--[[ 
+===============================================================================
+                            AccurateWorldMap data
+===============================================================================
+]]--
+
+-------------------------------------------------------------------------------
+-- Hacky table functions
+-------------------------------------------------------------------------------
+
+-- Hacky function to be able to define zoneData several times while still in one
+-- flat data structure without overwriting the table each time.
+
+-- Mainly done because it makes the data structure look visually nicer.
+
+-------------------------------------------------------------------------------
 
 local hackyTable = {}
 
@@ -11,8 +27,15 @@ local function hackyJoin(extra, newWorldspace)
   return hackyTable
 end
 
--- Data table of all the wayshrine nodes and zone blobs we want to modify or move, sorted by map (zone).
--- We use the zone's name as a base to get the correct zone texture (and later texture dimensions) to draw on the map
+-------------------------------------------------------------------------------
+-- World map wayshrine & zone data
+-------------------------------------------------------------------------------
+
+-- Data table of all the wayshrine nodes and zone blobs we want to modify or 
+-- move, sorted by map (zone). We use the zone's name as a base to get the 
+-- correct zone texture (and later texture dimensions) to draw on the map
+
+-------------------------------------------------------------------------------
 
 mapData = {
 

@@ -1,3 +1,12 @@
+--[[ 
+===============================================================================
+                     AccurateWorldMap, by Breaux & Thal-J
+===============================================================================
+]]--
+
+
+
+
 -- Hi, welcome to the code for AccurateWorldMap
 -- Thanks to the esoui glitter community and the authors of Highly Detailed World Map, uespLog, GuildShrines and World Wayshrine Controller for me 
 -- being able to figure out how to make this work
