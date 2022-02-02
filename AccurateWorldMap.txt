@@ -13,3 +13,4 @@
 
 AccurateWorldMap.xml
 AccurateWorldMap.lua
+AccurateWorldMapData.lua
