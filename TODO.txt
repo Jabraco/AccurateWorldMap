@@ -28,6 +28,7 @@ function ZO_WorldMap_MouseDown(button, ctrl, alt, shift)
 
 
 
+
 * EVENT_SHOW_WORLD_MAP
 
 * EVENT_ZONE_CHANGED (*string* _zoneName_, *string* _subZoneName_, *bool* _newSubzone_, *integer* _zoneId_, *integer* _subZoneId_)

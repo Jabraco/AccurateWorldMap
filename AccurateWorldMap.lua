@@ -5,8 +5,6 @@
 ]]--
 
 
-
-
 -- Hi, welcome to the code for AccurateWorldMap
 -- Thanks to the esoui glitter community and the authors of Highly Detailed World Map, uespLog, GuildShrines and World Wayshrine Controller for me 
 -- being able to figure out how to make this work
@@ -643,11 +641,15 @@ local function getBlobTextureDetails()
 
           if (zoneInfo.blobTexture == nil or zoneInfo.nBlobTextureHeight == nil or zoneInfo.nBlobTextureWidth == nil ) then
 
-            print("displaying textures!")
+            print("loading in textures!")
 
-            local textureDirectory = getFileDirectoryFromZoneName(zoneInfo.zoneName)
-
-
+            local textureDirectory
+            
+            if (zoneInfo.blobTexture ~= nil) then
+              textureDirectory = zoneInfo.blobTexture
+            else
+              textureDirectory = getFileDirectoryFromZoneName(zoneInfo.zoneName)
+            end
 
             -- load texture into control from name
             AWM_TextureControl:SetTexture(textureDirectory)

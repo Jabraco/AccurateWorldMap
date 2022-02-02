@@ -1277,11 +1277,12 @@ mapData = {
 
     isExclusive = true,
 
+    -- Tamriel --
     zoneData = hackyJoin({
       zoneName = "Tamriel",
       zoneID = 27,
-      xN = "0.232",
-      yN = "0.289",
+      xN = "0.196",
+      yN = "0.2045",
       zonePolygonData = {
         { xN = 0.238, yN = 0.678 },
         { xN = 0.220, yN = 0.630 },
@@ -1330,6 +1331,28 @@ mapData = {
         { xN = 0.247, yN = 0.686 },                 
       }
     }, true),
+
+    -- Blackreach --
+    zoneData = hackyJoin({
+      zoneName = "Blackreach",
+      blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
+      zoneID = 1782,
+      xN = "0.349",
+      yN = "0.107",
+      zonePolygonData = {
+        { xN = 0.387, yN = 0.236 },
+        { xN = 0.468, yN = 0.235 },
+        { xN = 0.491, yN = 0.201 },
+        { xN = 0.495, yN = 0.144 },
+        { xN = 0.470, yN = 0.108 },
+        { xN = 0.427, yN = 0.091 },
+        { xN = 0.390, yN = 0.095 },
+        { xN = 0.357, yN = 0.132 },
+        { xN = 0.347, yN = 0.163 },
+        { xN = 0.355, yN = 0.200 },
+        { xN = 0.375, yN = 0.230 },             
+      }
+    }),
   }, 
 
   [16] = {  -- Cyrodiil PVP Map --
