@@ -13,23 +13,30 @@ local addon = {
 }
 
 -- Base tamriel map tiles
-local tiles = {
-    "Art/maps/tamriel/Tamriel_0.dds",
-    "Art/maps/tamriel/Tamriel_1.dds",
-    "Art/maps/tamriel/Tamriel_2.dds",
-    "Art/maps/tamriel/Tamriel_3.dds",
-    "Art/maps/tamriel/Tamriel_4.dds",
-    "Art/maps/tamriel/Tamriel_5.dds",
-    "Art/maps/tamriel/Tamriel_6.dds",
-    "Art/maps/tamriel/Tamriel_7.dds",
-    "Art/maps/tamriel/Tamriel_8.dds",
-    "Art/maps/tamriel/Tamriel_9.dds",
-    "Art/maps/tamriel/Tamriel_10.dds",
-    "Art/maps/tamriel/Tamriel_11.dds",
-    "Art/maps/tamriel/Tamriel_12.dds",
-    "Art/maps/tamriel/Tamriel_13.dds",
-    "Art/maps/tamriel/Tamriel_14.dds",
-    "Art/maps/tamriel/Tamriel_15.dds",
+local tamriel_tiles = {
+  "Art/maps/tamriel/Tamriel_0.dds",
+  "Art/maps/tamriel/Tamriel_1.dds",
+  "Art/maps/tamriel/Tamriel_2.dds",
+  "Art/maps/tamriel/Tamriel_3.dds",
+  "Art/maps/tamriel/Tamriel_4.dds",
+  "Art/maps/tamriel/Tamriel_5.dds",
+  "Art/maps/tamriel/Tamriel_6.dds",
+  "Art/maps/tamriel/Tamriel_7.dds",
+  "Art/maps/tamriel/Tamriel_8.dds",
+  "Art/maps/tamriel/Tamriel_9.dds",
+  "Art/maps/tamriel/Tamriel_10.dds",
+  "Art/maps/tamriel/Tamriel_11.dds",
+  "Art/maps/tamriel/Tamriel_12.dds",
+  "Art/maps/tamriel/Tamriel_13.dds",
+  "Art/maps/tamriel/Tamriel_14.dds",
+  "Art/maps/tamriel/Tamriel_15.dds",
+}
+
+local aurbis_tiles = {
+  "Art/maps/tamriel/mundus_base_0.dds",
+  "Art/maps/tamriel/mundus_base_1.dds",
+  "Art/maps/tamriel/mundus_base_2.dds",
+  "Art/maps/tamriel/mundus_base_3.dds",
 }
 
 -- defaults
@@ -52,9 +59,9 @@ local saveData = {} -- TODO this should be a reference to your actual saved vari
 local panelName = "addonvar" -- TODO the name will be used to create a global variable, pick something unique or you may overwrite an existing variable!
 
 local panelData = {
-    type = "panel",
-    name = "Accurate World Map",
-    author = "Breaux & Thal-J",
+  type = "panel",
+  name = "Accurate World Map",
+  author = "Breaux & Thal-J",
 }
 
 local currentCoordinateCount = 0
@@ -68,9 +75,14 @@ local mapDimensions = 4096 -- px
 
 local hackyTable = {}
 
-local function hackyJoin(extra)
-    table.insert(hackyTable, extra)
-    return hackyTable
+local function hackyJoin(extra, newWorldspace)
+
+  if (newWorldspace) then
+    hackyTable = {}
+  end
+
+  table.insert(hackyTable, extra)
+  return hackyTable
 end
 
 local isInBlobHitbox = false
@@ -1326,7 +1338,64 @@ mapData = {
 
   },
 
-  [439] = {}, -- Aurbis Map (nothing here, for now)
+  [439] = { -- Aurbis Map 
+
+    isExclusive = true,
+
+    zoneData = hackyJoin({
+      zoneName = "Tamriel",
+      zoneID = 27,
+      xN = "0.232",
+      yN = "0.289",
+      zonePolygonData = {
+        { xN = 0.238, yN = 0.678 },
+        { xN = 0.220, yN = 0.630 },
+        { xN = 0.236, yN = 0.569 },
+        { xN = 0.244, yN = 0.536 },
+        { xN = 0.229, yN = 0.513 },
+        { xN = 0.232, yN = 0.452 },
+        { xN = 0.240, yN = 0.407 },
+        { xN = 0.258, yN = 0.392 },
+        { xN = 0.276, yN = 0.361 },
+        { xN = 0.304, yN = 0.333 },
+        { xN = 0.340, yN = 0.309 },
+        { xN = 0.378, yN = 0.311 },
+        { xN = 0.424, yN = 0.302 },
+        { xN = 0.472, yN = 0.297 },
+        { xN = 0.494, yN = 0.307 },
+        { xN = 0.523, yN = 0.312 },
+        { xN = 0.558, yN = 0.311 },
+        { xN = 0.595, yN = 0.312 },
+        { xN = 0.626, yN = 0.321 },
+        { xN = 0.643, yN = 0.326 },
+        { xN = 0.658, yN = 0.335 },
+        { xN = 0.683, yN = 0.351 },
+        { xN = 0.711, yN = 0.341 },
+        { xN = 0.741, yN = 0.330 },
+        { xN = 0.765, yN = 0.344 },
+        { xN = 0.765, yN = 0.365 },
+        { xN = 0.765, yN = 0.387 },
+        { xN = 0.742, yN = 0.394 },
+        { xN = 0.754, yN = 0.426 },
+        { xN = 0.755, yN = 0.455 },
+        { xN = 0.746, yN = 0.479 },
+        { xN = 0.732, yN = 0.515 },
+        { xN = 0.733, yN = 0.555 },
+        { xN = 0.718, yN = 0.568 },
+        { xN = 0.719, yN = 0.585 },
+        { xN = 0.727, yN = 0.621 },
+        { xN = 0.712, yN = 0.648 },
+        { xN = 0.701, yN = 0.680 },
+        { xN = 0.666, yN = 0.702 },
+        { xN = 0.585, yN = 0.699 },
+        { xN = 0.508, yN = 0.693 },
+        { xN = 0.435, yN = 0.691 },
+        { xN = 0.373, yN = 0.688 },
+        { xN = 0.304, yN = 0.697 },
+        { xN = 0.247, yN = 0.686 },                 
+      }
+    }, true),
+  }, 
 
   [16] = {  -- Cyrodiil PVP Map --
     [202] = { name = "Northern Morrowind Gate Wayshrine" }, -- Northern Morrowind Wayshrine
@@ -1352,18 +1421,27 @@ end
 
 function addon.GetMapTileTexture(index)
     local tex = _GetMapTileTexture(index)
-    if (not enabled) then 
-      return tex 
-    end
-    for i = 1, 16 do
-        if tiles[i] == tex then
-            ---- Replace certain tiles if you are on live server and have spoilers enabled
-            if debug then
-               i = tostring(i) .. "_debug"  
-            end
-            return "AccurateWorldMap/tiles/tamriel_" .. i .. ".dds"
+
+    if (GetCurrentMapIndex() == 1) then
+      for i = 1, 16 do
+        if tamriel_tiles[i] == tex then
+          ---- Replace certain tiles if you are on live server and have spoilers enabled
+          if debug then
+              i = tostring(i) .. "_debug"  
+          end
+          return "AccurateWorldMap/tiles/tamriel_" .. i .. ".dds"
         end
+      end
     end
+
+    if (GetCurrentMapIndex() == 24) then
+      for i = 1, 4 do
+        if aurbis_tiles[i] == tex then
+          return "AccurateWorldMap/tiles/aurbis_" .. i .. ".dds"
+        end
+      end
+    end
+    
     return tex
 end
 
@@ -1434,25 +1512,6 @@ end
 -- ██░▀▀▀░██░▀▀▀░██░▀▀▀░████░█████▄▀▀▄██░██▄░██░▀▀▄███░███▀░▀██░▀▀▀░██░██▄░██░▀▀▀░██
 -- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
 
-
--- * WouldProcessMapClick(*number* _normalizedClickX_, *number* _normalizedClickY_)
--- ** _Returns:_ *bool* _wouldProcess_, *luaindex:nilable* _resultingMapIndex_
-
-
--- local zos_GetNormalisedOffsetAndZoom = GetNormalizedPositionFocusZoomAndOffset
--- GetNormalizedPositionFocusZoomAndOffset = function(normalizedX, normalizedY, useCurrentZoom)
-
---   local targetNormalizedZoom, offsetX, offsetY = zos_GetNormalisedOffsetAndZoom(normalizedX, normalizedY, useCurrentZoom)
-
-
---   print(tostring(offsetX))
---   print(tostring(offsetY))
-
-
---   return targetNormalizedZoom, offsetX, offsetY
--- end
-
-
 local zos_WouldProcessMapClick = WouldProcessMapClick
 WouldProcessMapClick = function(xN, yN)
   local wouldProcess, resultingMapIndex = zos_WouldProcessMapClick(xN, yN)
@@ -1470,10 +1529,6 @@ WouldProcessMapClick = function(xN, yN)
 
   return wouldProcess, resultingMapIndex
 end
-
-
--- * ProcessMapClick(*number* _normalizedClickX_, *number* _normalizedClickY_)
--- ** _Returns:_ *[SetMapResultCode|#SetMapResultCode]* _setMapResult_
 
 local zos_ProcessMapClick = ProcessMapClick
 ProcessMapClick = function(xN, yN)
@@ -1495,14 +1550,6 @@ end
 
 local zos_GetMapMouseoverInfo = GetMapMouseoverInfo
 GetMapMouseoverInfo = function(xN, yN)
-
-
-  -- local targetNormalizedZoom, offsetX, offsetY = ZO_MapPanAndZoom:GetNormalizedPositionFocusZoomAndOffset(xN, yN, true)
-
-
-  -- print("Target offset X:"..offsetX.." Target offsetY:"..offsetY)
-
-
 
   local mapIndex = getCurrentZoneID()
 
@@ -1742,10 +1789,10 @@ local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
       end
 
 
-      print(tostring("Coordinate set "..key .. ": "))
+      -- print(tostring("Coordinate set "..key .. ": "))
   
-      print("X: "..tostring(data.xN))
-      print("Y: "..tostring(data.yN))
+      -- print("X: "..tostring(data.xN))
+      -- print("Y: "..tostring(data.yN))
   
   
       polygon:AddPoint(data.xN, data.yN)
@@ -1882,7 +1929,7 @@ local function getFileDirectoryFromZoneName(providedZoneName)
 
   providedZoneName = providedZoneName:lower()
 
-  local blobFileDirectory = ("AccurateWorldMap/blobs/tamriel-"..providedZoneName..".dds")
+  local blobFileDirectory = ("AccurateWorldMap/blobs/blob-"..providedZoneName..".dds")
 
   return blobFileDirectory
 end
@@ -1918,7 +1965,6 @@ local function getBlobTextureDetails()
             print("displaying textures!")
 
             local textureDirectory = getFileDirectoryFromZoneName(zoneInfo.zoneName)
-
 
 
 
@@ -1975,8 +2021,6 @@ local function cleanUpZoneBlobs()
   end
 
 
-
-
 end
 
 
@@ -1994,14 +2038,9 @@ end
 
 
 
-
 local function OnAddonLoaded(event, addonName)
   if addonName ~= addon.name then return end
   EVENT_MANAGER:UnregisterForEvent(addon.name, EVENT_ADD_ON_LOADED)
-
-
-
-
   
 
 
@@ -2011,17 +2050,8 @@ local function OnAddonLoaded(event, addonName)
   -- AccurateWorldMapTLC = CreateTopLevelWindow("AccurateWorldMapTLC")
   -- AccurateWorldMapTLC:SetResizeToFitDescendents(true) --will make the TLC window resize with it's childen -> the Tex01 texture control
   -- comment these two to hide the control
-  --AccurateWorldMapTLC:SetAlpha(1)
+  AWM_TextureControl:SetAlpha(0)
 
-  -- AccurateWorldMapPolyBoxTLC = CreateTopLevelWindow("AccurateWorldMapPolyBoxTLC")
-	-- AccurateWorldMapPolyBox = WINDOW_MANAGER:CreateControlFromVirtual("AccurateWorldMapPolyBoxEdit", AccurateWorldMapPolyBoxTLC, "CT_EDITBOX")
-	-- AccurateWorldMapPolyBox:SetMaxInputChars(3000)
-  -- AccurateWorldMapPolyBox:SetText("ligma")
-
-
-
-
-    
     
 
 
@@ -2046,8 +2076,6 @@ local function OnAddonLoaded(event, addonName)
   
 
 end
-
-
 
 
 

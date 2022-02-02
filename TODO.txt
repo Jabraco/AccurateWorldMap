@@ -1,4 +1,7 @@
 
+
+- refactor
+
 - figure out why texture control isn't working on startup, have to hide/show it
 
 
