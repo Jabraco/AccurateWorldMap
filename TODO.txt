@@ -4,6 +4,8 @@
 
 - figure out why texture control isn't working on startup, have to hide/show it
 
+- merge functionality of Guildshrines into this addon
+
 
 - set up aurbis textures
 
@@ -15,8 +17,31 @@
 
 - update print function to only print out if isDebug is enabled
 
+- hide player marker and group markers on world map for v1
+
 
 - remove AWM options panel and dependency if you're not using it
+
+okay, so: options
+Map Style (drop down)
+- Vanilla (default)
+- Geographic/Immersive
+
+Blob Style (drop down)
+- Vanilla (default)
+- Graded
+- Immersive
+
+Other Options:
+- Enable lore friendly renames (off by default)
+- Move dungeons to lore positions (on by default)
+- turn off wayshrines on world map (off by default)
+- enable lore tooltips for zones (on by default) 
+- enable province borders
+
+https://cdn.discordapp.com/attachments/654414794144743425/940170823367553034/settings_ui.png
+
+
 
 
 
