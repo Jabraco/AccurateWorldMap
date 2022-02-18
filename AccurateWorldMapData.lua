@@ -587,6 +587,29 @@ mapData = {
     [324] = { xN = 0.167, yN = 0.547 }, -- Hunding's Palatial Hall House
     [138] = { xN = 0.159, yN = 0.542 }, -- Port Hunding Wayshrine 
 
+    zoneData = hackyJoin({
+      zoneName = "Stros M'Kai",
+      zoneID = 201,
+      xN = "0.136",
+      yN = "0.528",
+      zonePolygonData = {
+        { xN = 0.140, yN = 0.537 },
+        { xN = 0.141, yN = 0.541 },
+        { xN = 0.145, yN = 0.541 },
+        { xN = 0.148, yN = 0.542 },
+        { xN = 0.148, yN = 0.548 },
+        { xN = 0.153, yN = 0.553 },
+        { xN = 0.160, yN = 0.556 },
+        { xN = 0.168, yN = 0.551 },
+        { xN = 0.173, yN = 0.534 },
+        { xN = 0.164, yN = 0.530 },
+        { xN = 0.152, yN = 0.531 },
+        { xN = 0.144, yN = 0.531 },
+        { xN = 0.139, yN = 0.536 },
+        { xN = 0.140, yN = 0.538 },        
+      }
+    }),
+
 
     -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
     -- ██░▄▀▄░██░▄▄▄░██░▄▄▀██░▄▄▀██░▄▄▄░██░███░█▄░▄██░▀██░██░▄▄▀██
@@ -1246,7 +1269,7 @@ mapData = {
     zoneData = hackyJoin({
       zoneName = "Reaper's March",
       zoneID = 256,
-      xN = "0.411",
+      xN = "0.397",
       yN = "0.556",
       zonePolygonData = {
         { xN = 0.479, yN = 0.558 },
@@ -1323,8 +1346,8 @@ mapData = {
     zoneData = hackyJoin({
       zoneName = "Grahtwood",
       zoneID = 9,
-      xN = "0.362",
-      yN = "0.667",
+      xN = "0.363",
+      yN = "0.671",
       zonePolygonData = {
         { xN = 0.446, yN = 0.671 },
         { xN = 0.443, yN = 0.673 },
@@ -1491,8 +1514,8 @@ mapData = {
     zoneData = hackyJoin({
       zoneName = "Greenshade",
       zoneID = 300,
-      xN = "0.272",
-      yN = "0.647",
+      xN = "0.273",
+      yN = "0.6405",
       zonePolygonData = {
         { xN = 0.375, yN = 0.740 },
         { xN = 0.368, yN = 0.747 },
@@ -1830,6 +1853,14 @@ mapData = {
     [201] = { name = "Western Elsweyr Gate Wayshrine" }, -- Western Elsweyr Wayshrine
     [236] = { xN = 0.523, yN = 0.382 }, -- Imperial City Prison Dungeon
     [247] = { xN = 0.497, yN = 0.428 }, -- White Gold Tower Dungeon
+  },
+
+  [22] = { -- Malabal Tor Map
+    [106] = { name = "Baandari Trading Post Wayshrine" }, -- Baandari Trading Post Wayshrine
+  },
+
+  [282] = { -- Baandari Trading Post Map
+    [106] = { name = "Baandari Trading Post Wayshrine" }, -- Baandari Trading Post Wayshrine
   },
 
   [1719] = { -- Western Skyrim Map 
