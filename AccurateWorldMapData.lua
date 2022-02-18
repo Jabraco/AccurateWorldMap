@@ -450,8 +450,8 @@ mapData = {
     zoneData = hackyJoin({
       zoneName = "Gold Coast",
       zoneID = 1006,
-      xN = "0.291",
-      yN = "0.524",
+      xN = "0.299",
+      yN = "0.515",
       zonePolygonData = {
         { xN = 0.384, yN = 0.574 },
         { xN = 0.380, yN = 0.562 },
@@ -492,8 +492,8 @@ mapData = {
     zoneData = hackyJoin({
       zoneName = "Stirk",
       zoneID = 415,
-      xN = "0.263",
-      yN = "0.566",
+      xN = "0.269",
+      yN = "0.5715",
       zonePolygonData = {
         { xN = 0.272, yN = 0.587 },
         { xN = 0.274, yN = 0.590 },
@@ -1343,6 +1343,8 @@ mapData = {
     }),
 
     -- Grahtwood --
+    [398] = { xN = 0.463, yN = 0.717 }, -- Lair of Maarselok Dungeon 
+
     zoneData = hackyJoin({
       zoneName = "Grahtwood",
       zoneID = 9,
@@ -1420,14 +1422,13 @@ mapData = {
     }),
 
     -- Malabal Tor -- 
-
     [106] = { name = "Baandari Trading Post Wayshrine" }, -- Baandari Trading Post Wayshrine
 
     zoneData = hackyJoin({
       zoneName = "Malabal Tor",
       zoneID = 22,
-      xN = "0.303",
-      yN = "0.571",
+      xN = "0.301",
+      yN = "0.562",
       zonePolygonData = {
         { xN = 0.418, yN = 0.568 },
         { xN = 0.411, yN = 0.570 },
@@ -1497,7 +1498,7 @@ mapData = {
     zoneData = hackyJoin({
       zoneName = "Tempest Island",
       zoneID = 292,
-      xN = "0.269",
+      xN = "0.275",
       yN = "0.596",
       zonePolygonData = {
         { xN = 0.274, yN = 0.609 },
@@ -1511,6 +1512,9 @@ mapData = {
     }),
 
     -- Greenshade --
+    [197] = { xN = 0.356, yN = 0.674 }, -- City of Ash I Dungeon
+    [268] = { xN = 0.356, yN = 0.674 }, -- City of Ash II Dungeon 
+
     zoneData = hackyJoin({
       zoneName = "Greenshade",
       zoneID = 300,
@@ -1681,8 +1685,8 @@ mapData = {
     zoneData = hackyJoin({
       zoneName = "Auridon",
       zoneID = 143,
-      xN = "0.134",
-      yN = "0.595",
+      xN = "0.1395",
+      yN = "0.5855",
       zonePolygonData = {
         { xN = 0.220, yN = 0.737 },
         { xN = 0.241, yN = 0.744 },
