@@ -10,6 +10,7 @@
 -- being able to figure out how to make this work
 
 -- ascii title art done on https://texteditor.com/ascii-art/
+--https://textfancy.com/multiline-text-art/
 
 -- define root addon object
 local addon = {
