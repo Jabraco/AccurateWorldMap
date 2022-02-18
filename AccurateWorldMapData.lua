@@ -488,6 +488,27 @@ mapData = {
       }
     }),
 
+    -- Stirk --
+    zoneData = hackyJoin({
+      zoneName = "Stirk",
+      zoneID = 415,
+      xN = "0.263",
+      yN = "0.566",
+      zonePolygonData = {
+        { xN = 0.272, yN = 0.587 },
+        { xN = 0.274, yN = 0.590 },
+        { xN = 0.284, yN = 0.590 },
+        { xN = 0.287, yN = 0.588 },
+        { xN = 0.288, yN = 0.577 },
+        { xN = 0.282, yN = 0.570 },
+        { xN = 0.277, yN = 0.570 },
+        { xN = 0.269, yN = 0.573 },
+        { xN = 0.267, yN = 0.579 },
+        { xN = 0.270, yN = 0.583 },
+        { xN = 0.272, yN = 0.587 },
+      }
+    }),
+
 
     -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
     -- ██░██░█▄░▄██░▄▄░██░██░████░▄▄▀██░▄▄▄░██░▄▄▀██░█▀▄██
@@ -857,8 +878,8 @@ mapData = {
     zoneData = hackyJoin({
       zoneName = "Shadowfen",
       zoneID = 26,
-      xN = "0.689",
-      yN = "0.561",
+      xN = "0.691",
+      yN = "0.5565",
       zonePolygonData = {
         { xN = 0.692, yN = 0.653 },
         { xN = 0.691, yN = 0.646 },
@@ -891,8 +912,8 @@ mapData = {
     zoneData = hackyJoin({
       zoneName = "Murkmire",
       zoneID = 1484,
-      xN = "0.677",
-      yN = "0.720",
+      xN = "0.682",
+      yN = "0.714",
       zonePolygonData = {
         { xN = 0.682, yN = 0.752 },
         { xN = 0.686, yN = 0.748 },
@@ -945,8 +966,8 @@ mapData = {
     zoneData = hackyJoin({
       zoneName = "Norg-Tzel",
       zoneID = 1552,
-      xN = "0.792",
-      yN = "0.791",
+      xN = "0.800",
+      yN = "0.7925",
       zonePolygonData = {
         { xN = 0.798, yN = 0.799 },
         { xN = 0.803, yN = 0.807 },
@@ -981,8 +1002,8 @@ mapData = {
     zoneData = hackyJoin({
       zoneName = "Blackwood",
       zoneID = 1887,
-      xN = "0.581",
-      yN = "0.594",
+      xN = "0.570",
+      yN = "0.5975",
       zonePolygonData = {
         { xN = 0.593, yN = 0.708 },
         { xN = 0.583, yN = 0.696 },
@@ -1130,8 +1151,8 @@ mapData = {
     zoneData = hackyJoin({
       zoneName = "Quin'rawl",
       zoneID = 1654,
-      xN = "0.484",
-      yN = "0.707",
+      xN = "0.500",
+      yN = "0.6945",
       zonePolygonData = {
         { xN = 0.556, yN = 0.751 },
         { xN = 0.556, yN = 0.737 },
@@ -1184,6 +1205,27 @@ mapData = {
       }
     }),
 
+    zoneData = hackyJoin({
+      zoneName = "Khenarthi's Roost",
+      zoneID = 258,
+      xN = "0.4905",
+      yN = "0.783",
+      zonePolygonData = {
+        { xN = 0.504, yN = 0.782 },
+        { xN = 0.511, yN = 0.782 },
+        { xN = 0.513, yN = 0.785 },
+        { xN = 0.512, yN = 0.788 },
+        { xN = 0.517, yN = 0.801 },
+        { xN = 0.509, yN = 0.811 },
+        { xN = 0.499, yN = 0.810 },
+        { xN = 0.491, yN = 0.799 },
+        { xN = 0.496, yN = 0.791 },
+        { xN = 0.500, yN = 0.790 },
+        { xN = 0.502, yN = 0.785 },
+        { xN = 0.503, yN = 0.782 },             
+      }
+    }),
+
 
     -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
     -- ██░███░█░▄▄▀██░█████░▄▄▄██░▀██░██░███░██░▄▄▄░██░▄▄▄░██░▄▄▀██
@@ -1201,9 +1243,25 @@ mapData = {
     [321] = { xN = 0.483, yN = 0.579 }, -- Dawnshadow House
     [320] = { xN = 0.472, yN = 0.560 }, -- Strident Springs Demesne House
 
-    -- Malabal Tor --
+    -- Tempest Island --
     [188] = { xN = 0.283, yN = 0.604 }, -- Tempest Island Dungeon
 
+    zoneData = hackyJoin({
+      zoneName = "Tempest Island",
+      zoneID = 292,
+      xN = "0.269",
+      yN = "0.596",
+      zonePolygonData = {
+        { xN = 0.274, yN = 0.609 },
+        { xN = 0.288, yN = 0.610 },
+        { xN = 0.291, yN = 0.597 },
+        { xN = 0.286, yN = 0.594 },
+        { xN = 0.278, yN = 0.596 },
+        { xN = 0.274, yN = 0.600 },
+        { xN = 0.273, yN = 0.606 },        
+      }
+    }),
+    
 
     -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
     -- ██░▄▄▄░██░██░██░▄▀▄░██░▄▀▄░██░▄▄▄██░▄▄▀██░▄▄▄░██░▄▄▄█▄▄░▄▄███▄░▄██░▄▄▄░██░█████░▄▄▄██░▄▄▄░██
@@ -1230,6 +1288,66 @@ mapData = {
     [355] = { xN = 0.094, yN = 0.757 }, -- Alinor Wayshrine
     [367] = { xN = 0.089, yN = 0.760 }, -- Alinor Crest Townhouse 
     [368] = { xN = 0.177, yN = 0.797 }, -- Colossal Aldmeri Grotto
+
+    zoneData = hackyJoin({
+      zoneName = "Summerset Isle",
+      zoneID = 1349,
+      xN = "0.033",
+      yN = "0.603",
+      zonePolygonData = {
+        { xN = 0.113, yN = 0.780 },
+        { xN = 0.112, yN = 0.784 },
+        { xN = 0.089, yN = 0.800 },
+        { xN = 0.068, yN = 0.795 },
+        { xN = 0.054, yN = 0.776 },
+        { xN = 0.052, yN = 0.768 },
+        { xN = 0.050, yN = 0.757 },
+        { xN = 0.045, yN = 0.750 },
+        { xN = 0.033, yN = 0.745 },
+        { xN = 0.027, yN = 0.736 },
+        { xN = 0.026, yN = 0.726 },
+        { xN = 0.031, yN = 0.721 },
+        { xN = 0.039, yN = 0.714 },
+        { xN = 0.036, yN = 0.708 },
+        { xN = 0.029, yN = 0.701 },
+        { xN = 0.029, yN = 0.688 },
+        { xN = 0.048, yN = 0.689 },
+        { xN = 0.055, yN = 0.669 },
+        { xN = 0.064, yN = 0.656 },
+        { xN = 0.072, yN = 0.659 },
+        { xN = 0.099, yN = 0.623 },
+        { xN = 0.106, yN = 0.622 },
+        { xN = 0.108, yN = 0.627 },
+        { xN = 0.118, yN = 0.626 },
+        { xN = 0.128, yN = 0.612 },
+        { xN = 0.139, yN = 0.616 },
+        { xN = 0.150, yN = 0.623 },
+        { xN = 0.155, yN = 0.630 },
+        { xN = 0.162, yN = 0.632 },
+        { xN = 0.165, yN = 0.638 },
+        { xN = 0.175, yN = 0.649 },
+        { xN = 0.189, yN = 0.655 },
+        { xN = 0.193, yN = 0.671 },
+        { xN = 0.188, yN = 0.686 },
+        { xN = 0.182, yN = 0.693 },
+        { xN = 0.184, yN = 0.702 },
+        { xN = 0.188, yN = 0.712 },
+        { xN = 0.177, yN = 0.720 },
+        { xN = 0.208, yN = 0.744 },
+        { xN = 0.207, yN = 0.765 },
+        { xN = 0.218, yN = 0.778 },
+        { xN = 0.216, yN = 0.786 },
+        { xN = 0.208, yN = 0.799 },
+        { xN = 0.196, yN = 0.807 },
+        { xN = 0.177, yN = 0.811 },
+        { xN = 0.154, yN = 0.802 },
+        { xN = 0.134, yN = 0.788 },
+        { xN = 0.125, yN = 0.795 },
+        { xN = 0.119, yN = 0.789 },
+        { xN = 0.120, yN = 0.784 },
+        { xN = 0.116, yN = 0.781 },           
+      }
+    }),
 
     -- Auridon --
     [194] = { xN = 0.185, yN = 0.594 }, -- Banished Cells I Dungeon 
@@ -1369,4 +1487,38 @@ mapData = {
   [1719] = { -- Western Skyrim Map 
     [434] = { xN = 0.442, yN = 0.193 }, -- Kyne's Aegis
   },
+}
+
+-------------------------------------------------------------------------------
+-- Custom map tiles
+-------------------------------------------------------------------------------
+
+-- Data tables of custom map tiles that are used in the addon
+
+-------------------------------------------------------------------------------
+
+tamriel_tiles = { -- tamriel world map map tiles
+  "Art/maps/tamriel/Tamriel_0.dds",
+  "Art/maps/tamriel/Tamriel_1.dds",
+  "Art/maps/tamriel/Tamriel_2.dds",
+  "Art/maps/tamriel/Tamriel_3.dds",
+  "Art/maps/tamriel/Tamriel_4.dds",
+  "Art/maps/tamriel/Tamriel_5.dds",
+  "Art/maps/tamriel/Tamriel_6.dds",
+  "Art/maps/tamriel/Tamriel_7.dds",
+  "Art/maps/tamriel/Tamriel_8.dds",
+  "Art/maps/tamriel/Tamriel_9.dds",
+  "Art/maps/tamriel/Tamriel_10.dds",
+  "Art/maps/tamriel/Tamriel_11.dds",
+  "Art/maps/tamriel/Tamriel_12.dds",
+  "Art/maps/tamriel/Tamriel_13.dds",
+  "Art/maps/tamriel/Tamriel_14.dds",
+  "Art/maps/tamriel/Tamriel_15.dds",
+}
+
+aurbis_tiles = { -- the "cosmic", or aurbis, custom map tiles
+  "Art/maps/tamriel/mundus_base_0.dds",
+  "Art/maps/tamriel/mundus_base_1.dds",
+  "Art/maps/tamriel/mundus_base_2.dds",
+  "Art/maps/tamriel/mundus_base_3.dds",
 }

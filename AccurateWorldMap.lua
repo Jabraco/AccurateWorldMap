@@ -19,51 +19,8 @@ local addon = {
 	author = "|CFF0000Breaux|r & |C6b51faThal-J|r",
 }
 
--- Base tamriel map tiles
-local tamriel_tiles = {
-  "Art/maps/tamriel/Tamriel_0.dds",
-  "Art/maps/tamriel/Tamriel_1.dds",
-  "Art/maps/tamriel/Tamriel_2.dds",
-  "Art/maps/tamriel/Tamriel_3.dds",
-  "Art/maps/tamriel/Tamriel_4.dds",
-  "Art/maps/tamriel/Tamriel_5.dds",
-  "Art/maps/tamriel/Tamriel_6.dds",
-  "Art/maps/tamriel/Tamriel_7.dds",
-  "Art/maps/tamriel/Tamriel_8.dds",
-  "Art/maps/tamriel/Tamriel_9.dds",
-  "Art/maps/tamriel/Tamriel_10.dds",
-  "Art/maps/tamriel/Tamriel_11.dds",
-  "Art/maps/tamriel/Tamriel_12.dds",
-  "Art/maps/tamriel/Tamriel_13.dds",
-  "Art/maps/tamriel/Tamriel_14.dds",
-  "Art/maps/tamriel/Tamriel_15.dds",
-}
-
-local aurbis_tiles = {
-  "Art/maps/tamriel/mundus_base_0.dds",
-  "Art/maps/tamriel/mundus_base_1.dds",
-  "Art/maps/tamriel/mundus_base_2.dds",
-  "Art/maps/tamriel/mundus_base_3.dds",
-}
 
 -- defaults
-local normalisedMouseX = 0
-local normalisedMouseY = 0
-
-local recordCoordinates = false
-
-local mouseDownOnPolygon = false
-
-
-local enabled = true
-local debug = false
-local UNITTAG_PLAYER = 'player' 
-local debugOutput = false
-local _GetMapTileTexture = GetMapTileTexture
-
-local LAM = LibAddonMenu2
-local saveData = {} -- TODO this should be a reference to your actual saved variables table
-local panelName = "addonvar" -- TODO the name will be used to create a global variable, pick something unique or you may overwrite an existing variable!
 
 local panelData = {
   type = "panel",
@@ -71,6 +28,19 @@ local panelData = {
   author = "Breaux & Thal-J",
 }
 
+
+local normalisedMouseX = 0
+local normalisedMouseY = 0
+local recordCoordinates = false
+local mouseDownOnPolygon = false
+local enabled = true
+local debug = false
+local UNITTAG_PLAYER = 'player' 
+local debugOutput = false
+local _GetMapTileTexture = GetMapTileTexture
+local LAM = LibAddonMenu2
+local saveData = {} -- TODO this should be a reference to your actual saved variables table
+local panelName = "addonvar" -- TODO the name will be used to create a global variable, pick something unique or you may overwrite an existing variable!
 local currentCoordinateCount = 0
 
 local currentPolygon = nil
@@ -91,6 +61,9 @@ local currentMapIndex
 local waitForRelease = false
 local currentMapOffsetX
 local currentMapOffsetY
+
+
+
 
 
 
