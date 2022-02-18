@@ -240,9 +240,7 @@ end
 
 local zos_GetFastTravelNodeInfo = GetFastTravelNodeInfo    
 GetFastTravelNodeInfo = function(nodeIndex)
-  local known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked = zos_GetFastTravelNodeInfo(nodeIndex)
-  local disabled = false
-
+  local known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked, disabled = zos_GetFastTravelNodeInfo(nodeIndex)
 
   if debugOutput == true then
         d("Current Node: "..nodeIndex)
@@ -272,6 +270,12 @@ GetFastTravelNodeInfo = function(nodeIndex)
 
         if zoneData[nodeIndex].name ~= nil then
           name = zoneData[nodeIndex].name
+        end
+
+        if zoneData[nodeIndex].disabled ~= nil then
+          if (zoneData[nodeIndex].disabled == false) then
+            isLocatedInCurrentMap = true
+          end
         end
 
 
@@ -708,12 +712,24 @@ local function OnAddonLoaded(event, addonName)
   -- comment these two to hide the control
   AWM_TextureControl:SetAlpha(0)
 
-    
 
-
-
-
-
+  ZO_MapPin.TOOLTIP_CREATORS[MAP_PIN_TYPE_FAST_TRAVEL_WAYSHRINE].creator = function(pin)
+		local nodeIndex = pin:GetFastTravelNodeIndex()
+		local _, name, _, _, _, _, _, _, _, disabled = GetFastTravelNodeInfo(nodeIndex)
+		local info_tooltip
+		if not IsInGamepadPreferredMode() then 
+			if not disabled then
+				if nodeIndex ~= 215 and nodeIndex ~= 221 or ZO_Map_GetFastTravelNode() then -- Eyevea and the Earth Forge cannot be "jumped" to so we'll add "This area is not accessible via jumping." when they're not using a wayshrine
+					InformationTooltip:AppendWayshrineTooltip(pin)																			-- Normal Wayshrine tooltip data
+				else
+					InformationTooltip:AddLine(zo_strformat(SI_WORLD_MAP_LOCATION_NAME, name), "", ZO_TOOLTIP_DEFAULT_COLOR:UnpackRGB())	-- Wayshrine Name
+					InformationTooltip:AddLine("This location can only be traveled to via other Wayshrines.", "", 1, 0, 0)				-- "This area is not accessible via jumping."
+				end	
+			else
+				InformationTooltip:AddLine(zo_strformat(SI_WORLD_MAP_LOCATION_NAME, name), "", ZO_TOOLTIP_DEFAULT_COLOR:UnpackRGB())		-- Wayshrine Name Only (unknown wayshrine)
+			end		
+		end
+	end
 
   SLASH_COMMANDS["/awm_debug"] = toggleDebugOutput
   SLASH_COMMANDS["/get_map_id"] = function() print(tostring(GetCurrentMapId())) end
