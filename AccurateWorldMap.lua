@@ -13,47 +13,13 @@
 --https://textfancy.com/multiline-text-art/
 
 
-local function getAddonInfo()
-  local addonTable = {}
-  local addonIndex
-  local AddOnManager = GetAddOnManager()
 
-  local numAddons = AddOnManager:GetNumAddOns()
-
-  for i = 1, numAddons do
-    local _, title = AddOnManager:GetAddOnInfo(i)
-
-    if (title == "Accurate World Map") then
-
-      addonIndex = i
-      addonTable.title = title
-      addonTable.name = title:gsub(" ", "")
-
-    end
-
-  end
-
-  if (addonIndex ~= nil) then
-
-      local _, _, author, description = GetAddOnManager():GetAddOnInfo(addonIndex)
-      addonTable.author = author
-      addonTable.description = description
-  
-      local version = GetAddOnManager():GetAddOnVersion(addonIndex)
-      addonTable.version = tostring(version)
-
-  end
-
-  return addonTable
-end
 
 -------------------------------------------------------------------------------
 -- Root addon object
 -------------------------------------------------------------------------------
 
-local addon = getAddonInfo()
-
-
+local addon = AWM_GetAddonInfo("AccurateWorldMap")
 
 
 -------------------------------------------------------------------------------
@@ -84,12 +50,13 @@ local currentCoordinateCount = 0
 local currentPolygon = nil
 local polygonData = {}
 local newPolygonData = {}
+local currentZoneInfo = {}
 
 
 
 
 local currentlySelectedBlobName = ""
-local currentZoneInfo = {}
+
 
 
 
@@ -374,8 +341,6 @@ local function onMousePressed()
 
 
 end
-
-
 
 
 local function getWorldMapOffsets()

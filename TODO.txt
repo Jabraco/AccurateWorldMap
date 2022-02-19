@@ -1,34 +1,5 @@
 
 
-AddOnManager:GetNumAddOns()
-
-- GetNumAddOns()
-
-then iterate through
-
-* GetAddOnInfo(*luaindex* _addOnIndex_)
-
-** _Returns:_ *string* _name_, *string* _title_, *string* _author_, *string* _description_, *bool* _enabled_, *[AddOnLoadState|#AddOnLoadState]* _state_, *bool* _isOutOfDate_, *bool* _isLibrary_
-
-if string = "Accurate World Map" then we have our addon, load addon data in the addon object
-
-	local orgGetAddOnInfo = AddOnManager.GetAddOnInfo
-	function AddOnManager:GetAddOnInfo(i)
-		local result = {orgGetAddOnInfo(self, i)}
-		result[8] = result[8] or isLibrary(result[1])
-		return unpack(result)
-	end
-
-	local orgGetNumAddons = AddOnManager.GetNumAddOns
-		local num = orgGetNumAddons()
-		return num
-	end
-
-
-
-
-
-
 things to get breaux to add to the map:
 
 - Dranil Kir (mini zone)
@@ -206,17 +177,3 @@ Thanks To:
 - TPC9000, for coding help
 - ESOUI addon community for their help and assistance
 - votan, sirinsinirator, sharlikan
-
-
-
-
-
-
-
-
-
-
-
-
-
-

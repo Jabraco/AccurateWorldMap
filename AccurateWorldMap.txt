@@ -9,6 +9,7 @@
 ## APIVersion: 100035
 ## DependsOn: LibAddonMenu-2.0
 
+AWM-Utils.lua
 AccurateWorldMap.xml
 AccurateWorldMap.lua
 AWM-Data.lua
