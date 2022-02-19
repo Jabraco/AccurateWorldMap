@@ -2285,8 +2285,8 @@ mapData = {
       zoneName = "Clockwork City",
       blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
       zoneID = 1313,
-      xN = "0.622",
-      yN = "0.146",
+      xN = "0.625",
+      yN = "0.140",
       zonePolygonData = {
         { xN = 0.713, yN = 0.142 },
         { xN = 0.740, yN = 0.158 },
@@ -2313,8 +2313,8 @@ mapData = {
       zoneName = "The Deadlands",
       blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
       zoneID = 2021,
-      xN = "0.759",
-      yN = "0.598",
+      xN = "0.768",
+      yN = "0.583",
       zonePolygonData = {
         { xN = 0.834, yN = 0.719 },
         { xN = 0.871, yN = 0.713 },
@@ -2337,8 +2337,8 @@ mapData = {
       zoneName = "Fargrave",
       blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
       zoneID = 2119,
-      xN = "0.648",
-      yN = "0.724",
+      xN = "0.653",
+      yN = "0.720",
       zonePolygonData = {
         { xN = 0.722, yN = 0.859 },
         { xN = 0.753, yN = 0.854 },
@@ -2360,8 +2360,8 @@ mapData = {
       zoneName = "Artaeum",
       blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
       zoneID = 1429,
-      xN = "0.293",
-      yN = "0.763",
+      xN = "0.300",
+      yN = "0.757",
       zonePolygonData = {
         { xN = 0.344, yN = 0.896 },
         { xN = 0.379, yN = 0.896 },
@@ -2386,8 +2386,8 @@ mapData = {
       zoneName = "Coldharbour",
       blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
       zoneID = 255,
-      xN = "0.092",
-      yN = "0.299",
+      xN = "0.097",
+      yN = "0.289",
       zonePolygonData = {
         { xN = 0.172, yN = 0.289 },
         { xN = 0.190, yN = 0.292 },
@@ -2407,7 +2407,6 @@ mapData = {
         { xN = 0.172, yN = 0.288 },                        
       }
     }),
-
 
   }, 
   
