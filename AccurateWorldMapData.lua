@@ -2263,8 +2263,8 @@ mapData = {
       zoneName = "Blackreach",
       blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
       zoneID = 1782,
-      xN = "0.349",
-      yN = "0.107",
+      xN = "0.355",
+      yN = "0.099",
       zonePolygonData = {
         { xN = 0.387, yN = 0.236 },
         { xN = 0.468, yN = 0.235 },
@@ -2279,9 +2279,138 @@ mapData = {
         { xN = 0.375, yN = 0.230 },             
       }
     }),
+
+    -- Clockwork City --
+    zoneData = hackyJoin({
+      zoneName = "Clockwork City",
+      blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
+      zoneID = 1313,
+      xN = "0.622",
+      yN = "0.146",
+      zonePolygonData = {
+        { xN = 0.713, yN = 0.142 },
+        { xN = 0.740, yN = 0.158 },
+        { xN = 0.755, yN = 0.178 },
+        { xN = 0.762, yN = 0.199 },
+        { xN = 0.759, yN = 0.229 },
+        { xN = 0.749, yN = 0.253 },
+        { xN = 0.729, yN = 0.270 },
+        { xN = 0.699, yN = 0.281 },
+        { xN = 0.666, yN = 0.274 },
+        { xN = 0.638, yN = 0.253 },
+        { xN = 0.627, yN = 0.230 },
+        { xN = 0.622, yN = 0.208 },
+        { xN = 0.626, yN = 0.182 },
+        { xN = 0.644, yN = 0.160 },
+        { xN = 0.668, yN = 0.143 },
+        { xN = 0.696, yN = 0.139 },
+        { xN = 0.704, yN = 0.138 },                    
+      }
+    }),
+
+    -- The Deadlands --
+    zoneData = hackyJoin({
+      zoneName = "The Deadlands",
+      blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
+      zoneID = 2021,
+      xN = "0.759",
+      yN = "0.598",
+      zonePolygonData = {
+        { xN = 0.834, yN = 0.719 },
+        { xN = 0.871, yN = 0.713 },
+        { xN = 0.897, yN = 0.689 },
+        { xN = 0.906, yN = 0.648 },
+        { xN = 0.889, yN = 0.606 },
+        { xN = 0.856, yN = 0.583 },
+        { xN = 0.823, yN = 0.583 },
+        { xN = 0.780, yN = 0.604 },
+        { xN = 0.769, yN = 0.629 },
+        { xN = 0.767, yN = 0.662 },
+        { xN = 0.775, yN = 0.686 },
+        { xN = 0.787, yN = 0.702 },
+        { xN = 0.814, yN = 0.716 },                     
+      }
+    }),
+
+    -- Fargrave --
+    zoneData = hackyJoin({
+      zoneName = "Fargrave",
+      blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
+      zoneID = 2119,
+      xN = "0.648",
+      yN = "0.724",
+      zonePolygonData = {
+        { xN = 0.722, yN = 0.859 },
+        { xN = 0.753, yN = 0.854 },
+        { xN = 0.781, yN = 0.829 },
+        { xN = 0.792, yN = 0.784 },
+        { xN = 0.780, yN = 0.749 },
+        { xN = 0.751, yN = 0.726 },
+        { xN = 0.709, yN = 0.719 },
+        { xN = 0.674, yN = 0.734 },
+        { xN = 0.649, yN = 0.767 },
+        { xN = 0.652, yN = 0.805 },
+        { xN = 0.664, yN = 0.835 },
+        { xN = 0.700, yN = 0.855 },               
+      }
+    }),
+
+    -- Artaeum --
+    zoneData = hackyJoin({
+      zoneName = "Artaeum",
+      blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
+      zoneID = 1429,
+      xN = "0.293",
+      yN = "0.763",
+      zonePolygonData = {
+        { xN = 0.344, yN = 0.896 },
+        { xN = 0.379, yN = 0.896 },
+        { xN = 0.407, yN = 0.882 },
+        { xN = 0.430, yN = 0.859 },
+        { xN = 0.438, yN = 0.835 },
+        { xN = 0.431, yN = 0.793 },
+        { xN = 0.414, yN = 0.772 },
+        { xN = 0.387, yN = 0.759 },
+        { xN = 0.359, yN = 0.754 },
+        { xN = 0.324, yN = 0.768 },
+        { xN = 0.302, yN = 0.792 },
+        { xN = 0.294, yN = 0.819 },
+        { xN = 0.300, yN = 0.858 },
+        { xN = 0.311, yN = 0.874 },
+        { xN = 0.333, yN = 0.888 },                
+      }
+    }),
+
+    -- Coldharbour --
+    zoneData = hackyJoin({
+      zoneName = "Coldharbour",
+      blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
+      zoneID = 255,
+      xN = "0.092",
+      yN = "0.299",
+      zonePolygonData = {
+        { xN = 0.172, yN = 0.289 },
+        { xN = 0.190, yN = 0.292 },
+        { xN = 0.210, yN = 0.305 },
+        { xN = 0.227, yN = 0.328 },
+        { xN = 0.233, yN = 0.362 },
+        { xN = 0.218, yN = 0.404 },
+        { xN = 0.196, yN = 0.420 },
+        { xN = 0.160, yN = 0.429 },
+        { xN = 0.129, yN = 0.422 },
+        { xN = 0.107, yN = 0.397 },
+        { xN = 0.097, yN = 0.373 },
+        { xN = 0.096, yN = 0.334 },
+        { xN = 0.108, yN = 0.313 },
+        { xN = 0.130, yN = 0.300 },
+        { xN = 0.152, yN = 0.290 },
+        { xN = 0.172, yN = 0.288 },                        
+      }
+    }),
+
+
   }, 
-
-
+  
 
 -- ███████████████████████████████████████████████████████████████████████████████████████████████████
 -- █   ███████   █   ███      ███████   ██████████   ███████   ███████  ████████        █████      ███
@@ -2311,6 +2440,10 @@ mapData = {
 
   [282] = { -- Baandari Trading Post Map
     [106] = { name = "Baandari Trading Post Wayshrine" }, -- Baandari Trading Post Wayshrine
+  },
+
+  [1429] = { -- Artaeum Map Map 
+    [373] = { xN = 0.299, yN = 0.857 }, -- Grand Psijic Villa House
   },
 
   [1719] = { -- Western Skyrim Map 
