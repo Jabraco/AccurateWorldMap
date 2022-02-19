@@ -1,22 +1,48 @@
 
--dranil kir
 
-and 
+AddOnManager:GetNumAddOns()
 
-- silitar
+- GetNumAddOns()
 
-on the map
+then iterate through
 
-- vivec city on vvardenfell
+* GetAddOnInfo(*luaindex* _addOnIndex_)
+
+** _Returns:_ *string* _name_, *string* _title_, *string* _author_, *string* _description_, *bool* _enabled_, *[AddOnLoadState|#AddOnLoadState]* _state_, *bool* _isOutOfDate_, *bool* _isLibrary_
+
+if string = "Accurate World Map" then we have our addon, load addon data in the addon object
+
+	local orgGetAddOnInfo = AddOnManager.GetAddOnInfo
+	function AddOnManager:GetAddOnInfo(i)
+		local result = {orgGetAddOnInfo(self, i)}
+		result[8] = result[8] or isLibrary(result[1])
+		return unpack(result)
+	end
+
+	local orgGetNumAddons = AddOnManager.GetNumAddOns
+		local num = orgGetNumAddons()
+		return num
+	end
+
+
+
+
+
+
+things to get breaux to add to the map:
+
+- Dranil Kir (mini zone)
+
+- Silitar (mini zone)
+
+- Vivec City on vvardenfell
+
+things to ask breaux to do:
 
 - ask for blob for earth forge in reach map, get breaux to draw one
 
-tell breaux someone on esorp wanted us to colab with highly detailed worldmap guy
 
-or at least make something similar
-
-
-- add mini ring outside of artaeum for the psijic villa house in the aurbis
+your todo:
 
 - add arcane university battlegroudn blob using blackreach circle blobs
 
@@ -25,12 +51,7 @@ or at least make something similar
 
 - figure out why texture control isn't working on startup, have to hide/show it
 
-- merge functionality of Guildshrines into this addon
 
-
-- set up aurbis textures
-
-- overwrite guildshrines functionality with enabling wayshrines
 
 
 - update zoneinfo checker so that it isn't reliant on texture info and both normalised coords  to do anything
@@ -39,6 +60,10 @@ or at least make something similar
 - update print function to only print out if isDebug is enabled
 
 - hide player marker and group markers on world map for v1
+
+- add dragonhold island to the map
+
+- sort out options menu
 
 
 - remove AWM options panel and dependency if you're not using it

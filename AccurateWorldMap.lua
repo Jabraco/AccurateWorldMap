@@ -12,64 +12,119 @@
 -- ascii title art done on https://texteditor.com/ascii-art/
 --https://textfancy.com/multiline-text-art/
 
--- define root addon object
-local addon = {
-	name = "AccurateWorldMap",
-	title = "Accurate World Map",
-	version = "1.0",
-	author = "|CFF0000Breaux|r & |C6b51faThal-J|r",
-}
+
+local function getAddonInfo()
+  local addonTable = {}
+  local addonIndex
+  local AddOnManager = GetAddOnManager()
+
+  local numAddons = AddOnManager:GetNumAddOns()
+
+  for i = 1, numAddons do
+    local _, title = AddOnManager:GetAddOnInfo(i)
+
+    if (title == "Accurate World Map") then
+
+      addonIndex = i
+      addonTable.title = title
+      addonTable.name = title:gsub(" ", "")
+
+    end
+
+  end
+
+  if (addonIndex ~= nil) then
+
+      local _, _, author, description = GetAddOnManager():GetAddOnInfo(addonIndex)
+      addonTable.author = author
+      addonTable.description = description
+  
+      local version = GetAddOnManager():GetAddOnVersion(addonIndex)
+      addonTable.version = tostring(version)
+
+  end
+
+  return addonTable
+end
+
+-------------------------------------------------------------------------------
+-- Root addon object
+-------------------------------------------------------------------------------
+
+local addon = getAddonInfo()
 
 
--- defaults
-
-local panelData = {
-  type = "panel",
-  name = "Accurate World Map",
-  author = "Breaux & Thal-J",
-}
 
 
-local normalisedMouseX = 0
-local normalisedMouseY = 0
+-------------------------------------------------------------------------------
+-- Globals
+-------------------------------------------------------------------------------
+
+
+-- bools
 local recordCoordinates = false
 local mouseDownOnPolygon = false
 local enabled = true
 local debug = false
-local UNITTAG_PLAYER = 'player' 
 local debugOutput = false
+local isExclusive = false
+local hasDragged = false
+local isInBlobHitbox = false
+local waitForRelease = false
+
+
+local normalisedMouseX = 0
+local normalisedMouseY = 0
+
+
 local _GetMapTileTexture = GetMapTileTexture
-local LAM = LibAddonMenu2
-local saveData = {} -- TODO this should be a reference to your actual saved variables table
-local panelName = "addonvar" -- TODO the name will be used to create a global variable, pick something unique or you may overwrite an existing variable!
+
 local currentCoordinateCount = 0
 
 local currentPolygon = nil
 local polygonData = {}
 local newPolygonData = {}
 
-local mapDimensions = 4096 -- px
 
-local isInBlobHitbox = false
+
+
 local currentlySelectedBlobName = ""
 local currentZoneInfo = {}
-local isExclusive = false
-local hasDragged = false
+
 
 
 local currentMapIndex
 
-local waitForRelease = false
+
 local currentMapOffsetX
 local currentMapOffsetY
 
+-------------------------------------------------------------------------------
+-- Constants
+-------------------------------------------------------------------------------
+
+local mapDimensions = 4096 -- px
+
+-------------------------------------------------------------------------------
+-- LibAddonMenu stuff
+-------------------------------------------------------------------------------
+
+local LAM = LibAddonMenu2
+local saveData = {} -- TODO this should be a reference to your actual saved variables table
+local panelName = "addonvar" -- TODO the name will be used to create a global variable, pick something unique or you may overwrite an existing variable!
+
+local panelData = {
+  type = "panel",
+  name = addon.title,
+  author = addon.author,
+}
 
 
 
 
 
-local function print(message, ...)
-	df("[%s] %s", addon.name, tostring(message:format(...)))
+function print(message, ...)
+	df("[%s] %s", addon.name, tostring(message):format(...))
 end
 
 
@@ -696,9 +751,6 @@ local function setMapTo(int)
 
 end
 
-
-
-
 local function OnAddonLoaded(event, addonName)
   if addonName ~= addon.name then return end
   EVENT_MANAGER:UnregisterForEvent(addon.name, EVENT_ADD_ON_LOADED)
@@ -737,6 +789,7 @@ local function OnAddonLoaded(event, addonName)
   SLASH_COMMANDS["/get_blobs"] = getBlobTextureDetails
   SLASH_COMMANDS["/get_controls"] = cleanUpZoneBlobs
   SLASH_COMMANDS["/set_map_to"] = setMapTo
+  SLASH_COMMANDS["/get_num_addons"] = getNumAddons
 
 --   SLASH_COMMANDS["/joke"] = function() 
 --     d(GetRandomElement(jokes)) 
@@ -755,7 +808,6 @@ end
 
 local function onZoneChanged()
 
-  local zoneName = GetUnitZone(UNITTAG_PLAYER)
   local mapIndex = getCurrentZoneID()
 
   print("Zone changed!")
@@ -835,8 +887,8 @@ end
 
 
 -- Registering events and callbacks
-LAM:RegisterOptionControls(panelName, optionsData)
 EVENT_MANAGER:RegisterForEvent(addon.name, EVENT_ADD_ON_LOADED, OnAddonLoaded)
 EVENT_MANAGER:RegisterForEvent("onMouseDown", EVENT_GLOBAL_MOUSE_DOWN, onMousePressed)
 EVENT_MANAGER:RegisterForUpdate("uniqueName", 0, checkIfCanTick)
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", onZoneChanged)
+LAM:RegisterOptionControls(panelName, optionsData)
