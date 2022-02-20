@@ -68,6 +68,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Bleakrock Isle",
+      zoneDescription = "The hardy Nords who inhabit Bleakrock Isle are mostly farmers and fisherfolk,\n but they are no stranger to pirates and raiders.",
       zoneID = 74,
       xN = "0.6075",
       yN = "0.223",
@@ -104,6 +105,7 @@ mapData = {
     zoneData = hackyJoin({
       zoneName = "Eastmarch",
       zoneID = 61,
+      zoneDescription = "One of the 'Old Holds', Eastmarch was among the first regions of Skyrim settled by the\n Nords when they arrived from Atmora.",
       xN = "0.5275",
       yN = "0.249",
       zonePolygonData = {
@@ -171,6 +173,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "The Rift",
+      zoneDescription = "The southeastern hold of Skyrim, The Rift is a temperate region northwest of\n the intersection between the Velothi Mountains and the Jerall Mountains.",
       zoneID = 125,
       xN = "0.5275",
       yN = "0.3145",
@@ -221,6 +224,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Western Skyrim",
+      zoneDescription = "Western Skyrim is a cold and unforgiving land, which consists of\n the holds of Haafingar, Karthald, and Hjaalmarch.",
       zoneID = 1719,
       xN = "0.352",
       yN = "0.166",
@@ -272,6 +276,7 @@ mapData = {
     -- Grayhome --
     zoneData = hackyJoin({
       zoneName = "Grayhome",
+      zoneDescription = "The frozen island of Grayhome is home to an ornate castle, formerly occupied by the Gray Host.",
       zoneID = 1864,
       xN = "0.242",
       yN = "0.125",
@@ -290,6 +295,7 @@ mapData = {
     -- Icereach --
     zoneData = hackyJoin({
       zoneName = "Icereach",
+      zoneDescription = "These frigid isles serves as the seat of power for the cruel Icereach Coven.",
       zoneID = 1737,
       xN = "0.390",
       yN = "0.146",
@@ -312,6 +318,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "The Reach",
+      zoneDescription = "The rocky highlands of The Reach contains savage predators, perilous Dwarven ruins, and\n hostile Reach clans.",
       zoneID = 1814,
       xN = "0.329",
       yN = "0.2435",
@@ -379,6 +386,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Cyrodiil",
+      zoneDescription = "With the Empire's collapse, armies of the Dominion, Covenant, and Pact have all invaded\nthe Heartland of Cyrodiil, vying for the Imperial throne.",
       zoneID = 16,
       xN = "0.420",
       yN = "0.384",
@@ -504,6 +512,7 @@ mapData = {
     -- Stirk --
     zoneData = hackyJoin({
       zoneName = "Stirk",
+      zoneDescription = "The island of Stirk is a no-man's-land - if it belongs to anyone, it's the Pirates of the Abecean Sea.",
       zoneID = 415,
       xN = "0.269",
       yN = "0.5715",
@@ -584,9 +593,9 @@ mapData = {
       }
     }),
 
-    -- Balfiera --
+    -- Isle of Balfiera --
     zoneData = hackyJoin({
-      zoneName = "Balfiera",
+      zoneName = "Isle of Balfiera",
       zoneID = 1997,
       xN = "0.141",
       yN = "0.3365",
@@ -1061,6 +1070,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Vvardenfell",
+      zoneDescription = "The sprawling volcanic island of Vvardenfell dominates northern Morrowind, with the\n ever-smoldering peak of Red Mountain at its centre.",
       zoneID = 1060,
       xN = "0.646",
       yN = "0.221",
@@ -1126,6 +1136,7 @@ mapData = {
     -- Firemoth Island --
     zoneData = hackyJoin({
       zoneName = "Firemoth Island",
+      zoneDescription = "The Firemoth islets seem to float like forgotten derelicts on the surface of the Inner Sea,\n shrouded in mists that might hide all manner of crimes and corruption.",
       zoneID = 1248,
       xN = "0.674",
       yN = "0.3815",
@@ -1147,6 +1158,7 @@ mapData = {
     -- Stonefalls --
     zoneData = hackyJoin({
       zoneName = "Stonefalls",
+      zoneDescription = "This ashy region of Morrowind known as Stonefalls was where the recent invading\n army from Akavir met its bloody end.",
       zoneID = 7,
       xN = "0.668",
       yN = "0.380",
@@ -1213,6 +1225,7 @@ mapData = {
     -- Bal Foyen --
     zoneData = hackyJoin({
       zoneName = "Bal Foyen",
+      zoneDescription = "This region is known as Bal Foyen, a wild expanse of marshland and volcanic landscapes,\n now being used to farm saltrice by the Dark Elves' former Argonian slaves.",
       zoneID = 75,
       xN = "0.795",
       yN = "0.428",
@@ -1239,6 +1252,7 @@ mapData = {
     -- Deshaan --
     zoneData = hackyJoin({
       zoneName = "Deshaan",
+      zoneDescription = "The fertile valleys of Deshaan are home to lush fungal forests, deep kwama mines,\n and broad pastures where netches and guar graze.",
       zoneID = 13,
       xN = "0.699",
       yN = "0.430",
@@ -1320,6 +1334,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Shadowfen",
+      zoneDescription = "The fetid mire of Shadowfen has had more contact with Tamrielic civilization than most of Black Marsh,\n primarily due to the activities of the Dunmeri slavers who once operated here.",
       zoneID = 26,
       xN = "0.691",
       yN = "0.5565",
@@ -1354,6 +1369,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Murkmire",
+      zoneDescription = "Legend holds that the region informally known as Murkmire once\n extended much further south before it sank beneath the waves.",
       zoneID = 1484,
       xN = "0.682",
       yN = "0.714",
@@ -1408,6 +1424,7 @@ mapData = {
     -- Norg-Tzel --
     zoneData = hackyJoin({
       zoneName = "Norg-Tzel",
+      zoneDescription = "Norg-Tzel, which means 'forbidden place' in the Argonian tongue, has much\n the same climate and terrain as the region of Black Marsh known as Murkmire.",
       zoneID = 1552,
       xN = "0.800",
       yN = "0.7925",
@@ -1444,6 +1461,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Blackwood",
+      zoneDescription = "Straddling the great Niben River and extending east into the bogs of the Argonian\n homeland, the Blackwood region serves as the maritime gate to Cyrodiil.",
       zoneID = 1887,
       xN = "0.570",
       yN = "0.5975",
@@ -1527,6 +1545,7 @@ mapData = {
     -- Northern Elsweyr --
     zoneData = hackyJoin({
       zoneName = "Anequina",
+      zoneDescription = "This region merged with the southern region of Pellitine centuries ago to form the province of Elsweyr.",
       zoneID = 1555,
       xN = "0.447",
       yN = "0.5805",
@@ -1594,6 +1613,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Quin'rawl",
+      zoneDescription = "Also known as Southern Elsweyr, this land's complex history stretches back into antiquity.",
       zoneID = 1654,
       xN = "0.500",
       yN = "0.6945",
@@ -1651,6 +1671,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Khenarthi's Roost",
+      zoneDescription = "This island off the southern coast of Elsweyr is named after the Khajiiti goddess of weather\n and the sky, who is usually represented as a great hawk.",
       zoneID = 258,
       xN = "0.4905",
       yN = "0.783",
@@ -1690,6 +1711,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Reaper's March",
+      zoneDescription = "Once known simply as Northern Valenwood, this region that borders Cyrodiil and\n Elsweyr has seen much bloody warfare.",
       zoneID = 256,
       xN = "0.397",
       yN = "0.556",
@@ -1919,6 +1941,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Tempest Island",
+      zoneDescription = "This island in the Strid estuary has long been a haven for pirates, raiders,\n and fugitives from law enforcement.",
       zoneID = 292,
       xN = "0.275",
       yN = "0.596",
@@ -2029,6 +2052,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Summerset Isle",
+      zoneDescription = "The land called Summerset is the birthplace of civilization and magic as we know it in Tamriel.",
       zoneID = 1349,
       xN = "0.021",
       yN = "0.6095",
@@ -2107,6 +2131,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Auridon",
+      zoneDescription = "The second largest of the Summerset Isles, Auridon has always served the High Elves as a\n buffer between their serene archipelago and the turmoil of Tamriel.",
       zoneID = 143,
       xN = "0.1395",
       yN = "0.5855",
@@ -2170,6 +2195,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Eyevea",
+      zoneDescription = "Originally an island in the Summerset archipelago, Eyevea now serves as the home of the Mages Guild.",
       zoneID = 108,
       xN = "0.061",
       yN = "0.590",
@@ -2262,6 +2288,7 @@ mapData = {
     -- Blackreach --
     zoneData = hackyJoin({
       zoneName = "Blackreach",
+      zoneDescription = "Blackreach, a legendary and long-forgotten realm that extends beneath Skyrim - and perhaps beyond.",
       blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
       zoneID = 1782,
       xN = "0.355",

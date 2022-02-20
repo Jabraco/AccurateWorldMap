@@ -13,13 +13,11 @@
 --https://textfancy.com/multiline-text-art/
 
 
-
-
 -------------------------------------------------------------------------------
 -- Root addon object
 -------------------------------------------------------------------------------
 
-local addon = AWM_GetAddonInfo("AccurateWorldMap")
+AWM = getAddonInfo("AccurateWorldMap")
 
 
 -------------------------------------------------------------------------------
@@ -78,24 +76,32 @@ local mapDimensions = 4096 -- px
 
 local LAM = LibAddonMenu2
 local saveData = {} -- TODO this should be a reference to your actual saved variables table
-local panelName = "addonvar" -- TODO the name will be used to create a global variable, pick something unique or you may overwrite an existing variable!
+local panelName = "AccurateWorldMapSettings" -- TODO the name will be used to create a global variable, pick something unique or you may overwrite an existing variable!
 
 local panelData = {
   type = "panel",
-  name = addon.title,
-  author = addon.author,
+  name = AWM.title,
+  author = AWM.author,
+  version = AWM.version,
+  slashCommand = "/awm",
+  website = "https://github.com/Thal-J/AccurateWorldMap", --TODO: replace with esoui link
+}
+
+local panel = LAM:RegisterAddonPanel(panelName, panelData)
+local optionsData = {
+    {
+        type = "checkbox",
+        name = "Enable debug tiles",
+        getFunc = function() return saveData.myValue end,
+        setFunc = function(value) debug = value end
+    }
 }
 
 
 
 
 
-function print(message, ...)
-	df("[%s] %s", addon.name, tostring(message):format(...))
-end
-
-
-function addon.GetMapTileTexture(index)
+function AWM.GetMapTileTexture(index)
     local tex = _GetMapTileTexture(index)
 
     if (GetCurrentMapIndex() == 1) then
@@ -252,7 +258,11 @@ GetMapMouseoverInfo = function(xN, yN)
         heightN = currentZoneInfo.nBlobTextureHeight
         locXN = currentZoneInfo.xN
         locYN = currentZoneInfo.yN
-        
+
+        if (currentZoneInfo.zoneDescription ~= nil) then
+          ZO_WorldMapMouseOverDescription:SetText(currentZoneInfo.zoneDescription)
+        end
+
     end
 
   end
@@ -391,6 +401,7 @@ local function mapTick()
       isInBlobHitbox = false
       currentPolygon = nil
       currentZoneInfo = {}
+      ZO_WorldMapMouseOverDescription:SetText("")
 
     end
 
@@ -398,7 +409,7 @@ local function mapTick()
 
 end
 
-function addon.GetMapCustomMaxZoom()
+function AWM.GetMapCustomMaxZoom()
     if not enabled then return _GetMapCustomMaxZoom() end
     if GetMapName() == "Tamriel" then
         return 3
@@ -407,15 +418,7 @@ function addon.GetMapCustomMaxZoom()
     end
 end
 
-local panel = LAM:RegisterAddonPanel(panelName, panelData)
-local optionsData = {
-    {
-        type = "checkbox",
-        name = "Enable debug tiles",
-        getFunc = function() return saveData.myValue end,
-        setFunc = function(value) debug = value end
-    }
-}
+
 
 local function checkIfCanTick()
 
@@ -717,8 +720,8 @@ local function setMapTo(int)
 end
 
 local function OnAddonLoaded(event, addonName)
-  if addonName ~= addon.name then return end
-  EVENT_MANAGER:UnregisterForEvent(addon.name, EVENT_ADD_ON_LOADED)
+  if addonName ~= AWM.name then return end
+  EVENT_MANAGER:UnregisterForEvent(AWM.name, EVENT_ADD_ON_LOADED)
   
 
 
@@ -760,8 +763,8 @@ local function OnAddonLoaded(event, addonName)
 --     d(GetRandomElement(jokes)) 
 -- end
   
-  GetMapTileTexture = addon.GetMapTileTexture
-  GetMapCustomMaxZoom = addon.GetMapCustomMaxZoom
+  GetMapTileTexture = AWM.GetMapTileTexture
+  GetMapCustomMaxZoom = AWM.GetMapCustomMaxZoom
   
 
 end
@@ -852,7 +855,7 @@ end
 
 
 -- Registering events and callbacks
-EVENT_MANAGER:RegisterForEvent(addon.name, EVENT_ADD_ON_LOADED, OnAddonLoaded)
+EVENT_MANAGER:RegisterForEvent(AWM.name, EVENT_ADD_ON_LOADED, OnAddonLoaded)
 EVENT_MANAGER:RegisterForEvent("onMouseDown", EVENT_GLOBAL_MOUSE_DOWN, onMousePressed)
 EVENT_MANAGER:RegisterForUpdate("uniqueName", 0, checkIfCanTick)
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", onZoneChanged)

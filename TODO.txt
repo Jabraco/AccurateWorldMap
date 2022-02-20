@@ -1,5 +1,23 @@
 
 
+
+
+
+local function NormalizePreferredMousePositionToMap()
+    if IsInGamepadPreferredMode() then
+        local x, y = ZO_WorldMapScroll:GetCenter()
+        return NormalizePointToControl(x, y, ZO_WorldMapContainer)
+    else
+        return NormalizeMousePositionToControl(ZO_WorldMapContainer)
+    end
+end
+
+- add lore descriptions to all zones
+
+- change subtitle shadow text to be more legible
+
+ZO_WorldMapMouseOverDescription:SetText(poiFinishedDesc)
+
 things to get breaux to add to the map:
 
 - Dranil Kir (mini zone)
@@ -17,7 +35,7 @@ your todo:
 
 - add arcane university battlegroudn blob using blackreach circle blobs
 
-
+- lam settings
 - refactor
 
 - figure out why texture control isn't working on startup, have to hide/show it
@@ -36,6 +54,17 @@ your todo:
 
 - sort out options menu
 
+* SetAnchor *protected-attributes* (*[AnchorPosition|#AnchorPosition]* _point_, *object* _relativeTo_, *[AnchorPosition|#AnchorPosition]* _relativePoint_, *layout_measurement* _offsetX_, *layout_measurement* _offsetY_, *[AnchorConstrains|#AnchorConstrains]* _anchorConstrains_)
+
+* GetAnchor(*integer* _anchorIndex_)
+** _Returns:_ *bool* _isValidAnchor_, *integer* _point_, *object* _relativeTo_, *integer* _relativePoint_, *number* _offsetX_, *number* _offsetY_, *[AnchorConstrains|#AnchorConstrains]* _anchorConstrains_
+
+- Arcane University (in cyrodiil)
+
+
+- Remove dragonhold from the map when you've done the quest
+
+add descriptions to zoneinfo
 
 - remove AWM options panel and dependency if you're not using it
 
@@ -63,10 +92,6 @@ https://cdn.discordapp.com/attachments/654414794144743425/940170823367553034/set
 
 
 
-function ZO_WorldMap_MouseDown(button, ctrl, alt, shift)
-
-
-
 
 
 
@@ -90,36 +115,6 @@ function ZO_WorldMap_MouseDown(button, ctrl, alt, shift)
 * EVENT_GLOBAL_MOUSE_UP (*[MouseButtonIndex|#MouseButtonIndex]* _button_, *bool* _ctrl_, *bool* _alt_, *bool* _shift_, *bool* _command_)
 
 
-
-
-Mini zone list:
-
-- Tempest Island
-- Stirk
-- Icereach
-- Balfiera
-- Wasten Coraldale
-- Eyevea
-- Topal Isle
-- Firemoth Island
-- Halls of Colossus
-- Blackwood Borderlands
-- Fort Grief isle (in middle of niben basin)
-- Jerral Mountains Logging Track
-- Arcane University (in cyrodiil)
-
-(remove sheogorad from vvardenfell zone)
-
-- Rename Northern Elsweyr to Anequinna
-- Rename Southern Elsweyr to Quin-Rawl
-- Rename Summerset to Summerset Isle
-
-- Remove dragonhold from the map when you've done the quest
-
-Breaux needs to give me:
-
-- Norg-Tzel blob
-- Greyhome blob
 
 - Remastered, vanilla-style map
 
@@ -177,3 +172,29 @@ Thanks To:
 - TPC9000, for coding help
 - ESOUI addon community for their help and assistance
 - votan, sirinsinirator, sharlikan
+
+
+local zos_GetMapMouseoverInfo = GetMapMouseoverInfo
+GetMapMouseoverInfo = function(xN, yN)
+  [..]
+
+  -- if the current map is not set to exclusive, or we don't have any data for it, get vanilla values
+  if (isExclusive == false or mapData[mapIndex] == nil) then
+    locationName, textureFile, widthN, heightN, locXN, locYN = zos_GetMapMouseoverInfo(xN, yN)
+  end
+
+  if (mapData[mapIndex] ~= nil) then
+    if (isInBlobHitbox) then 
+
+    	[..]
+
+    	--
+        if (currentZoneInfo.zoneDescription ~= nil) then
+          ZO_WorldMapMouseOverDescription:SetText(poiFinishedDesc)
+        end
+        --
+
+    end
+  end
+  return locationName, textureFile, widthN, heightN, locXN, locYN
+end

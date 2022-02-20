@@ -8,7 +8,7 @@
 -- Get Addon Info Function
 -------------------------------------------------------------------------------
 
-function AWM_GetAddonInfo(addonName)
+function getAddonInfo(addonName)
     local AddOnManager = GetAddOnManager()
 
     local numAddons = AddOnManager:GetNumAddOns()
@@ -27,9 +27,18 @@ function AWM_GetAddonInfo(addonName)
         addonTable.author = author
         addonTable.description = description
         addonTable.version = tostring(version)
+        addonTable.options = {}
 
         return addonTable
         end
     end
+end
+
+-------------------------------------------------------------------------------
+-- Print
+-------------------------------------------------------------------------------
+
+function print(message, ...)
+	df("[%s] %s", AWM.name, tostring(message):format(...))
 end
 
