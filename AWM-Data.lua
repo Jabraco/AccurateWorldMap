@@ -2210,7 +2210,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Eyevea",
-      zoneDescription = "Originally an island in the Summerset archipelago, Eyevea now serves as the home of the Mages Guild.",
+      zoneDescription = "Originally an island belonging to the Summerset Isles, Eyevea now serves as the home of the Mages Guild.",
       zoneID = 108,
       xN = "0.061",
       yN = "0.590",

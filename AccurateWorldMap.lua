@@ -402,6 +402,7 @@ local function mapTick()
       currentPolygon = nil
       currentZoneInfo = {}
       ZO_WorldMapMouseOverDescription:SetText("")
+      AWM_MouseOverGrungeTex:SetHidden(true)
 
     end
 
@@ -566,6 +567,7 @@ local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
       isInBlobHitbox = true
       --print("User has entered zone hitbox")
       currentPolygon = polygon
+      AWM_MouseOverGrungeTex:SetHidden(false)
   
       -- update with current zone info
       currentZoneInfo = getZoneInfoByID(getZoneIDFromPolygonName(polygon:GetName()))
@@ -726,6 +728,26 @@ local function OnAddonLoaded(event, addonName)
 
 
   getBlobTextureDetails()
+  ZO_WorldMapMouseOverDescription:SetFont("ZoFontGameLargeBold")
+  local mapWidth, mapHeight = ZO_WorldMapContainer:GetDimensions()
+  AWM_MouseOverGrungeTex = CreateControl("AWM_MouseOverGrungeTex", ZO_WorldMap, CT_TEXTURE)
+  AWM_MouseOverGrungeTex:SetTexture("/esoui/art/performance/statusmetermunge.dds")
+
+  local enlargeConst = 1.5
+
+  AWM_MouseOverGrungeTex:SetAnchor(TOPLEFT, ZO_WorldMap, TOPLEFT, (mapWidth - (mapWidth*enlargeConst))/2, -(0.47 * mapHeight))
+  AWM_MouseOverGrungeTex:SetDrawTier(DT_PARENT)
+  AWM_MouseOverGrungeTex:SetDimensions(mapWidth*enlargeConst, mapHeight)
+  AWM_MouseOverGrungeTex:SetDrawLayer(DL_OVERLAY)
+  AWM_MouseOverGrungeTex:SetDrawLayer(DL_CONTROLS)
+  AWM_MouseOverGrungeTex:SetHidden(true)
+
+  ZO_WorldMap:SetAutoRectClipChildren(true)
+
+
+
+
+
 
 
   -- AccurateWorldMapTLC = CreateTopLevelWindow("AccurateWorldMapTLC")
@@ -784,6 +806,8 @@ local function onZoneChanged()
 
   -- Delete any existing controls on the world map before iterating over anything else
   cleanUpZoneBlobs()
+  AWM_MouseOverGrungeTex:SetHidden(true)
+
 
   if (mapIndex ~= nil) then
 
