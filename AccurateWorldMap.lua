@@ -1,9 +1,6 @@
---[[ 
+--[[===========================================================================
+                      AccurateWorldMap, by Breaux & Thal-J
 ===============================================================================
-                     AccurateWorldMap, by Breaux & Thal-J
-===============================================================================
-]]--
-
 
 -- Hi, welcome to the code for AccurateWorldMap
 -- Thanks to the esoui glitter community and the authors of Highly Detailed World Map, uespLog, GuildShrines and World Wayshrine Controller for me 
@@ -13,17 +10,151 @@
 --https://textfancy.com/multiline-text-art/
 
 
+TJ Todo:
+
+- ask Breaux for blob for earth forge in reach map, get breaux to draw one
+
+- add arcane university battlegroudn blob using blackreach circle blobs
+
+- add IC Sewers blob to IC map
+
+- Arcane University (in cyrodiil)
+
+- update zoneinfo checker so that it isn't reliant on texture info and both normalised coords  to do anything
+
+- update print function to only print out if isDebug is enabled
+
+- hide player marker and group markers on world map for v1
+
+- Remove dragonhold from the map when you've done the quest
+
+- add dragonhold island to the map
+
+- sort out options menu
+
+- lam settings
+
+- figure out why texture control isn't working on startup, have to hide/show it
+
+Breaux Todo:
+
+- Dranil Kir (mini zone)
+- Silitar (mini zone)
+- Vivec City on vvardenfell
+
+
+
+
+
+okay, so: options
+Map Style (drop down)
+- Vanilla (default)
+- Geographic/Immersive
+
+Blob Style (drop down)
+- Vanilla (default)
+- Graded
+- Immersive
+
+Other Options:
+- Enable lore friendly renames (off by default)
+- Move dungeons to lore positions (on by default)
+- turn off wayshrines on world map (off by default)
+- enable lore tooltips for zones (on by default) 
+- enable province borders
+
+https://cdn.discordapp.com/attachments/654414794144743425/940170823367553034/settings_ui.png
+
+
+
+
+
+
+
+
+
+
+* EVENT_SHOW_WORLD_MAP
+
+* EVENT_ZONE_CHANGED (*string* _zoneName_, *string* _subZoneName_, *bool* _newSubzone_, *integer* _zoneId_, *integer* _subZoneId_)
+
+
+* EVENT_GROUP_TYPE_CHANGED (*bool* _largeGroup_)
+* EVENT_GROUP_UPDATE
+* EVENT_GROUP_MEMBER_JOINED (*string* _memberCharacterName_, *string* _memberDisplayName_, *bool* _isLocalPlayer_)
+* EVENT_GROUP_MEMBER_LEFT (*string* _memberCharacterName_, *[GroupLeaveReason|#GroupLeaveReason]* _reason_, *bool* _isLocalPlayer_, *bool* _isLeader_, *string* _memberDisplayName_, *bool* _actionRequiredVote_)
+* EVENT_GROUP_MEMBER_ROLE_CHANGED (*string* _unitTag_, *[LFGRole|#LFGRole]* _newRole_)
+* EVENT_GROUP_MEMBER_SUBZONE_CHANGED
+
+* EVENT_QUEST_ADVANCED (*luaindex* _journalIndex_, *string* _questName_, *bool* _isPushed_, *bool* _isComplete_, *bool* _mainStepChanged_)
+* EVENT_QUEST_COMPLETE (*string* _questName_, *integer* _level_, *integer* _previousExperience_, *integer* _currentExperience_, *integer* _championPoints_, *[QuestType|#QuestType]* _questType_, *[InstanceDisplayType|#InstanceDisplayType]* _instanceDisplayType_)
+
+* EVENT_GLOBAL_MOUSE_DOWN (*[MouseButtonIndex|#MouseButtonIndex]* _button_, *bool* _ctrl_, *bool* _alt_, *bool* _shift_, *bool* _command_)
+* EVENT_GLOBAL_MOUSE_UP (*[MouseButtonIndex|#MouseButtonIndex]* _button_, *bool* _ctrl_, *bool* _alt_, *bool* _shift_, *bool* _command_)
+
+
+
+- Remastered, vanilla-style map
+
+- Lore friendly overhaul of the map in line with previous games
+
+- Dungeon and wayshrines have been moved to compensate
+
+- Dungeons in their lore friendly places
+
+
+"Fans have been asking ZOS for years to fix the ESO World Map, and they still haven't done it. So, we thought we'd fix it ourselves."
+
+- add clickable area to arcane university battleground
+
+
+
+add to readme:
+
+the addons Destinations and Map Pins will add the old locations for certain wayshrines/dungeons to the map. Untick "unknown poi"'s to fix this
+
+
+Note: after installing, some dungeon, wayshrines will be moved to a more lore friendly location, and thus will NOT match the in-game locations. This is intentional, and will not be changed.
+
+the local zone map locations for dungeons remain as-is.
+
+thanks to Guild Shrines, Highly Detailed World Map, World Wayshrine Commander
+
+
+"The player location is wrong"
+
+yes, this is because ZOS's zones are in the wrong position, and it is something we can't fix. ZOS themselves have run up to this issue with northern elsweyr, when you go up to the reapers march entrance, it puts you in cyrodiil
+
+
+even if you don't care about the correctness of the map, this addon still offers something for you! it helps keep the worldmap clear of icon spam by moving some dungeons to their physical locations instead of where their entrances are
+
+
+
+
+Thanks To:
+
+
+- Breaux, for drawing up the map
+- [Author of highly detailed world map], for inspiration
+- Emily, for help along the way
+- TPC9000, for coding help
+- ESOUI addon community for their help and assistance
+- votan, sirinsinirator, sharlikan, Baertram
+
+
+---------------------------------------------------------------------------]]--
+
+
+
 -------------------------------------------------------------------------------
 -- Root addon object
 -------------------------------------------------------------------------------
 
 AWM = getAddonInfo("AccurateWorldMap")
 
-
 -------------------------------------------------------------------------------
 -- Globals
 -------------------------------------------------------------------------------
-
 
 -- bools
 local recordCoordinates = false
@@ -193,6 +324,16 @@ end
 -- ██▀▀▀▄▄██░███░██▄▄▄▀▀████░▄▄███░██░██░█░█░██░██████░████░███░███░██░█░█░██▄▄▄▀▀██
 -- ██░▀▀▀░██░▀▀▀░██░▀▀▀░████░█████▄▀▀▄██░██▄░██░▀▀▄███░███▀░▀██░▀▀▀░██░██▄░██░▀▀▀░██
 -- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+
+-------------------------------------------------------------------------------
+-- Process map click functions
+-------------------------------------------------------------------------------
+
+-- These functions control when the user's click is passed through to the map 
+-- for events such as zone changing, we want to override that so that we can
+-- make sure our custom polygons get the priority, as long as isExclusive = true.
+
+-------------------------------------------------------------------------------
 
 local zos_WouldProcessMapClick = WouldProcessMapClick
 WouldProcessMapClick = function(xN, yN)
@@ -693,8 +834,6 @@ local function cleanUpZoneBlobs()
     end
 
   end
-
-
 end
 
 
@@ -710,11 +849,15 @@ local function setMapTo(int)
 end
 
 local function OnAddonLoaded(event, addonName)
-  if addonName ~= AWM.name then return end
+  
+  -- ignore any other addon that isn't ours, we only care when our addon is loaded
+  if addonName ~= AWM.name then
+     return 
+  end
+  
+  -- our addon has loaded, we don't need to know about any future Addon Loaded events
   EVENT_MANAGER:UnregisterForEvent(AWM.name, EVENT_ADD_ON_LOADED)
   
-
-
   getBlobTextureDetails()
   ZO_WorldMapMouseOverDescription:SetFont("ZoFontGameLargeBold")
   local mapWidth, mapHeight = ZO_WorldMapContainer:GetDimensions()
@@ -770,9 +913,6 @@ local function OnAddonLoaded(event, addonName)
   SLASH_COMMANDS["/set_map_to"] = setMapTo
   SLASH_COMMANDS["/print"] = print
 
---   SLASH_COMMANDS["/joke"] = function() 
---     d(GetRandomElement(jokes)) 
--- end
   
   GetMapTileTexture = AWM.GetMapTileTexture
   GetMapCustomMaxZoom = AWM.GetMapCustomMaxZoom
@@ -867,9 +1007,22 @@ local function onZoneChanged()
 end
 
 
--- Registering events and callbacks
+-------------------------------------------------------------------------------
+-- Events and callbacks
+-------------------------------------------------------------------------------
+
 EVENT_MANAGER:RegisterForEvent(AWM.name, EVENT_ADD_ON_LOADED, OnAddonLoaded)
 EVENT_MANAGER:RegisterForEvent("onMouseDown", EVENT_GLOBAL_MOUSE_DOWN, onMousePressed)
 EVENT_MANAGER:RegisterForUpdate("uniqueName", 0, checkIfCanTick)
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", onZoneChanged)
 LAM:RegisterOptionControls(panelName, optionsData)
+
+
+-- local function NormalizePreferredMousePositionToMap()
+--   if IsInGamepadPreferredMode() then
+--       local x, y = ZO_WorldMapScroll:GetCenter()
+--       return NormalizePointToControl(x, y, ZO_WorldMapContainer)
+--   else
+--       return NormalizeMousePositionToControl(ZO_WorldMapContainer)
+--   end
+-- end
