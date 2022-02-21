@@ -324,11 +324,6 @@ GetFastTravelNodeInfo = function(nodeIndex)
 end
     
 
--- function to check if the mouse cursor is within or over the map window
-local function isMouseWithinMapWindow()
-  local mouseOverControl = WINDOW_MANAGER:GetMouseOverControl()
-  return (not ZO_WorldMapContainer:IsHidden() and (mouseOverControl == ZO_WorldMapContainer or mouseOverControl:GetParent() == ZO_WorldMapContainer))
-end
 
 local function onMousePressed()
 
@@ -353,14 +348,7 @@ local function onMousePressed()
 end
 
 
-local function getWorldMapOffsets()
 
-  local currentOffsetX =  math.floor(ZO_WorldMapContainer:GetLeft())
-  local currentOffsetY = math.floor(ZO_WorldMapContainer:GetTop())
-
-  return currentOffsetX, currentOffsetY
-
-end
 
 
 local function mapTick()
@@ -740,6 +728,7 @@ local function OnAddonLoaded(event, addonName)
   AWM_MouseOverGrungeTex:SetDimensions(mapWidth*enlargeConst, mapHeight)
   AWM_MouseOverGrungeTex:SetDrawLayer(DL_OVERLAY)
   AWM_MouseOverGrungeTex:SetDrawLayer(DL_CONTROLS)
+  AWM_MouseOverGrungeTex:SetAlpha(0.55)
   AWM_MouseOverGrungeTex:SetHidden(true)
 
   ZO_WorldMap:SetAutoRectClipChildren(true)
@@ -779,7 +768,7 @@ local function OnAddonLoaded(event, addonName)
   SLASH_COMMANDS["/get_blobs"] = getBlobTextureDetails
   SLASH_COMMANDS["/get_controls"] = cleanUpZoneBlobs
   SLASH_COMMANDS["/set_map_to"] = setMapTo
-  SLASH_COMMANDS["/get_num_addons"] = getNumAddons
+  SLASH_COMMANDS["/print"] = print
 
 --   SLASH_COMMANDS["/joke"] = function() 
 --     d(GetRandomElement(jokes)) 

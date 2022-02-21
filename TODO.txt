@@ -36,6 +36,9 @@ your todo:
 
 - add arcane university battlegroudn blob using blackreach circle blobs
 
+- add IC Sewers blob to IC map
+
+
 - lam settings
 - refactor
 

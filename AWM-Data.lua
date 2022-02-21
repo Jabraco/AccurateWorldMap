@@ -318,7 +318,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "The Reach",
-      zoneDescription = "The rocky highlands of The Reach contains savage predators, perilous Dwarven ruins, and\n hostile Reach clans.",
+      zoneDescription = "The rocky highlands of the Reach contains savage predators, perilous Dwarven ruins, and\n hostile Reach clans.",
       zoneID = 1814,
       xN = "0.329",
       yN = "0.2435",
@@ -2498,7 +2498,7 @@ mapData = {
     [434] = { xN = 0.442, yN = 0.193 }, -- Kyne's Aegis
   },
 
-  [1814] = { -- The Reach Map Map 
+  [1814] = { -- The Reach Map 
     [221] = { xN = 0.084, yN = 0.460, disabled = false }, -- The Earth Forge Wayshrine
   },
 }
