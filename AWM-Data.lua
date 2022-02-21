@@ -386,7 +386,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Cyrodiil",
-      zoneDescription = "With the Empire's collapse, armies of the Dominion, Covenant, and Pact have all invaded\nthe Heartland of Cyrodiil, vying for the Imperial throne.",
+      zoneDescription = "With the Empire's collapse, armies of the Dominion, Covenant, and Pact have all invaded\nthe Heartlands of Cyrodiil, vying for the Imperial throne.",
       zoneID = 16,
       xN = "0.420",
       yN = "0.384",
@@ -470,6 +470,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Gold Coast",
+      zoneDescription = "The Gold Coast always served as Cyrodiil's gateway to the Abecean Sea, but with\n the Alliance War, the region has gone its own way.",
       zoneID = 1006,
       xN = "0.299",
       yN = "0.515",
@@ -543,6 +544,7 @@ mapData = {
     -- Glenumbra --
     zoneData = hackyJoin({
       zoneName = "Glenumbra",
+      zoneDescription = "Glenumbra is the westernmost peninsula of High Rock, separating the Iliac Bay from the Eltheric Ocean.",
       zoneID = 1,
       xN = "0.030",
       yN = "0.2775",
@@ -596,6 +598,7 @@ mapData = {
     -- Isle of Balfiera --
     zoneData = hackyJoin({
       zoneName = "Isle of Balfiera",
+      zoneDescription = "This little isle is home to the Direnni, however, it is most renowned as\n the site of the Adamantine Tower - the oldest known structure in Tamriel.",
       zoneID = 1997,
       xN = "0.141",
       yN = "0.3365",
@@ -614,6 +617,7 @@ mapData = {
     -- Stormhaven --
     zoneData = hackyJoin({
       zoneName = "Stormhaven",
+      zoneDescription = "Stormhaven is the geographic center of High Rock, and also the home of the\n great trading city of Wayrest, capital of the Daggerfall Covenant.",
       zoneID = 12,
       xN = "0.154",
       yN = "0.248",
@@ -666,6 +670,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Rivenspire",
+      zoneDescription = "This northwestern region of High Rock contains some of the province's most dramatic terrain,\n including towering, flinty crags, windswept moors, and narrow canyons.",
       zoneID = 10,
       xN = "0.109",
       yN = "0.181",
@@ -711,6 +716,7 @@ mapData = {
     
     zoneData = hackyJoin({
       zoneName = "Wrothgar",
+      zoneDescription = "The Wrothgar Mountains have been home to northern Tamriel's Orcs since the beginning of recorded history.",
       zoneID = 667,
       xN = "0.186",
       yN = "0.1755",
@@ -774,6 +780,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Betnikh",
+      zoneDescription = "Originally called Betony, this isle was conquered by the Seamount Orcs, who then renamed it to Betnikh.",
       zoneID = 227,
       xN = "0.072",
       yN = "0.425",
@@ -824,6 +831,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Craglorn",
+      zoneDescription = "Though crossed by caravans and Covenant troops going to and from Cyrodiil, this\n wild region of eastern Hammerfell is a virtual no-man's-land.",
       zoneID = 1126,
       xN = "0.3225",
       yN = "0.300",
@@ -880,6 +888,7 @@ mapData = {
      -- Bangkorai --
     zoneData = hackyJoin({
       zoneName = "Bangkorai",
+      zoneDescription = "This region takes its name from its most famous feature, the Bangkorai Pass, which has served as\n High Rock's defense against the wild raiders of Hammerfell for countless generations.",
       zoneID = 20,
       xN = "0.230",
       yN = "0.269",
@@ -925,6 +934,7 @@ mapData = {
     -- The Alik'r --
     zoneData = hackyJoin({
       zoneName = "The Alik'r",
+      zoneDescription = "The Alik'r may be rich in mineral resources, but its fierce creatures and harsh terrain are too daunting for most.",
       zoneID = 30,
       xN = "0.1145",
       yN = "0.319",
@@ -976,6 +986,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Hew's Bane",
+      zoneDescription = "Prince Hubalajad claimed this Hammerfell peninsula for his own, but when all of\n his ambitious endeavors ended in failure, the region acquired the nickname Hew's Bane.",
       zoneID = 994,
       xN = "0.220",
       yN = "0.4765",
@@ -1016,6 +1027,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Stros M'Kai",
+      zoneDescription = "The island of Stros M'Kai was one of the first regions settled by the Redguards when they sailed east\n from their lost homeland of Yokuda.",
       zoneID = 201,
       xN = "0.142",
       yN = "0.529",
@@ -1791,6 +1803,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Grahtwood",
+      zoneDescription = "This region is the southern heart of the Wood Elves' great forest, and home to more\n of the gigantic graht-oaks than any other part of Valenwood.",
       zoneID = 9,
       xN = "0.363",
       yN = "0.671",
@@ -1870,6 +1883,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Malabal Tor",
+      zoneDescription = "Malabal Tor is the northwest region of Valenwood, on the coast of the Abecean Sea and the Strid River estuary.",
       zoneID = 22,
       xN = "0.301",
       yN = "0.562",
@@ -1962,6 +1976,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Greenshade",
+      zoneDescription = "Greenshade is a land of flowing rivers and fertile plains that occupies the southwest portion of Valenwood.",
       zoneID = 300,
       xN = "0.273",
       yN = "0.6405",
@@ -2233,6 +2248,7 @@ mapData = {
     -- Tamriel --
     zoneData = hackyJoin({
       zoneName = "Tamriel",
+      zoneDescription = "In the ancient tongues, the land called 'Tamriel' means 'Dawn's Beauty'.",
       zoneID = 27,
       xN = "0.196",
       yN = "0.2045",
@@ -2311,6 +2327,7 @@ mapData = {
     -- Clockwork City --
     zoneData = hackyJoin({
       zoneName = "Clockwork City",
+      zoneDescription = "The Clockwork City is said to be a great and intricate mechanism that replicates Nirn as a metallic miniature.",
       blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
       zoneID = 1313,
       xN = "0.625",
@@ -2339,6 +2356,7 @@ mapData = {
     -- The Deadlands --
     zoneData = hackyJoin({
       zoneName = "The Deadlands",
+      zoneDescription = "The Deadlands is Mehrunes Dagon's realm of unending destruction, fire and storm and disaster personified.",
       blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
       zoneID = 2021,
       xN = "0.768",
@@ -2363,6 +2381,7 @@ mapData = {
     -- Fargrave --
     zoneData = hackyJoin({
       zoneName = "Fargrave",
+      zoneDescription = "The princeless realm of Fargrave is known as 'The Celestial Palanquin' - a place where mortal\n and Daedra alike are free to do whatever they please.",
       blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
       zoneID = 2119,
       xN = "0.653",
@@ -2386,6 +2405,7 @@ mapData = {
     -- Artaeum --
     zoneData = hackyJoin({
       zoneName = "Artaeum",
+      zoneDescription = "Home to the Psijic Order, this island was formerly part of the Summerset Isles, but disappeared\noff Nirn 350 years ago under mysterious circumstances.",
       blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
       zoneID = 1429,
       xN = "0.300",
@@ -2412,6 +2432,7 @@ mapData = {
     -- Coldharbour --
     zoneData = hackyJoin({
       zoneName = "Coldharbour",
+      zoneDescription = "The dreadful Oblivion plane of Coldharbour is Molag Bal's realm of death, despair, and infinite cruelty.",
       blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
       zoneID = 255,
       xN = "0.097",

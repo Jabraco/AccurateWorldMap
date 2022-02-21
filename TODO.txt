@@ -3,6 +3,7 @@
 
 
 
+
 local function NormalizePreferredMousePositionToMap()
     if IsInGamepadPreferredMode() then
         local x, y = ZO_WorldMapScroll:GetCenter()
