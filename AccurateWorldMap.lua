@@ -45,7 +45,6 @@ Breaux Todo:
 
 
 
-
 okay, so: options
 Map Style (drop down)
 - Vanilla (default)
@@ -66,19 +65,11 @@ Other Options:
 https://cdn.discordapp.com/attachments/654414794144743425/940170823367553034/settings_ui.png
 
 
-
-
-
-
-
-
-
+Interesting events to consider:
 
 * EVENT_SHOW_WORLD_MAP
 
 * EVENT_ZONE_CHANGED (*string* _zoneName_, *string* _subZoneName_, *bool* _newSubzone_, *integer* _zoneId_, *integer* _subZoneId_)
-
-
 * EVENT_GROUP_TYPE_CHANGED (*bool* _largeGroup_)
 * EVENT_GROUP_UPDATE
 * EVENT_GROUP_MEMBER_JOINED (*string* _memberCharacterName_, *string* _memberDisplayName_, *bool* _isLocalPlayer_)

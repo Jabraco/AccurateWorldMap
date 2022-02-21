@@ -8,7 +8,6 @@
 ---------------------------------------------------------------------------]]--
 
 
-
 -------------------------------------------------------------------------------
 -- Hacky table functions
 -------------------------------------------------------------------------------
@@ -602,7 +601,7 @@ mapData = {
     -- Isle of Balfiera --
     zoneData = hackyJoin({
       zoneName = "Isle of Balfiera",
-      zoneDescription = "This little isle is home to the Direnni, however, it is most renowned as\n the site of the Adamantine Tower - the oldest known structure in Tamriel.",
+      zoneDescription = "Balfiera Isle, the ancestral home of Clan Direnni, and the site of the the\n oldest structure on Tamriel - the Adamantine Tower.",
       zoneID = 1997,
       xN = "0.141",
       yN = "0.3365",
