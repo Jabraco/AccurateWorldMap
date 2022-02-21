@@ -601,7 +601,7 @@ mapData = {
     -- Isle of Balfiera --
     zoneData = hackyJoin({
       zoneName = "Isle of Balfiera",
-      zoneDescription = "Balfiera Isle, the ancestral home of Clan Direnni, and the site of the the\n oldest structure on Tamriel - the Adamantine Tower.",
+      zoneDescription = "Balfiera Isle is the ancestral home of Clan Direnni, and the site of the the\n oldest structure on Tamriel - the Adamantine Tower.",
       zoneID = 1997,
       xN = "0.141",
       yN = "0.3365",
@@ -2330,7 +2330,7 @@ mapData = {
     -- Clockwork City --
     zoneData = hackyJoin({
       zoneName = "Clockwork City",
-      zoneDescription = "The Clockwork City is said to be a great and intricate mechanism that replicates Nirn as a metallic miniature.",
+      zoneDescription = "Clockwork City is the mysterious mechanical realm of Sotha Sil, one of the living gods of\n the Tribunal - it's purpose is unknown.",
       blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
       zoneID = 1313,
       xN = "0.625",
@@ -2408,7 +2408,7 @@ mapData = {
     -- Artaeum --
     zoneData = hackyJoin({
       zoneName = "Artaeum",
-      zoneDescription = "Home to the Psijic Order, this island was formerly part of the Summerset Isles, but disappeared\noff Nirn 350 years ago under mysterious circumstances.",
+      zoneDescription = "Home to the Psijic Order, this island was formerly part of the Summerset Isles, but disappeared\n from Nirn several centuries ago under mysterious circumstances.",
       blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
       zoneID = 1429,
       xN = "0.300",

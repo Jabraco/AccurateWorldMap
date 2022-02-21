@@ -2,39 +2,26 @@
                       AccurateWorldMap, by Breaux & Thal-J
 ===============================================================================
 
--- Hi, welcome to the code for AccurateWorldMap
--- Thanks to the esoui glitter community and the authors of Highly Detailed World Map, uespLog, GuildShrines and World Wayshrine Controller for me 
--- being able to figure out how to make this work
-
 -- ascii title art done on https://texteditor.com/ascii-art/
---https://textfancy.com/multiline-text-art/
+-- https://textfancy.com/multiline-text-art/
 
 
 TJ Todo:
 
 - ask Breaux for blob for earth forge in reach map, get breaux to draw one
-
 - add arcane university battlegroudn blob using blackreach circle blobs
-
 - add IC Sewers blob to IC map
-
 - Arcane University (in cyrodiil)
-
 - update zoneinfo checker so that it isn't reliant on texture info and both normalised coords  to do anything
-
 - update print function to only print out if isDebug is enabled
-
 - hide player marker and group markers on world map for v1
-
 - Remove dragonhold from the map when you've done the quest
-
 - add dragonhold island to the map
-
 - sort out options menu
-
 - lam settings
-
 - figure out why texture control isn't working on startup, have to hide/show it
+- add clickable area to arcane university battleground
+
 
 Breaux Todo:
 
@@ -84,6 +71,12 @@ Interesting events to consider:
 * EVENT_GLOBAL_MOUSE_UP (*[MouseButtonIndex|#MouseButtonIndex]* _button_, *bool* _ctrl_, *bool* _alt_, *bool* _shift_, *bool* _command_)
 
 
+Read me:
+
+The world map meticulously made accuate to lore, in an all new map in the style of vanilla.
+
+
+
 
 - Remastered, vanilla-style map
 
@@ -96,11 +89,8 @@ Interesting events to consider:
 
 "Fans have been asking ZOS for years to fix the ESO World Map, and they still haven't done it. So, we thought we'd fix it ourselves."
 
-- add clickable area to arcane university battleground
 
 
-
-add to readme:
 
 the addons Destinations and Map Pins will add the old locations for certain wayshrines/dungeons to the map. Untick "unknown poi"'s to fix this
 
@@ -121,16 +111,6 @@ even if you don't care about the correctness of the map, this addon still offers
 
 
 
-
-Thanks To:
-
-
-- Breaux, for drawing up the map
-- [Author of highly detailed world map], for inspiration
-- Emily, for help along the way
-- TPC9000, for coding help
-- ESOUI addon community for their help and assistance
-- votan, sirinsinirator, sharlikan, Baertram
 
 
 ---------------------------------------------------------------------------]]--
