@@ -70,49 +70,6 @@ Interesting events to consider:
 * EVENT_GLOBAL_MOUSE_DOWN (*[MouseButtonIndex|#MouseButtonIndex]* _button_, *bool* _ctrl_, *bool* _alt_, *bool* _shift_, *bool* _command_)
 * EVENT_GLOBAL_MOUSE_UP (*[MouseButtonIndex|#MouseButtonIndex]* _button_, *bool* _ctrl_, *bool* _alt_, *bool* _shift_, *bool* _command_)
 
-
-Read me:
-
-The world map meticulously made accuate to lore, in an all new map in the style of vanilla.
-
-
-
-
-- Remastered, vanilla-style map
-
-- Lore friendly overhaul of the map in line with previous games
-
-- Dungeon and wayshrines have been moved to compensate
-
-- Dungeons in their lore friendly places
-
-
-"Fans have been asking ZOS for years to fix the ESO World Map, and they still haven't done it. So, we thought we'd fix it ourselves."
-
-
-
-
-the addons Destinations and Map Pins will add the old locations for certain wayshrines/dungeons to the map. Untick "unknown poi"'s to fix this
-
-
-Note: after installing, some dungeon, wayshrines will be moved to a more lore friendly location, and thus will NOT match the in-game locations. This is intentional, and will not be changed.
-
-the local zone map locations for dungeons remain as-is.
-
-thanks to Guild Shrines, Highly Detailed World Map, World Wayshrine Commander
-
-
-"The player location is wrong"
-
-yes, this is because ZOS's zones are in the wrong position, and it is something we can't fix. ZOS themselves have run up to this issue with northern elsweyr, when you go up to the reapers march entrance, it puts you in cyrodiil
-
-
-even if you don't care about the correctness of the map, this addon still offers something for you! it helps keep the worldmap clear of icon spam by moving some dungeons to their physical locations instead of where their entrances are
-
-
-
-
-
 ---------------------------------------------------------------------------]]--
 
 

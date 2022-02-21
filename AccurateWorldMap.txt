@@ -3,7 +3,7 @@
 ;All rights reserved.
 
 ## Title: Accurate World Map
-## Description: The world map meticulously made accuate to lore, in an all new map in the style of vanilla.
+## Description: AccurateWorldMap replaces the in-game world map with one that is higher quality, more accurate, and lore friendly.
 ## Author: |C42ffbdBreaux|r & |C6b51faThal-J|r
 ## Version: 1.0
 ## AddOnVersion: 1
