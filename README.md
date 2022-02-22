@@ -1,6 +1,6 @@
-# AccurateWorldMap
+# Accurate World Map
 
-AccurateWorldMap is an addon for the Elder Scrolls Online (ESO), which replaces the in-game world map with one that is higher quality, more accurate, and lore friendly.
+Accurate World Map is an addon for the Elder Scrolls Online (ESO), which replaces the in-game world maps with higher quality, more accurate, and lore friendly ones.
 
 ## Features
 
@@ -16,7 +16,7 @@ AccurateWorldMap is an addon for the Elder Scrolls Online (ESO), which replaces 
 
 After installing, some dungeons, zones and wayshrines will be moved to lore friendly locations, and thus will not match the in-game locations. This is intentional, and will not be changed.
 
-The local zone map locations for dungeons remain as-is.
+The local zone maps remain as-is, barring a few exceptions.
 
 ## Compatibility
 

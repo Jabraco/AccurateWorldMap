@@ -30,28 +30,6 @@ Breaux Todo:
 - Vivec City on vvardenfell
 
 
-
-
-okay, so: options
-Map Style (drop down)
-- Vanilla (default)
-- Geographic/Immersive
-
-Blob Style (drop down)
-- Vanilla (default)
-- Graded
-- Immersive
-
-Other Options:
-- Enable lore friendly renames (off by default)
-- Move dungeons to lore positions (on by default)
-- turn off wayshrines on world map (off by default)
-- enable lore tooltips for zones (on by default) 
-- enable province borders
-
-https://cdn.discordapp.com/attachments/654414794144743425/940170823367553034/settings_ui.png
-
-
 Interesting events to consider:
 
 * EVENT_SHOW_WORLD_MAP
@@ -71,7 +49,6 @@ Interesting events to consider:
 * EVENT_GLOBAL_MOUSE_UP (*[MouseButtonIndex|#MouseButtonIndex]* _button_, *bool* _ctrl_, *bool* _alt_, *bool* _shift_, *bool* _command_)
 
 ---------------------------------------------------------------------------]]--
-
 
 
 -------------------------------------------------------------------------------
@@ -128,37 +105,6 @@ local currentMapOffsetY
 -------------------------------------------------------------------------------
 
 local mapDimensions = 4096 -- px
-
--------------------------------------------------------------------------------
--- LibAddonMenu stuff
--------------------------------------------------------------------------------
-
-local LAM = LibAddonMenu2
-local saveData = {} -- TODO this should be a reference to your actual saved variables table
-local panelName = "AccurateWorldMapSettings" -- TODO the name will be used to create a global variable, pick something unique or you may overwrite an existing variable!
-
-local panelData = {
-  type = "panel",
-  name = AWM.title,
-  author = AWM.author,
-  version = AWM.version,
-  slashCommand = "/awm",
-  website = "https://github.com/Thal-J/AccurateWorldMap", --TODO: replace with esoui link
-}
-
-local panel = LAM:RegisterAddonPanel(panelName, panelData)
-local optionsData = {
-    {
-        type = "checkbox",
-        name = "Enable debug tiles",
-        getFunc = function() return saveData.myValue end,
-        setFunc = function(value) debug = value end
-    }
-}
-
-
-
-
 
 function AWM.GetMapTileTexture(index)
     local tex = _GetMapTileTexture(index)
@@ -943,9 +889,8 @@ EVENT_MANAGER:RegisterForEvent(AWM.name, EVENT_ADD_ON_LOADED, OnAddonLoaded)
 EVENT_MANAGER:RegisterForEvent("onMouseDown", EVENT_GLOBAL_MOUSE_DOWN, onMousePressed)
 EVENT_MANAGER:RegisterForUpdate("uniqueName", 0, checkIfCanTick)
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", onZoneChanged)
-LAM:RegisterOptionControls(panelName, optionsData)
 
-
+-- TODO: use this to fix gamepad mode
 -- local function NormalizePreferredMousePositionToMap()
 --   if IsInGamepadPreferredMode() then
 --       local x, y = ZO_WorldMapScroll:GetCenter()

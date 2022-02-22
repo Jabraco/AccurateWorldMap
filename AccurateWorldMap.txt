@@ -2,8 +2,8 @@
 ;The Elder Scrolls® and related logos are registered trademarks or trademarks of ZeniMax Media Inc. in the United States and/or other countries.
 ;All rights reserved.
 
-## Title: Accurate World Map
-## Description: AccurateWorldMap replaces the in-game world map with one that is higher quality, more accurate, and lore friendly.
+## Title: Accurate World Map |t32:32:AccurateWorldMap/misc/map.dds|t
+## Description: Accurate World Map replaces the in-game world maps with higher quality, more accurate, and lore friendly ones.
 ## Author: |C42ffbdBreaux|r & |C6b51faThal-J|r
 ## Version: 1.0
 ## AddOnVersion: 1

@@ -2,8 +2,8 @@
                              AccurateWorldMap Data
 ===============================================================================
 
-            Data and data-related functions that get used to 
-            power zone/node/tile placement or other features.
+              Data and data-related functions that get used to 
+              power zone/node/tile placement or other features.
 
 ---------------------------------------------------------------------------]]--
 
@@ -30,6 +30,8 @@ local function hackyJoin(extra, newWorldspace)
   table.insert(hackyTable, extra)
   return hackyTable
 end
+
+AWM = AWM or {}
 
 -------------------------------------------------------------------------------
 -- World map wayshrine & zone data
@@ -543,11 +545,11 @@ mapData = {
     -- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
     -- [x] = { xN = x, yN = y }, -- 
     -- ctrl + f aid: high rock
-
+    
     -- Glenumbra --
     zoneData = hackyJoin({
       zoneName = "Glenumbra",
-      zoneDescription = "Glenumbra is the westernmost peninsula of High Rock, separating the Iliac Bay from the Eltheric Ocean.",
+      zoneDescription = "Glenumbra is the westernmost peninsula of High Rock and contains the city-states of Daggerfall and Camlorn.",
       zoneID = 1,
       xN = "0.030",
       yN = "0.2775",
@@ -2539,3 +2541,70 @@ aurbis_tiles = { -- the "cosmic", or aurbis, custom map tiles
   "Art/maps/tamriel/mundus_base_2.dds",
   "Art/maps/tamriel/mundus_base_3.dds",
 }
+
+-------------------------------------------------------------------------------
+-- LibAddonMenu stuff
+-------------------------------------------------------------------------------
+
+-- Data for the addon's settings menu.
+
+-------------------------------------------------------------------------------
+
+local LAM = LibAddonMenu2
+local panelName = "AccurateWorldMapSettings"
+local saveData = {} -- TODO this should be a reference to your actual saved variables table
+
+local panelData = {
+  type = "panel",
+  name = AWM.title,
+  author = AWM.author,
+  version = AWM.version,
+  registerForRefresh = true,
+  slashCommand = "/awm",
+  website = "https://github.com/Thal-J/AccurateWorldMap", -- TODO: replace with esoui link
+}
+
+local panel = LAM:RegisterAddonPanel(panelName, panelData)
+
+local optionsData = {
+  {
+    type = "header",
+    name = "General",
+    width = "full",	--or "half" (optional)
+  },
+  {
+    type = "description",
+    title = nil,	--(optional)
+    text = AWM.description,
+    width = "full",	--or "half" (optional)
+  },
+  {
+      type = "checkbox",
+      name = "Enable debug tiles",
+      getFunc = function() return saveData.myValue end,
+      setFunc = function(value) debug = value end
+  },
+}
+
+LAM:RegisterOptionControls(panelName, optionsData)
+
+
+
+-- okay, so: options
+-- Map Style (drop down)
+-- - Vanilla (default)
+-- - Geographic/Immersive
+
+-- Blob Style (drop down)
+-- - Vanilla (default)
+-- - Graded
+-- - Immersive
+
+-- Other Options:
+-- - Enable lore friendly renames (off by default)
+-- - Move dungeons to lore positions (on by default)
+-- - turn off wayshrines on world map (off by default)
+-- - enable lore tooltips for zones (on by default) 
+-- - enable province borders
+
+-- https://cdn.discordapp.com/attachments/654414794144743425/940170823367553034/settings_ui.png
