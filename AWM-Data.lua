@@ -31,7 +31,7 @@ local function hackyJoin(extra, newWorldspace)
   return hackyTable
 end
 
-AWM = AWM or {}
+AccurateWorldMap = AccurateWorldMap or {}
 
 -------------------------------------------------------------------------------
 -- World map wayshrine & zone data
@@ -2556,9 +2556,9 @@ local saveData = {} -- TODO this should be a reference to your actual saved vari
 
 local panelData = {
   type = "panel",
-  name = AWM.title,
-  author = AWM.author,
-  version = AWM.version,
+  name = AccurateWorldMap.title,
+  author = AccurateWorldMap.author,
+  version = AccurateWorldMap.version,
   registerForRefresh = true,
   slashCommand = "/awm",
   website = "https://github.com/Thal-J/AccurateWorldMap", -- TODO: replace with esoui link
@@ -2567,22 +2567,109 @@ local panelData = {
 local panel = LAM:RegisterAddonPanel(panelName, panelData)
 
 local optionsData = {
+  -- 
+  {
+    type = "description",
+    text = AccurateWorldMap.description,
+    width = "full",
+  },
+
   {
     type = "header",
     name = "General",
-    width = "full",	--or "half" (optional)
+    width = "full",
   },
   {
     type = "description",
-    title = nil,	--(optional)
-    text = AWM.description,
+    text = "General settings that tweak the world map experience.",
+    width = "full",
+  },
+  {
+    type = "checkbox",
+    name = "Hide icons on Tamriel Map",
+    tooltip = "Hide all wayshrines, houses, dungeons, and trials on the world map (Tamriel map).",
+    getFunc = function() return saveData.myValue end,
+    setFunc = function(value) debug = value end
+  },
+  {
+    type = "checkbox",
+    name = "Zone Descriptions",
+    tooltip = "Adds lore-friendly zone description tooltips when hovering over zones.",
+    getFunc = function() return saveData.myValue end,
+    setFunc = function(value) debug = value end
+  },
+  {
+    type = "checkbox",
+    name = "Lore accurate renames",
+    tooltip = "Renames certain zones and wayshrines to be more lore accurate.",
+    getFunc = function() return saveData.myValue end,
+    setFunc = function(value) debug = value end
+  },
+
+  {
+    type = "header",
+    name = "Style",
+    width = "full",
+  },
+  {
+    type = "description",
+    text = "Settings that change the way the world map looks.",
+    width = "full",
+  },
+  {
+    type = "dropdown",
+    name = "Map Style",
+    tooltip = "Choose between a vanilla styled map (default), or a more immersive geographic one.",
+    choices = {"Vanilla", "Geographic"},
+    getFunc = function() return "Vanilla" end,
+    setFunc = function(var) print(var) end,
     width = "full",	--or "half" (optional)
   },
   {
-      type = "checkbox",
-      name = "Enable debug tiles",
-      getFunc = function() return saveData.myValue end,
-      setFunc = function(value) debug = value end
+    type = "dropdown",
+    name = "Blob Style",
+    tooltip = "Change the hover-over style of over zones.",
+    choices = {"Vanilla", "Geographic"},
+    getFunc = function() return "Vanilla" end,
+    setFunc = function(var) print(var) end,
+    width = "full",	--or "half" (optional)
+  },
+  {
+    type = "checkbox",
+    name = "Show province borders",
+    tooltip = "Adds province border overlays on top of the world map.",
+    getFunc = function() return saveData.myValue end,
+    setFunc = function(value) debug = value end
+  },
+  {
+    type = "checkbox",
+    name = "Show labels",
+    tooltip = "Adds province, town and city labels on the world map.",
+    getFunc = function() return saveData.myValue end,
+    setFunc = function(value) debug = value end
+  },
+
+  {
+    type = "header",
+    name = "Debug",
+    width = "full",
+  },
+  {
+    type = "description",
+    text = "Debugging options used for the development of the addon. Unless you know what you're doing, you should ignore these.",
+    width = "full",
+  },
+  {
+    type = "checkbox",
+    name = "Enable debug tiles",
+    getFunc = function() return saveData.myValue end,
+    setFunc = function(value) debug = value end
+  },
+  {
+    type = "checkbox",
+    name = "Enable debug output",
+    getFunc = function() return saveData.myValue end,
+    setFunc = function(value) debug = value end
   },
 }
 

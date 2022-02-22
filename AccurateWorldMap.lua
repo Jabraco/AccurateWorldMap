@@ -55,7 +55,10 @@ Interesting events to consider:
 -- Root addon object
 -------------------------------------------------------------------------------
 
-AWM = getAddonInfo("AccurateWorldMap")
+AccurateWorldMap = getAddonInfo("AccurateWorldMap")
+
+-- define default options
+AccurateWorldMap.options = {}
 
 -------------------------------------------------------------------------------
 -- Globals
@@ -106,7 +109,7 @@ local currentMapOffsetY
 
 local mapDimensions = 4096 -- px
 
-function AWM.GetMapTileTexture(index)
+function AccurateWorldMap.GetMapTileTexture(index)
     local tex = _GetMapTileTexture(index)
 
     if (GetCurrentMapIndex() == 1) then
@@ -413,7 +416,7 @@ local function mapTick()
 
 end
 
-function AWM.GetMapCustomMaxZoom()
+function AccurateWorldMap.GetMapCustomMaxZoom()
     if not enabled then return _GetMapCustomMaxZoom() end
     if GetMapName() == "Tamriel" then
         return 3
@@ -725,12 +728,12 @@ end
 local function OnAddonLoaded(event, addonName)
   
   -- ignore any other addon that isn't ours, we only care when our addon is loaded
-  if addonName ~= AWM.name then
+  if addonName ~= AccurateWorldMap.name then
      return 
   end
   
   -- our addon has loaded, we don't need to know about any future Addon Loaded events
-  EVENT_MANAGER:UnregisterForEvent(AWM.name, EVENT_ADD_ON_LOADED)
+  EVENT_MANAGER:UnregisterForEvent(AccurateWorldMap.name, EVENT_ADD_ON_LOADED)
   
   getBlobTextureDetails()
   ZO_WorldMapMouseOverDescription:SetFont("ZoFontGameLargeBold")
@@ -788,8 +791,8 @@ local function OnAddonLoaded(event, addonName)
   SLASH_COMMANDS["/print"] = print
 
   
-  GetMapTileTexture = AWM.GetMapTileTexture
-  GetMapCustomMaxZoom = AWM.GetMapCustomMaxZoom
+  GetMapTileTexture = AccurateWorldMap.GetMapTileTexture
+  GetMapCustomMaxZoom = AccurateWorldMap.GetMapCustomMaxZoom
   
 
 end
@@ -885,7 +888,7 @@ end
 -- Events and callbacks
 -------------------------------------------------------------------------------
 
-EVENT_MANAGER:RegisterForEvent(AWM.name, EVENT_ADD_ON_LOADED, OnAddonLoaded)
+EVENT_MANAGER:RegisterForEvent(AccurateWorldMap.name, EVENT_ADD_ON_LOADED, OnAddonLoaded)
 EVENT_MANAGER:RegisterForEvent("onMouseDown", EVENT_GLOBAL_MOUSE_DOWN, onMousePressed)
 EVENT_MANAGER:RegisterForUpdate("uniqueName", 0, checkIfCanTick)
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", onZoneChanged)

@@ -44,7 +44,7 @@ end
 -------------------------------------------------------------------------------
 
 function print(message, ...) -- note: you can also use /print command in-game to use this!
-  df("[%s] %s", AWM.name, tostring(message):format(...))
+  df("[%s] %s", AccurateWorldMap.name, tostring(message):format(...))
 end
 
 -------------------------------------------------------------------------------

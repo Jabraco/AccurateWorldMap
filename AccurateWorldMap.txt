@@ -5,10 +5,11 @@
 ## Title: Accurate World Map |t32:32:AccurateWorldMap/misc/map.dds|t
 ## Description: Accurate World Map replaces the in-game world maps with higher quality, more accurate, and lore friendly ones.
 ## Author: |C42ffbdBreaux|r & |C6b51faThal-J|r
-## Version: 1.0
-## AddOnVersion: 1
-## APIVersion: 100035
 ## DependsOn: LibAddonMenu-2.0
+## Version: 1.0
+## AddOnVersion: 10
+## APIVersion: 100035
+
 
 AWM-Utils.lua
 AccurateWorldMap.xml
