@@ -8,11 +8,15 @@
 
 TJ Todo:
 
+- update print function to only print out if isDebug is enabled in settings
+- link that up to settings as well
+- saved variables
+
+
 - ask Breaux for blob for earth forge in reach map, get breaux to draw one
 - add arcane university battlegroudn blob using blackreach circle blobs
 - add IC Sewers blob to IC map
 - Arcane University (in cyrodiil)
-- update print function to only print out if isDebug is enabled
 - hide player marker and group markers on world map for v1
 - Remove dragonhold from the map when you've done the quest
 - add dragonhold island to the map
@@ -385,14 +389,6 @@ local function mapTick()
   normalisedMouseY = math.floor((((mouseY - currentOffsetY) / mapHeight) * 1000) + 0.5)/1000
 
 
-
-
-
-
-
-
-
-
   if (currentPolygon ~= nil) then
 
     -- check to make sure that the user has actually left the hitbox, and is not just hovering over a wayshrine
@@ -611,17 +607,15 @@ local function recordPolygon()
 end
 
 local function getFileDirectoryFromZoneName(providedZoneName)
-
   local providedZoneName = providedZoneName
 
-  providedZoneName = providedZoneName:gsub("'", "") -- replace all instances of `'` with empty string
-  providedZoneName = providedZoneName:gsub(" ", "") -- replace all instances of ` ` with empty string
-  providedZoneName = providedZoneName:gsub("-", "") -- replace all instances of ` ` with empty string
-
+  -- transform "Stros M'Kai" to "strosmkai"
+  providedZoneName = providedZoneName:gsub("'", "")
+  providedZoneName = providedZoneName:gsub(" ", "")
+  providedZoneName = providedZoneName:gsub("-", "") 
   providedZoneName = providedZoneName:lower()
 
   local blobFileDirectory = ("AccurateWorldMap/blobs/blob-"..providedZoneName..".dds")
-
   return blobFileDirectory
 end
 
@@ -688,6 +682,20 @@ local function getBlobTextureDetails()
       end
     end
   end
+end
+
+
+local function onPlayerLoaded()
+
+
+  zo_callLater(function()
+    getBlobTextureDetails() 
+
+    zo_callLater(function() getBlobTextureDetails() end, 1000 )
+
+  end, 2000 )
+
+
 end
 
 
@@ -788,16 +796,15 @@ local function OnAddonLoaded(event, addonName)
 end
 
 
-
-
--- Function that gets called whenever the user changes zone, or clicks to a new zone on the world map.
+-------------------------------------------------------------------------------
+--  On zone/map change callback function
+-------------------------------------------------------------------------------
 
 local function onZoneChanged()
 
   local mapIndex = getCurrentZoneID()
 
   print("Zone changed!")
-
 
 
   -- Delete any existing controls on the world map before iterating over anything else
@@ -875,11 +882,12 @@ end
 
 
 -------------------------------------------------------------------------------
--- Events and callbacks
+-- Registering for events and callbacks
 -------------------------------------------------------------------------------
 
 EVENT_MANAGER:RegisterForEvent(AccurateWorldMap.name, EVENT_ADD_ON_LOADED, OnAddonLoaded)
 EVENT_MANAGER:RegisterForEvent("onMouseDown", EVENT_GLOBAL_MOUSE_DOWN, onMousePressed)
+EVENT_MANAGER:RegisterForEvent(AccurateWorldMap.name, EVENT_PLAYER_ACTIVATED, onPlayerLoaded)
 EVENT_MANAGER:RegisterForUpdate("uniqueName", 0, checkIfCanTick)
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", onZoneChanged)
 
