@@ -2556,7 +2556,8 @@ local saveData = {} -- TODO this should be a reference to your actual saved vari
 
 local panelData = {
   type = "panel",
-  name = AccurateWorldMap.title,
+  name = "Accurate World Map",
+  displayName = AccurateWorldMap.title,
   author = AccurateWorldMap.author,
   version = AccurateWorldMap.version,
   registerForRefresh = true,
@@ -2629,7 +2630,7 @@ local optionsData = {
     type = "dropdown",
     name = "Blob Style",
     tooltip = "Change the hover-over style of over zones.",
-    choices = {"Vanilla", "Geographic"},
+    choices = {"Vanilla", "Graded", "Geographic"},
     getFunc = function() return "Vanilla" end,
     setFunc = function(var) print(var) end,
     width = "full",	--or "half" (optional)
@@ -2674,24 +2675,3 @@ local optionsData = {
 }
 
 LAM:RegisterOptionControls(panelName, optionsData)
-
-
-
--- okay, so: options
--- Map Style (drop down)
--- - Vanilla (default)
--- - Geographic/Immersive
-
--- Blob Style (drop down)
--- - Vanilla (default)
--- - Graded
--- - Immersive
-
--- Other Options:
--- - Enable lore friendly renames (off by default)
--- - Move dungeons to lore positions (on by default)
--- - turn off wayshrines on world map (off by default)
--- - enable lore tooltips for zones (on by default) 
--- - enable province borders
-
--- https://cdn.discordapp.com/attachments/654414794144743425/940170823367553034/settings_ui.png

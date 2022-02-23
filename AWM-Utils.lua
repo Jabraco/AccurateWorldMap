@@ -55,6 +55,14 @@ function isMouseWithinMapWindow()
   local mouseOverControl = WINDOW_MANAGER:GetMouseOverControl()
   return (not ZO_WorldMapContainer:IsHidden() and (mouseOverControl == ZO_WorldMapContainer or mouseOverControl:GetParent() == ZO_WorldMapContainer))
 end
+
+-------------------------------------------------------------------------------
+-- Check if world map window is being shown
+-------------------------------------------------------------------------------
+
+function isWorldMapShown()
+  return not ZO_WorldMapContainer:IsHidden()
+end
   
 -------------------------------------------------------------------------------
 -- Get world map offsets from the sides of the screen

@@ -12,15 +12,13 @@ TJ Todo:
 - add arcane university battlegroudn blob using blackreach circle blobs
 - add IC Sewers blob to IC map
 - Arcane University (in cyrodiil)
-- update zoneinfo checker so that it isn't reliant on texture info and both normalised coords  to do anything
 - update print function to only print out if isDebug is enabled
 - hide player marker and group markers on world map for v1
 - Remove dragonhold from the map when you've done the quest
 - add dragonhold island to the map
-- sort out options menu
-- lam settings
 - figure out why texture control isn't working on startup, have to hide/show it
 - add clickable area to arcane university battleground
+- ask breaux if you can make tideholm its own blob, also do the same for coral wasten
 
 
 Breaux Todo:
@@ -95,7 +93,8 @@ local currentZoneInfo = {}
 local currentlySelectedBlobName = ""
 
 
-
+AWM_MouseOverGrungeTex = CreateControl("AWM_MouseOverGrungeTex", ZO_WorldMap, CT_TEXTURE)
+AWM_MouseOverGrungeTex:SetTexture("/esoui/art/performance/statusmetermunge.dds")
 
 local currentMapIndex
 
@@ -393,6 +392,7 @@ local function mapTick()
 
 
 
+
   if (currentPolygon ~= nil) then
 
     -- check to make sure that the user has actually left the hitbox, and is not just hovering over a wayshrine
@@ -429,11 +429,14 @@ end
 
 local function checkIfCanTick()
 
-  if isMouseWithinMapWindow() then
+  if isMouseWithinMapWindow()  then
     mapTick()
+  else
+    if (isWorldMapShown()) then
+      ZO_WorldMapMouseOverDescription:SetText("")
+      AWM_MouseOverGrungeTex:SetHidden(true)
+    end
   end
-
-
 end
 
 
@@ -680,14 +683,9 @@ local function getBlobTextureDetails()
 
 
             end
-
           end
-
-
         end
-
       end
-
     end
   end
 end
@@ -738,8 +736,6 @@ local function OnAddonLoaded(event, addonName)
   getBlobTextureDetails()
   ZO_WorldMapMouseOverDescription:SetFont("ZoFontGameLargeBold")
   local mapWidth, mapHeight = ZO_WorldMapContainer:GetDimensions()
-  AWM_MouseOverGrungeTex = CreateControl("AWM_MouseOverGrungeTex", ZO_WorldMap, CT_TEXTURE)
-  AWM_MouseOverGrungeTex:SetTexture("/esoui/art/performance/statusmetermunge.dds")
 
   local enlargeConst = 1.5
 
@@ -748,7 +744,7 @@ local function OnAddonLoaded(event, addonName)
   AWM_MouseOverGrungeTex:SetDimensions(mapWidth*enlargeConst, mapHeight)
   AWM_MouseOverGrungeTex:SetDrawLayer(DL_OVERLAY)
   AWM_MouseOverGrungeTex:SetDrawLayer(DL_CONTROLS)
-  AWM_MouseOverGrungeTex:SetAlpha(0.55)
+  AWM_MouseOverGrungeTex:SetAlpha(0.50)
   AWM_MouseOverGrungeTex:SetHidden(true)
 
   ZO_WorldMap:SetAutoRectClipChildren(true)
@@ -756,12 +752,6 @@ local function OnAddonLoaded(event, addonName)
 
 
 
-
-
-
-  -- AccurateWorldMapTLC = CreateTopLevelWindow("AccurateWorldMapTLC")
-  -- AccurateWorldMapTLC:SetResizeToFitDescendents(true) --will make the TLC window resize with it's childen -> the Tex01 texture control
-  -- comment these two to hide the control
   AWM_TextureControl:SetAlpha(0)
 
 
