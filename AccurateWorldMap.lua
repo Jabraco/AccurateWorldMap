@@ -11,19 +11,17 @@ TJ Todo:
 - update print function to only print out if isDebug is enabled in settings
 - link that up to settings as well
 - saved variables
-
-
-- ask Breaux for blob for earth forge in reach map, get breaux to draw one
 - add arcane university battlegroudn blob using blackreach circle blobs
 - add IC Sewers blob to IC map
-- Arcane University (in cyrodiil)
 - hide player marker and group markers on world map for v1
 - Remove dragonhold from the map when you've done the quest
 - add dragonhold island to the map
-- figure out why texture control isn't working on startup, have to hide/show it
-- add clickable area to arcane university battleground
-- ask breaux if you can make tideholm its own blob, also do the same for coral wasten
 
+Things to ask breaux:
+
+- blob for earth forge in reach map, get breaux to draw one
+- add IC Sewers blob to IC map
+- ask breaux if you can make tideholm its own blob, also do the same for coral wasten
 
 Breaux Todo:
 
