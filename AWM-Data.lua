@@ -672,6 +672,7 @@ mapData = {
 
     -- Rivenspire --
     [428] = { xN = 0.214, yN = 0.250 }, -- Forgemaster Falls House
+    [498] = { xN = 0.215, yN = 0.244 }, -- Shipwright's Regret Dungeon
 
     zoneData = hackyJoin({
       zoneName = "Rivenspire",
@@ -2069,6 +2070,7 @@ mapData = {
     [355] = { xN = 0.094, yN = 0.757 }, -- Alinor Wayshrine
     [367] = { xN = 0.089, yN = 0.760 }, -- Alinor Crest Townhouse 
     [368] = { xN = 0.177, yN = 0.797 }, -- Colossal Aldmeri Grotto
+    [497] = { xN = 0.160, yN = 0.636 }, -- Coral Aerie Dungeon
 
     zoneData = hackyJoin({
       zoneName = "Summerset Isle",
@@ -2493,6 +2495,10 @@ mapData = {
 
   [282] = { -- Baandari Trading Post Map
     [106] = { name = "Baandari Trading Post Wayshrine" }, -- Baandari Trading Post Wayshrine
+  },
+
+  [1349] = { -- Summerset Isle Map 
+    [497] = { xN = 0.573, yN = 0.173 }, -- Coral Aerie Dungeon
   },
 
   [1429] = { -- Artaeum Map Map 
