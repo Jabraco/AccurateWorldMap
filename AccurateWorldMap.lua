@@ -17,15 +17,14 @@ TJ Todo:
 - Remove dragonhold from the map when you've done the quest
 - add dragonhold island to the map
 - add fort grief to map as zone
+- add blackheart haven to mouth of iliac bay as mini zone and move icon
 
 Things to ask breaux:
 
 - blob for earth forge in reach map, get breaux to draw one
 - add IC Sewers blob to IC map
-- ask breaux if you can make tideholm its own blob, also do the same for coral wasten
 - Dranil Kir (mini zone)
 - Silitar (mini zone)
-- Vivec City on vvardenfell
 
 
 
@@ -122,7 +121,7 @@ function AccurateWorldMap.GetMapTileTexture(index)
       for i = 1, 16 do
         if tamriel_tiles[i] == tex then
           ---- Replace certain tiles if you are on live server and have spoilers enabled
-          if AccurateWorldMap.isDebugTiles then
+          if AccurateWorldMap.isDebug then
               i = tostring(i) .. "_debug"  
           end
           return "AccurateWorldMap/tiles/tamriel_" .. i .. ".dds"
@@ -768,7 +767,7 @@ local function OnAddonLoaded(event, addonName)
   AWM_MouseOverGrungeTex:SetDimensions(mapWidth*enlargeConst, mapHeight)
   AWM_MouseOverGrungeTex:SetDrawLayer(DL_OVERLAY)
   AWM_MouseOverGrungeTex:SetDrawLayer(DL_CONTROLS)
-  AWM_MouseOverGrungeTex:SetAlpha(0.45)
+  AWM_MouseOverGrungeTex:SetAlpha(0.55)
   AWM_MouseOverGrungeTex:SetHidden(true)
 
   ZO_WorldMap:SetAutoRectClipChildren(true)
