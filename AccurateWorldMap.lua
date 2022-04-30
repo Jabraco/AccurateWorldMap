@@ -74,7 +74,6 @@ local recordCoordinates = false
 local mouseDownOnPolygon = false
 local enabled = true
 local debug = false
-local debugOutput = false
 local isExclusive = false
 local hasDragged = false
 local isInBlobHitbox = false
@@ -145,23 +144,6 @@ local _GetMapCustomMaxZoom = GetMapCustomMaxZoom
 local providedPoiType = 1
 local mouseOverControl = WINDOW_MANAGER:GetMouseOverControl()
 
-
-
-local function toggleDebugOutput()
-
-  if debugOutput == true then
-    d("Debug output turned off")
-  end
-
-  if debugOutput == false then
-    d("Debug output turned on")
-  end
-
-  debugOutput = not debugOutput
-
-
-  
-end
 
 local function getCurrentZoneID()
 
@@ -298,7 +280,7 @@ local zos_GetFastTravelNodeInfo = GetFastTravelNodeInfo
 GetFastTravelNodeInfo = function(nodeIndex)
   local known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked, disabled = zos_GetFastTravelNodeInfo(nodeIndex)
 
-  if debugOutput == true then
+  if AccurateWorldMap.isDebug == true then
         d("Current Node: "..nodeIndex)
         d("Name: "..name)
         d(" ")
@@ -794,7 +776,6 @@ local function OnAddonLoaded(event, addonName)
 		end
 	end
 
-  SLASH_COMMANDS["/awm_debug"] = toggleDebugOutput
   SLASH_COMMANDS["/get_map_id"] = function() print(tostring(GetCurrentMapId())) end
   SLASH_COMMANDS["/zones_debug"] = initialise
   SLASH_COMMANDS["/record_polygon"] = recordPolygon

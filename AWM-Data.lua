@@ -2827,7 +2827,7 @@ local optionsData = {
   {
     type = "checkbox",
     name = "Debug Mode",
-    tooltip = "Toggle debug mode on/off.\nNote: Will decrease performance substantially",
+    tooltip = "Toggle debug mode on/off.\nNote: Will cause significant lag.",
     getFunc = function() return saveData.myValue end,
     setFunc = function(value) AccurateWorldMap.isDebug = value end
   },
