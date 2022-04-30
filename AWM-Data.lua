@@ -735,19 +735,71 @@ mapData = {
 
     -- Rivenspire --
     [498] = { xN = 0.219, yN = 0.245 }, -- Shipwright's Regret Dungeon
+    [190] = { xN = 0.211, yN = 0.277 }, -- Crypt Of Hearts I Dungeon
+    [269] = { xN = 0.211, yN = 0.277 }, -- Crypt Of Hearts I Dungeon
+    [82] = { xN = 0.220, yN = 0.215 }, -- Northpoint Wayshrine
+    [12] = { xN = 0.213, yN = 0.226 }, -- Boralis Wayshrine
+    [9] = { xN = 0.180, yN = 0.278 }, -- Oldgate Wayshrine
+    [86] = { xN = 0.206, yN = 0.272 }, -- Sanguine Barrows Wayshrine
+    [10] = { xN = 0.155, yN = 0.252 }, -- Crestshade Wayshrine
+    [11] = { xN = 0.153, yN = 0.271 }, -- Tamrith Camp Wayshrine
+    [55] = { xN = 0.176, yN = 0.257 }, -- Shornhelm Wayshrine
+    [84] = { xN = 0.195, yN = 0.261 }, -- Hoarfrost Downs Wayshrine
+    [83] = { xN = 0.209, yN = 0.241 }, -- Fell's Run Wayshrine
+    [13] = { xN = 0.173, yN = 0.230 }, -- Staging Grounds Wayshrine
+    [208] = { xN = 0.171, yN = 0.240 }, -- Shrouded Pass Wayshrine
 
     zoneData = hackyJoin({
       zoneName = "Rivenspire",
       zoneDescription = "This northwestern region of High Rock contains some of the province's most dramatic terrain,\n including towering, flinty crags, windswept moors, and narrow canyons.",
       zoneID = 10,
-      xN = "0.109",
-      yN = "0.181",
+      xN = "0.118",
+      yN = "0.1895",
       zonePolygonData = {
-   
+        { xN = 0.222, yN = 0.261 },
+        { xN = 0.225, yN = 0.258 },
+        { xN = 0.228, yN = 0.241 },
+        { xN = 0.230, yN = 0.227 },
+        { xN = 0.232, yN = 0.214 },
+        { xN = 0.227, yN = 0.205 },
+        { xN = 0.213, yN = 0.203 },
+        { xN = 0.208, yN = 0.202 },
+        { xN = 0.195, yN = 0.204 },
+        { xN = 0.187, yN = 0.211 },
+        { xN = 0.180, yN = 0.217 },
+        { xN = 0.178, yN = 0.222 },
+        { xN = 0.166, yN = 0.221 },
+        { xN = 0.158, yN = 0.222 },
+        { xN = 0.149, yN = 0.227 },
+        { xN = 0.143, yN = 0.232 },
+        { xN = 0.135, yN = 0.248 },
+        { xN = 0.126, yN = 0.257 },
+        { xN = 0.117, yN = 0.270 },
+        { xN = 0.116, yN = 0.279 },
+        { xN = 0.120, yN = 0.283 },
+        { xN = 0.128, yN = 0.287 },
+        { xN = 0.134, yN = 0.287 },
+        { xN = 0.140, yN = 0.284 },
+        { xN = 0.146, yN = 0.281 },
+        { xN = 0.154, yN = 0.282 },
+        { xN = 0.160, yN = 0.283 },
+        { xN = 0.163, yN = 0.285 },
+        { xN = 0.167, yN = 0.282 },
+        { xN = 0.173, yN = 0.284 },
+        { xN = 0.181, yN = 0.284 },
+        { xN = 0.189, yN = 0.283 },
+        { xN = 0.195, yN = 0.281 },
+        { xN = 0.202, yN = 0.284 },
+        { xN = 0.208, yN = 0.287 },
+        { xN = 0.212, yN = 0.288 },
+        { xN = 0.216, yN = 0.286 },
+        { xN = 0.218, yN = 0.282 },
+        { xN = 0.220, yN = 0.280 },
+        { xN = 0.221, yN = 0.271 },
+        { xN = 0.220, yN = 0.268 },
+        { xN = 0.223, yN = 0.262 },
       }
     }),
-
-        -- [x] = { xN = x, yN = y }, -- 
 
     -- Wrothgar --
     [243] = { xN = 0.223, yN = 0.292 }, -- Siege Road Wayshrine
