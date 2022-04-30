@@ -17,7 +17,7 @@ AccurateWorldMap = AccurateWorldMap or {}
 -- Hacky table function
 -------------------------------------------------------------------------------
 
--- Hacky function to be able to define zoneData several times while still in one
+-- Hacky function to be able to define zoneData several times in one
 -- flat data structure without overwriting the table each time.
 
 -------------------------------------------------------------------------------
@@ -39,7 +39,7 @@ end
 -------------------------------------------------------------------------------
 
 -- Data table of all the wayshrine nodes and zone blobs we want to modify or 
--- move, sorted by map (zone). We use the zone's name as a base to get the 
+-- move, sorted by map (zone). We use the zone's name as a token to get the 
 -- correct zone texture (and later texture dimensions) to draw on the map.
 
 -------------------------------------------------------------------------------
@@ -929,12 +929,14 @@ mapData = {
     }),
 
      -- Bangkorai --
+    [206] = { xN = 0.305, yN = 0.279 }, -- Halcyon Lake Wayshrine
+
     zoneData = hackyJoin({
       zoneName = "Bangkorai",
       zoneDescription = "This region takes its name from its most famous feature, the Bangkorai Pass, which has served as\n High Rock's defense against the wild raiders of Hammerfell for countless generations.",
       zoneID = 20,
-      xN = "0.230",
-      yN = "0.269",
+      xN = "0.232",
+      yN = "0.273",
       zonePolygonData = {
         { xN = 0.273, yN = 0.301 },
         { xN = 0.282, yN = 0.304 },
