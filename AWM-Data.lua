@@ -7,15 +7,18 @@
 
 ---------------------------------------------------------------------------]]--
 
+-------------------------------------------------------------------------------
+-- Get base addon object
+-------------------------------------------------------------------------------
+
+AccurateWorldMap = AccurateWorldMap or {}
 
 -------------------------------------------------------------------------------
--- Hacky table functions
+-- Hacky table function
 -------------------------------------------------------------------------------
 
 -- Hacky function to be able to define zoneData several times while still in one
 -- flat data structure without overwriting the table each time.
-
--- Mainly done because it makes the data structure look visually nicer.
 
 -------------------------------------------------------------------------------
 
@@ -31,15 +34,13 @@ local function hackyJoin(extra, newWorldspace)
   return hackyTable
 end
 
-AccurateWorldMap = AccurateWorldMap or {}
-
 -------------------------------------------------------------------------------
 -- World map wayshrine & zone data
 -------------------------------------------------------------------------------
 
 -- Data table of all the wayshrine nodes and zone blobs we want to modify or 
 -- move, sorted by map (zone). We use the zone's name as a base to get the 
--- correct zone texture (and later texture dimensions) to draw on the map
+-- correct zone texture (and later texture dimensions) to draw on the map.
 
 -------------------------------------------------------------------------------
 
@@ -283,17 +284,21 @@ mapData = {
       zoneName = "Grayhome",
       zoneDescription = "The frozen island of Grayhome is home to an ornate castle, formerly occupied by the Gray Host.",
       zoneID = 1864,
-      xN = "0.242",
-      yN = "0.125",
+      xN = "0.316",
+      yN = "0.1545",
       zonePolygonData = {
-        { xN = 0.247, yN = 0.144 },
-        { xN = 0.254, yN = 0.144 },
-        { xN = 0.261, yN = 0.136 },
-        { xN = 0.258, yN = 0.126 },
-        { xN = 0.248, yN = 0.122 },
-        { xN = 0.241, yN = 0.126 },
-        { xN = 0.239, yN = 0.134 },
-        { xN = 0.243, yN = 0.140 },
+        { xN = 0.315, yN = 0.165 },
+        { xN = 0.319, yN = 0.170 },
+        { xN = 0.322, yN = 0.173 },
+        { xN = 0.324, yN = 0.173 },
+        { xN = 0.328, yN = 0.172 },
+        { xN = 0.335, yN = 0.166 },
+        { xN = 0.336, yN = 0.162 },
+        { xN = 0.333, yN = 0.155 },
+        { xN = 0.327, yN = 0.152 },
+        { xN = 0.322, yN = 0.153 },
+        { xN = 0.316, yN = 0.156 },
+        { xN = 0.313, yN = 0.161 },        
       }
     }),
 
@@ -2568,7 +2573,7 @@ local panelData = {
   version = AccurateWorldMap.version,
   registerForRefresh = true,
   slashCommand = "/awm",
-  website = "https://github.com/Thal-J/AccurateWorldMap", -- TODO: replace with esoui link
+  website = "https://github.com/Thal-J/AccurateWorldMap",
 }
 
 local panel = LAM:RegisterAddonPanel(panelName, panelData)
@@ -2588,27 +2593,20 @@ local optionsData = {
   },
   {
     type = "description",
-    text = "General settings that tweak the world map experience.",
+    text = "Tweak the world map experience.",
     width = "full",
   },
   {
     type = "checkbox",
-    name = "Hide icons on Tamriel Map",
-    tooltip = "Hide all wayshrines, houses, dungeons, and trials on the world map (Tamriel map).",
-    getFunc = function() return saveData.myValue end,
-    setFunc = function(value) debug = value end
-  },
-  {
-    type = "checkbox",
     name = "Zone Descriptions",
-    tooltip = "Adds lore-friendly zone description tooltips when hovering over zones.",
+    tooltip = "Toggle adding lore-friendly zone description tooltips when hovering over zones.",
     getFunc = function() return saveData.myValue end,
     setFunc = function(value) debug = value end
   },
   {
     type = "checkbox",
-    name = "Lore accurate renames",
-    tooltip = "Renames certain zones and wayshrines to be more lore accurate.",
+    name = "Lore Accurate Zone Names",
+    tooltip = "Toggle renaming certain zones and wayshrines to be more lore accurate.",
     getFunc = function() return saveData.myValue end,
     setFunc = function(value) debug = value end
   },
@@ -2620,7 +2618,7 @@ local optionsData = {
   },
   {
     type = "description",
-    text = "Settings that change the way the world map looks.",
+    text = "Change the way the world map looks.",
     width = "full",
   },
   {
@@ -2634,26 +2632,11 @@ local optionsData = {
   },
   {
     type = "dropdown",
-    name = "Blob Style",
-    tooltip = "Change the hover-over style of over zones.",
-    choices = {"Vanilla", "Graded", "Geographic"},
-    getFunc = function() return "Vanilla" end,
+    name = "World Map Wayshrines",
+    tooltip = "Choose how to display wayshrines, trials, and dungeons on the world map.",
+    choices = {"Default (All)", "Only Major Cities", "None"},
+    getFunc = function() return "Default (All)" end,
     setFunc = function(var) print(var) end,
-    width = "full",	--or "half" (optional)
-  },
-  {
-    type = "checkbox",
-    name = "Show province borders",
-    tooltip = "Adds province border overlays on top of the world map.",
-    getFunc = function() return saveData.myValue end,
-    setFunc = function(value) debug = value end
-  },
-  {
-    type = "checkbox",
-    name = "Show labels",
-    tooltip = "Adds province, town and city labels on the world map.",
-    getFunc = function() return saveData.myValue end,
-    setFunc = function(value) debug = value end
   },
 
   {
@@ -2663,20 +2646,20 @@ local optionsData = {
   },
   {
     type = "description",
-    text = "Debugging options used for the development of the addon. Unless you know what you're doing, you should ignore these.",
+    text = "Debugging options used for the development of the addon. Don't use these unless you know what you're doing.",
     width = "full",
   },
   {
     type = "checkbox",
-    name = "Enable debug tiles",
+    name = "Debug Tiles",
     getFunc = function() return saveData.myValue end,
-    setFunc = function(value) debug = value end
+    setFunc = function(value) AccurateWorldMap.isDebugTiles = value end
   },
   {
     type = "checkbox",
-    name = "Enable debug output",
+    name = "Debug Output",
     getFunc = function() return saveData.myValue end,
-    setFunc = function(value) debug = value end
+    setFunc = function(value) AccurateWorldMap.isDebug = value end
   },
 }
 

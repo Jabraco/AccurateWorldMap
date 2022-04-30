@@ -16,18 +16,23 @@ TJ Todo:
 - hide player marker and group markers on world map for v1
 - Remove dragonhold from the map when you've done the quest
 - add dragonhold island to the map
+- add fort grief to map as zone
 
 Things to ask breaux:
 
 - blob for earth forge in reach map, get breaux to draw one
 - add IC Sewers blob to IC map
 - ask breaux if you can make tideholm its own blob, also do the same for coral wasten
-
-Breaux Todo:
-
 - Dranil Kir (mini zone)
 - Silitar (mini zone)
 - Vivec City on vvardenfell
+
+
+
+- add sword's retreat island
+https://cdn.discordapp.com/attachments/722226183290355713/963870969905180682/unknown.png
+
+
 
 
 Interesting events to consider:
@@ -52,9 +57,10 @@ Interesting events to consider:
 
 
 -------------------------------------------------------------------------------
--- Root addon object
+-- Create root addon object
 -------------------------------------------------------------------------------
 
+-- get addon info
 AccurateWorldMap = getAddonInfo("AccurateWorldMap")
 
 -- define default options
@@ -74,22 +80,21 @@ local isExclusive = false
 local hasDragged = false
 local isInBlobHitbox = false
 local waitForRelease = false
+local areTexturesCompiled = false
 
-
+-- ints
 local normalisedMouseX = 0
 local normalisedMouseY = 0
-
-
-local _GetMapTileTexture = GetMapTileTexture
-
 local currentCoordinateCount = 0
 
+-- objects
 local currentPolygon = nil
 local polygonData = {}
 local newPolygonData = {}
 local currentZoneInfo = {}
 
 
+local _GetMapTileTexture = GetMapTileTexture
 
 
 local currentlySelectedBlobName = ""
@@ -117,7 +122,7 @@ function AccurateWorldMap.GetMapTileTexture(index)
       for i = 1, 16 do
         if tamriel_tiles[i] == tex then
           ---- Replace certain tiles if you are on live server and have spoilers enabled
-          if debug then
+          if AccurateWorldMap.isDebugTiles then
               i = tostring(i) .. "_debug"  
           end
           return "AccurateWorldMap/tiles/tamriel_" .. i .. ".dds"
@@ -381,8 +386,6 @@ local function mapTick()
   local mapWidth, mapHeight = ZO_WorldMapContainer:GetDimensions()
   local parentWidth, parentHeight = ZO_WorldMap:GetDimensions()
 
-  --print(currentOffsetX.." "..currentOffsetY)
-
   normalisedMouseX = math.floor((((mouseX - currentOffsetX) / mapWidth) * 1000) + 0.5)/1000
   normalisedMouseY = math.floor((((mouseY - currentOffsetY) / mapHeight) * 1000) + 0.5)/1000
 
@@ -516,7 +519,6 @@ local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
       ZO_WorldMap_MouseUp(control, button, upInside)
 
 
-
       if (currentZoneInfo ~= nil and upInside and button == MOUSE_BUTTON_INDEX_LEFT) then
 
         if (waitForRelease) then
@@ -560,8 +562,6 @@ local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
       waitForRelease = false
 
     end)
-      
-      
       
   
     polygon:SetHandler("OnMouseEnter", function()
@@ -607,7 +607,7 @@ end
 local function getFileDirectoryFromZoneName(providedZoneName)
   local providedZoneName = providedZoneName
 
-  -- transform "Stros M'Kai" to "strosmkai"
+  -- example: transform "Stros M'Kai" to "strosmkai"
   providedZoneName = providedZoneName:gsub("'", "")
   providedZoneName = providedZoneName:gsub(" ", "")
   providedZoneName = providedZoneName:gsub("-", "") 
@@ -619,10 +619,11 @@ end
 
 
 
-
 local function getBlobTextureDetails()
 
-  print("getting blob info!")
+  local hasError = false
+
+  --print("getting blob info!")
 
 
   -- iterate through all of mapData
@@ -631,21 +632,21 @@ local function getBlobTextureDetails()
 
     if (zoneData.zoneData ~= nil) then
 
-      print("got to here!")
+      --print("got to here!")
 
       local zoneInfo = zoneData.zoneData
 
       for zoneIndex, zoneInfo in pairs(zoneInfo) do
 
-        print("checking zone info!")
+        --print("checking zone info!")
 
         if (zoneInfo.zoneName ~= nil) then
 
-          print("there is a zone name!")
+          --print("there is a zone name!")
 
           if (zoneInfo.blobTexture == nil or zoneInfo.nBlobTextureHeight == nil or zoneInfo.nBlobTextureWidth == nil ) then
 
-            print("loading in textures!")
+            --print("loading in textures!")
 
             local textureDirectory
             
@@ -672,6 +673,8 @@ local function getBlobTextureDetails()
             else
 
               print("The following texture failed to load: "..textureDirectory)
+              
+              hasError = true
 
 
             end
@@ -680,18 +683,33 @@ local function getBlobTextureDetails()
       end
     end
   end
+
+  if (hasError == false and areTexturesCompiled == false) then
+
+    print("Textures compiled successfully.")
+    areTexturesCompiled = true
+
+  end
+
 end
 
 
 local function onPlayerLoaded()
 
+  if (areTexturesCompiled == false) then
+  
+    print("Compiling map textures, please wait ...")
 
-  zo_callLater(function()
-    getBlobTextureDetails() 
+    zo_callLater(function()
+      getBlobTextureDetails() 
+  
+      zo_callLater(function() getBlobTextureDetails() end, 1000 )
+  
+    end, 2000 )
 
-    zo_callLater(function() getBlobTextureDetails() end, 1000 )
+  end
 
-  end, 2000 )
+
 
 
 end
@@ -750,7 +768,7 @@ local function OnAddonLoaded(event, addonName)
   AWM_MouseOverGrungeTex:SetDimensions(mapWidth*enlargeConst, mapHeight)
   AWM_MouseOverGrungeTex:SetDrawLayer(DL_OVERLAY)
   AWM_MouseOverGrungeTex:SetDrawLayer(DL_CONTROLS)
-  AWM_MouseOverGrungeTex:SetAlpha(0.50)
+  AWM_MouseOverGrungeTex:SetAlpha(0.45)
   AWM_MouseOverGrungeTex:SetHidden(true)
 
   ZO_WorldMap:SetAutoRectClipChildren(true)
@@ -802,7 +820,7 @@ local function onZoneChanged()
 
   local mapIndex = getCurrentZoneID()
 
-  print("Zone changed!")
+  --print("Zone changed!")
 
 
   -- Delete any existing controls on the world map before iterating over anything else
@@ -819,7 +837,7 @@ local function onZoneChanged()
     -- Check if the current zone/map has any custom map data set to it
     if (mapData[mapIndex] ~= nil) then
       
-      print("This map has custom data!")
+      --print("This map has custom data!")
 
 
       if (mapData[mapIndex].isExclusive ~= nil) then
@@ -830,7 +848,7 @@ local function onZoneChanged()
 
 
       if (mapData[mapIndex].zoneData ~= nil) then
-        print("This map has custom zone data!")
+        --print("This map has custom zone data!")
         local zoneData = mapData[mapIndex].zoneData
 
         for zoneAttribute, zoneInfo in pairs(zoneData) do
@@ -875,7 +893,7 @@ local function onZoneChanged()
       isExclusive = false
     end
   end
-  print("isExclusive: "..tostring(isExclusive))
+  --print("isExclusive: "..tostring(isExclusive))
 end
 
 

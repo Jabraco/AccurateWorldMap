@@ -6,9 +6,14 @@
 
 ---------------------------------------------------------------------------]]--
 
+-------------------------------------------------------------------------------
+-- Get base addon object
+-------------------------------------------------------------------------------
+
+AccurateWorldMap = AccurateWorldMap or {}
 
 -------------------------------------------------------------------------------
--- Get addon info from addion manifest
+-- Get addon info from addon manifest
 -------------------------------------------------------------------------------
 
 function getAddonInfo(addonName)
@@ -44,7 +49,10 @@ end
 -------------------------------------------------------------------------------
 
 function print(message, ...) -- note: you can also use /print command in-game to use this!
-  df("[%s] %s", AccurateWorldMap.name, tostring(message):format(...))
+
+  if (AccurateWorldMap.isDebug) then
+    df("[%s] %s", AccurateWorldMap.name, tostring(message):format(...))
+  end
 end
 
 -------------------------------------------------------------------------------
