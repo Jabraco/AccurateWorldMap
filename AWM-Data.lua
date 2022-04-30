@@ -324,7 +324,7 @@ mapData = {
 
     -- The Reach --
     [445] = { xN = 0.377, yN = 0.270 }, -- Karthwasten Wayshrine
-    [221] = { xN = 0.336, yN = 0.278, disabled = false }, -- The Earth Forge Wayshrine
+    [221] = { xN = 0.336, yN = 0.278, disabled = false, name = "The Earth Forge Wayshrine" }, -- The Earth Forge Wayshrine
 
     zoneData = hackyJoin({
       zoneName = "The Reach",
@@ -552,56 +552,85 @@ mapData = {
     -- ctrl + f aid: high rock
     
     -- Glenumbra --
+    [292] = { xN = 0.077, yN = 0.409 }, -- Daggerfall Overlook House 
+    [297] = { xN = 0.073, yN = 0.397 }, -- Captain Margaux's Place House 
+    [210] = { xN = 0.079, yN = 0.396 }, -- The Harborage (Daggerfall Covernant) 
+    [3] = { xN = 0.099, yN = 0.381 }, -- Deleyn's Mill Wayshrine 
+    [20] = { xN = 0.083, yN = 0.384 }, -- Baelborne Rock Wayshrine 
+    [62] = { xN = 0.068, yN = 0.385 }, -- Daggerfall Wayshrine 
+    [289] = { xN = 0.065, yN = 0.383 }, -- The Rosy Lion House 
+    [1] = { xN = 0.086, yN = 0.361 }, -- Wyrd Tree Wayshrine 
+    [8] = { xN = 0.064, yN = 0.348 }, -- Farwatch Wayshrine 
+    [2] = { xN = 0.109, yN = 0.357 }, -- Aldcroft Wayshrine 
+    [4] = { xN = 0.098, yN = 0.331 }, -- Eagle's Brook Wayshrine 
+    [216] = { xN = 0.134, yN = 0.335 }, -- Hag Fen Wayshrine 
+    [470] = { xN = 0.151, yN = 0.310 }, -- Red Petal Bastion Dungeon 
+    [7] = { xN = 0.144, yN = 0.299 }, -- Crosswyrch Wayshrine 
+    [6] = { xN = 0.120, yN = 0.315 }, -- Lionguard Redoubt Wayshrine 
+    [64] = { xN = 0.140, yN = 0.322 }, -- Burial Tombs Wayshrine 
+    [267] = { xN = 0.134, yN = 0.326 }, -- Spindleclutch II Dungeon
+    [193] = { xN = 0.134, yN = 0.326 }, -- Spindleclutch II Dungeon
+    [5] = { xN = 0.127, yN = 0.323 }, -- North Hag Fen Wayshrine
+    
     zoneData = hackyJoin({
       zoneName = "Glenumbra",
       zoneDescription = "Glenumbra is the westernmost peninsula of High Rock and contains the city-states of Daggerfall and Camlorn.",
       zoneID = 1,
-      xN = "0.030",
-      yN = "0.2775",
+      xN = "0.038",
+      yN = "0.281",
       zonePolygonData = {
-        { xN = 0.155, yN = 0.312 },
-        { xN = 0.156, yN = 0.308 },
-        { xN = 0.157, yN = 0.302 },
-        { xN = 0.154, yN = 0.299 },
-        { xN = 0.153, yN = 0.289 },
-        { xN = 0.156, yN = 0.281 },
-        { xN = 0.145, yN = 0.278 },
-        { xN = 0.137, yN = 0.278 },
-        { xN = 0.131, yN = 0.282 },
-        { xN = 0.124, yN = 0.284 },
-        { xN = 0.116, yN = 0.284 },
-        { xN = 0.110, yN = 0.277 },
-        { xN = 0.105, yN = 0.284 },
-        { xN = 0.100, yN = 0.289 },
-        { xN = 0.095, yN = 0.303 },
-        { xN = 0.084, yN = 0.308 },
-        { xN = 0.070, yN = 0.316 },
-        { xN = 0.055, yN = 0.326 },
-        { xN = 0.045, yN = 0.332 },
-        { xN = 0.045, yN = 0.341 },
-        { xN = 0.048, yN = 0.351 },
-        { xN = 0.048, yN = 0.360 },
-        { xN = 0.050, yN = 0.369 },
-        { xN = 0.049, yN = 0.373 },
-        { xN = 0.046, yN = 0.380 },
-        { xN = 0.039, yN = 0.385 },
-        { xN = 0.039, yN = 0.399 },
-        { xN = 0.039, yN = 0.405 },
-        { xN = 0.047, yN = 0.409 },
-        { xN = 0.052, yN = 0.415 },
-        { xN = 0.057, yN = 0.420 },
-        { xN = 0.078, yN = 0.416 },
-        { xN = 0.082, yN = 0.414 },
-        { xN = 0.087, yN = 0.398 },
-        { xN = 0.095, yN = 0.390 },
-        { xN = 0.104, yN = 0.383 },
-        { xN = 0.108, yN = 0.366 },
-        { xN = 0.111, yN = 0.359 },
-        { xN = 0.125, yN = 0.351 },
-        { xN = 0.129, yN = 0.337 },
-        { xN = 0.139, yN = 0.331 },
-        { xN = 0.148, yN = 0.317 },
-        { xN = 0.155, yN = 0.314 },            
+        { xN = 0.164, yN = 0.285 },
+        { xN = 0.156, yN = 0.283 },
+        { xN = 0.151, yN = 0.282 },
+        { xN = 0.146, yN = 0.281 },
+        { xN = 0.139, yN = 0.286 },
+        { xN = 0.133, yN = 0.288 },
+        { xN = 0.124, yN = 0.287 },
+        { xN = 0.121, yN = 0.286 },
+        { xN = 0.118, yN = 0.281 },
+        { xN = 0.117, yN = 0.286 },
+        { xN = 0.114, yN = 0.288 },
+        { xN = 0.109, yN = 0.291 },
+        { xN = 0.105, yN = 0.297 },
+        { xN = 0.103, yN = 0.308 },
+        { xN = 0.091, yN = 0.312 },
+        { xN = 0.078, yN = 0.318 },
+        { xN = 0.068, yN = 0.326 },
+        { xN = 0.056, yN = 0.333 },
+        { xN = 0.054, yN = 0.343 },
+        { xN = 0.056, yN = 0.353 },
+        { xN = 0.057, yN = 0.365 },
+        { xN = 0.057, yN = 0.375 },
+        { xN = 0.054, yN = 0.382 },
+        { xN = 0.049, yN = 0.387 },
+        { xN = 0.048, yN = 0.393 },
+        { xN = 0.049, yN = 0.404 },
+        { xN = 0.050, yN = 0.409 },
+        { xN = 0.056, yN = 0.412 },
+        { xN = 0.056, yN = 0.417 },
+        { xN = 0.064, yN = 0.423 },
+        { xN = 0.081, yN = 0.422 },
+        { xN = 0.089, yN = 0.417 },
+        { xN = 0.094, yN = 0.399 },
+        { xN = 0.103, yN = 0.394 },
+        { xN = 0.111, yN = 0.387 },
+        { xN = 0.112, yN = 0.378 },
+        { xN = 0.116, yN = 0.369 },
+        { xN = 0.117, yN = 0.361 },
+        { xN = 0.126, yN = 0.357 },
+        { xN = 0.132, yN = 0.358 },
+        { xN = 0.136, yN = 0.355 },
+        { xN = 0.135, yN = 0.342 },
+        { xN = 0.146, yN = 0.337 },
+        { xN = 0.150, yN = 0.323 },
+        { xN = 0.157, yN = 0.322 },
+        { xN = 0.164, yN = 0.318 },
+        { xN = 0.163, yN = 0.312 },
+        { xN = 0.164, yN = 0.307 },
+        { xN = 0.162, yN = 0.302 },
+        { xN = 0.162, yN = 0.295 },
+        { xN = 0.159, yN = 0.291 },
+        { xN = 0.163, yN = 0.286 },        
       }
     }),
 
@@ -631,6 +660,15 @@ mapData = {
     }),
 
     -- Stormhaven --
+    [15] = { xN = 0.179, yN = 0.290 }, -- Alcaire Castle Wayshrine 
+    [14] = { xN = 0.171, yN = 0.308 }, -- Koeglin Village Wayshrine 
+    [22] = { xN = 0.244, yN = 0.317 }, -- Wind Keep Wayshrine 
+    [363] = { xN = 0.233, yN = 0.312 }, -- Scalecaller Peak Dungeon
+    [56] = { xN = 0.227, yN = 0.338 }, -- Wayrest Wayshrine
+    [263] = { xN = 0.222, yN = 0.332 }, -- Wayrest Sewers I Dungeon
+    [189] = { xN = 0.222, yN = 0.332 }, -- Wayrest Sewers II Dungeon
+    [16] = { xN = 0.194, yN = 0.308 }, -- Firebrand Keep Wayshrine
+
     zoneData = hackyJoin({
       zoneName = "Stormhaven",
       zoneDescription = "Stormhaven is the geographic center of High Rock, and also the home of the\n great trading city of Wayrest, capital of the Daggerfall Covenant.",
@@ -705,39 +743,7 @@ mapData = {
       xN = "0.109",
       yN = "0.181",
       zonePolygonData = {
-        { xN = 0.219, yN = 0.195 },
-        { xN = 0.226, yN = 0.204 },
-        { xN = 0.224, yN = 0.221 },
-        { xN = 0.222, yN = 0.238 },
-        { xN = 0.218, yN = 0.250 },
-        { xN = 0.216, yN = 0.251 },
-        { xN = 0.212, yN = 0.259 },
-        { xN = 0.209, yN = 0.262 },
-        { xN = 0.208, yN = 0.270 },
-        { xN = 0.199, yN = 0.268 },
-        { xN = 0.190, yN = 0.272 },
-        { xN = 0.185, yN = 0.277 },
-        { xN = 0.176, yN = 0.271 },
-        { xN = 0.169, yN = 0.270 },
-        { xN = 0.165, yN = 0.273 },
-        { xN = 0.156, yN = 0.280 },
-        { xN = 0.145, yN = 0.277 },
-        { xN = 0.138, yN = 0.277 },
-        { xN = 0.129, yN = 0.282 },
-        { xN = 0.118, yN = 0.284 },
-        { xN = 0.114, yN = 0.281 },
-        { xN = 0.109, yN = 0.276 },
-        { xN = 0.114, yN = 0.257 },
-        { xN = 0.121, yN = 0.253 },
-        { xN = 0.125, yN = 0.243 },
-        { xN = 0.134, yN = 0.235 },
-        { xN = 0.138, yN = 0.220 },
-        { xN = 0.159, yN = 0.211 },
-        { xN = 0.170, yN = 0.211 },
-        { xN = 0.175, yN = 0.208 },
-        { xN = 0.189, yN = 0.193 },
-        { xN = 0.204, yN = 0.192 },
-        { xN = 0.220, yN = 0.195 },      
+   
       }
     }),
 
@@ -935,6 +941,7 @@ mapData = {
 
      -- Bangkorai --
     [206] = { xN = 0.305, yN = 0.279 }, -- Halcyon Lake Wayshrine
+    [186] = { xN = 0.281, yN = 0.301 }, -- Blackheart Haven Dungeon
 
     zoneData = hackyJoin({
       zoneName = "Bangkorai",
@@ -1009,6 +1016,8 @@ mapData = {
     }),
 
     -- The Alik'r --
+    [46] = { xN = 0.238, yN = 0.376 }, -- Satakalaam Wayshrine
+
     zoneData = hackyJoin({
       zoneName = "The Alik'r",
       zoneDescription = "The Alik'r may be rich in mineral resources, but its fierce creatures and harsh terrain are too daunting for most.",
@@ -2219,7 +2228,7 @@ mapData = {
     [178] = { xN = 0.232, yN = 0.706 }, -- Phaer Wayshrine 
     [127] = { xN = 0.222, yN = 0.715 }, -- Windy Glade Wayshrine
     [288] = { xN = 0.236, yN = 0.725 }, -- Mara's Kiss Public House 
-    [211] = { xN = 0.247, yN = 0.730 }, -- The Harborage 
+    [211] = { xN = 0.247, yN = 0.730 }, -- The Harborage (Aldmeri Dominion)
     [177] = { xN = 0.237, yN = 0.728 }, -- Vulkhel Guard Wayshrine
     [315] = { xN = 0.231, yN = 0.688 }, -- Mathiisen Manor House
     [285] = { xN = 0.245, yN = 0.668 }, -- Barbed Hook Private Room House
@@ -2286,7 +2295,7 @@ mapData = {
     }),
     
     -- Eyevea --
-    [215] = { xN = 0.070, yN = 0.600, disabled = false }, -- Eyevea Wayshrine
+    [215] = { xN = 0.070, yN = 0.600, disabled = false, name = "Eyevea Wayshrine" }, -- Eyevea Wayshrine
 
     zoneData = hackyJoin({
       zoneName = "Eyevea",
@@ -2625,7 +2634,7 @@ mapData = {
   },
 
   [1814] = { -- The Reach Map 
-    [221] = { xN = 0.084, yN = 0.460, disabled = false }, -- The Earth Forge Wayshrine
+    [221] = { xN = 0.084, yN = 0.460, disabled = false, name = "The Earth Forge Wayshrine" }, -- The Earth Forge Wayshrine
   },
 
   [667] = { -- Wrothgar Map
