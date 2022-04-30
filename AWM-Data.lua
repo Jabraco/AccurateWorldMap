@@ -745,6 +745,12 @@ mapData = {
     [428] = { xN = 0.225, yN = 0.269 }, -- Forgemaster Falls House
     [242] = { xN = 0.257, yN = 0.291 }, -- Frostbreak Ridge Wayshrine 
     [241] = { xN = 0.244, yN = 0.286 }, -- Great Bay Wayshrine 
+    [246] = { xN = 0.282, yN = 0.285 }, -- Merchant Gate's Wayshrine 
+    [244] = { xN = 0.293, yN = 0.277 }, -- Orsinium Wayshrine 
+    [245] = { xN = 0.273, yN = 0.278 }, -- Trader's Road Wayshrine 
+    [240] = { xN = 0.262, yN = 0.260 }, -- Morkul Plain Wayshrine 
+    [238] = { xN = 0.284, yN = 0.247 }, -- Icy Shore Wayshrine 
+    [237] = { xN = 0.301, yN = 0.256 }, -- Shatul Wayshrine 
     
     zoneData = hackyJoin({
       zoneName = "Wrothgar",
@@ -2309,7 +2315,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Eltheric Ocean",
-      zoneDescription = "Ligma Balls",
+      zoneDescription = "The seas of Western Tamriel are home to the sunken realm of Thras, the Systres Archipelago, and the Yokudan continent.",
       zoneID = 315,
       blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
       xN = "-0.06",
@@ -2742,12 +2748,12 @@ local optionsData = {
 
   {
     type = "header",
-    name = "Debug",
+    name = "Debug Mode",
     width = "full",
   },
   {
     type = "description",
-    text = "Debug option used to develop this addon. Don't use this unless you know what you're doing.",
+    text = "Don't use this unless you know what you're doing.",
     width = "full",
   },
   {
