@@ -48,9 +48,9 @@ end
 -- Print text to chat
 -------------------------------------------------------------------------------
 
-function print(message, ...) -- note: you can also use /print command in-game to use this!
+function print(message, isForced, ...) -- note: you can also use /print command in-game to use this!
 
-  if (AccurateWorldMap.isDebug) then
+  if (AccurateWorldMap.isDebug or isForced) then
     df("[%s] %s", AccurateWorldMap.name, tostring(message):format(...))
   end
 end

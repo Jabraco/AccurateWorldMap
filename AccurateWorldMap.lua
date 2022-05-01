@@ -6,33 +6,16 @@
 -- https://textfancy.com/multiline-text-art/
 
 
-TJ Todo:
+Todo:
 
-- update print function to only print out if isDebug is enabled in settings
-- link that up to settings as well
-- saved variables
-- add arcane university battlegroudn blob using blackreach circle blobs
-- add IC Sewers blob to IC map
-- hide player marker and group markers on world map for v1
-- Remove dragonhold from the map when you've done the quest
-- add dragonhold island to the map
-- add fort grief to map as zone
-- add blackheart haven to mouth of iliac bay as mini zone and move icon
-
-Things to ask breaux:
-
-- blob for earth forge in reach map, get breaux to draw one
-- add IC Sewers blob to IC map
-- Dranil Kir (mini zone)
-- Silitar (mini zone)
-
-
-
-- add sword's retreat island
-https://cdn.discordapp.com/attachments/722226183290355713/963870969905180682/unknown.png
-
-
-
+- Get saved variables working
+- Get Dranil Kir blob
+- Get Silitar blob
+- Get Earth Forge blob
+- Get Fort Grief blob
+- Add Arcane University battleground blob in cyrodiil zone
+- Get Breaux to draw IC sewers aurbis circle and give me blob
+- Get Breaux to add blackheart haven to mouth of iliac bay as mini zone and move icon
 
 Interesting events to consider:
 
@@ -667,7 +650,7 @@ local function getBlobTextureDetails()
 
   if (hasError == false and areTexturesCompiled == false) then
 
-    print("Textures compiled successfully.")
+    print("Textures compiled successfully.", true)
     areTexturesCompiled = true
 
   end
@@ -679,7 +662,7 @@ local function onPlayerLoaded()
 
   if (areTexturesCompiled == false) then
   
-    print("Compiling map textures, please wait ...")
+    print("Compiling map textures, please wait ...", true)
 
     zo_callLater(function()
       getBlobTextureDetails() 
@@ -800,7 +783,7 @@ local function onZoneChanged()
 
   local mapIndex = getCurrentZoneID()
 
-  --print("Zone changed!")
+  print("Zone changed!")
 
 
   -- Delete any existing controls on the world map before iterating over anything else
@@ -873,7 +856,7 @@ local function onZoneChanged()
       isExclusive = false
     end
   end
-  --print("isExclusive: "..tostring(isExclusive))
+  print("isExclusive: "..tostring(isExclusive))
 end
 
 
