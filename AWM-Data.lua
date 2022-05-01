@@ -2738,7 +2738,6 @@ aurbis_tiles = { -- the "cosmic", or aurbis, custom map tiles
 
 local LAM = LibAddonMenu2
 local panelName = "AccurateWorldMapSettings"
-local saveData = {} -- TODO this should be a reference to your actual saved variables table
 
 local panelData = {
   type = "panel",
@@ -2775,15 +2774,15 @@ local optionsData = {
     type = "checkbox",
     name = "Zone Descriptions",
     tooltip = "Toggle adding lore-friendly zone description tooltips when hovering over zones.",
-    getFunc = function() return saveData.myValue end,
-    setFunc = function(value) debug = value end
+    getFunc = function() return AccurateWorldMap.options.zoneDescriptions end,
+    setFunc = function(value) AccurateWorldMap.options.zoneDescriptions = value end
   },
   {
     type = "checkbox",
     name = "Lore Accurate Zone Names",
     tooltip = "Toggle renaming certain zones and wayshrines to be more lore accurate.",
-    getFunc = function() return saveData.myValue end,
-    setFunc = function(value) debug = value end
+    getFunc = function() return AccurateWorldMap.options.loreRenames end,
+    setFunc = function(value) AccurateWorldMap.options.loreRenames = value end
   },
 
   {
@@ -2801,17 +2800,17 @@ local optionsData = {
     name = "Map Style",
     tooltip = "Choose between a vanilla styled map (default), or a more immersive geographic one.",
     choices = {"Vanilla", "Geographic"},
-    getFunc = function() return "Vanilla" end,
-    setFunc = function(var) print(var) end,
-    width = "full",	--or "half" (optional)
+    getFunc = function() return AccurateWorldMap.options.mapStyle end,
+    setFunc = function(value) AccurateWorldMap.options.mapStyle = value end,
+    width = "full",
   },
   {
     type = "dropdown",
     name = "World Map Wayshrines",
     tooltip = "Choose how to display wayshrines, trials, and dungeons on the world map.",
     choices = {"Default (All)", "Only Major Cities", "None"},
-    getFunc = function() return "Default (All)" end,
-    setFunc = function(var) print(var) end,
+    getFunc = function() return AccurateWorldMap.options.worldMapWayshrines end,
+    setFunc = function(value) AccurateWorldMap.options.worldMapWayshrines = value end,
   },
 
   {
@@ -2828,8 +2827,8 @@ local optionsData = {
     type = "checkbox",
     name = "Debug Mode",
     tooltip = "Toggle debug mode on/off.\nNote: Will cause significant lag.",
-    getFunc = function() return saveData.myValue end,
-    setFunc = function(value) AccurateWorldMap.isDebug = value end
+    getFunc = function() return AccurateWorldMap.options.isDebug end,
+    setFunc = function(value) AccurateWorldMap.options.isDebug = value end
   },
 }
 

@@ -16,6 +16,7 @@ Todo:
 - Add Arcane University battleground blob in cyrodiil zone
 - Get Breaux to draw IC sewers aurbis circle and give me blob
 - Get Breaux to add blackheart haven to mouth of iliac bay as mini zone and move icon
+- Get Topal Hideaway blob
 
 Interesting events to consider:
 
@@ -45,8 +46,17 @@ Interesting events to consider:
 -- get addon info
 AccurateWorldMap = getAddonInfo("AccurateWorldMap")
 
--- define default options
-AccurateWorldMap.options = {}
+-- set default options
+AccurateWorldMap.defaults = {
+  isDebug = false,
+  zoneDescriptions = false,
+  loreRenames = true,
+  mapStyle = "Vanilla",
+  worldMapWayshrines = "Default (All)",
+}
+
+-- change this whenever you change savedVariables
+AccurateWorldMap.variableVersion = 1
 
 -------------------------------------------------------------------------------
 -- Globals
@@ -103,7 +113,7 @@ function AccurateWorldMap.GetMapTileTexture(index)
       for i = 1, 16 do
         if tamriel_tiles[i] == tex then
           ---- Replace certain tiles if you are on live server and have spoilers enabled
-          if AccurateWorldMap.isDebug then
+          if AccurateWorldMap.options.isDebug then
               i = tostring(i) .. "_debug"  
           end
           return "AccurateWorldMap/tiles/tamriel_" .. i .. ".dds"
@@ -142,8 +152,6 @@ local function getCurrentZoneID()
   return zoneID
 
 end
-
-
 
 
 local function getZoneInfoByID(zoneID)
@@ -263,7 +271,7 @@ local zos_GetFastTravelNodeInfo = GetFastTravelNodeInfo
 GetFastTravelNodeInfo = function(nodeIndex)
   local known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked, disabled = zos_GetFastTravelNodeInfo(nodeIndex)
 
-  if AccurateWorldMap.isDebug == true then
+  if AccurateWorldMap.options.isDebug == true then
         d("Current Node: "..nodeIndex)
         d("Name: "..name)
         d(" ")
@@ -737,10 +745,10 @@ local function OnAddonLoaded(event, addonName)
 
   ZO_WorldMap:SetAutoRectClipChildren(true)
 
-
-
-
   AWM_TextureControl:SetAlpha(0)
+
+  -- set up saved variables
+  AccurateWorldMap.options = ZO_SavedVars:NewAccountWide("AWMVars", AccurateWorldMap.variableVersion, nil, AccurateWorldMap.defaults)
 
 
   ZO_MapPin.TOOLTIP_CREATORS[MAP_PIN_TYPE_FAST_TRAVEL_WAYSHRINE].creator = function(pin)
@@ -760,13 +768,10 @@ local function OnAddonLoaded(event, addonName)
 	end
 
   SLASH_COMMANDS["/get_map_id"] = function() print(tostring(GetCurrentMapId())) end
-  SLASH_COMMANDS["/zones_debug"] = initialise
   SLASH_COMMANDS["/record_polygon"] = recordPolygon
   SLASH_COMMANDS["/get_blobs"] = getBlobTextureDetails
   SLASH_COMMANDS["/get_controls"] = cleanUpZoneBlobs
   SLASH_COMMANDS["/set_map_to"] = setMapTo
-  SLASH_COMMANDS["/print"] = print
-
   
   GetMapTileTexture = AccurateWorldMap.GetMapTileTexture
   GetMapCustomMaxZoom = AccurateWorldMap.GetMapCustomMaxZoom

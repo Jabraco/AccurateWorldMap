@@ -9,7 +9,7 @@
 ## Version: 1.0
 ## AddOnVersion: 10
 ## APIVersion: 100035
-
+## SavedVariables: AWMVars
 
 AWM-Utils.lua
 AccurateWorldMap.xml
