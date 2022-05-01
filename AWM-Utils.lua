@@ -79,3 +79,16 @@ end
 function getWorldMapOffsets()
   return math.floor(ZO_WorldMapContainer:GetLeft()), math.floor(ZO_WorldMapContainer:GetTop())
 end
+
+-------------------------------------------------------------------------------
+-- Check if table has a certain value
+-------------------------------------------------------------------------------
+
+function hasValue (tab, val)
+  for index, value in ipairs(tab) do
+      if value == val then
+          return true
+      end
+  end
+  return false
+end

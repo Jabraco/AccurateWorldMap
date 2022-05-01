@@ -2779,7 +2779,7 @@ local optionsData = {
   },
   {
     type = "checkbox",
-    name = "Lore Accurate Zone Names",
+    name = "Lore Accurate Names",
     tooltip = "Toggle renaming certain zones and wayshrines to be more lore accurate.",
     getFunc = function() return AccurateWorldMap.options.loreRenames end,
     setFunc = function(value) AccurateWorldMap.options.loreRenames = value end

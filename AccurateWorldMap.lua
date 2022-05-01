@@ -169,8 +169,26 @@ local function getZoneInfoByID(zoneID)
 end
 
 
+
+
+
 local function getZoneIDFromPolygonName(polygonName)
   return tonumber(string.match (polygonName, "%d+"))
+end
+
+local function getZoneNameFromID(zoneID)
+  local blacklistedZoneIDS = {1737, 315}
+
+  if (hasValue(blacklistedZoneIDS, zoneID)) then
+
+    return getZoneInfoByID(zoneID).zoneName
+
+  else
+
+    return GetMapNameById(zoneID)
+
+  end
+
 end
 
 
@@ -248,7 +266,12 @@ GetMapMouseoverInfo = function(xN, yN)
 
     if (isInBlobHitbox) then 
 
-        locationName = currentZoneInfo.zoneName
+        if (AccurateWorldMap.options.loreRenames) then
+          locationName = currentZoneInfo.zoneName
+        else
+          locationName = getZoneNameFromID(currentZoneInfo.zoneID)
+        end
+
         textureFile = currentZoneInfo.blobTexture
         widthN = currentZoneInfo.nBlobTextureWidth
         heightN = currentZoneInfo.nBlobTextureHeight
@@ -297,7 +320,7 @@ GetFastTravelNodeInfo = function(nodeIndex)
           normalizedY = zoneData[nodeIndex].yN
         end
 
-        if zoneData[nodeIndex].name ~= nil then
+        if (zoneData[nodeIndex].name ~= nil and AccurateWorldMap.options.loreRenames) then
           name = zoneData[nodeIndex].name
         end
 
@@ -770,7 +793,7 @@ local function OnAddonLoaded(event, addonName)
 		end
 	end
 
-  SLASH_COMMANDS["/get_map_id"] = function() print(tostring(GetCurrentMapId())) end
+  SLASH_COMMANDS["/get_map_id"] = function() print(tostring(GetCurrentMapId()), true) end
   SLASH_COMMANDS["/record_polygon"] = recordPolygon
   SLASH_COMMANDS["/get_blobs"] = getBlobTextureDetails
   SLASH_COMMANDS["/get_controls"] = cleanUpZoneBlobs
