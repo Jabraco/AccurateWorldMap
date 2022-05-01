@@ -255,7 +255,7 @@ GetMapMouseoverInfo = function(xN, yN)
         locXN = currentZoneInfo.xN
         locYN = currentZoneInfo.yN
 
-        if (currentZoneInfo.zoneDescription ~= nil) then
+        if (currentZoneInfo.zoneDescription ~= nil and AccurateWorldMap.options.zoneDescriptions == true) then
           ZO_WorldMapMouseOverDescription:SetText(currentZoneInfo.zoneDescription)
         end
 
@@ -542,8 +542,11 @@ local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
       isInBlobHitbox = true
       --print("User has entered zone hitbox")
       currentPolygon = polygon
-      AWM_MouseOverGrungeTex:SetHidden(false)
-  
+
+      if (AccurateWorldMap.options.zoneDescriptions == true) then
+        AWM_MouseOverGrungeTex:SetHidden(false)
+      end
+
       -- update with current zone info
       currentZoneInfo = getZoneInfoByID(getZoneIDFromPolygonName(polygon:GetName()))
     end)
