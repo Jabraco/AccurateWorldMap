@@ -92,3 +92,13 @@ function hasValue (tab, val)
   end
   return false
 end
+
+-------------------------------------------------------------------------------
+-- Simpler function to check if user is in gamepad mode
+-------------------------------------------------------------------------------
+
+function isInGamepadMode()
+
+  return IsInGamepadPreferredMode()
+
+end

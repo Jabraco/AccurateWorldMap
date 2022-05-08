@@ -375,11 +375,6 @@ local function onMousePressed()
     print("Map clicked!")
   end
 
-  if IsControlKeyDown() then
-    print("ctrl + click")
-  end
-
-
 end
 
 local function getMouseCoordinates()
@@ -412,16 +407,6 @@ end
 
 
 local function mapTick()
-
-  -- TODO: use this to fix gamepad mode
--- local function NormalizePreferredMousePositionToMap()
---   if IsInGamepadPreferredMode() then
---       local x, y = ZO_WorldMapScroll:GetCenter()
---       return NormalizePointToControl(x, y, ZO_WorldMapContainer)
---   else
---       return NormalizeMousePositionToControl(ZO_WorldMapContainer)
---   end
--- end
 
   local mouseX, mouseY = getMouseCoordinates()
 
