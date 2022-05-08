@@ -181,16 +181,19 @@ end
 
 local function getZoneInfoByID(zoneID)
 
-
-  local zoneData = mapData[getCurrentZoneID()]
-  local zoneInfo = zoneData.zoneData
-
-  for zoneIndex, zoneInfo in pairs(zoneInfo) do
-
-    if (zoneInfo.zoneID == zoneID) then
-      return zoneInfo
+  if (not (getCurrentZoneID() == nil) and zoneData == nil) then
+    local zoneData = mapData[getCurrentZoneID()]
+    local zoneInfo = zoneData.zoneData
+  
+    for zoneIndex, zoneInfo in pairs(zoneInfo) do
+  
+      if (zoneInfo.zoneID == zoneID) then
+        return zoneInfo
+      end
     end
+
   end
+  
 end
 
 
@@ -274,7 +277,7 @@ GetMapMouseoverInfo = function(xN, yN)
 
   -- invisible blank default mouseover data
   local locationName = ""
-  local textureFile = ""
+  local textureFile = "AccurateWorldMap/blobs/blob-balfiera.dds" 
   local widthN = 0.01
   local heightN = 0.01
   local locXN = 0
