@@ -7,8 +7,7 @@
 
 
 Todo:
-
-- Get saved variables working
+- add Blackbone Isle to the map
 - Get Dranil Kir blob
 - Get Silitar blob
 - Get Earth Forge blob
@@ -35,6 +34,32 @@ Interesting events to consider:
 
 * EVENT_GLOBAL_MOUSE_DOWN (*[MouseButtonIndex|#MouseButtonIndex]* _button_, *bool* _ctrl_, *bool* _alt_, *bool* _shift_, *bool* _command_)
 * EVENT_GLOBAL_MOUSE_UP (*[MouseButtonIndex|#MouseButtonIndex]* _button_, *bool* _ctrl_, *bool* _alt_, *bool* _shift_, *bool* _command_)
+
+-- TODO: use this to fix gamepad mode
+-- local function NormalizePreferredMousePositionToMap()
+--   if IsInGamepadPreferredMode() then
+--       local x, y = ZO_WorldMapScroll:GetCenter()
+--       return NormalizePointToControl(x, y, ZO_WorldMapContainer)
+--   else
+--       return NormalizeMousePositionToControl(ZO_WorldMapContainer)
+--   end
+-- end
+
+-- use this to fix map being updated after set
+
+function ZO_WorldMap_SetMapById(mapId)
+    if WORLD_MAP_MANAGER:IsMapChangingAllowed() then
+        if SetMapToMapId(mapId) == SET_MAP_RESULT_MAP_CHANGED then
+            g_playerChoseCurrentMap = true
+            CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
+        end
+    end
+end
+
+local GPS = LibGPS3
+local changeResult = SetMapToMapId(resultData.mapId)
+GPS:SetPlayerChoseCurrentMap()
+CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
 
 ---------------------------------------------------------------------------]]--
 
@@ -167,8 +192,6 @@ local function getZoneInfoByID(zoneID)
     end
   end
 end
-
-
 
 
 
@@ -366,13 +389,48 @@ local function onMousePressed()
 
 end
 
+local function getMouseCoordinates()
 
+  if (IsInGamepadPreferredMode()) then
 
+    return ZO_WorldMapScroll:GetCenter()
+
+  else
+    return GetUIMousePosition()
+  end
+
+end
+
+local function updateCurrentPolygon(polygon) 
+
+  currentMapIndex = GetCurrentMapIndex()
+  isInBlobHitbox = true
+  --print("User has entered zone hitbox")
+  currentPolygon = polygon
+
+  if (AccurateWorldMap.options.zoneDescriptions == true) then
+    AWM_MouseOverGrungeTex:SetHidden(false)
+  end
+
+  -- update with current zone info
+  currentZoneInfo = getZoneInfoByID(getZoneIDFromPolygonName(polygon:GetName()))
+
+end
 
 
 local function mapTick()
 
-  local mouseX, mouseY = GetUIMousePosition()
+  -- TODO: use this to fix gamepad mode
+-- local function NormalizePreferredMousePositionToMap()
+--   if IsInGamepadPreferredMode() then
+--       local x, y = ZO_WorldMapScroll:GetCenter()
+--       return NormalizePointToControl(x, y, ZO_WorldMapContainer)
+--   else
+--       return NormalizeMousePositionToControl(ZO_WorldMapContainer)
+--   end
+-- end
+
+  local mouseX, mouseY = getMouseCoordinates()
 
   local currentOffsetX = ZO_WorldMapContainer:GetLeft()
   local currentOffsetY = ZO_WorldMapContainer:GetTop()
@@ -384,16 +442,38 @@ local function mapTick()
   normalisedMouseX = math.floor((((mouseX - currentOffsetX) / mapWidth) * 1000) + 0.5)/1000
   normalisedMouseY = math.floor((((mouseY - currentOffsetY) / mapHeight) * 1000) + 0.5)/1000
 
+  if (IsInGamepadPreferredMode()) then
+
+    if (currentPolygon == nil) then
+
+      tempPolygon = WINDOW_MANAGER:GetControlAtPoint(getMouseCoordinates())
+
+
+      print(tempPolygon:GetName(), true)
+  
+      if string.find(tempPolygon:GetName(), "blobHitbox") then
+        updateCurrentPolygon(tempPolygon)
+  
+        print("in hitbox!")
+
+      else
+
+        isInBlobHitbox = false
+        currentPolygon = nil
+        currentZoneInfo = {}
+
+      end
+
+
+    end
+
+  end
+
 
   if (currentPolygon ~= nil) then
 
     -- check to make sure that the user has actually left the hitbox, and is not just hovering over a wayshrine
-    if (currentPolygon:IsPointInside(mouseX , mouseY) and currentMapIndex == GetCurrentMapIndex()) then
-
-      --print("still in hitbox!")
-
-
-    else
+    if (not (currentPolygon:IsPointInside(mouseX , mouseY) and currentMapIndex == GetCurrentMapIndex())) then
 
       --print("left hitbox!")
       isInBlobHitbox = false
@@ -416,6 +496,8 @@ function AccurateWorldMap.GetMapCustomMaxZoom()
         return _GetMapCustomMaxZoom()
     end
 end
+
+
 
 
 
@@ -561,17 +643,10 @@ local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
   
     polygon:SetHandler("OnMouseEnter", function()
 
-      currentMapIndex = GetCurrentMapIndex()
-      isInBlobHitbox = true
-      --print("User has entered zone hitbox")
-      currentPolygon = polygon
-
-      if (AccurateWorldMap.options.zoneDescriptions == true) then
-        AWM_MouseOverGrungeTex:SetHidden(false)
+      if (not IsInGamepadPreferredMode()) then
+        updateCurrentPolygon(polygon)
       end
 
-      -- update with current zone info
-      currentZoneInfo = getZoneInfoByID(getZoneIDFromPolygonName(polygon:GetName()))
     end)
   
   else 
@@ -671,7 +746,6 @@ local function getBlobTextureDetails()
             else
 
               print("The following texture failed to load: "..textureDirectory)
-              
               hasError = true
 
 
@@ -682,6 +756,7 @@ local function getBlobTextureDetails()
     end
   end
 
+  -- if texture compilation has had no issues, then go ahead
   if (hasError == false and areTexturesCompiled == false) then
 
     print("Textures compiled successfully.", true)
@@ -706,8 +781,6 @@ local function onPlayerLoaded()
     end, 2000 )
 
   end
-
-
 
 
 end
@@ -900,13 +973,3 @@ EVENT_MANAGER:RegisterForEvent("onMouseDown", EVENT_GLOBAL_MOUSE_DOWN, onMousePr
 EVENT_MANAGER:RegisterForEvent(AccurateWorldMap.name, EVENT_PLAYER_ACTIVATED, onPlayerLoaded)
 EVENT_MANAGER:RegisterForUpdate("uniqueName", 0, checkIfCanTick)
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", onZoneChanged)
-
--- TODO: use this to fix gamepad mode
--- local function NormalizePreferredMousePositionToMap()
---   if IsInGamepadPreferredMode() then
---       local x, y = ZO_WorldMapScroll:GetCenter()
---       return NormalizePointToControl(x, y, ZO_WorldMapContainer)
---   else
---       return NormalizeMousePositionToControl(ZO_WorldMapContainer)
---   end
--- end
