@@ -252,8 +252,6 @@ WouldProcessMapClick = function(xN, yN)
   return wouldProcess, resultingMapIndex
 end
 
-
-
 ZO_PreHook("ProcessMapClick", function(xN, yN)
 
   if ( (isInBlobHitbox and currentZoneInfo ~= nil) or isExclusive) then
