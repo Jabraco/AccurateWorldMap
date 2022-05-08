@@ -172,7 +172,7 @@ local function getCurrentZoneID()
     -- do something, get the subzone id or figure out why it is nil in the first place
     zoneID = 0
   end
-
+  --ZO_WorldMapContainer
 
   return zoneID
 
@@ -252,23 +252,15 @@ WouldProcessMapClick = function(xN, yN)
   return wouldProcess, resultingMapIndex
 end
 
-local zos_ProcessMapClick = ProcessMapClick
-ProcessMapClick = function(xN, yN)
 
-  local setMapResult = zos_ProcessMapClick(xN, yN)
 
-    -- check if we are currently hovering over a custom polygon
-    if (isInBlobHitbox and currentZoneInfo ~= nil) then
-      setMapResult = SET_MAP_RESULT_FAILED
-    end
-  
-    if (isExclusive) then
-      setMapResult = SET_MAP_RESULT_FAILED
-    end
+ZO_PreHook("ProcessMapClick", function(xN, yN)
 
-  return setMapResult
+  if ( (isInBlobHitbox and currentZoneInfo ~= nil) or isExclusive) then
+    return true
+  end
+end)
 
-end
 
 local zos_GetMapMouseoverInfo = GetMapMouseoverInfo
 GetMapMouseoverInfo = function(xN, yN)
@@ -285,7 +277,7 @@ GetMapMouseoverInfo = function(xN, yN)
 
   -- if the current map is not set to exclusive, or we don't have any data for it, get vanilla values
   if (isExclusive == false or mapData[mapIndex] == nil) then
-    locationName, textureFile, widthN, heightN, locXN, locYN = zos_GetMapMouseoverInfo(xN, yN)
+   locationName, textureFile, widthN, heightN, locXN, locYN = zos_GetMapMouseoverInfo(xN, yN)
   end
 
   if (mapData[mapIndex] ~= nil) then
@@ -452,7 +444,7 @@ local function mapTick()
       tempPolygon = WINDOW_MANAGER:GetControlAtPoint(getMouseCoordinates())
 
 
-      print(tempPolygon:GetName(), true)
+      print(tempPolygon:GetName())
   
       if string.find(tempPolygon:GetName(), "blobHitbox") then
         updateCurrentPolygon(tempPolygon)
