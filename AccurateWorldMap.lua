@@ -239,7 +239,7 @@ ZO_PreHook("ProcessMapClick", function(xN, yN)
   -- in K&M mode, this function gets fired on every double click for some reason
   -- whereas in gamepad this gets fired every click
 
-  print("processed map click function!", true)
+  print("processed map click function!")
 
   if ((isInBlobHitbox and currentZoneInfo ~= nil) or isExclusive) then
 
