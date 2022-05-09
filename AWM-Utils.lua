@@ -49,7 +49,6 @@ end
 -------------------------------------------------------------------------------
 
 function print(message, isForced, ...)
-
   if (AccurateWorldMap.options.isDebug or isForced) then
     df("[%s] %s", AccurateWorldMap.name, tostring(message):format(...))
   end
@@ -98,7 +97,41 @@ end
 -------------------------------------------------------------------------------
 
 function isInGamepadMode()
-
   return IsInGamepadPreferredMode()
+end
+
+-------------------------------------------------------------------------------
+-- Get current cursor's position in screenspace
+-------------------------------------------------------------------------------
+
+function getMouseCoordinates()
+
+  if (isInGamepadMode()) then
+    return ZO_WorldMapScroll:GetCenter()
+  else
+    return GetUIMousePosition()
+  end
+end
+
+-------------------------------------------------------------------------------
+-- Get normalised cursor coordinates relative to worldmap
+-------------------------------------------------------------------------------
+
+function getNormalisedMouseCoordinates()
+
+  local mouseX, mouseY = getMouseCoordinates()
+
+  local currentOffsetX = ZO_WorldMapContainer:GetLeft()
+  local currentOffsetY = ZO_WorldMapContainer:GetTop()
+  local parentOffsetX = ZO_WorldMap:GetLeft()
+  local parentOffsetY = ZO_WorldMap:GetTop()
+  local mapWidth, mapHeight = ZO_WorldMapContainer:GetDimensions()
+  local parentWidth, parentHeight = ZO_WorldMap:GetDimensions()
+
+  local normalisedMouseX = math.floor((((mouseX - currentOffsetX) / mapWidth) * 1000) + 0.5)/1000
+  local normalisedMouseY = math.floor((((mouseY - currentOffsetY) / mapHeight) * 1000) + 0.5)/1000
+
+  return normalisedMouseX, normalisedMouseY
 
 end
+

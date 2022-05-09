@@ -35,9 +35,6 @@ Interesting events to consider:
 * EVENT_GROUP_MEMBER_ROLE_CHANGED (*string* _unitTag_, *[LFGRole|#LFGRole]* _newRole_)
 * EVENT_GROUP_MEMBER_SUBZONE_CHANGED
 
-* EVENT_QUEST_ADVANCED (*luaindex* _journalIndex_, *string* _questName_, *bool* _isPushed_, *bool* _isComplete_, *bool* _mainStepChanged_)
-* EVENT_QUEST_COMPLETE (*string* _questName_, *integer* _level_, *integer* _previousExperience_, *integer* _currentExperience_, *integer* _championPoints_, *[QuestType|#QuestType]* _questType_, *[InstanceDisplayType|#InstanceDisplayType]* _instanceDisplayType_)
-
 * EVENT_GLOBAL_MOUSE_DOWN (*[MouseButtonIndex|#MouseButtonIndex]* _button_, *bool* _ctrl_, *bool* _alt_, *bool* _shift_, *bool* _command_)
 * EVENT_GLOBAL_MOUSE_UP (*[MouseButtonIndex|#MouseButtonIndex]* _button_, *bool* _ctrl_, *bool* _alt_, *bool* _shift_, *bool* _command_)
 
@@ -95,8 +92,6 @@ local waitForRelease = false
 local areTexturesCompiled = false
 
 -- ints
-local normalisedMouseX = 0
-local normalisedMouseY = 0
 local currentCoordinateCount = 0
 
 -- objects
@@ -188,7 +183,6 @@ local function getZoneInfoByID(zoneID)
   end
   
 end
-
 
 
 local function getZoneIDFromPolygonName(polygonName)
@@ -368,24 +362,14 @@ local function onMousePressed()
     if (recordCoordinates) then 
       PlaySound(SOUNDS.COUNTDOWN_TICK)
 
-      table.insert(newPolygonData, {xN = normalisedMouseX, yN = normalisedMouseY})
+      local xN, yN = getNormalisedMouseCoordinates()
+
+      table.insert(newPolygonData, {xN, yN})
       currentCoordinateCount = currentCoordinateCount + 1
 
     end
 
     print("Map clicked!")
-  end
-
-end
-
-local function getMouseCoordinates()
-
-  if (IsInGamepadPreferredMode()) then
-
-    return ZO_WorldMapScroll:GetCenter()
-
-  else
-    return GetUIMousePosition()
   end
 
 end
@@ -413,18 +397,6 @@ end
 
 
 local function mapTick()
-
-  local mouseX, mouseY = getMouseCoordinates()
-
-  local currentOffsetX = ZO_WorldMapContainer:GetLeft()
-  local currentOffsetY = ZO_WorldMapContainer:GetTop()
-  local parentOffsetX = ZO_WorldMap:GetLeft()
-  local parentOffsetY = ZO_WorldMap:GetTop()
-  local mapWidth, mapHeight = ZO_WorldMapContainer:GetDimensions()
-  local parentWidth, parentHeight = ZO_WorldMap:GetDimensions()
-
-  normalisedMouseX = math.floor((((mouseX - currentOffsetX) / mapWidth) * 1000) + 0.5)/1000
-  normalisedMouseY = math.floor((((mouseY - currentOffsetY) / mapHeight) * 1000) + 0.5)/1000
 
   if (IsInGamepadPreferredMode()) then
 
@@ -457,7 +429,7 @@ local function mapTick()
   if (currentPolygon ~= nil) then
 
     -- check to make sure that the user has actually left the hitbox, and is not just hovering over a wayshrine
-    if (not (currentPolygon:IsPointInside(mouseX , mouseY) and currentMapIndex == GetCurrentMapIndex())) then
+    if (not (currentPolygon:IsPointInside(getMouseCoordinates()) and currentMapIndex == GetCurrentMapIndex())) then
 
       --print("left hitbox!")
       isInBlobHitbox = false
@@ -480,8 +452,6 @@ function AccurateWorldMap.GetMapCustomMaxZoom()
         return _GetMapCustomMaxZoom()
     end
 end
-
-
 
 
 
@@ -545,9 +515,6 @@ local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
       AWM_EditTextTextBox:SetText(polygonCode)
     end
 
-
-
-  
   
     if (isDebug) then
       polygon:SetCenterColor(0, 1, 0, 0.5)
