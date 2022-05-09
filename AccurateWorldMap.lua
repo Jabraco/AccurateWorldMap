@@ -205,6 +205,19 @@ local function getZoneNameFromID(zoneID)
 end
 
 
+local function navigateToMap(currentZoneInfo)
+
+  currentPolygon = nil
+  isInBlobHitbox = false
+
+  SetMapToMapId(currentZoneInfo.zoneID)
+  currentZoneInfo = {}
+  CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
+
+end
+
+
+
 -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
 -- ██░▄▄▄░██░▄▄▄░██░▄▄▄░████░▄▄▄██░██░██░▀██░██░▄▄▀█▄▄░▄▄█▄░▄██░▄▄▄░██░▀██░██░▄▄▄░██
 -- ██▀▀▀▄▄██░███░██▄▄▄▀▀████░▄▄███░██░██░█░█░██░██████░████░███░███░██░█░█░██▄▄▄▀▀██
@@ -221,29 +234,30 @@ end
 
 -------------------------------------------------------------------------------
 
-local zos_WouldProcessMapClick = WouldProcessMapClick
-WouldProcessMapClick = function(xN, yN)
-  local wouldProcess, resultingMapIndex = zos_WouldProcessMapClick(xN, yN)
-
-  -- check if we are currently hovering over a custom polygon
-  if (isInBlobHitbox and currentZoneInfo ~= nil) then
-    wouldProcess = false
-    resultingMapIndex = GetMapIndexByZoneId(currentZoneInfo.zoneID)
-  end
-
-  if (isExclusive) then
-    wouldProcess = false
-    resultingMapIndex = nil
-  end
-
-  return wouldProcess, resultingMapIndex
-end
-
 ZO_PreHook("ProcessMapClick", function(xN, yN)
 
-  if ( (isInBlobHitbox and currentZoneInfo ~= nil) or isExclusive) then
+  -- in K&M mode, this function gets fired on every double click for some reason
+  -- whereas in gamepad this gets fired every click
+
+  print("processed map click function!", true)
+
+  if ((isInBlobHitbox and currentZoneInfo ~= nil) or isExclusive) then
+
+
+    if (isInGamepadMode() and (isInBlobHitbox and currentZoneInfo ~= nil)) then
+
+      navigateToMap(currentZoneInfo)
+
+      -- click to zone
+    end
+
+
     return true
   end
+
+
+
+
 end)
 
 -------------------------------------------------------------------------------
@@ -369,7 +383,7 @@ local function onMousePressed()
 
     end
 
-    print("Map clicked!")
+
   end
 
 end
@@ -398,7 +412,7 @@ end
 
 local function mapTick()
 
-  if (IsInGamepadPreferredMode()) then
+  if (isInGamepadMode()) then
 
     if (currentPolygon == nil) then
 
@@ -457,7 +471,7 @@ end
 
 local function checkIfCanTick()
 
-  if isMouseWithinMapWindow()  then
+  if (isMouseWithinMapWindow() or isInGamepadMode())  then
     mapTick()
   else
     if (isWorldMapShown()) then
@@ -565,12 +579,7 @@ local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
 
           if (deltaX <= 10 and deltaX <= 10) then
 
-            currentPolygon = nil
-            isInBlobHitbox = false
-      
-            SetMapToMapId(currentZoneInfo.zoneID)
-            currentZoneInfo = {}
-            CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
+            navigateToMap(currentZoneInfo)
 
           end
 
@@ -587,7 +596,7 @@ local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
   
     polygon:SetHandler("OnMouseEnter", function()
 
-      if (not IsInGamepadPreferredMode()) then
+      if (not isInGamepadMode()) then
         updateCurrentPolygon(polygon)
       end
 
@@ -800,7 +809,7 @@ local function OnAddonLoaded(event, addonName)
 		local nodeIndex = pin:GetFastTravelNodeIndex()
 		local _, name, _, _, _, _, _, _, _, disabled = GetFastTravelNodeInfo(nodeIndex)
 		local info_tooltip
-		if not IsInGamepadPreferredMode() then 
+		if not isInGamepadMode() then 
 			if not disabled then
 				if nodeIndex ~= 215 and nodeIndex ~= 221 or ZO_Map_GetFastTravelNode() then -- Eyevea and the Earth Forge cannot be "jumped" to so we'll add "This area is not accessible via jumping." when they're not using a wayshrine
 					InformationTooltip:AppendWayshrineTooltip(pin) -- Normal Wayshrine tooltip data
