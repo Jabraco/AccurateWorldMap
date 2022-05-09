@@ -7,6 +7,12 @@
 
 
 Todo:
+
+
+- move all map click functions into ProcessMapClick, since it's hooked now (can get rid of hacky wait until finished dragging code)
+- test to see if that fixes waypoints not working on polygons as well
+
+
 - add Blackbone Isle to the map
 - Get Dranil Kir blob
 - Get Silitar blob
@@ -35,15 +41,6 @@ Interesting events to consider:
 * EVENT_GLOBAL_MOUSE_DOWN (*[MouseButtonIndex|#MouseButtonIndex]* _button_, *bool* _ctrl_, *bool* _alt_, *bool* _shift_, *bool* _command_)
 * EVENT_GLOBAL_MOUSE_UP (*[MouseButtonIndex|#MouseButtonIndex]* _button_, *bool* _ctrl_, *bool* _alt_, *bool* _shift_, *bool* _command_)
 
--- TODO: use this to fix gamepad mode
--- local function NormalizePreferredMousePositionToMap()
---   if IsInGamepadPreferredMode() then
---       local x, y = ZO_WorldMapScroll:GetCenter()
---       return NormalizePointToControl(x, y, ZO_WorldMapContainer)
---   else
---       return NormalizeMousePositionToControl(ZO_WorldMapContainer)
---   end
--- end
 
 -- use this to fix map being updated after set
 
@@ -63,13 +60,15 @@ CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
 
 ---------------------------------------------------------------------------]]--
 
-
 -------------------------------------------------------------------------------
 -- Create root addon object
 -------------------------------------------------------------------------------
 
 -- get addon info
 AccurateWorldMap = getAddonInfo("AccurateWorldMap")
+
+-- set saved variable version number
+AccurateWorldMap.variableVersion = 1
 
 -- set default options
 AccurateWorldMap.defaults = {
@@ -79,9 +78,6 @@ AccurateWorldMap.defaults = {
   mapStyle = "Vanilla",
   worldMapWayshrines = "Default (All)",
 }
-
--- change this whenever you change savedVariables
-AccurateWorldMap.variableVersion = 1
 
 -------------------------------------------------------------------------------
 -- Globals
@@ -111,9 +107,6 @@ local currentZoneInfo = {}
 
 
 local _GetMapTileTexture = GetMapTileTexture
-
-
-local currentlySelectedBlobName = ""
 
 
 AWM_MouseOverGrungeTex = CreateControl("AWM_MouseOverGrungeTex", ZO_WorldMap, CT_TEXTURE)
@@ -229,8 +222,8 @@ end
 -------------------------------------------------------------------------------
 
 -- These functions control when the user's click is passed through to the map 
--- for events such as zone changing, we want to override that so that we can
--- make sure our custom polygons get the priority, as long as isExclusive = true.
+-- for events such as zone changing. We override that that so that our custom 
+-- zone hitbox polygons get the priority, as long as isExclusive is true.
 
 -------------------------------------------------------------------------------
 
@@ -259,6 +252,14 @@ ZO_PreHook("ProcessMapClick", function(xN, yN)
   end
 end)
 
+-------------------------------------------------------------------------------
+-- Map mouseover info function
+-------------------------------------------------------------------------------
+
+-- Controls the "blobs", the highlight effect that appears  when hovering over
+-- the zones on the map.
+
+-------------------------------------------------------------------------------
 
 local zos_GetMapMouseoverInfo = GetMapMouseoverInfo
 GetMapMouseoverInfo = function(xN, yN)
@@ -397,7 +398,12 @@ local function updateCurrentPolygon(polygon)
   currentPolygon = polygon
 
   if (AccurateWorldMap.options.zoneDescriptions == true) then
-    AWM_MouseOverGrungeTex:SetHidden(false)
+
+    if (not isInGamepadMode()) then
+      AWM_MouseOverGrungeTex:SetHidden(false)
+    end
+
+
   end
 
   -- update with current zone info
@@ -529,13 +535,6 @@ local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
       if (isDebug) then
         polygonCode = polygonCode .. ("{ xN = "..string.format("%.03f", data.xN)..", yN = "..string.format("%.03f", data.yN).." },\n")  
       end
-
-
-      -- print(tostring("Coordinate set "..key .. ": "))
-  
-      -- print("X: "..tostring(data.xN))
-      -- print("Y: "..tostring(data.yN))
-  
   
       polygon:AddPoint(data.xN, data.yN)
   
@@ -811,7 +810,6 @@ local function OnAddonLoaded(event, addonName)
   local mapWidth, mapHeight = ZO_WorldMapContainer:GetDimensions()
 
   local enlargeConst = 1.5
-
   AWM_MouseOverGrungeTex:SetAnchor(TOPLEFT, ZO_WorldMap, TOPLEFT, (mapWidth - (mapWidth*enlargeConst))/2, -(0.47 * mapHeight))
   AWM_MouseOverGrungeTex:SetDrawTier(DT_PARENT)
   AWM_MouseOverGrungeTex:SetDimensions(mapWidth*enlargeConst, mapHeight)
@@ -820,7 +818,10 @@ local function OnAddonLoaded(event, addonName)
   AWM_MouseOverGrungeTex:SetAlpha(0.55)
   AWM_MouseOverGrungeTex:SetHidden(true)
 
-  ZO_WorldMap:SetAutoRectClipChildren(true)
+  if (not isInGamepadMode()) then
+    ZO_WorldMap:SetAutoRectClipChildren(true)
+  end
+
 
   AWM_TextureControl:SetAlpha(0)
 
@@ -847,7 +848,6 @@ local function OnAddonLoaded(event, addonName)
   SLASH_COMMANDS["/get_map_id"] = function() print(tostring(GetCurrentMapId()), true) end
   SLASH_COMMANDS["/record_polygon"] = recordPolygon
   SLASH_COMMANDS["/get_blobs"] = getBlobTextureDetails
-  SLASH_COMMANDS["/get_controls"] = cleanUpZoneBlobs
   SLASH_COMMANDS["/set_map_to"] = setMapTo
   
   GetMapTileTexture = AccurateWorldMap.GetMapTileTexture

@@ -2,7 +2,7 @@
                         AccurateWorldMap Utility Functions
 ===============================================================================
 
-        Utility functions that didn't deserve to be in the main lua file.
+        Utility functions that didn't deserve to be in the main file.
 
 ---------------------------------------------------------------------------]]--
 
