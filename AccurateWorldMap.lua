@@ -276,7 +276,7 @@ GetMapMouseoverInfo = function(xN, yN)
 
   -- invisible blank default mouseover data
   local locationName = ""
-  local textureFile = "AccurateWorldMap/blobs/blob-balfiera.dds" 
+  local textureFile = "" 
   local widthN = 0.01
   local heightN = 0.01
   local locXN = 0
@@ -712,7 +712,7 @@ local function getBlobTextureDetails()
   -- if texture compilation has had no issues, then go ahead
   if (hasError == false and areTexturesCompiled == false) then
 
-    print("Textures compiled successfully.", true)
+    print("AccurateWorldMap succesfully loaded.", true)
     areTexturesCompiled = true
 
   end
@@ -724,7 +724,7 @@ local function onPlayerLoaded()
 
   if (areTexturesCompiled == false) then
   
-    print("Compiling map textures, please wait ...", true)
+    print("Compiling map textures, please wait ...")
 
     zo_callLater(function()
       getBlobTextureDetails() 
