@@ -234,6 +234,7 @@ end
 
 -------------------------------------------------------------------------------
 
+
 ZO_PreHook("ProcessMapClick", function(xN, yN)
 
   -- in K&M mode, this function gets fired on every double click for some reason
@@ -782,7 +783,16 @@ local function OnAddonLoaded(event, addonName)
   EVENT_MANAGER:UnregisterForEvent(AccurateWorldMap.name, EVENT_ADD_ON_LOADED)
   
   getBlobTextureDetails()
+
+  -- set up map description label control
   ZO_WorldMapMouseOverDescription:SetFont("ZoFontGameLargeBold")
+  ZO_WorldMapMouseOverDescription:SetMaxLineCount(2)
+  ZO_WorldMapMouseOverDescription:SetWrapMode(TEXT_WRAP_MODE_ELLIPSIS)
+
+  -- do anchors and resize it to be around 0.5 or more of the map window
+  -- then remove all hardcoded \n from descs
+
+
   local mapWidth, mapHeight = ZO_WorldMapContainer:GetDimensions()
 
   local enlargeConst = 1.5
