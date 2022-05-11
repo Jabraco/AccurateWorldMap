@@ -1694,7 +1694,7 @@ mapData = {
 
     -- Northern Elsweyr --
     zoneData = hackyJoin({
-      zoneName = "Anequina",
+      zoneName = "Ne Quin-Al Desert",
       zoneDescription = "This region merged with the southern region of Pellitine centuries ago to form the province of Elsweyr.",
       blobTexture = "AccurateWorldMap/blobs/blob-northernelsweyr.dds",
       zoneID = 1555,
@@ -2411,6 +2411,9 @@ mapData = {
 
   },
 
+  [315] = { -- Eltheric Ocean Map
+    parentMapID = 27
+  },
 
 
 -- ██████████████████████████████████████████████████████████████████████████████████████████████████████████████████
@@ -2673,6 +2676,10 @@ mapData = {
     [106] = { name = "Baandari Trading Post Wayshrine" }, -- Baandari Trading Post Wayshrine
   },
 
+  [292] = { -- Tempest Island Map
+    parentMapID = 27
+  },
+
   [1349] = { -- Summerset Isle Map 
     [497] = { xN = 0.573, yN = 0.173 }, -- Coral Aerie Dungeon
   },
@@ -2683,6 +2690,10 @@ mapData = {
 
   [1719] = { -- Western Skyrim Map 
     [434] = { xN = 0.442, yN = 0.193 }, -- Kyne's Aegis
+  },
+
+  [1737] = { -- Icereach Map 
+    parentMapID = 27
   },
 
   [1814] = { -- The Reach Map 

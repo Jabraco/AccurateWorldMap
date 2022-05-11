@@ -150,78 +150,33 @@ local providedPoiType = 1
 local mouseOverControl = WINDOW_MANAGER:GetMouseOverControl()
 
 
-local function getCurrentZoneID()
+local function setMapTo(mapID)
 
-  local zoneID = GetCurrentMapId()
-
-  if (zoneID == nil) then
-
-    -- do something, get the subzone id or figure out why it is nil in the first place
-    zoneID = 0
-  end
-  --ZO_WorldMapContainer
-
-  return zoneID
-
-end
-
-local function setMapTo(int)
+  --local zoneName = getZoneNameFromID(mapID)
 
   currentPolygon = nil
   isInBlobHitbox = false
 
-  SetMapToMapId(int)
+  SetMapToMapId(mapID)
   currentZoneInfo = {}
   CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
-
-end
-
-local function getZoneInfoByID(zoneID)
-
-  if (not (getCurrentZoneID() == nil) and zoneData == nil) then
-    local zoneData = mapData[getCurrentZoneID()]
-    local zoneInfo = zoneData.zoneData
-  
-    for zoneIndex, zoneInfo in pairs(zoneInfo) do
-  
-      if (zoneInfo.zoneID == zoneID) then
-        return zoneInfo
-      end
-    end
-
-  end
   
 end
+
+
 
 
 local function getZoneIDFromPolygonName(polygonName)
   return tonumber(string.match (polygonName, "%d+"))
 end
 
-local function getZoneNameFromID(zoneID)
-  local blacklistedZoneIDS = {1737, 315}
 
-  if (hasValue(blacklistedZoneIDS, zoneID)) then
-
-    return getZoneInfoByID(zoneID).zoneName
-
-  else
-
-    return GetMapNameById(zoneID)
-
-  end
-
-end
 
 
 local function navigateToMap(currentZoneInfo)
 
-  currentPolygon = nil
-  isInBlobHitbox = false
-    
-  setMapToMapID(currentZoneInfo.zoneID)
-  
-  currentZoneInfo = {}
+  setMapTo(currentZoneInfo.zoneID)
+
 end
 
 
@@ -268,31 +223,48 @@ end)
 -- ZOS WorldMap MouseUp event
 -------------------------------------------------------------------------------
 
--- Hook called when user releases a mouse button on the worldmap
+-- Override the function called when user releases a mouse button on the worldmap
+-- so that we can intercept and redirect the user to a custom parent map if available
 
 -------------------------------------------------------------------------------
 
 ZO_PreHook("ZO_WorldMap_MouseUp", function(mapControl, mouseButton, upInside)
 
   if (mouseButton == MOUSE_BUTTON_INDEX_RIGHT and upInside) then
-
     if (mapData[getCurrentZoneID()] ~= nil) then
-
       if (mapData[getCurrentZoneID()].parentMapID ~= nil) then
 
-        print(mapData[getCurrentZoneID()].parentMapID, true)
-
-        setMapToMapID(mapData[getCurrentZoneID()].parentMapID)
+        setMapTo(mapData[getCurrentZoneID()].parentMapID)
 
         return true
-
       end
-
     end
+  end
+end)
+
+-------------------------------------------------------------------------------
+-- ZOS WorldMap Get Map Title
+-------------------------------------------------------------------------------
+
+-- Override the world map's zone title with our custom ones.
+
+-------------------------------------------------------------------------------
+
+local zos_GetMapTitle = ZO_WorldMap_GetMapTitle
+ZO_WorldMap_GetMapTitle = function()
+
+
+  if (mapData ~= nil) then
+
+    return getZoneNameFromID(getCurrentZoneID())
+
+  else
+
+    return zos_GetMapTitle()
 
   end
-
-end)
+  
+end
 
 -------------------------------------------------------------------------------
 -- Map mouseover info function

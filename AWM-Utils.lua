@@ -136,10 +136,63 @@ function getNormalisedMouseCoordinates()
 end
 
 -------------------------------------------------------------------------------
--- Navigate to provided map by ID
+-- Get the mapID of the current zone
 -------------------------------------------------------------------------------
 
-function setMapToMapID(mapID)
-  SetMapToMapId(mapID)
-  CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
+function getCurrentZoneID()
+
+  local zoneID = GetCurrentMapId()
+
+  if (zoneID == nil) then
+    zoneID = 0
+  end
+
+  return zoneID
+
+end
+
+-------------------------------------------------------------------------------
+-- Get zoneInfo object by ID
+-------------------------------------------------------------------------------
+
+function getZoneInfoByID(zoneID)
+
+  if (mapData ~= nil) then
+
+    for mapID, mapInfo in pairs(mapData) do
+
+      if (mapInfo.zoneData ~= nil) then
+
+        local zoneInfo = mapInfo.zoneData
+
+          for zoneIndex, zoneInfo in pairs(zoneInfo) do
+        
+            if (zoneInfo.zoneID == zoneID) then
+              return zoneInfo
+            end
+          end
+      end
+
+    end
+  end
+end
+
+-------------------------------------------------------------------------------
+-- Get map name from ID
+-------------------------------------------------------------------------------
+
+function getZoneNameFromID(zoneID)
+  local blacklistedZoneIDS = {1737, 315}
+
+  -- does this map have a custom name? 
+  if (hasValue(blacklistedZoneIDS, zoneID) or AccurateWorldMap.options.loreRenames) then
+
+    return getZoneInfoByID(zoneID).zoneName
+
+  else
+    -- else return vanilla name
+    return GetMapNameById(zoneID)
+
+  end
+
 end
