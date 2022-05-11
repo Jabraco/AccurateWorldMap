@@ -2691,7 +2691,11 @@ mapData = {
 
   [667] = { -- Wrothgar Map
     [428] = { xN = 0.170, yN = 0.571, disabled = false }, -- Forgemaster Falls House
-},
+  },
+
+  [1248] = { -- Firemoth Island Map
+    parentMapID = 27
+  },
 }
 
 -------------------------------------------------------------------------------

@@ -8,11 +8,10 @@
 
 Todo:
 
-
 - move all map click functions into ProcessMapClick, since it's hooked now (can get rid of hacky wait until finished dragging code)
 - test to see if that fixes waypoints not working on polygons as well
 
-
+- Ask Breaux to get rid of valenwood's nub, make it smaller like the stormhaven one for balfiera
 - add Blackbone Isle to the map
 - Get Dranil Kir blob
 - Get Silitar blob
@@ -166,6 +165,16 @@ local function getCurrentZoneID()
 
 end
 
+local function setMapTo(int)
+
+  currentPolygon = nil
+  isInBlobHitbox = false
+
+  SetMapToMapId(int)
+  currentZoneInfo = {}
+  CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
+
+end
 
 local function getZoneInfoByID(zoneID)
 
@@ -209,13 +218,11 @@ local function navigateToMap(currentZoneInfo)
 
   currentPolygon = nil
   isInBlobHitbox = false
-
-  SetMapToMapId(currentZoneInfo.zoneID)
+    
+  setMapToMapID(currentZoneInfo.zoneID)
+  
   currentZoneInfo = {}
-  CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
-
 end
-
 
 
 -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
@@ -249,15 +256,41 @@ ZO_PreHook("ProcessMapClick", function(xN, yN)
 
       navigateToMap(currentZoneInfo)
 
-      -- click to zone
     end
 
 
     return true
   end
 
+end)
 
+-------------------------------------------------------------------------------
+-- ZOS WorldMap MouseUp event
+-------------------------------------------------------------------------------
 
+-- Hook called when user releases a mouse button on the worldmap
+
+-------------------------------------------------------------------------------
+
+ZO_PreHook("ZO_WorldMap_MouseUp", function(mapControl, mouseButton, upInside)
+
+  if (mouseButton == MOUSE_BUTTON_INDEX_RIGHT and upInside) then
+
+    if (mapData[getCurrentZoneID()] ~= nil) then
+
+      if (mapData[getCurrentZoneID()].parentMapID ~= nil) then
+
+        print(mapData[getCurrentZoneID()].parentMapID, true)
+
+        setMapToMapID(mapData[getCurrentZoneID()].parentMapID)
+
+        return true
+
+      end
+
+    end
+
+  end
 
 end)
 
@@ -761,16 +794,7 @@ local function cleanUpZoneBlobs()
 end
 
 
-local function setMapTo(int)
 
-  currentPolygon = nil
-  isInBlobHitbox = false
-
-  SetMapToMapId(int)
-  currentZoneInfo = {}
-  CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
-
-end
 
 local function OnAddonLoaded(event, addonName)
   
@@ -868,6 +892,7 @@ end
 
 local function onZoneChanged()
 
+  
   local mapIndex = getCurrentZoneID()
 
   print("Zone changed!")

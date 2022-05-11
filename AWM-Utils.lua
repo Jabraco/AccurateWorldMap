@@ -135,3 +135,11 @@ function getNormalisedMouseCoordinates()
 
 end
 
+-------------------------------------------------------------------------------
+-- Navigate to provided map by ID
+-------------------------------------------------------------------------------
+
+function setMapToMapID(mapID)
+  SetMapToMapId(mapID)
+  CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
+end
