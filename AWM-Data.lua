@@ -74,7 +74,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Bleakrock Isle",
-      zoneDescription = "The hardy Nords who inhabit Bleakrock Isle are mostly farmers and fisherfolk,\n but they are no stranger to pirates and raiders.",
+      zoneDescription = "Sitting at the mouth of the Yorgrim River, Bleakrock Isle may seem like a quaint fishing Isle, but its strategic importance cannot be understated - it acts as a checkpoint to every port city in the Ebonheart Pact.",
       zoneID = 74,
       xN = "0.6075",
       yN = "0.223",
@@ -111,7 +111,7 @@ mapData = {
     zoneData = hackyJoin({
       zoneName = "Eastmarch",
       zoneID = 61,
-      zoneDescription = "One of the 'Old Holds', Eastmarch was among the first regions of Skyrim settled by the\n Nords when they arrived from Atmora.",
+      zoneDescription = "The first of the Old Holds, Eastmarch was among the earliest regions settled by the Nords when they arrived from Atmora. It houses the ancient city of Windhelm, which is the oldest continuously inhabited Nordic city on Tamriel.",
       xN = "0.5275",
       yN = "0.249",
       zonePolygonData = {
@@ -1695,7 +1695,7 @@ mapData = {
     -- Northern Elsweyr --
     zoneData = hackyJoin({
       zoneName = "Ne Quin-Al Desert",
-      zoneDescription = "This region merged with the southern region of Pellitine centuries ago to form the province of Elsweyr.",
+      zoneDescription = "The region of Anequina derives its name from the dusty Ne-Quin-Al desert, which lies in its heart.",
       blobTexture = "AccurateWorldMap/blobs/blob-northernelsweyr.dds",
       zoneID = 1555,
       xN = "0.447",

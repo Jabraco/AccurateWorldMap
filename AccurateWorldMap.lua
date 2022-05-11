@@ -780,10 +780,7 @@ local function OnAddonLoaded(event, addonName)
   
   getBlobTextureDetails()
 
-  -- set up map description label control
-  ZO_WorldMapMouseOverDescription:SetFont("ZoFontGameLargeBold")
-  ZO_WorldMapMouseOverDescription:SetMaxLineCount(2)
-  ZO_WorldMapMouseOverDescription:SetWrapMode(TEXT_WRAP_MODE_ELLIPSIS)
+
 
   -- do anchors and resize it to be around 0.5 or more of the map window
   -- then remove all hardcoded \n from descs
@@ -799,6 +796,18 @@ local function OnAddonLoaded(event, addonName)
   AWM_MouseOverGrungeTex:SetDrawLayer(DL_CONTROLS)
   AWM_MouseOverGrungeTex:SetAlpha(0.55)
   AWM_MouseOverGrungeTex:SetHidden(true)
+
+  -- set up map description label control
+  ZO_WorldMapMouseOverDescription:SetFont("ZoFontGameLargeBold")
+  ZO_WorldMapMouseOverDescription:SetMaxLineCount(2)
+  ZO_WorldMapMouseOverDescription:SetWrapMode(TEXT_WRAP_MODE_ELLIPSIS)
+
+  ZO_WorldMapMouseOverDescription:ClearAnchors()
+
+  local mapDescPaddingAmount = mapWidth * 0.15
+
+  ZO_WorldMapMouseOverDescription:SetAnchor(TOPLEFT, ZO_WorldMapMouseoverName, BOTTOMLEFT, mapDescPaddingAmount, 2)
+  ZO_WorldMapMouseOverDescription:SetAnchor(TOPRIGHT, ZO_WorldMapMouseoverName, BOTTOMRIGHT, -(mapDescPaddingAmount), 2)
 
   if (not isInGamepadMode()) then
     ZO_WorldMap:SetAutoRectClipChildren(true)

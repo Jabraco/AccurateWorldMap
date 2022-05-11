@@ -184,8 +184,18 @@ end
 function getZoneNameFromID(zoneID)
   local blacklistedZoneIDS = {1737, 315}
 
-  -- does this map have a custom name? 
+  -- does this map have a custom name / are custom names enabled? 
   if (hasValue(blacklistedZoneIDS, zoneID) or AccurateWorldMap.options.loreRenames) then
+
+    if (getZoneInfoByID(zoneID) ~= nil) then
+
+      return getZoneInfoByID(zoneID).zoneName
+
+    else
+
+      return GetMapNameById(zoneID)
+
+    end
 
     return getZoneInfoByID(zoneID).zoneName
 
