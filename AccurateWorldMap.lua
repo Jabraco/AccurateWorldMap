@@ -24,6 +24,23 @@ Todo:
 
 Interesting events to consider:
 
+
+
+local mapPanAndZoom = ZO_WorldMap_GetPanAndZoom()
+mapPanAndZoom:SetCurrentNormalizedZoomInternal(params)
+
+
+
+
+  local mapPanAndZoom = ZO_WorldMap_GetPanAndZoom()
+    SecurePostHook(mapPanAndZoom , "SetCurrentNormalizedZoomInternal", function(selfMapPanAndZoom, normalizedZoom) 
+    d("normalizedZoom: " ..tostring(normalizedZoom))
+    end)
+
+    If you want the hook to only work once you need to add a check variable around it
+like if wasHookDoneOnce then return end
+And set wasHookDoneOnce = true after 1st usage
+
 * EVENT_SHOW_WORLD_MAP
 
 * EVENT_ZONE_CHANGED (*string* _zoneName_, *string* _subZoneName_, *bool* _newSubzone_, *integer* _zoneId_, *integer* _subZoneId_)
@@ -162,6 +179,10 @@ local function setMapTo(mapID)
   SetMapToMapId(mapID)
   currentZoneInfo = {}
   CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
+
+  -- force map to zoom out
+  local mapPanAndZoom = ZO_WorldMap_GetPanAndZoom()
+  mapPanAndZoom:SetCurrentNormalizedZoom(0)
   
 end
 
@@ -192,7 +213,7 @@ local function setUpMapInfoBar(isGamepadMode)
   local mapWidth, mapHeight = ZO_WorldMapContainer:GetDimensions()
 
   local enlargeConst = 1.5
-  
+
   AWM_MouseOverGrungeTex:ClearAnchors()
   AWM_MouseOverGrungeTex:SetAnchor(TOPLEFT, ZO_WorldMap, TOPLEFT, (mapWidth - (mapWidth*enlargeConst))/2, -(0.47 * mapHeight))
   AWM_MouseOverGrungeTex:SetDrawTier(DT_PARENT)

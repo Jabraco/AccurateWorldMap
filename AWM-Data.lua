@@ -1694,7 +1694,7 @@ mapData = {
 
     -- Northern Elsweyr --
     zoneData = hackyJoin({
-      zoneName = "Ne Quin-Al Desert",
+      zoneName = "Anequina",
       zoneDescription = "The region of Anequina derives its name from the dusty Ne-Quin-Al desert, which lies in its heart.",
       blobTexture = "AccurateWorldMap/blobs/blob-northernelsweyr.dds",
       zoneID = 1555,
