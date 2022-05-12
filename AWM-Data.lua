@@ -2412,7 +2412,18 @@ mapData = {
   },
 
   [315] = { -- Eltheric Ocean Map
-    parentMapID = 27
+
+    parentMapID = 27,
+
+    [156] = { disabled = true }, -- Fort Grimwatch Wayshrine
+    [371] = { disabled = true }, -- Moon Hunter Keep Dungeon
+    [158] = { disabled = true }, -- Arenthia Wayshrine
+    [157] = { disabled = true }, -- Fort Sphinxmoth Wayshrine
+    [159] = { disabled = true }, -- Dune Wayshrine
+    [397] = { disabled = true }, -- Star Haven Temple Wayshrine
+    [163] = { disabled = true }, -- S'ren-ja Wayshrine
+    [162] = { disabled = true }, -- Fort Grimwatch Wayshrine
+
   },
 
 

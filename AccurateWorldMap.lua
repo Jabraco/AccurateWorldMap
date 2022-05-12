@@ -420,9 +420,20 @@ GetFastTravelNodeInfo = function(nodeIndex)
         end
 
         if zoneData[nodeIndex].disabled ~= nil then
-          if (zoneData[nodeIndex].disabled == false) then
+
+          if (zoneData[nodeIndex].disabled) then
+
+            isLocatedInCurrentMap = false
+            disabled = true
+
+          else
+
             isLocatedInCurrentMap = true
+            disabled = false
+
           end
+
+
         end
 
 
