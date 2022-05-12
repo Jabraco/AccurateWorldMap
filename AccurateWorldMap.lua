@@ -24,23 +24,6 @@ Todo:
 
 Interesting events to consider:
 
-
-
-local mapPanAndZoom = ZO_WorldMap_GetPanAndZoom()
-mapPanAndZoom:SetCurrentNormalizedZoomInternal(params)
-
-
-
-
-  local mapPanAndZoom = ZO_WorldMap_GetPanAndZoom()
-    SecurePostHook(mapPanAndZoom , "SetCurrentNormalizedZoomInternal", function(selfMapPanAndZoom, normalizedZoom) 
-    d("normalizedZoom: " ..tostring(normalizedZoom))
-    end)
-
-    If you want the hook to only work once you need to add a check variable around it
-like if wasHookDoneOnce then return end
-And set wasHookDoneOnce = true after 1st usage
-
 * EVENT_SHOW_WORLD_MAP
 
 * EVENT_ZONE_CHANGED (*string* _zoneName_, *string* _subZoneName_, *bool* _newSubzone_, *integer* _zoneId_, *integer* _subZoneId_)
@@ -268,7 +251,7 @@ end)
 
 local zos_GetMapTitle = ZO_WorldMap_GetMapTitle
 ZO_WorldMap_GetMapTitle = function()
-  
+
   if (mapData ~= nil) then
     return getZoneNameFromID(getCurrentZoneID())
   else

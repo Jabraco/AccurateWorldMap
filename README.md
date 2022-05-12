@@ -16,9 +16,17 @@ After installing, zones, dungeons, and wayshrines will be moved to their more lo
 
 ## Compatibility
 
-The addons Destinations and MapPins are not compatible with this addon, as they add pins to vanilla locations. This addon moves zones and pins to be more accurate with the real shape of Tamriel.
+The following addons are not compatible with AccurateWorldMap:
+
+- Destinations
+- MapPins
+- GuildShrines
+
+Destinations and MapPins add pins to vanilla locations, thus are not compatible with this addon. This addon moves zones and pins from their vanilla locations to be more accurate with the real shape of Tamriel.
 
 MapPins' incompatibility cannot be mitigated, but Destinations can be fixed by unticking "Unknown POI's" in the in-game map filters menu.
+
+GuildShrines is unneeded when using this addon, as AccurateWorldMap replicates its functionality. If you choose to keep GuildShrines enabled, then those wayshrines will be misaligned on the map.
 
 ## Issues
 
