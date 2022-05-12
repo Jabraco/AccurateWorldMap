@@ -2702,6 +2702,10 @@ mapData = {
     [373] = { xN = 0.299, yN = 0.857 }, -- Grand Psijic Villa House
   },
 
+  [108] = { -- Eyevea Map 
+    [215] = { xN = 0.866, yN = 0.357, disabled = false }, -- Eyevea Wayshrine
+  },
+
   [1719] = { -- Western Skyrim Map 
     [434] = { xN = 0.442, yN = 0.193 }, -- Kyne's Aegis
   },
@@ -2767,6 +2771,9 @@ aurbis_tiles = { -- the "cosmic", or aurbis, custom map tiles
 
 local LAM = LibAddonMenu2
 local panelName = "AccurateWorldMapSettings"
+
+-- get addon info
+AccurateWorldMap = getAddonInfo("AccurateWorldMap")
 
 local panelData = {
   type = "panel",

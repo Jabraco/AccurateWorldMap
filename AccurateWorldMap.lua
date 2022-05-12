@@ -77,9 +77,6 @@ CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
 -- Create root addon object
 -------------------------------------------------------------------------------
 
--- get addon info
-AccurateWorldMap = getAddonInfo("AccurateWorldMap")
-
 -- set saved variable version number
 AccurateWorldMap.variableVersion = 1
 

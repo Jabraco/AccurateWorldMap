@@ -12,6 +12,6 @@
 ## SavedVariables: AWMVars
 
 AWM-Utils.lua
+AWM-Data.lua
 AccurateWorldMap.xml
 AccurateWorldMap.lua
-AWM-Data.lua
