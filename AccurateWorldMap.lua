@@ -39,8 +39,6 @@ Interesting events to consider:
 
 
 ---------------------------------------------------------------------------]]--
-
--------------------------------------------------------------------------------
 -- Create root addon object
 -------------------------------------------------------------------------------
 
@@ -70,8 +68,6 @@ local hasDragged = false
 local isInBlobHitbox = false
 local waitForRelease = false
 local areTexturesCompiled = false
-
-local isGamepadMode
 
 -- ints
 local currentCoordinateCount = 0
@@ -104,7 +100,7 @@ local mapDimensions = 4096 -- px
 function AccurateWorldMap.GetMapTileTexture(index)
     local tex = _GetMapTileTexture(index)
 
-    if (GetCurrentMapIndex() == 1) then
+    if (GetCurrentMapIndex() == 1) or getCurrentZoneID() == 315 then
       for i = 1, 16 do
         if tamriel_tiles[i] == tex then
           ---- Replace certain tiles if you are on live server and have spoilers enabled
@@ -138,7 +134,7 @@ local mouseOverControl = WINDOW_MANAGER:GetMouseOverControl()
 
 
 
-local function setUpMapInfoBar(isGamepadMode)
+local function setUpMapInfoBar()
 
 
   -- do anchors and resize it to be around 0.5 or more of the map window
@@ -170,10 +166,12 @@ local function setUpMapInfoBar(isGamepadMode)
   ZO_WorldMapMouseOverDescription:SetAnchor(TOPLEFT, ZO_WorldMapMouseoverName, BOTTOMLEFT, mapDescPaddingAmount, 2)
   ZO_WorldMapMouseOverDescription:SetAnchor(TOPRIGHT, ZO_WorldMapMouseoverName, BOTTOMRIGHT, -(mapDescPaddingAmount), 2)
 
-  if (not isGamepadMode) then
+  if (not isInGamepadMode()) then
     ZO_WorldMap:SetAutoRectClipChildren(true)
+    ZO_WorldMapContainerRaggedEdge:SetHidden(true)
   else
     ZO_WorldMap:SetAutoRectClipChildren(false)
+    ZO_WorldMapContainerRaggedEdge:SetHidden(false)
   end
 
 
@@ -186,7 +184,7 @@ end
 -- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
 
 -------------------------------------------------------------------------------
--- Process map click functions
+-- Process map click function
 -------------------------------------------------------------------------------
 
 -- These functions control when the user's click is passed through to the map 
@@ -194,7 +192,6 @@ end
 -- zone hitbox polygons get the priority, as long as isExclusive is true.
 
 -------------------------------------------------------------------------------
-
 
 ZO_PreHook("ProcessMapClick", function(xN, yN)
 
@@ -313,6 +310,50 @@ GetMapMouseoverInfo = function(xN, yN)
   return locationName, textureFile, widthN, heightN, locXN, locYN
 end
 
+-------------------------------------------------------------------------------
+-- ZOS map pin tooltip controller
+-------------------------------------------------------------------------------
+
+-- Borrowed from GuildShrines addon. Overrides default tooltip handler to adds 
+-- custom tooltips to Eyevea and Earth Forge wayshrines in both gamepad and 
+-- keyboard & mouse mode.
+
+-------------------------------------------------------------------------------
+
+ZO_MapPin.TOOLTIP_CREATORS[MAP_PIN_TYPE_FAST_TRAVEL_WAYSHRINE].creator = function(pin)
+  local nodeIndex = pin:GetFastTravelNodeIndex()
+  local _, name, _, _, _, _, _, _, _, disabled = GetFastTravelNodeInfo(nodeIndex)
+  local info_tooltip
+
+  if not isInGamepadMode() then 
+    if not disabled then
+      if nodeIndex ~= 215 and nodeIndex ~= 221 or ZO_Map_GetFastTravelNode() then -- Eyevea and the Earth Forge cannot be "jumped" to so we'll add "This area is not accessible via jumping." when they're not using a wayshrine
+        InformationTooltip:AppendWayshrineTooltip(pin)																			-- Normal Wayshrine tooltip data
+      else
+        InformationTooltip:AddLine(zo_strformat(SI_WORLD_MAP_LOCATION_NAME, name), "", ZO_TOOLTIP_DEFAULT_COLOR:UnpackRGB())	-- Wayshrine Name
+        InformationTooltip:AddLine("This location can only be accessed via other Wayshrines.", "", 1, 0, 0)				-- "This area is not accessible via jumping."
+      end	
+    else
+      InformationTooltip:AddLine(zo_strformat(SI_WORLD_MAP_LOCATION_NAME, name), "", ZO_TOOLTIP_DEFAULT_COLOR:UnpackRGB())		-- Wayshrine Name Only (unknown wayshrine)
+    end		
+  else
+    if not disabled then 
+      if nodeIndex ~= 215 and nodeIndex ~= 221 or ZO_Map_GetFastTravelNode() then -- Eyevea and the Earth Forge cannot be "jumped" to so we'll add "This area is not accessible via jumping." when they're not using a wayshrine 
+        ZO_MapLocationTooltip_Gamepad:AppendWayshrineTooltip(pin)
+      else
+        local lineSection = ZO_MapLocationTooltip_Gamepad.tooltip:AcquireSection(ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("mapMoreQuestsContentSection"))
+        lineSection:AddLine(name, ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("mapLocationTooltipContentLabel"), ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("gamepadElderScrollTooltipContent"))									-- Wayshrine Name
+        lineSection:AddLine(GetString("This location can only be accessed via other Wayshrines."), ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("mapLocationTooltipContentLabel"), ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("gamepadElderScrollTooltipContent"))	-- "This area is not accessible via jumping."
+        ZO_MapLocationTooltip_Gamepad.tooltip:AddSection(lineSection) -- not sure why I forgot this, going to test with and without to see what it changes
+      end
+    else
+      local lineSection = ZO_MapLocationTooltip_Gamepad.tooltip:AcquireSection(ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("mapMoreQuestsContentSection"))
+      lineSection:AddLine(name, ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("mapLocationTooltipContentLabel"), ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("gamepadElderScrollTooltipContent")) -- Wayshrine Name Only (unknown wayshrine)
+      ZO_MapLocationTooltip_Gamepad.tooltip:AddSection(lineSection)
+    end
+  end
+end
+
 
 local zos_GetFastTravelNodeInfo = GetFastTravelNodeInfo    
 GetFastTravelNodeInfo = function(nodeIndex)
@@ -421,16 +462,6 @@ end
 
 
 local function mapTick()
-
-  if (isGamepadMode == nil or isGamepadMode ~= isInGamepadMode()) then
-
-    setUpMapInfoBar(isInGamepadMode())
-
-    isGamepadMode = isInGamepadMode()
-
-  end
-
-  isGamepadMode = isInGamepadMode()
 
   if (isInGamepadMode()) then
 
@@ -740,7 +771,6 @@ local function onPlayerLoaded()
 
   end
 
-
 end
 
 
@@ -788,41 +818,6 @@ local function OnAddonLoaded(event, addonName)
   -- set up saved variables
   AccurateWorldMap.options = ZO_SavedVars:NewAccountWide("AWMVars", AccurateWorldMap.variableVersion, nil, AccurateWorldMap.defaults)
 
-
-  ZO_MapPin.TOOLTIP_CREATORS[MAP_PIN_TYPE_FAST_TRAVEL_WAYSHRINE].creator = function(pin)
-		local nodeIndex = pin:GetFastTravelNodeIndex()
-		local _, name, _, _, _, _, _, _, _, disabled = GetFastTravelNodeInfo(nodeIndex)
-		local info_tooltip
-
-		if not isInGamepadMode() then 
-			if not disabled then
-				if nodeIndex ~= 215 and nodeIndex ~= 221 or ZO_Map_GetFastTravelNode() then -- Eyevea and the Earth Forge cannot be "jumped" to so we'll add "This area is not accessible via jumping." when they're not using a wayshrine
-					InformationTooltip:AppendWayshrineTooltip(pin)																			-- Normal Wayshrine tooltip data
-				else
-					InformationTooltip:AddLine(zo_strformat(SI_WORLD_MAP_LOCATION_NAME, name), "", ZO_TOOLTIP_DEFAULT_COLOR:UnpackRGB())	-- Wayshrine Name
-					InformationTooltip:AddLine("This location can only be accessed via other Wayshrines.", "", 1, 0, 0)				-- "This area is not accessible via jumping."
-				end	
-			else
-				InformationTooltip:AddLine(zo_strformat(SI_WORLD_MAP_LOCATION_NAME, name), "", ZO_TOOLTIP_DEFAULT_COLOR:UnpackRGB())		-- Wayshrine Name Only (unknown wayshrine)
-			end		
-		else
-			if not disabled then 
-				if nodeIndex ~= 215 and nodeIndex ~= 221 or ZO_Map_GetFastTravelNode() then -- Eyevea and the Earth Forge cannot be "jumped" to so we'll add "This area is not accessible via jumping." when they're not using a wayshrine 
-					ZO_MapLocationTooltip_Gamepad:AppendWayshrineTooltip(pin)
-				else
-					local lineSection = ZO_MapLocationTooltip_Gamepad.tooltip:AcquireSection(ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("mapMoreQuestsContentSection"))
-					lineSection:AddLine(name, ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("mapLocationTooltipContentLabel"), ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("gamepadElderScrollTooltipContent"))									-- Wayshrine Name
-					lineSection:AddLine(GetString("This location can only be accessed via other Wayshrines."), ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("mapLocationTooltipContentLabel"), ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("gamepadElderScrollTooltipContent"))	-- "This area is not accessible via jumping."
-					ZO_MapLocationTooltip_Gamepad.tooltip:AddSection(lineSection) -- not sure why I forgot this, going to test with and without to see what it changes
-				end
-			else
-				local lineSection = ZO_MapLocationTooltip_Gamepad.tooltip:AcquireSection(ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("mapMoreQuestsContentSection"))
-				lineSection:AddLine(name, ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("mapLocationTooltipContentLabel"), ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("gamepadElderScrollTooltipContent")) -- Wayshrine Name Only (unknown wayshrine)
-				ZO_MapLocationTooltip_Gamepad.tooltip:AddSection(lineSection)
-			end
-		end
-
-	end
 
   SLASH_COMMANDS["/get_map_id"] = function() print(tostring(GetCurrentMapId()), true) end
   SLASH_COMMANDS["/record_polygon"] = recordPolygon
