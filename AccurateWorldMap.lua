@@ -151,9 +151,6 @@ local mouseOverControl = WINDOW_MANAGER:GetMouseOverControl()
 
 
 
-local function getZoneIDFromPolygonName(polygonName)
-  return tonumber(string.match (polygonName, "%d+"))
-end
 
 
 
@@ -271,18 +268,12 @@ end)
 
 local zos_GetMapTitle = ZO_WorldMap_GetMapTitle
 ZO_WorldMap_GetMapTitle = function()
-
-
-  if (mapData ~= nil) then
-
-    return getZoneNameFromID(getCurrentZoneID())
-
-  else
-
-    return zos_GetMapTitle()
-
-  end
   
+  if (mapData ~= nil) then
+    return getZoneNameFromID(getCurrentZoneID())
+  else
+    return zos_GetMapTitle()
+  end
 end
 
 -------------------------------------------------------------------------------
@@ -441,7 +432,7 @@ local function updateCurrentPolygon(polygon)
   end
 
   -- update with current zone info
-  currentZoneInfo = getZoneInfoByID(getZoneIDFromPolygonName(polygon:GetName()))
+  currentZoneInfo = getZoneInfoByID(getMapIDFromPolygonName(polygon:GetName()))
 
 end
 
@@ -676,21 +667,6 @@ local function recordPolygon()
 
 end
 
-local function getFileDirectoryFromZoneName(providedZoneName)
-  local providedZoneName = providedZoneName
-
-  -- example: transform "Stros M'Kai" to "strosmkai"
-  providedZoneName = providedZoneName:gsub("'", "")
-  providedZoneName = providedZoneName:gsub(" ", "")
-  providedZoneName = providedZoneName:gsub("-", "") 
-  providedZoneName = providedZoneName:lower()
-
-  local blobFileDirectory = ("AccurateWorldMap/blobs/blob-"..providedZoneName..".dds")
-  return blobFileDirectory
-end
-
-
-
 local function getBlobTextureDetails()
 
   local hasError = false
@@ -725,7 +701,7 @@ local function getBlobTextureDetails()
             if (zoneInfo.blobTexture ~= nil) then
               textureDirectory = zoneInfo.blobTexture
             else
-              textureDirectory = getFileDirectoryFromZoneName(zoneInfo.zoneName)
+              textureDirectory = getFileDirectoryFromMapName(zoneInfo.zoneName)
             end
 
             -- load texture into control from name

@@ -80,6 +80,17 @@ function getWorldMapOffsets()
 end
 
 -------------------------------------------------------------------------------
+-- Determine whether a variable X is numeric or not
+-------------------------------------------------------------------------------
+
+function isNumeric(x)
+  if tonumber(x) ~= nil then
+      return true
+  end
+  return false
+end
+
+-------------------------------------------------------------------------------
 -- Check if table has a certain value
 -------------------------------------------------------------------------------
 
@@ -208,15 +219,30 @@ function getZoneNameFromID(zoneID)
 end
 
 -------------------------------------------------------------------------------
--- Determine whether a variable X is numeric or not
+-- Get map id from zone hitbox polygon name
 -------------------------------------------------------------------------------
 
-function isNumeric(x)
-  if tonumber(x) ~= nil then
-      return true
-  end
-  return false
+function getMapIDFromPolygonName(polygonName)
+  return tonumber(string.match (polygonName, "%d+"))
 end
+
+-------------------------------------------------------------------------------
+-- Get blob file directory from map name
+-------------------------------------------------------------------------------
+
+function getFileDirectoryFromMapName(providedZoneName)
+  local providedZoneName = providedZoneName
+
+  -- example: transform "Stros M'Kai" to "strosmkai"
+  providedZoneName = providedZoneName:gsub("'", "")
+  providedZoneName = providedZoneName:gsub(" ", "")
+  providedZoneName = providedZoneName:gsub("-", "") 
+  providedZoneName = providedZoneName:lower()
+
+  local blobFileDirectory = ("AccurateWorldMap/blobs/blob-"..providedZoneName..".dds")
+  return blobFileDirectory
+end
+
 
 -------------------------------------------------------------------------------
 -- Navigate map to provided map via map data object or ID
