@@ -2423,6 +2423,9 @@ mapData = {
     [397] = { disabled = true }, -- Star Haven Temple Wayshrine
     [163] = { disabled = true }, -- S'ren-ja Wayshrine
     [162] = { disabled = true }, -- Fort Grimwatch Wayshrine
+    [311] = { disabled = true }, -- Sleek Creek House
+    [291] = { disabled = true }, -- Serenity Falls Estate House
+    [321] = { disabled = true }, -- Dawnshadow House
 
   },
 
