@@ -2703,7 +2703,7 @@ mapData = {
   },
 
   [108] = { -- Eyevea Map 
-    [215] = { xN = 0.866, yN = 0.357, disabled = false }, -- Eyevea Wayshrine
+    [215] = { xN = 0.866, yN = 0.357, disabled = false, name = "Eyevea Wayshrine" }, -- Eyevea Wayshrine
   },
 
   [1719] = { -- Western Skyrim Map 

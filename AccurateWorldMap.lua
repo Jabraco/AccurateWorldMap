@@ -55,22 +55,6 @@ And set wasHookDoneOnce = true after 1st usage
 * EVENT_GLOBAL_MOUSE_UP (*[MouseButtonIndex|#MouseButtonIndex]* _button_, *bool* _ctrl_, *bool* _alt_, *bool* _shift_, *bool* _command_)
 
 
--- use this to fix map being updated after set
-
-function ZO_WorldMap_SetMapById(mapId)
-    if WORLD_MAP_MANAGER:IsMapChangingAllowed() then
-        if SetMapToMapId(mapId) == SET_MAP_RESULT_MAP_CHANGED then
-            g_playerChoseCurrentMap = true
-            CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
-        end
-    end
-end
-
-local GPS = LibGPS3
-local changeResult = SetMapToMapId(resultData.mapId)
-GPS:SetPlayerChoseCurrentMap()
-CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
-
 ---------------------------------------------------------------------------]]--
 
 -------------------------------------------------------------------------------
@@ -166,38 +150,12 @@ local providedPoiType = 1
 local mouseOverControl = WINDOW_MANAGER:GetMouseOverControl()
 
 
-local function setMapTo(mapID)
-
-  --local zoneName = getZoneNameFromID(mapID)
-
-  currentPolygon = nil
-  isInBlobHitbox = false
-
-  SetMapToMapId(mapID)
-  currentZoneInfo = {}
-  CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
-
-  -- force map to zoom out
-  local mapPanAndZoom = ZO_WorldMap_GetPanAndZoom()
-  mapPanAndZoom:SetCurrentNormalizedZoom(0)
-  
-end
-
-
-
 
 local function getZoneIDFromPolygonName(polygonName)
   return tonumber(string.match (polygonName, "%d+"))
 end
 
 
-
-
-local function navigateToMap(currentZoneInfo)
-
-  setMapTo(currentZoneInfo.zoneID)
-
-end
 
 
 local function setUpMapInfoBar(isGamepadMode)
@@ -295,7 +253,7 @@ ZO_PreHook("ZO_WorldMap_MouseUp", function(mapControl, mouseButton, upInside)
     if (mapData[getCurrentZoneID()] ~= nil) then
       if (mapData[getCurrentZoneID()].parentMapID ~= nil) then
 
-        setMapTo(mapData[getCurrentZoneID()].parentMapID)
+        navigateToMap(mapData[getCurrentZoneID()].parentMapID)
 
         return true
       end
@@ -910,7 +868,7 @@ local function OnAddonLoaded(event, addonName)
   SLASH_COMMANDS["/get_map_id"] = function() print(tostring(GetCurrentMapId()), true) end
   SLASH_COMMANDS["/record_polygon"] = recordPolygon
   SLASH_COMMANDS["/get_blobs"] = getBlobTextureDetails
-  SLASH_COMMANDS["/set_map_to"] = setMapTo
+  SLASH_COMMANDS["/set_map_to"] = navigateToMap
   
   GetMapTileTexture = AccurateWorldMap.GetMapTileTexture
   GetMapCustomMaxZoom = AccurateWorldMap.GetMapCustomMaxZoom

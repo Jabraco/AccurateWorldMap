@@ -206,3 +206,55 @@ function getZoneNameFromID(zoneID)
   end
 
 end
+
+-------------------------------------------------------------------------------
+-- Determine whether a variable X is numeric or not
+-------------------------------------------------------------------------------
+
+function isNumeric(x)
+  if tonumber(x) ~= nil then
+      return true
+  end
+  return false
+end
+
+-------------------------------------------------------------------------------
+-- Navigate map to provided map via map data object or ID
+-------------------------------------------------------------------------------
+
+function navigateToMap(mapInfo)
+
+  local mapID
+
+  -- mapInfo can be either an int or a zoneData object, need to determine which it is
+  -- if it's a zoneData object, then it will have an id
+
+  if (mapInfo ~= nil) then
+
+    if (isNumeric(mapInfo)) then -- it is an int
+
+      mapID = tonumber(mapInfo)
+
+    else -- it is a zoneData object
+
+      if (mapInfo.zoneID ~= nil) then -- it is a zoneData object
+
+        mapID = mapInfo.zoneID
+  
+      end
+
+    end
+
+    currentPolygon = nil
+    isInBlobHitbox = false
+    SetMapToMapId(mapID)
+    currentZoneInfo = {}
+    CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
+    -- force map to zoom out
+    local mapPanAndZoom = ZO_WorldMap_GetPanAndZoom()
+    mapPanAndZoom:SetCurrentNormalizedZoom(0)
+      
+  end
+
+end
+
