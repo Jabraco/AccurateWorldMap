@@ -90,6 +90,8 @@ local isInBlobHitbox = false
 local waitForRelease = false
 local areTexturesCompiled = false
 
+local isGamepadMode
+
 -- ints
 local currentCoordinateCount = 0
 
@@ -179,6 +181,47 @@ local function navigateToMap(currentZoneInfo)
 
 end
 
+
+local function setUpMapInfoBar(isGamepadMode)
+
+
+  -- do anchors and resize it to be around 0.5 or more of the map window
+  -- then remove all hardcoded \n from descs
+
+
+  local mapWidth, mapHeight = ZO_WorldMapContainer:GetDimensions()
+
+  local enlargeConst = 1.5
+  
+  AWM_MouseOverGrungeTex:ClearAnchors()
+  AWM_MouseOverGrungeTex:SetAnchor(TOPLEFT, ZO_WorldMap, TOPLEFT, (mapWidth - (mapWidth*enlargeConst))/2, -(0.47 * mapHeight))
+  AWM_MouseOverGrungeTex:SetDrawTier(DT_PARENT)
+  AWM_MouseOverGrungeTex:SetDimensions(mapWidth*enlargeConst, mapHeight)
+  AWM_MouseOverGrungeTex:SetDrawLayer(DL_OVERLAY)
+  AWM_MouseOverGrungeTex:SetDrawLayer(DL_CONTROLS)
+  AWM_MouseOverGrungeTex:SetAlpha(0.55)
+  AWM_MouseOverGrungeTex:SetHidden(true)
+
+  -- set up map description label control
+  ZO_WorldMapMouseOverDescription:SetFont("ZoFontGameLargeBold")
+  ZO_WorldMapMouseOverDescription:SetMaxLineCount(2)
+  ZO_WorldMapMouseOverDescription:SetWrapMode(TEXT_WRAP_MODE_ELLIPSIS)
+
+  ZO_WorldMapMouseOverDescription:ClearAnchors()
+
+  local mapDescPaddingAmount = mapWidth * 0.15
+
+  ZO_WorldMapMouseOverDescription:SetAnchor(TOPLEFT, ZO_WorldMapMouseoverName, BOTTOMLEFT, mapDescPaddingAmount, 2)
+  ZO_WorldMapMouseOverDescription:SetAnchor(TOPRIGHT, ZO_WorldMapMouseoverName, BOTTOMRIGHT, -(mapDescPaddingAmount), 2)
+
+  if (not isGamepadMode) then
+    ZO_WorldMap:SetAutoRectClipChildren(true)
+  else
+    ZO_WorldMap:SetAutoRectClipChildren(false)
+  end
+
+
+end
 
 -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
 -- ██░▄▄▄░██░▄▄▄░██░▄▄▄░████░▄▄▄██░██░██░▀██░██░▄▄▀█▄▄░▄▄█▄░▄██░▄▄▄░██░▀██░██░▄▄▄░██
@@ -417,6 +460,16 @@ end
 
 
 local function mapTick()
+
+  if (isGamepadMode == nil or isGamepadMode ~= isInGamepadMode()) then
+
+    setUpMapInfoBar(isInGamepadMode())
+
+    isGamepadMode = isInGamepadMode()
+
+  end
+
+  isGamepadMode = isInGamepadMode()
 
   if (isInGamepadMode()) then
 
@@ -781,37 +834,7 @@ local function OnAddonLoaded(event, addonName)
   getBlobTextureDetails()
 
 
-
-  -- do anchors and resize it to be around 0.5 or more of the map window
-  -- then remove all hardcoded \n from descs
-
-
-  local mapWidth, mapHeight = ZO_WorldMapContainer:GetDimensions()
-
-  local enlargeConst = 1.5
-  AWM_MouseOverGrungeTex:SetAnchor(TOPLEFT, ZO_WorldMap, TOPLEFT, (mapWidth - (mapWidth*enlargeConst))/2, -(0.47 * mapHeight))
-  AWM_MouseOverGrungeTex:SetDrawTier(DT_PARENT)
-  AWM_MouseOverGrungeTex:SetDimensions(mapWidth*enlargeConst, mapHeight)
-  AWM_MouseOverGrungeTex:SetDrawLayer(DL_OVERLAY)
-  AWM_MouseOverGrungeTex:SetDrawLayer(DL_CONTROLS)
-  AWM_MouseOverGrungeTex:SetAlpha(0.55)
-  AWM_MouseOverGrungeTex:SetHidden(true)
-
-  -- set up map description label control
-  ZO_WorldMapMouseOverDescription:SetFont("ZoFontGameLargeBold")
-  ZO_WorldMapMouseOverDescription:SetMaxLineCount(2)
-  ZO_WorldMapMouseOverDescription:SetWrapMode(TEXT_WRAP_MODE_ELLIPSIS)
-
-  ZO_WorldMapMouseOverDescription:ClearAnchors()
-
-  local mapDescPaddingAmount = mapWidth * 0.15
-
-  ZO_WorldMapMouseOverDescription:SetAnchor(TOPLEFT, ZO_WorldMapMouseoverName, BOTTOMLEFT, mapDescPaddingAmount, 2)
-  ZO_WorldMapMouseOverDescription:SetAnchor(TOPRIGHT, ZO_WorldMapMouseoverName, BOTTOMRIGHT, -(mapDescPaddingAmount), 2)
-
-  if (not isInGamepadMode()) then
-    ZO_WorldMap:SetAutoRectClipChildren(true)
-  end
+  setUpMapInfoBar(isInGamepadMode())
 
 
   AWM_TextureControl:SetAlpha(0)

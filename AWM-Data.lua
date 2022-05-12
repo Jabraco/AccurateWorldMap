@@ -179,7 +179,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "The Rift",
-      zoneDescription = "The southeastern hold of Skyrim, The Rift is a temperate region northwest of\n the intersection between the Velothi Mountains and the Jerall Mountains.",
+      zoneDescription = "The southeastern hold of Skyrim, The Rift is a temperate region northwest of the intersection between the Velothi Mountains and the Jerall Mountains.",
       zoneID = 125,
       xN = "0.5275",
       yN = "0.3145",
@@ -230,7 +230,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Western Skyrim",
-      zoneDescription = "Western Skyrim is a cold and unforgiving land, which consists of\n the holds of Haafingar, Karthald, and Hjaalmarch.",
+      zoneDescription = "Western Skyrim is a cold and unforgiving land, which consists of the holds of Haafingar, Karthald, and Hjaalmarch.",
       zoneID = 1719,
       xN = "0.352",
       yN = "0.166",
@@ -328,7 +328,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "The Reach",
-      zoneDescription = "The rocky highlands of the Reach contains savage predators, perilous Dwarven ruins, and\n hostile Reach clans.",
+      zoneDescription = "The rocky highlands of the Reach contains savage predators, perilous Dwarven ruins, and hostile Reach clans.",
       zoneID = 1814,
       xN = "0.329",
       yN = "0.2435",
@@ -396,7 +396,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Cyrodiil",
-      zoneDescription = "With the Empire's collapse, armies of the Dominion, Covenant, and Pact have all invaded\nthe Heartlands of Cyrodiil, vying for the Imperial throne.",
+      zoneDescription = "With the Empire's collapse, armies of the Dominion, Covenant, and Pact have all invadedthe Heartlands of Cyrodiil, vying for the Imperial throne.",
       zoneID = 16,
       xN = "0.420",
       yN = "0.384",
@@ -480,7 +480,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Gold Coast",
-      zoneDescription = "The Gold Coast always served as Cyrodiil's gateway to the Abecean Sea, but with\n the Alliance War, the region has gone its own way.",
+      zoneDescription = "The Gold Coast always served as Cyrodiil's gateway to the Abecean Sea, but with the Alliance War, the region has gone its own way.",
       zoneID = 1006,
       xN = "0.299",
       yN = "0.515",
@@ -637,7 +637,7 @@ mapData = {
     -- Isle of Balfiera --
     zoneData = hackyJoin({
       zoneName = "Isle of Balfiera",
-      zoneDescription = "Balfiera Isle is the ancestral home of Clan Direnni, and the site of the the\n oldest structure on Tamriel - the Adamantine Tower.",
+      zoneDescription = "Balfiera Isle is the ancestral home of Clan Direnni, and the site of the the oldest structure on Tamriel - the Adamantine Tower.",
       blobTexture = "AccurateWorldMap/blobs/blob-balfiera.dds",
       zoneID = 1997,
       xN = "0.1515",
@@ -671,7 +671,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Stormhaven",
-      zoneDescription = "Stormhaven is the geographic center of High Rock, and also the home of the\n great trading city of Wayrest, capital of the Daggerfall Covenant.",
+      zoneDescription = "Stormhaven is the geographic center of High Rock, and also the home of the great trading city of Wayrest, capital of the Daggerfall Covenant.",
       zoneID = 12,
       xN = "0.161",
       yN = "0.255",
@@ -751,7 +751,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Rivenspire",
-      zoneDescription = "This northwestern region of High Rock contains some of the province's most dramatic terrain,\n including towering, flinty crags, windswept moors, and narrow canyons.",
+      zoneDescription = "This northwestern region of High Rock contains some of the province's most dramatic terrain, including towering, flinty crags, windswept moors, and narrow canyons.",
       zoneID = 10,
       xN = "0.118",
       yN = "0.1895",
@@ -937,7 +937,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Craglorn",
-      zoneDescription = "Though crossed by caravans and Covenant troops going to and from Cyrodiil, this\n wild region of eastern Hammerfell is a virtual no-man's-land.",
+      zoneDescription = "Though crossed by caravans and Covenant troops going to and from Cyrodiil, this wild region of eastern Hammerfell is a virtual no-man's-land.",
       zoneID = 1126,
       xN = "0.3225",
       yN = "0.300",
@@ -997,7 +997,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Bangkorai",
-      zoneDescription = "This region takes its name from its most famous feature, the Bangkorai Pass, which has served as\n High Rock's defense against the wild raiders of Hammerfell for countless generations.",
+      zoneDescription = "This region takes its name from its most famous feature, the Bangkorai Pass, which has served as High Rock's defense against the wild raiders of Hammerfell for countless generations.",
       zoneID = 20,
       xN = "0.232",
       yN = "0.273",
@@ -1124,7 +1124,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Hew's Bane",
-      zoneDescription = "Prince Hubalajad claimed this Hammerfell peninsula for his own, but when all of\n his ambitious endeavors ended in failure, the region acquired the nickname Hew's Bane.",
+      zoneDescription = "Prince Hubalajad claimed this Hammerfell peninsula for his own, but when all of his ambitious endeavors ended in failure, the region acquired the nickname Hew's Bane.",
       zoneID = 994,
       xN = "0.220",
       yN = "0.4765",
@@ -1165,7 +1165,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Stros M'Kai",
-      zoneDescription = "The island of Stros M'Kai was one of the first regions settled by the Redguards when they sailed east\n from their lost homeland of Yokuda.",
+      zoneDescription = "The island of Stros M'Kai was one of the first regions settled by the Redguards when they sailed east from their lost homeland of Yokuda.",
       zoneID = 201,
       xN = "0.142",
       yN = "0.529",
@@ -1220,7 +1220,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Vvardenfell",
-      zoneDescription = "The sprawling volcanic island of Vvardenfell dominates northern Morrowind, with the\n ever-smoldering peak of Red Mountain at its centre.",
+      zoneDescription = "The sprawling volcanic island of Vvardenfell dominates northern Morrowind, with the ever-smoldering peak of Red Mountain at its centre.",
       zoneID = 1060,
       xN = "0.646",
       yN = "0.221",
@@ -1286,7 +1286,7 @@ mapData = {
     -- Firemoth Island --
     zoneData = hackyJoin({
       zoneName = "Firemoth Island",
-      zoneDescription = "The Firemoth islets seem to float like forgotten derelicts on the surface of the Inner Sea,\n shrouded in mists that might hide all manner of crimes and corruption.",
+      zoneDescription = "The Firemoth islets seem to float like forgotten derelicts on the surface of the Inner Sea, shrouded in mists that might hide all manner of crimes and corruption.",
       zoneID = 1248,
       xN = "0.674",
       yN = "0.3815",
@@ -1308,7 +1308,7 @@ mapData = {
     -- Stonefalls --
     zoneData = hackyJoin({
       zoneName = "Stonefalls",
-      zoneDescription = "This ashy region of Morrowind known as Stonefalls was where the recent invading\n army from Akavir met its bloody end.",
+      zoneDescription = "This ashy region of Morrowind known as Stonefalls was where the recent invading army from Akavir met its bloody end.",
       zoneID = 7,
       xN = "0.668",
       yN = "0.380",
@@ -1375,7 +1375,7 @@ mapData = {
     -- Bal Foyen --
     zoneData = hackyJoin({
       zoneName = "Bal Foyen",
-      zoneDescription = "This region is known as Bal Foyen, a wild expanse of marshland and volcanic landscapes,\n now being used to farm saltrice by the Dark Elves' former Argonian slaves.",
+      zoneDescription = "This region is known as Bal Foyen, a wild expanse of marshland and volcanic landscapes, now being used to farm saltrice by the Dark Elves' former Argonian slaves.",
       zoneID = 75,
       xN = "0.795",
       yN = "0.428",
@@ -1402,7 +1402,7 @@ mapData = {
     -- Deshaan --
     zoneData = hackyJoin({
       zoneName = "Deshaan",
-      zoneDescription = "The fertile valleys of Deshaan are home to lush fungal forests, deep kwama mines,\n and broad pastures where netches and guar graze.",
+      zoneDescription = "The fertile valleys of Deshaan are home to lush fungal forests, deep kwama mines, and broad pastures where netches and guar graze.",
       zoneID = 13,
       xN = "0.699",
       yN = "0.430",
@@ -1484,7 +1484,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Shadowfen",
-      zoneDescription = "The fetid mire of Shadowfen has had more contact with Tamrielic civilization than most of Black Marsh,\n primarily due to the activities of the Dunmeri slavers who once operated here.",
+      zoneDescription = "The fetid mire of Shadowfen has had more contact with Tamrielic civilization than most of Black Marsh, primarily due to the activities of the Dunmeri slavers who once operated here.",
       zoneID = 26,
       xN = "0.691",
       yN = "0.5565",
@@ -1519,7 +1519,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Murkmire",
-      zoneDescription = "Legend holds that the region informally known as Murkmire once\n extended much further south before it sank beneath the waves.",
+      zoneDescription = "Legend holds that the region informally known as Murkmire once extended much further south before it sank beneath the waves.",
       zoneID = 1484,
       xN = "0.682",
       yN = "0.714",
@@ -1574,7 +1574,7 @@ mapData = {
     -- Norg-Tzel --
     zoneData = hackyJoin({
       zoneName = "Norg-Tzel",
-      zoneDescription = "Norg-Tzel, which means 'forbidden place' in the Argonian tongue, has much\n the same climate and terrain as the region of Black Marsh known as Murkmire.",
+      zoneDescription = "Norg-Tzel, which means 'forbidden place' in the Argonian tongue, has much the same climate and terrain as the region of Black Marsh known as Murkmire.",
       zoneID = 1552,
       xN = "0.800",
       yN = "0.7925",
@@ -1611,7 +1611,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Blackwood",
-      zoneDescription = "Straddling the great Niben River and extending east into the bogs of the Argonian\n homeland, the Blackwood region serves as the maritime gate to Cyrodiil.",
+      zoneDescription = "Straddling the great Niben River and extending east into the bogs of the Argonian homeland, the Blackwood region serves as the maritime gate to Cyrodiil.",
       zoneID = 1887,
       xN = "0.570",
       yN = "0.5975",
@@ -1823,7 +1823,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Khenarthi's Roost",
-      zoneDescription = "This island off the southern coast of Elsweyr is named after the Khajiiti goddess of weather\n and the sky, who is usually represented as a great hawk.",
+      zoneDescription = "This island off the southern coast of Elsweyr is named after the Khajiiti goddess of weather and the sky, who is usually represented as a great hawk.",
       zoneID = 258,
       xN = "0.4905",
       yN = "0.783",
@@ -1863,7 +1863,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Reaper's March",
-      zoneDescription = "Once known simply as Northern Valenwood, this region that borders Cyrodiil and\n Elsweyr has seen much bloody warfare.",
+      zoneDescription = "Once known simply as Northern Valenwood, this region that borders Cyrodiil and Elsweyr has seen much bloody warfare.",
       zoneID = 256,
       xN = "0.397",
       yN = "0.556",
@@ -1943,7 +1943,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Grahtwood",
-      zoneDescription = "This region is the southern heart of the Wood Elves' great forest, and home to more\n of the gigantic graht-oaks than any other part of Valenwood.",
+      zoneDescription = "This region is the southern heart of the Wood Elves' great forest, and home to more of the gigantic graht-oaks than any other part of Valenwood.",
       zoneID = 9,
       xN = "0.363",
       yN = "0.671",
@@ -2095,7 +2095,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Tempest Island",
-      zoneDescription = "This island in the Strid estuary has long been a haven for pirates, raiders,\n and fugitives from law enforcement.",
+      zoneDescription = "This island in the Strid estuary has long been a haven for pirates, raiders, and fugitives from law enforcement.",
       zoneID = 292,
       xN = "0.275",
       yN = "0.596",
@@ -2287,7 +2287,7 @@ mapData = {
 
     zoneData = hackyJoin({
       zoneName = "Auridon",
-      zoneDescription = "The second largest of the Summerset Isles, Auridon has always served the High Elves as a\n buffer between their serene archipelago and the turmoil of Tamriel.",
+      zoneDescription = "The second largest of the Summerset Isles, Auridon has always served the High Elves as a buffer between their serene archipelago and the turmoil of Tamriel.",
       zoneID = 143,
       xN = "0.1395",
       yN = "0.5855",
@@ -2513,7 +2513,7 @@ mapData = {
     -- Clockwork City --
     zoneData = hackyJoin({
       zoneName = "Clockwork City",
-      zoneDescription = "Clockwork City is the mysterious mechanical realm of Sotha Sil, one of the living gods of\n the Tribunal - it's purpose is unknown.",
+      zoneDescription = "Clockwork City is the mysterious mechanical realm of Sotha Sil, one of the living gods of the Tribunal - it's purpose is unknown.",
       blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
       zoneID = 1313,
       xN = "0.625",
@@ -2567,7 +2567,7 @@ mapData = {
     -- Fargrave --
     zoneData = hackyJoin({
       zoneName = "Fargrave",
-      zoneDescription = "The princeless realm of Fargrave is known as 'The Celestial Palanquin' - a place where mortal\n and Daedra alike are free to do whatever they please.",
+      zoneDescription = "The princeless realm of Fargrave is known as 'The Celestial Palanquin' - a place where mortal and Daedra alike are free to do whatever they please.",
       blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
       zoneID = 2119,
       xN = "0.653",
@@ -2591,7 +2591,7 @@ mapData = {
     -- Artaeum --
     zoneData = hackyJoin({
       zoneName = "Artaeum",
-      zoneDescription = "Home to the Psijic Order, this island was formerly part of the Summerset Isles, but disappeared\n from Nirn several centuries ago under mysterious circumstances.",
+      zoneDescription = "Home to the Psijic Order, this island was formerly part of the Summerset Isles, but disappeared from Nirn several centuries ago under mysterious circumstances.",
       blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
       zoneID = 1429,
       xN = "0.300",
@@ -2841,7 +2841,7 @@ local optionsData = {
   {
     type = "checkbox",
     name = "Debug Mode",
-    tooltip = "Toggle debug mode on/off.\nNote: Will cause significant lag.",
+    tooltip = "Toggle debug mode on/off.Note: Will cause significant lag.",
     getFunc = function() return AccurateWorldMap.options.isDebug end,
     setFunc = function(value) AccurateWorldMap.options.isDebug = value end
   },
