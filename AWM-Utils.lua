@@ -7,10 +7,11 @@
 ---------------------------------------------------------------------------]]--
 
 -------------------------------------------------------------------------------
--- Get base addon object
+-- Get base addon object and callbacks
 -------------------------------------------------------------------------------
 
 AccurateWorldMap = AccurateWorldMap or {}
+local LocalCallbackManager = ZO_CallbackObject:Subclass()
 
 -------------------------------------------------------------------------------
 -- Get addon info from addon manifest
@@ -67,8 +68,31 @@ end
 -- Check if world map window is being shown
 -------------------------------------------------------------------------------
 
+local canFireCallback = false
+
 function isWorldMapShown()
-  return not ZO_WorldMapContainer:IsHidden()
+
+  local isMapShown = (not ZO_WorldMapContainer:IsHidden() or ZO_WorldMap_IsWorldMapShowing())
+
+  if (isMapShown and canFireCallback) then
+
+    zo_callLater(function()
+  
+      CALLBACK_MANAGER:FireCallbacks("OnWorldMapShown", nil)
+
+    end, 300 )
+
+    canFireCallback = false
+
+  end
+
+  if (not isMapShown and not canFireCallback) then
+
+    canFireCallback = true
+
+  end
+
+  return isMapShown
 end
   
 -------------------------------------------------------------------------------
@@ -282,3 +306,23 @@ function navigateToMap(mapInfo)
 
 end
 
+-------------------------------------------------------------------------------
+-- Hide all zone blobs (hitboxes) on the map
+-------------------------------------------------------------------------------
+
+function hideAllZoneBlobs()
+
+  for i = 1, ZO_WorldMapContainer:GetNumChildren() do
+
+
+    local childControl = ZO_WorldMapContainer:GetChild(i)
+    local controlName = childControl:GetName()
+
+    if (string.match(controlName, "blobHitbox-")) then
+      childControl:SetHidden(true)
+      childControl:SetMouseEnabled(false)
+
+    end
+
+  end
+end

@@ -22,6 +22,36 @@ Todo:
 - Get Breaux to add blackheart haven to mouth of iliac bay as mini zone and move icon
 - Get Topal Hideaway blob
 
+
+
+
+
+Move player marker brainstorming:
+
+- can make a function to find the furthest left-upmost point from zone hitbox polygon, and same for right bottommost one
+- that counts as the zone's player marker square area
+- then get the player's position in the local map
+
+  - check if current map id is in the database
+  - if it is, then it is a visible zone
+
+
+useful functions for this:
+
+IsPlayerMoving() and IsPlayerTryingToMove()
+
+if these are true, and the map is visible, then updae position
+
+all player and companions use the GetMapPlayerPosition function, so if you override that you will affect them all
+
+* GetMapPlayerPosition(*string* _unitTag_)
+** _Returns:_ *number* _normalizedX_, *number* _normalizedZ_, *number* _heading_, *bool* _isShownInCurrentMap_
+
+"heading" must be the rotation in degrees
+
+keep isShownInCurrentMap unless some override is checked
+  
+
 Interesting events to consider:
 
 * EVENT_SHOW_WORLD_MAP
@@ -125,48 +155,6 @@ end
 
 local _GetMapCustomMaxZoom = GetMapCustomMaxZoom
 
-local function setUpMapInfoBar()
-
-
-  -- do anchors and resize it to be around 0.5 or more of the map window
-  -- then remove all hardcoded \n from descs
-
-
-  local mapWidth, mapHeight = ZO_WorldMapContainer:GetDimensions()
-
-  local enlargeConst = 1.5
-
-  AWM_MouseOverGrungeTex:ClearAnchors()
-  AWM_MouseOverGrungeTex:SetAnchor(TOPLEFT, ZO_WorldMap, TOPLEFT, (mapWidth - (mapWidth*enlargeConst))/2, -(0.47 * mapHeight))
-  AWM_MouseOverGrungeTex:SetDrawTier(DT_PARENT)
-  AWM_MouseOverGrungeTex:SetDimensions(mapWidth*enlargeConst, mapHeight)
-  AWM_MouseOverGrungeTex:SetDrawLayer(DL_OVERLAY)
-  AWM_MouseOverGrungeTex:SetDrawLayer(DL_CONTROLS)
-  AWM_MouseOverGrungeTex:SetAlpha(0.55)
-  AWM_MouseOverGrungeTex:SetHidden(true)
-
-  -- set up map description label control
-  ZO_WorldMapMouseOverDescription:SetFont("ZoFontGameLargeBold")
-  ZO_WorldMapMouseOverDescription:SetMaxLineCount(2)
-  ZO_WorldMapMouseOverDescription:SetWrapMode(TEXT_WRAP_MODE_ELLIPSIS)
-
-  ZO_WorldMapMouseOverDescription:ClearAnchors()
-
-  local mapDescPaddingAmount = mapWidth * 0.15
-
-  ZO_WorldMapMouseOverDescription:SetAnchor(TOPLEFT, ZO_WorldMapMouseoverName, BOTTOMLEFT, mapDescPaddingAmount, 2)
-  ZO_WorldMapMouseOverDescription:SetAnchor(TOPRIGHT, ZO_WorldMapMouseoverName, BOTTOMRIGHT, -(mapDescPaddingAmount), 2)
-
-  if (not isInGamepadMode()) then
-    ZO_WorldMap:SetAutoRectClipChildren(true)
-    ZO_WorldMapContainerRaggedEdge:SetHidden(true)
-  else
-    ZO_WorldMap:SetAutoRectClipChildren(false)
-    ZO_WorldMapContainerRaggedEdge:SetHidden(false)
-  end
-
-
-end
 
 -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
 -- ██░▄▄▄░██░▄▄▄░██░▄▄▄░████░▄▄▄██░██░██░▀██░██░▄▄▀█▄▄░▄▄█▄░▄██░▄▄▄░██░▀██░██░▄▄▄░██
@@ -239,12 +227,7 @@ end)
 
 local zos_GetMapTitle = ZO_WorldMap_GetMapTitle
 ZO_WorldMap_GetMapTitle = function()
-
-  if (mapData ~= nil) then
-    return getZoneNameFromID(getCurrentZoneID())
-  else
-    return zos_GetMapTitle()
-  end
+  return getZoneNameFromID(getCurrentZoneID())
 end
 
 -------------------------------------------------------------------------------
@@ -451,54 +434,111 @@ local function updateCurrentPolygon(polygon)
 
 end
 
+local function onWorldMapDrawn()
 
-local function mapTick()
+  -- do anchors and resize it to be around 0.5 or more of the map window
+  -- then remove all hardcoded \n from descs
 
-  if (isInGamepadMode()) then
+  local mapWidth, mapHeight = ZO_WorldMapContainer:GetDimensions()
+  local enlargeConst = 1.5
 
-    if (currentPolygon == nil) then
+  AWM_MouseOverGrungeTex:ClearAnchors()
+  AWM_MouseOverGrungeTex:SetAnchor(TOPLEFT, ZO_WorldMap, TOPLEFT, (mapWidth - (mapWidth*enlargeConst))/2, -(0.47 * mapHeight))
+  AWM_MouseOverGrungeTex:SetDrawTier(DT_PARENT)
+  AWM_MouseOverGrungeTex:SetDimensions(mapWidth*enlargeConst, mapHeight)
+  AWM_MouseOverGrungeTex:SetDrawLayer(DL_OVERLAY)
+  AWM_MouseOverGrungeTex:SetDrawLayer(DL_CONTROLS)
+  AWM_MouseOverGrungeTex:SetAlpha(0.55)
+  AWM_MouseOverGrungeTex:SetHidden(true)
 
-      tempPolygon = WINDOW_MANAGER:GetControlAtPoint(getMouseCoordinates())
+  -- set up map description label control
+  ZO_WorldMapMouseOverDescription:SetFont("ZoFontGameLargeBold")
+  ZO_WorldMapMouseOverDescription:SetMaxLineCount(2)
+  ZO_WorldMapMouseOverDescription:SetWrapMode(TEXT_WRAP_MODE_ELLIPSIS)
 
+  ZO_WorldMapMouseOverDescription:ClearAnchors()
 
-      print(tempPolygon:GetName())
+  local mapDescPaddingAmount = mapWidth * 0.15
+
+  ZO_WorldMapMouseOverDescription:SetAnchor(TOPLEFT, ZO_WorldMapMouseoverName, BOTTOMLEFT, mapDescPaddingAmount, 2)
+  ZO_WorldMapMouseOverDescription:SetAnchor(TOPRIGHT, ZO_WorldMapMouseoverName, BOTTOMRIGHT, -(mapDescPaddingAmount), 2)
+
+  if (not isInGamepadMode()) then
+    ZO_WorldMap:SetAutoRectClipChildren(true)
+    ZO_WorldMapContainerRaggedEdge:SetHidden(true)
+  else
+    ZO_WorldMap:SetAutoRectClipChildren(false)
+    ZO_WorldMapContainerRaggedEdge:SetHidden(false)
+  end
+
+end
+
+-------------------------------------------------------------------------------
+-- Main addon event loop
+-------------------------------------------------------------------------------
+
+local function main()
+
+  if (isWorldMapShown()) then
+
+    if (isInGamepadMode()) then
+
+      if (currentPolygon == nil) then
   
-      if string.find(tempPolygon:GetName(), "blobHitbox") then
-        updateCurrentPolygon(tempPolygon)
+        tempPolygon = WINDOW_MANAGER:GetControlAtPoint(getMouseCoordinates())
   
-        print("in hitbox!")
-
-      else
-
+  
+        print(tempPolygon:GetName())
+    
+        if string.find(tempPolygon:GetName(), "blobHitbox") then
+          updateCurrentPolygon(tempPolygon)
+    
+          print("in hitbox!")
+  
+        else
+  
+          isInBlobHitbox = false
+          currentPolygon = nil
+          currentZoneInfo = {}
+  
+        end
+  
+  
+      end
+  
+    end
+  
+  
+    if (currentPolygon ~= nil) then
+  
+      -- check to make sure that the user has actually left the hitbox, and is not just hovering over a wayshrine
+      if (not (currentPolygon:IsPointInside(getMouseCoordinates()) and currentMapIndex == GetCurrentMapIndex())) then
+  
+        --print("left hitbox!")
         isInBlobHitbox = false
         currentPolygon = nil
         currentZoneInfo = {}
-
+        ZO_WorldMapMouseOverDescription:SetText("")
+        AWM_MouseOverGrungeTex:SetHidden(true)
+  
       end
-
-
+  
     end
 
-  end
+
+  else
 
 
-  if (currentPolygon ~= nil) then
+    -- hide mouseover info
+    ZO_WorldMapMouseOverDescription:SetText("")
+    AWM_MouseOverGrungeTex:SetHidden(true)
 
-    -- check to make sure that the user has actually left the hitbox, and is not just hovering over a wayshrine
-    if (not (currentPolygon:IsPointInside(getMouseCoordinates()) and currentMapIndex == GetCurrentMapIndex())) then
-
-      --print("left hitbox!")
-      isInBlobHitbox = false
-      currentPolygon = nil
-      currentZoneInfo = {}
-      ZO_WorldMapMouseOverDescription:SetText("")
-      AWM_MouseOverGrungeTex:SetHidden(true)
-
-    end
 
   end
 
 end
+
+
 
 function AccurateWorldMap.GetMapCustomMaxZoom()
     if not enabled then return _GetMapCustomMaxZoom() end
@@ -511,17 +551,7 @@ end
 
 
 
-local function checkIfCanTick()
 
-  if (isMouseWithinMapWindow() or isInGamepadMode())  then
-    mapTick()
-  else
-    if (isWorldMapShown()) then
-      ZO_WorldMapMouseOverDescription:SetText("")
-      AWM_MouseOverGrungeTex:SetHidden(true)
-    end
-  end
-end
 
 
 local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
@@ -672,8 +702,10 @@ local function recordPolygon()
 
 end
 
-local function getBlobTextureDetails()
+local function compileBlobTextures()
 
+  AWM_TextureControl:SetAlpha(0)
+  
   local hasError = false
 
   --print("getting blob info!")
@@ -746,6 +778,9 @@ local function getBlobTextureDetails()
 
 end
 
+-------------------------------------------------------------------------------
+--  On player ready / loaded function
+-------------------------------------------------------------------------------
 
 local function onPlayerLoaded()
 
@@ -754,73 +789,16 @@ local function onPlayerLoaded()
     print("Compiling map textures, please wait ...")
 
     zo_callLater(function()
-      getBlobTextureDetails() 
+      compileBlobTextures()
+
   
-      zo_callLater(function() getBlobTextureDetails() end, 1000 )
+      zo_callLater(function() compileBlobTextures()
+       end, 1000 )
   
     end, 2000 )
-
   end
 
 end
-
-
-local function cleanUpZoneBlobs()
-
-  local numChildren = ZO_WorldMapContainer:GetNumChildren()
-
-
-  for i = 1, numChildren do
-
-
-    local childControl = ZO_WorldMapContainer:GetChild(i)
-    local controlName = childControl:GetName()
-
-    if (string.match(controlName, "blobHitbox-")) then
-      childControl:SetHidden(true)
-      childControl:SetMouseEnabled(false)
-
-    end
-
-  end
-end
-
-
-
-
-local function OnAddonLoaded(event, addonName)
-  
-  -- ignore any other addon that isn't ours, we only care when our addon is loaded
-  if addonName ~= AccurateWorldMap.name then
-     return 
-  end
-  
-  -- our addon has loaded, we don't need to know about any future Addon Loaded events
-  EVENT_MANAGER:UnregisterForEvent(AccurateWorldMap.name, EVENT_ADD_ON_LOADED)
-  
-  getBlobTextureDetails()
-
-
-  setUpMapInfoBar(isInGamepadMode())
-
-
-  AWM_TextureControl:SetAlpha(0)
-
-  -- set up saved variables
-  AccurateWorldMap.options = ZO_SavedVars:NewAccountWide("AWMVars", AccurateWorldMap.variableVersion, nil, AccurateWorldMap.defaults)
-
-
-  SLASH_COMMANDS["/get_map_id"] = function() print(tostring(GetCurrentMapId()), true) end
-  SLASH_COMMANDS["/record_polygon"] = recordPolygon
-  SLASH_COMMANDS["/get_blobs"] = getBlobTextureDetails
-  SLASH_COMMANDS["/set_map_to"] = navigateToMap
-  
-  GetMapTileTexture = AccurateWorldMap.GetMapTileTexture
-  GetMapCustomMaxZoom = AccurateWorldMap.GetMapCustomMaxZoom
-  
-
-end
-
 
 -------------------------------------------------------------------------------
 --  On zone/map change callback function
@@ -828,15 +806,14 @@ end
 
 local function onZoneChanged()
 
-  
-  local mapIndex = getCurrentZoneID()
-
   print("Zone changed!")
 
 
   -- Delete any existing controls on the world map before iterating over anything else
-  cleanUpZoneBlobs()
+  hideAllZoneBlobs()
   AWM_MouseOverGrungeTex:SetHidden(true)
+
+  local mapIndex = getCurrentZoneID()
 
 
   if (mapIndex ~= nil) then
@@ -907,13 +884,47 @@ local function onZoneChanged()
   print("isExclusive: "..tostring(isExclusive))
 end
 
+-------------------------------------------------------------------------------
+--  Addon initialisation
+-------------------------------------------------------------------------------
+
+local function initialise(event, addonName)
+  
+  if (addonName ~= AccurateWorldMap.name) then -- skip all addons that aren't ours
+
+    return 
+
+  else -- found our addon, now deregistering as it is loaded
+
+    EVENT_MANAGER:UnregisterForEvent(AccurateWorldMap.name, EVENT_ADD_ON_LOADED)
+
+  end
+
+  
+  compileBlobTextures()
+
+  -- set up saved variables
+  AccurateWorldMap.options = ZO_SavedVars:NewAccountWide("AWMVars", AccurateWorldMap.variableVersion, nil, AccurateWorldMap.defaults)
+
+  -- set up slash commands
+  SLASH_COMMANDS["/get_map_id"] = function() print(GetCurrentMapId(), true) end
+  SLASH_COMMANDS["/record_polygon"] = recordPolygon
+  SLASH_COMMANDS["/get_blobs"] = getBlobTextureDetails
+  SLASH_COMMANDS["/set_map_to"] = navigateToMap
+  
+  GetMapTileTexture = AccurateWorldMap.GetMapTileTexture
+  GetMapCustomMaxZoom = AccurateWorldMap.GetMapCustomMaxZoom
+  
+end
 
 -------------------------------------------------------------------------------
 -- Registering for events and callbacks
 -------------------------------------------------------------------------------
 
-EVENT_MANAGER:RegisterForEvent(AccurateWorldMap.name, EVENT_ADD_ON_LOADED, OnAddonLoaded)
+EVENT_MANAGER:RegisterForEvent(AccurateWorldMap.name, EVENT_ADD_ON_LOADED, initialise)
 EVENT_MANAGER:RegisterForEvent("onMouseDown", EVENT_GLOBAL_MOUSE_DOWN, onMousePressed)
 EVENT_MANAGER:RegisterForEvent(AccurateWorldMap.name, EVENT_PLAYER_ACTIVATED, onPlayerLoaded)
-EVENT_MANAGER:RegisterForUpdate("uniqueName", 0, checkIfCanTick)
+EVENT_MANAGER:RegisterForUpdate("mainLoop", 0, main)
+
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", onZoneChanged)
+CALLBACK_MANAGER:RegisterCallback("OnWorldMapShown", onWorldMapDrawn)

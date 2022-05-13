@@ -2829,7 +2829,7 @@ local optionsData = {
 
   {
     type = "header",
-    name = "Style",
+    name = "Visuals",
     width = "full",
   },
   {
@@ -2857,7 +2857,7 @@ local optionsData = {
 
   {
     type = "header",
-    name = "Debug Mode",
+    name = "Experimental",
     width = "full",
   },
   {
