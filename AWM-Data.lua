@@ -2790,7 +2790,6 @@ local panelData = {
   version = AccurateWorldMap.version,
   registerForRefresh = true,
   slashCommand = "/awm",
-  website = "https://github.com/Thal-J/AccurateWorldMap",
 }
 
 local panel = LAM:RegisterAddonPanel(panelName, panelData)

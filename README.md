@@ -36,9 +36,7 @@ The player location on the map will be incorrect in certain zones, this is becau
 
 - Breaux, for drawing up the map
 
-- TPC9000, Votan, Sir Insidiator, Sharlikan and Baertram for coding help
-
-- ESOUI addon community for their help and assistance
+- TPC9000, Votan, Sir Insidiator, Sharlikan, Baertram and the rest of the ESOUI addon community for their coding help and assistance
 
 - The authors of Highly Detailed World Map (MrPikPik), uespLog (daveh), GuildShrines (Valve) and World Map Wayshrines Controller (ErianKalil)
 
