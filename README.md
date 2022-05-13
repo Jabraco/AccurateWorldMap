@@ -16,6 +16,8 @@ After installing, zones, dungeons, and wayshrines will be moved to their more lo
 
 ## Compatibility
 
+test
+
 The following addons are not compatible with AccurateWorldMap:
 
 - Destinations
