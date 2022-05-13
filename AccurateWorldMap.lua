@@ -98,7 +98,7 @@ AccurateWorldMap.defaults = {
   loreRenames = true,
   mapStyle = "Vanilla",
   worldMapWayshrines = "Default (All)",
-  glowIcons = true,
+  hideIconGlow = false,
 }
 
 -------------------------------------------------------------------------------
@@ -846,7 +846,7 @@ GetFastTravelNodeInfo = function(nodeIndex)
 
   local mapIndex = getCurrentZoneID()
 
-  if (not AccurateWorldMap.options.glowIcons) then
+  if (AccurateWorldMap.options.hideIconGlow) then
 
     glowIcon = nil
 

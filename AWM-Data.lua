@@ -2849,10 +2849,10 @@ AccurateWorldMap.optionsData = {
 
   {
     type = "checkbox",
-    name = "Glowing Icons",
+    name = "Hide Icon Glow",
     tooltip = "Toggle the glow behind wayshrines and other icons on the world map.",
-    getFunc = function() return AccurateWorldMap.options.glowIcons end,
-    setFunc = function(value) AccurateWorldMap.options.glowIcons = value end
+    getFunc = function() return AccurateWorldMap.options.hideIconGlow end,
+    setFunc = function(value) AccurateWorldMap.options.hideIconGlow = value end
   },
 
   {
