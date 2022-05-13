@@ -672,7 +672,7 @@ local function initialise(event, addonName)
   GetMapCustomMaxZoom = AccurateWorldMap.GetMapCustomMaxZoom
 
   -- register LAM settings
-  local panelName = AccurateWorldMap.title.."Settings"
+  local panelName = "AccurateWorldMapSettings"
   local panel = LAM:RegisterAddonPanel(panelName, AccurateWorldMap.panelData)
   LAM:RegisterOptionControls(panelName, AccurateWorldMap.optionsData)
   

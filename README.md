@@ -23,6 +23,9 @@ The following addons have been tested to be not compatible with AccurateWorldMap
 - GuildShrines
 - Destinations
 - MapPins
+- Combat Indicator
+- Wykkyd's Achievement Tracker
+- Thurisaz's Guild Info
 
 GuildShrines is unneeded when using this addon, as AccurateWorldMap replicates its functionality. If you choose to keep GuildShrines enabled, then those wayshrines will be misaligned on the map.
 
