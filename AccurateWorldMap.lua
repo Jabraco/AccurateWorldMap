@@ -8,21 +8,37 @@
 
 Todo:
 
-- move all map click functions into ProcessMapClick, since it's hooked now (can get rid of hacky wait until finished dragging code)
-- test to see if that fixes waypoints not working on polygons as well
-
-- Ask Breaux to get rid of valenwood's nub, make it smaller like the stormhaven one for balfiera
-- add Blackbone Isle to the map
 - Get Dranil Kir blob
 - Get Silitar blob
 - Get Earth Forge blob
 - Get Fort Grief blob
 - Add Arcane University battleground blob in cyrodiil zone
 - Get Breaux to draw IC sewers aurbis circle and give me blob
-- Get Breaux to add blackheart haven to mouth of iliac bay as mini zone and move icon
-- Get Topal Hideaway blob
 
 
+Things that need to be done before release:
+
+- Fixed Aurbis tamriel blob
+>> Aurbis Tamriel needs waves as well
+- Fix Aurbis rings not containing their proper text
+
+- Fix Eltheric Ocean ring not being the correct colour, and looking werid
+>> Eltheric Ocean map ring should be blackreach ring coloured, with a ship icon
+>> Ring back to Tamriel should be an aurbis-themed smaller version of tamriel inside the ring, with waves
+(like https://cdn.discordapp.com/attachments/806672739057664034/974778491373518868/unknown.png)
+
+- Fix player location being incorrect (and also group pins)
+- Add Eltheric ocean map properly with High isle wayshrines
+- Get blobs for the following:
+>> Dranil-Kir
+>> Silitar
+>> Fort Grief
+>> Arcane University
+>> The Earth Forge (Reach)
+>> Sword's Rest Isle
+
+- Add option to customise wayshrines on world map
+  
 
 
 
@@ -50,11 +66,12 @@ all player and companions use the GetMapPlayerPosition function, so if you overr
 "heading" must be the rotation in degrees
 
 keep isShownInCurrentMap unless some override is checked
-  
+
+
+
 
 Interesting events to consider:
 
-* EVENT_SHOW_WORLD_MAP
 
 * EVENT_ZONE_CHANGED (*string* _zoneName_, *string* _subZoneName_, *bool* _newSubzone_, *integer* _zoneId_, *integer* _subZoneId_)
 * EVENT_GROUP_TYPE_CHANGED (*bool* _largeGroup_)
@@ -72,7 +89,7 @@ Interesting events to consider:
 -------------------------------------------------------------------------------
 
 -- set saved variable version number
-AccurateWorldMap.variableVersion = 1
+AccurateWorldMap.variableVersion = 2
 
 -- set default options
 AccurateWorldMap.defaults = {
@@ -81,6 +98,7 @@ AccurateWorldMap.defaults = {
   loreRenames = true,
   mapStyle = "Vanilla",
   worldMapWayshrines = "Default (All)",
+  glowIcons = true,
 }
 
 -------------------------------------------------------------------------------
@@ -827,6 +845,15 @@ GetFastTravelNodeInfo = function(nodeIndex)
   end
 
   local mapIndex = getCurrentZoneID()
+
+  if (not AccurateWorldMap.options.glowIcons) then
+
+    glowIcon = nil
+
+  end
+
+
+  
 
 
   if (mapData[mapIndex] ~= nil) then

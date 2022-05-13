@@ -2848,6 +2848,14 @@ AccurateWorldMap.optionsData = {
   },
 
   {
+    type = "checkbox",
+    name = "Glowing Icons",
+    tooltip = "Toggle the glow behind wayshrines and other icons on the world map.",
+    getFunc = function() return AccurateWorldMap.options.glowIcons end,
+    setFunc = function(value) AccurateWorldMap.options.glowIcons = value end
+  },
+
+  {
     type = "header",
     name = "Experimental",
     width = "full",
