@@ -1,6 +1,6 @@
-# Accurate World Map
+# AccurateWorldMap
 
-Accurate World Map is an addon for the Elder Scrolls Online (ESO), that replaces the in-game world map with a higher quality, and more lore accurate one.
+AccurateWorldMap is an addon for the Elder Scrolls Online (ESO), that replaces the in-game world map with a higher quality, and more lore accurate one.
 
 ## Features
 
@@ -16,7 +16,7 @@ After installing, zones, dungeons, and wayshrines will be moved to their more lo
 
 ## Compatibility
 
-Any addon that adds pins to vanilla locations on the world map are not compatible with this addon, as this addon moves zones and pins from their vanilla locations to be more accurate with the real shape of Tamriel.
+Any addon that adds pins to vanilla locations on the world map are not compatible with this addon, as AccurateWorldMap moves zones and pins from their vanilla locations to be more accurate with the real shape of Tamriel.
 
 The following addons have been tested to be not compatible with AccurateWorldMap:
 
@@ -26,7 +26,7 @@ The following addons have been tested to be not compatible with AccurateWorldMap
 
 GuildShrines is unneeded when using this addon, as AccurateWorldMap replicates its functionality. If you choose to keep GuildShrines enabled, then those wayshrines will be misaligned on the map.
 
-Destinations and MapPins add pins to vanilla locations, so they are not compatible with this addon. MapPins' incompatibility cannot be mitigated, but Destinations can be fixed by unticking "Unknown POI's" in the in-game map filters menu.
+Destinations and MapPins add pins to vanilla locations, so they are not compatible. MapPins' incompatibility cannot be mitigated, but Destinations can be fixed by unticking "Unknown POI's" in the in-game map filters menu.
 
 ## Issues
 

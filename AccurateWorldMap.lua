@@ -247,8 +247,6 @@ local function main()
   if (isWorldMapShown()) then
 
 
-
-
     if (isInGamepadMode()) then
 
       if (currentPolygon == nil) then
@@ -315,9 +313,6 @@ function AccurateWorldMap.GetMapCustomMaxZoom()
         return _GetMapCustomMaxZoom()
     end
 end
-
-
-
 
 
 
@@ -556,7 +551,6 @@ local function onPlayerLoaded()
     print("Compiling map textures, please wait ...", true)
 
     -- call compileBlobTextures twice to make sure it's loaded
-
     zo_callLater(function()
       compileBlobTextures()
       zo_callLater(function() compileBlobTextures()
@@ -652,16 +646,12 @@ end
 -------------------------------------------------------------------------------
 
 local function initialise(event, addonName)
+
+  -- skip all addons that aren't ours
+  if (addonName ~= AccurateWorldMap.name) then return end
   
-  if (addonName ~= AccurateWorldMap.name) then -- skip all addons that aren't ours
-
-    return 
-
-  else -- found our addon, now deregistering as it is loaded
-
-    EVENT_MANAGER:UnregisterForEvent(AccurateWorldMap.name, EVENT_ADD_ON_LOADED)
-
-  end
+  -- unregister as addon is now loaded
+  EVENT_MANAGER:UnregisterForEvent(AccurateWorldMap.name, EVENT_ADD_ON_LOADED)
   
   -- Compile blob texture details
   compileBlobTextures()
@@ -753,19 +743,6 @@ ZO_PreHook("ZO_WorldMap_MouseUp", function(mapControl, mouseButton, upInside)
     end
   end
 end)
-
--------------------------------------------------------------------------------
--- ZOS WorldMap Get Map Title
--------------------------------------------------------------------------------
-
--- Override the world map's zone title with our custom ones.
-
--------------------------------------------------------------------------------
-
-local zos_GetMapTitle = ZO_WorldMap_GetMapTitle
-ZO_WorldMap_GetMapTitle = function()
-  return getZoneNameFromID(getCurrentZoneID())
-end
 
 -------------------------------------------------------------------------------
 -- Map mouseover info function
