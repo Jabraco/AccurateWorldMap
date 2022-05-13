@@ -1,5 +1,5 @@
 --[[===========================================================================
-                      AccurateWorldMap, by Breaux & Thal-J
+                AccurateWorldMap, by BroughBreaux & Thal-J
 ===============================================================================
 
 -- ascii title art done on https://texteditor.com/ascii-art/
@@ -67,7 +67,6 @@ Interesting events to consider:
 * EVENT_GLOBAL_MOUSE_DOWN (*[MouseButtonIndex|#MouseButtonIndex]* _button_, *bool* _ctrl_, *bool* _alt_, *bool* _shift_, *bool* _command_)
 * EVENT_GLOBAL_MOUSE_UP (*[MouseButtonIndex|#MouseButtonIndex]* _button_, *bool* _ctrl_, *bool* _alt_, *bool* _shift_, *bool* _command_)
 
-
 ---------------------------------------------------------------------------]]--
 -- Create root addon object
 -------------------------------------------------------------------------------
@@ -83,6 +82,12 @@ AccurateWorldMap.defaults = {
   mapStyle = "Vanilla",
   worldMapWayshrines = "Default (All)",
 }
+
+-------------------------------------------------------------------------------
+-- Dependency initialisation
+-------------------------------------------------------------------------------
+
+local LAM = LibAddonMenu2
 
 -------------------------------------------------------------------------------
 -- Globals
@@ -101,6 +106,9 @@ local areTexturesCompiled = false
 
 -- ints
 local currentCoordinateCount = 0
+local currentMapOffsetX
+local currentMapOffsetY
+local currentMapIndex
 
 -- objects
 local currentPolygon = nil
@@ -111,15 +119,10 @@ local currentZoneInfo = {}
 
 local _GetMapTileTexture = GetMapTileTexture
 
-
+-- todo: fix this for gamepad mode as well
 AWM_MouseOverGrungeTex = CreateControl("AWM_MouseOverGrungeTex", ZO_WorldMap, CT_TEXTURE)
 AWM_MouseOverGrungeTex:SetTexture("/esoui/art/performance/statusmetermunge.dds")
 
-local currentMapIndex
-
-
-local currentMapOffsetX
-local currentMapOffsetY
 
 -------------------------------------------------------------------------------
 -- Constants
@@ -667,6 +670,11 @@ local function initialise(event, addonName)
   
   GetMapTileTexture = AccurateWorldMap.GetMapTileTexture
   GetMapCustomMaxZoom = AccurateWorldMap.GetMapCustomMaxZoom
+
+  -- register LAM settings
+  local panelName = AccurateWorldMap.title.."Settings"
+  local panel = LAM:RegisterAddonPanel(panelName, AccurateWorldMap.panelData)
+  LAM:RegisterOptionControls(panelName, AccurateWorldMap.optionsData)
   
 end
 
@@ -855,17 +863,9 @@ GetFastTravelNodeInfo = function(nodeIndex)
             disabled = false
 
           end
-
-
         end
-
-
       end
-
-
     end
-
   end
-
   return known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked, disabled
 end

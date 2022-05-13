@@ -2,8 +2,8 @@
                              AccurateWorldMap Data
 ===============================================================================
 
-              Data and data-related functions that get used to 
-              power zone/node/tile placement or other features.
+              Data and data-related functions that get used 
+              for zone/node/tile placement or other features.
 
 ---------------------------------------------------------------------------]]--
 
@@ -2769,20 +2769,13 @@ aurbis_tiles = { -- the "cosmic", or aurbis, custom map tiles
 }
 
 -------------------------------------------------------------------------------
--- LibAddonMenu stuff
+-- LibAddonMenu Settings Data
 -------------------------------------------------------------------------------
 
--- Data for the addon's settings menu.
-
--------------------------------------------------------------------------------
-
-local LAM = LibAddonMenu2
-local panelName = "AccurateWorldMapSettings"
-
--- get addon info
+-- Get addon info
 AccurateWorldMap = getAddonInfo("AccurateWorldMap")
 
-local panelData = {
+AccurateWorldMap.panelData = {
   type = "panel",
   name = "Accurate World Map",
   displayName = AccurateWorldMap.title,
@@ -2792,10 +2785,7 @@ local panelData = {
   slashCommand = "/awm",
 }
 
-local panel = LAM:RegisterAddonPanel(panelName, panelData)
-
-local optionsData = {
-  -- 
+AccurateWorldMap.optionsData = {
   {
     type = "description",
     text = AccurateWorldMap.description,
@@ -2873,5 +2863,3 @@ local optionsData = {
     setFunc = function(value) AccurateWorldMap.options.isDebug = value end
   },
 }
-
-LAM:RegisterOptionControls(panelName, optionsData)
