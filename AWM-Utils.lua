@@ -1,5 +1,5 @@
 --[[===========================================================================
-                        AccurateWorldMap Utility Functions
+                      AccurateWorldMap Utility Functions
 ===============================================================================
 
                 Utility functions that help the main addon work.

@@ -156,241 +156,7 @@ end
 local _GetMapCustomMaxZoom = GetMapCustomMaxZoom
 
 
--- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
--- ██░▄▄▄░██░▄▄▄░██░▄▄▄░████░▄▄▄██░██░██░▀██░██░▄▄▀█▄▄░▄▄█▄░▄██░▄▄▄░██░▀██░██░▄▄▄░██
--- ██▀▀▀▄▄██░███░██▄▄▄▀▀████░▄▄███░██░██░█░█░██░██████░████░███░███░██░█░█░██▄▄▄▀▀██
--- ██░▀▀▀░██░▀▀▀░██░▀▀▀░████░█████▄▀▀▄██░██▄░██░▀▀▄███░███▀░▀██░▀▀▀░██░██▄░██░▀▀▀░██
--- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
 
--------------------------------------------------------------------------------
--- Process map click function
--------------------------------------------------------------------------------
-
--- These functions control when the user's click is passed through to the map 
--- for events such as zone changing. We override that that so that our custom 
--- zone hitbox polygons get the priority, as long as isExclusive is true.
-
--------------------------------------------------------------------------------
-
-ZO_PreHook("ProcessMapClick", function(xN, yN)
-
-  -- in K&M mode, this function gets fired on every double click for some reason
-  -- whereas in gamepad this gets fired every click
-
-  print("processed map click function!")
-
-  if ((isInBlobHitbox and currentZoneInfo ~= nil) or isExclusive) then
-
-
-    if (isInGamepadMode() and (isInBlobHitbox and currentZoneInfo ~= nil)) then
-
-      navigateToMap(currentZoneInfo)
-
-    end
-
-
-    return true
-  end
-
-end)
-
--------------------------------------------------------------------------------
--- ZOS WorldMap MouseUp event
--------------------------------------------------------------------------------
-
--- Override the function called when user releases a mouse button on the worldmap
--- so that we can intercept and redirect the user to a custom parent map if available
-
--------------------------------------------------------------------------------
-
-ZO_PreHook("ZO_WorldMap_MouseUp", function(mapControl, mouseButton, upInside)
-
-  if (mouseButton == MOUSE_BUTTON_INDEX_RIGHT and upInside) then
-    if (mapData[getCurrentZoneID()] ~= nil) then
-      if (mapData[getCurrentZoneID()].parentMapID ~= nil) then
-
-        navigateToMap(mapData[getCurrentZoneID()].parentMapID)
-
-        return true
-      end
-    end
-  end
-end)
-
--------------------------------------------------------------------------------
--- ZOS WorldMap Get Map Title
--------------------------------------------------------------------------------
-
--- Override the world map's zone title with our custom ones.
-
--------------------------------------------------------------------------------
-
-local zos_GetMapTitle = ZO_WorldMap_GetMapTitle
-ZO_WorldMap_GetMapTitle = function()
-  return getZoneNameFromID(getCurrentZoneID())
-end
-
--------------------------------------------------------------------------------
--- Map mouseover info function
--------------------------------------------------------------------------------
-
--- Controls the "blobs", the highlight effect that appears  when hovering over
--- the zones on the map.
-
--------------------------------------------------------------------------------
-
-local zos_GetMapMouseoverInfo = GetMapMouseoverInfo
-GetMapMouseoverInfo = function(xN, yN)
-
-  local mapIndex = getCurrentZoneID()
-
-  -- invisible blank default mouseover data
-  local locationName = ""
-  local textureFile = "" 
-  local widthN = 0.01
-  local heightN = 0.01
-  local locXN = 0
-  local locYN = 0
-
-  -- if the current map is not set to exclusive, or we don't have any data for it, get vanilla values
-  if (isExclusive == false or mapData[mapIndex] == nil) then
-   locationName, textureFile, widthN, heightN, locXN, locYN = zos_GetMapMouseoverInfo(xN, yN)
-  end
-
-  if (mapData[mapIndex] ~= nil) then
-
-    if (isInBlobHitbox) then 
-
-        if (AccurateWorldMap.options.loreRenames) then
-          locationName = currentZoneInfo.zoneName
-        else
-          locationName = getZoneNameFromID(currentZoneInfo.zoneID)
-        end
-
-        textureFile = currentZoneInfo.blobTexture
-        widthN = currentZoneInfo.nBlobTextureWidth
-        heightN = currentZoneInfo.nBlobTextureHeight
-        locXN = currentZoneInfo.xN
-        locYN = currentZoneInfo.yN
-
-        if (currentZoneInfo.zoneDescription ~= nil and AccurateWorldMap.options.zoneDescriptions == true) then
-          ZO_WorldMapMouseOverDescription:SetText(currentZoneInfo.zoneDescription)
-        end
-
-    end
-
-  end
-
-  return locationName, textureFile, widthN, heightN, locXN, locYN
-end
-
--------------------------------------------------------------------------------
--- ZOS map pin tooltip controller
--------------------------------------------------------------------------------
-
--- Borrowed from GuildShrines addon. Overrides default tooltip handler to adds 
--- custom tooltips to Eyevea and Earth Forge wayshrines in both gamepad and 
--- keyboard & mouse mode.
-
--------------------------------------------------------------------------------
-
-ZO_MapPin.TOOLTIP_CREATORS[MAP_PIN_TYPE_FAST_TRAVEL_WAYSHRINE].creator = function(pin)
-  local nodeIndex = pin:GetFastTravelNodeIndex()
-  local _, name, _, _, _, _, _, _, _, disabled = GetFastTravelNodeInfo(nodeIndex)
-  local info_tooltip
-
-  if not isInGamepadMode() then 
-    if not disabled then
-      if nodeIndex ~= 215 and nodeIndex ~= 221 or ZO_Map_GetFastTravelNode() then -- Eyevea and the Earth Forge cannot be "jumped" to so we'll add "This area is not accessible via jumping." when they're not using a wayshrine
-        InformationTooltip:AppendWayshrineTooltip(pin)																			-- Normal Wayshrine tooltip data
-      else
-        InformationTooltip:AddLine(zo_strformat(SI_WORLD_MAP_LOCATION_NAME, name), "", ZO_TOOLTIP_DEFAULT_COLOR:UnpackRGB())	-- Wayshrine Name
-        InformationTooltip:AddLine("This location can only be accessed via other Wayshrines.", "", 1, 0, 0)				-- "This area is not accessible via jumping."
-      end	
-    else
-      InformationTooltip:AddLine(zo_strformat(SI_WORLD_MAP_LOCATION_NAME, name), "", ZO_TOOLTIP_DEFAULT_COLOR:UnpackRGB())		-- Wayshrine Name Only (unknown wayshrine)
-    end		
-  else
-    if not disabled then 
-      if nodeIndex ~= 215 and nodeIndex ~= 221 or ZO_Map_GetFastTravelNode() then -- Eyevea and the Earth Forge cannot be "jumped" to so we'll add "This area is not accessible via jumping." when they're not using a wayshrine 
-        ZO_MapLocationTooltip_Gamepad:AppendWayshrineTooltip(pin)
-      else
-        local lineSection = ZO_MapLocationTooltip_Gamepad.tooltip:AcquireSection(ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("mapMoreQuestsContentSection"))
-        lineSection:AddLine(name, ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("mapLocationTooltipContentLabel"), ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("gamepadElderScrollTooltipContent"))									-- Wayshrine Name
-        lineSection:AddLine(GetString("This location can only be accessed via other Wayshrines."), ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("mapLocationTooltipContentLabel"), ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("gamepadElderScrollTooltipContent"))	-- "This area is not accessible via jumping."
-        ZO_MapLocationTooltip_Gamepad.tooltip:AddSection(lineSection)
-      end
-    else
-      local lineSection = ZO_MapLocationTooltip_Gamepad.tooltip:AcquireSection(ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("mapMoreQuestsContentSection"))
-      lineSection:AddLine(name, ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("mapLocationTooltipContentLabel"), ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("gamepadElderScrollTooltipContent")) -- Wayshrine Name Only (unknown wayshrine)
-      ZO_MapLocationTooltip_Gamepad.tooltip:AddSection(lineSection)
-    end
-  end
-end
-
-
-local zos_GetFastTravelNodeInfo = GetFastTravelNodeInfo    
-GetFastTravelNodeInfo = function(nodeIndex)
-  local known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked, disabled = zos_GetFastTravelNodeInfo(nodeIndex)
-
-  if AccurateWorldMap.options.isDebug == true then
-        d("Current Node: "..nodeIndex)
-        d("Name: "..name)
-        d(" ")
-  end
-
-  local mapIndex = getCurrentZoneID()
-
-
-  if (mapData[mapIndex] ~= nil) then
-
-    if (mapData[mapIndex][nodeIndex] ~= nil) then
-
-      local zoneData = mapData[mapIndex]
-
-      if (zoneData[nodeIndex] ~= nil) then 
-
-
-        if zoneData[nodeIndex].xN ~= nil then
-          normalizedX = zoneData[nodeIndex].xN
-        end
-
-        if zoneData[nodeIndex].yN ~= nil then
-          normalizedY = zoneData[nodeIndex].yN
-        end
-
-        if (zoneData[nodeIndex].name ~= nil and AccurateWorldMap.options.loreRenames) then
-          name = zoneData[nodeIndex].name
-        end
-
-        if zoneData[nodeIndex].disabled ~= nil then
-
-          if (zoneData[nodeIndex].disabled) then
-
-            isLocatedInCurrentMap = false
-            disabled = true
-
-          else
-
-            isLocatedInCurrentMap = true
-            disabled = false
-
-          end
-
-
-        end
-
-
-      end
-
-
-    end
-
-  end
-
-  return known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked, disabled
-
-end
     
 
 
@@ -478,8 +244,10 @@ end
 -------------------------------------------------------------------------------
 
 local function main()
-
   if (isWorldMapShown()) then
+
+
+
 
     if (isInGamepadMode()) then
 
@@ -535,7 +303,6 @@ local function main()
 
 
   end
-
 end
 
 
@@ -786,18 +553,17 @@ local function onPlayerLoaded()
 
   if (areTexturesCompiled == false) then
   
-    print("Compiling map textures, please wait ...")
+    print("Compiling map textures, please wait ...", true)
+
+    -- call compileBlobTextures twice to make sure it's loaded
 
     zo_callLater(function()
       compileBlobTextures()
-
-  
       zo_callLater(function() compileBlobTextures()
        end, 1000 )
-  
     end, 2000 )
-  end
 
+  end
 end
 
 -------------------------------------------------------------------------------
@@ -806,15 +572,12 @@ end
 
 local function onZoneChanged()
 
-  print("Zone changed!")
-
-
-  -- Delete any existing controls on the world map before iterating over anything else
+  -- Hide all existing zone blobs
   hideAllZoneBlobs()
+
   AWM_MouseOverGrungeTex:SetHidden(true)
 
   local mapIndex = getCurrentZoneID()
-
 
   if (mapIndex ~= nil) then
 
@@ -899,8 +662,8 @@ local function initialise(event, addonName)
     EVENT_MANAGER:UnregisterForEvent(AccurateWorldMap.name, EVENT_ADD_ON_LOADED)
 
   end
-
   
+  -- Compile blob texture details
   compileBlobTextures()
 
   -- set up saved variables
@@ -928,3 +691,204 @@ EVENT_MANAGER:RegisterForUpdate("mainLoop", 0, main)
 
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", onZoneChanged)
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapShown", onWorldMapDrawn)
+
+
+-- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+-- ██░▄▄▄░██░▄▄▄░██░▄▄▄░████░▄▄▄██░██░██░▀██░██░▄▄▀█▄▄░▄▄█▄░▄██░▄▄▄░██░▀██░██░▄▄▄░██
+-- ██▀▀▀▄▄██░███░██▄▄▄▀▀████░▄▄███░██░██░█░█░██░██████░████░███░███░██░█░█░██▄▄▄▀▀██
+-- ██░▀▀▀░██░▀▀▀░██░▀▀▀░████░█████▄▀▀▄██░██▄░██░▀▀▄███░███▀░▀██░▀▀▀░██░██▄░██░▀▀▀░██
+-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+
+-------------------------------------------------------------------------------
+-- Process map click function
+-------------------------------------------------------------------------------
+
+-- These functions control when the user's click is passed through to the map 
+-- for events such as zone changing. We override that that so that our custom 
+-- zone hitbox polygons get the priority, as long as isExclusive is true.
+
+-------------------------------------------------------------------------------
+
+ZO_PreHook("ProcessMapClick", function(xN, yN)
+
+  -- in K&M mode, this function gets fired on every double click for some reason
+  -- whereas in gamepad this gets fired every click
+
+  print("processed map click function!")
+
+  if ((isInBlobHitbox and currentZoneInfo ~= nil) or isExclusive) then
+
+
+    if (isInGamepadMode() and (isInBlobHitbox and currentZoneInfo ~= nil)) then
+
+      navigateToMap(currentZoneInfo)
+
+    end
+
+
+    return true
+  end
+
+end)
+
+-------------------------------------------------------------------------------
+-- ZOS WorldMap MouseUp event
+-------------------------------------------------------------------------------
+
+-- Override the function called when user releases a mouse button on the worldmap
+-- so that we can intercept and redirect the user to a custom parent map if available
+
+-------------------------------------------------------------------------------
+
+ZO_PreHook("ZO_WorldMap_MouseUp", function(mapControl, mouseButton, upInside)
+
+  if (mouseButton == MOUSE_BUTTON_INDEX_RIGHT and upInside) then
+    if (mapData[getCurrentZoneID()] ~= nil) then
+      if (mapData[getCurrentZoneID()].parentMapID ~= nil) then
+
+        navigateToMap(mapData[getCurrentZoneID()].parentMapID)
+
+        return true
+      end
+    end
+  end
+end)
+
+-------------------------------------------------------------------------------
+-- ZOS WorldMap Get Map Title
+-------------------------------------------------------------------------------
+
+-- Override the world map's zone title with our custom ones.
+
+-------------------------------------------------------------------------------
+
+local zos_GetMapTitle = ZO_WorldMap_GetMapTitle
+ZO_WorldMap_GetMapTitle = function()
+  return getZoneNameFromID(getCurrentZoneID())
+end
+
+-------------------------------------------------------------------------------
+-- Map mouseover info function
+-------------------------------------------------------------------------------
+
+-- Controls the "blobs", the highlight effect that appears  when hovering over
+-- the zones on the map.
+
+-------------------------------------------------------------------------------
+
+local zos_GetMapMouseoverInfo = GetMapMouseoverInfo
+GetMapMouseoverInfo = function(xN, yN)
+
+  local mapIndex = getCurrentZoneID()
+
+  -- invisible blank default mouseover data
+  local locationName = ""
+  local textureFile = "" 
+  local widthN = 0.01
+  local heightN = 0.01
+  local locXN = 0
+  local locYN = 0
+
+  -- if the current map is not set to exclusive, or we don't have any data for it, get vanilla values
+  if (isExclusive == false or mapData[mapIndex] == nil) then
+   locationName, textureFile, widthN, heightN, locXN, locYN = zos_GetMapMouseoverInfo(xN, yN)
+  end
+
+  if (mapData[mapIndex] ~= nil) then
+
+    if (isInBlobHitbox) then 
+
+        if (AccurateWorldMap.options.loreRenames) then
+          locationName = currentZoneInfo.zoneName
+        else
+          locationName = getZoneNameFromID(currentZoneInfo.zoneID)
+        end
+
+        textureFile = currentZoneInfo.blobTexture
+        widthN = currentZoneInfo.nBlobTextureWidth
+        heightN = currentZoneInfo.nBlobTextureHeight
+        locXN = currentZoneInfo.xN
+        locYN = currentZoneInfo.yN
+
+        if (currentZoneInfo.zoneDescription ~= nil and AccurateWorldMap.options.zoneDescriptions == true) then
+          ZO_WorldMapMouseOverDescription:SetText(currentZoneInfo.zoneDescription)
+        end
+
+    end
+
+  end
+
+  return locationName, textureFile, widthN, heightN, locXN, locYN
+end
+
+
+-------------------------------------------------------------------------------
+-- ZOS get fast travel node info function
+-------------------------------------------------------------------------------
+
+-- Controls placement, display, and location of wayshrine/dungeon/house icons.
+-- We override it to stream in our custom data.
+
+-------------------------------------------------------------------------------
+
+local zos_GetFastTravelNodeInfo = GetFastTravelNodeInfo    
+GetFastTravelNodeInfo = function(nodeIndex)
+  local known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked, disabled = zos_GetFastTravelNodeInfo(nodeIndex)
+
+  if AccurateWorldMap.options.isDebug == true then
+        d("Current Node: "..nodeIndex)
+        d("Name: "..name)
+        d(" ")
+  end
+
+  local mapIndex = getCurrentZoneID()
+
+
+  if (mapData[mapIndex] ~= nil) then
+
+    if (mapData[mapIndex][nodeIndex] ~= nil) then
+
+      local zoneData = mapData[mapIndex]
+
+      if (zoneData[nodeIndex] ~= nil) then 
+
+
+        if zoneData[nodeIndex].xN ~= nil then
+          normalizedX = zoneData[nodeIndex].xN
+        end
+
+        if zoneData[nodeIndex].yN ~= nil then
+          normalizedY = zoneData[nodeIndex].yN
+        end
+
+        if (zoneData[nodeIndex].name ~= nil and AccurateWorldMap.options.loreRenames) then
+          name = zoneData[nodeIndex].name
+        end
+
+        if zoneData[nodeIndex].disabled ~= nil then
+
+          if (zoneData[nodeIndex].disabled) then
+
+            isLocatedInCurrentMap = false
+            disabled = true
+
+          else
+
+            isLocatedInCurrentMap = true
+            disabled = false
+
+          end
+
+
+        end
+
+
+      end
+
+
+    end
+
+  end
+
+  return known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked, disabled
+end

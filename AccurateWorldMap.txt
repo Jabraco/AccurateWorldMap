@@ -15,3 +15,4 @@ AccurateWorldMap.xml
 AWM-Utils.lua
 AWM-Data.lua
 AccurateWorldMap.lua
+AWM-Overrides.lua
