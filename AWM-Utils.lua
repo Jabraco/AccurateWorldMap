@@ -2,7 +2,7 @@
                         AccurateWorldMap Utility Functions
 ===============================================================================
 
-        Utility functions that didn't deserve to be in the main file.
+                Utility functions that help the main addon work.
 
 ---------------------------------------------------------------------------]]--
 
@@ -193,10 +193,9 @@ end
 -------------------------------------------------------------------------------
 
 function getZoneNameFromID(zoneID)
-  local blacklistedZoneIDS = {1737, 315}
 
   -- does this map have a custom name / are custom names enabled? 
-  if (hasValue(blacklistedZoneIDS, zoneID) or AccurateWorldMap.options.loreRenames) then
+  if ((getZoneInfoByID(zoneID) ~= nil and getZoneInfoByID(zoneID).overrideLoreRenames ~= nil) or AccurateWorldMap.options.loreRenames) then
 
     if (getZoneInfoByID(zoneID) ~= nil) then
 
@@ -207,8 +206,6 @@ function getZoneNameFromID(zoneID)
       return GetMapNameById(zoneID)
 
     end
-
-    return getZoneInfoByID(zoneID).zoneName
 
   else
     -- else return vanilla name
@@ -261,7 +258,7 @@ function navigateToMap(mapInfo)
 
       mapID = tonumber(mapInfo)
 
-    else -- it is a zoneData object
+    else -- it is not an int
 
       if (mapInfo.zoneID ~= nil) then -- it is a zoneData object
 
@@ -276,6 +273,7 @@ function navigateToMap(mapInfo)
     SetMapToMapId(mapID)
     currentZoneInfo = {}
     CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
+
     -- force map to zoom out
     local mapPanAndZoom = ZO_WorldMap_GetPanAndZoom()
     mapPanAndZoom:SetCurrentNormalizedZoom(0)

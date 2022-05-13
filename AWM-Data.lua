@@ -107,6 +107,7 @@ mapData = {
     [94] = { xN = 0.576, yN = 0.324 }, -- Mistwatch Wayshrine
     [195] = { xN = 0.610, yN = 0.328 }, -- Direfrost Keep Dungeon
     [92] = { xN = 0.539, yN = 0.310 }, -- Fort Amol Wayshrine
+    [380] = { xN = 0.577, yN = 0.281 }, -- Enchanted Snow Globe Home
 
     zoneData = hackyJoin({
       zoneName = "Eastmarch",
@@ -306,6 +307,7 @@ mapData = {
     zoneData = hackyJoin({
       zoneName = "Icereach",
       zoneDescription = "These frigid isles serves as the seat of power for the cruel Icereach Coven.",
+      overrideLoreRenames = true,
       zoneID = 1737,
       xN = "0.390",
       yN = "0.146",
@@ -2384,6 +2386,7 @@ mapData = {
     zoneData = hackyJoin({
       zoneName = "Eltheric Ocean",
       zoneDescription = "The seas of Western Tamriel are home to the sunken realm of Thras, the Systres Archipelago, and the Yokudan continent.",
+      overrideLoreRenames = true,
       zoneID = 315,
       blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
       xN = "-0.06",
@@ -2711,7 +2714,7 @@ mapData = {
   },
 
   [1737] = { -- Icereach Map 
-    parentMapID = 27
+    parentMapID = 27,
   },
 
   [1814] = { -- The Reach Map 
@@ -2724,6 +2727,10 @@ mapData = {
 
   [1248] = { -- Firemoth Island Map
     parentMapID = 27
+  },
+
+  [660] = { -- Imperial City Map
+    [236] = { xN = 0.495, yN = 0.132, disabled = false }, -- Imperial City Prison Dungeon
   },
 }
 

@@ -125,15 +125,6 @@ end
 
 local _GetMapCustomMaxZoom = GetMapCustomMaxZoom
 
-local providedPoiType = 1
-local mouseOverControl = WINDOW_MANAGER:GetMouseOverControl()
-
-
-
-
-
-
-
 local function setUpMapInfoBar()
 
 
@@ -344,7 +335,7 @@ ZO_MapPin.TOOLTIP_CREATORS[MAP_PIN_TYPE_FAST_TRAVEL_WAYSHRINE].creator = functio
         local lineSection = ZO_MapLocationTooltip_Gamepad.tooltip:AcquireSection(ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("mapMoreQuestsContentSection"))
         lineSection:AddLine(name, ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("mapLocationTooltipContentLabel"), ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("gamepadElderScrollTooltipContent"))									-- Wayshrine Name
         lineSection:AddLine(GetString("This location can only be accessed via other Wayshrines."), ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("mapLocationTooltipContentLabel"), ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("gamepadElderScrollTooltipContent"))	-- "This area is not accessible via jumping."
-        ZO_MapLocationTooltip_Gamepad.tooltip:AddSection(lineSection) -- not sure why I forgot this, going to test with and without to see what it changes
+        ZO_MapLocationTooltip_Gamepad.tooltip:AddSection(lineSection)
       end
     else
       local lineSection = ZO_MapLocationTooltip_Gamepad.tooltip:AcquireSection(ZO_MapLocationTooltip_Gamepad.tooltip:GetStyle("mapMoreQuestsContentSection"))
