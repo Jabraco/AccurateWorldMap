@@ -2,8 +2,7 @@
                              AccurateWorldMap Data
 ===============================================================================
 
-              Data and data-related functions that get used 
-              for zone/node/tile placement or other features.
+        Data that gets used for zone/node/tile placement or other features.
 
 ---------------------------------------------------------------------------]]--
 
@@ -12,27 +11,6 @@
 -------------------------------------------------------------------------------
 
 AccurateWorldMap = AccurateWorldMap or {}
-
--------------------------------------------------------------------------------
--- Hacky table function
--------------------------------------------------------------------------------
-
--- Hacky function to be able to define zoneData several times in one
--- flat data structure without overwriting the table each time.
-
--------------------------------------------------------------------------------
-
-local hackyTable = {}
-
-local function hackyJoin(extra, newWorldspace)
-
-  if (newWorldspace) then
-    hackyTable = {}
-  end
-
-  table.insert(hackyTable, extra)
-  return hackyTable
-end
 
 -------------------------------------------------------------------------------
 -- World map wayshrine & zone data
@@ -72,7 +50,7 @@ mapData = {
     -- Bleakrock Isle --
     [172] = { xN = 0.617, yN = 0.232 }, -- Bleakrock Isle Wayshrine
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Bleakrock Isle",
       zoneDescription = "Sitting at the mouth of the Yorgrim River, Bleakrock Isle may seem like a quaint fishing Isle, but its strategic importance cannot be understated - it acts as a checkpoint to every port city in the Ebonheart Pact.",
       zoneID = 74,
@@ -109,7 +87,7 @@ mapData = {
     [92] = { xN = 0.539, yN = 0.310 }, -- Fort Amol Wayshrine
     [380] = { xN = 0.577, yN = 0.281 }, -- Enchanted Snow Globe Home
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Eastmarch",
       zoneID = 61,
       zoneDescription = "The first of the Old Holds, Eastmarch was among the earliest regions settled by the Nords when they arrived from Atmora. It houses the ancient city of Windhelm, which is the oldest continuously inhabited Nordic city on Tamriel.",
@@ -178,7 +156,7 @@ mapData = {
     [120] = { xN = 0.620, yN = 0.373 }, -- Fullhelm Fort Wayshrine
     [187] = { xN = 0.627, yN = 0.379 }, -- Blessed Crucible Dungeon
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "The Rift",
       zoneDescription = "The southeastern hold of Skyrim, The Rift is a temperate region northwest of the intersection between the Velothi Mountains and the Jerall Mountains.",
       zoneID = 125,
@@ -229,7 +207,7 @@ mapData = {
     [424] = { xN = 0.404, yN = 0.157 }, -- Icereach Dungeon
     [434] = { xN = 0.408, yN = 0.186 }, -- Kyne's Aegis Trial
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Western Skyrim",
       zoneDescription = "Western Skyrim is a cold and unforgiving land, which consists of the holds of Haafingar, Karthald, and Hjaalmarch.",
       zoneID = 1719,
@@ -281,7 +259,7 @@ mapData = {
     }),
 
     -- Grayhome --
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Grayhome",
       zoneDescription = "The frozen island of Grayhome is home to an ornate castle, formerly occupied by the Gray Host.",
       zoneID = 1864,
@@ -304,7 +282,7 @@ mapData = {
     }),
 
     -- Icereach --
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Icereach",
       zoneDescription = "These frigid isles serves as the seat of power for the cruel Icereach Coven.",
       overrideLoreRenames = true,
@@ -328,7 +306,7 @@ mapData = {
     [445] = { xN = 0.377, yN = 0.270 }, -- Karthwasten Wayshrine
     [221] = { xN = 0.336, yN = 0.278, disabled = false, name = "The Earth Forge Wayshrine" }, -- The Earth Forge Wayshrine
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "The Reach",
       zoneDescription = "The rocky highlands of the Reach contains savage predators, perilous Dwarven ruins, and hostile Reach clans.",
       zoneID = 1814,
@@ -396,7 +374,7 @@ mapData = {
     [236] = { xN = 0.542, yN = 0.475 }, -- Imperial City Prison Dungeon
     [247] = { xN = 0.536, yN = 0.486 }, -- White Gold Tower Dungeon
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Cyrodiil",
       zoneDescription = "With the Empire's collapse, armies of the Dominion, Covenant, and Pact have all invadedthe Heartlands of Cyrodiil, vying for the Imperial throne.",
       zoneID = 16,
@@ -480,7 +458,7 @@ mapData = {
     -- Gold Coast --
     [390] = { xN = 0.304, yN = 0.559 }, -- Depths of Malatar Dungeon 
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Gold Coast",
       zoneDescription = "The Gold Coast always served as Cyrodiil's gateway to the Abecean Sea, but with the Alliance War, the region has gone its own way.",
       zoneID = 1006,
@@ -523,7 +501,7 @@ mapData = {
     }),
 
     -- Stirk --
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Stirk",
       zoneDescription = "Stirk was once occupied by the Ayleids. Now, though, it belongs to the Pirates of the Abecean Sea.",
       zoneID = 415,
@@ -574,7 +552,7 @@ mapData = {
     [193] = { xN = 0.134, yN = 0.326 }, -- Spindleclutch II Dungeon
     [5] = { xN = 0.127, yN = 0.323 }, -- North Hag Fen Wayshrine
     
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Glenumbra",
       zoneDescription = "Glenumbra is the westernmost peninsula of High Rock and contains the city-states of Daggerfall and Camlorn.",
       zoneID = 1,
@@ -637,7 +615,7 @@ mapData = {
     }),
 
     -- Isle of Balfiera --
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Isle of Balfiera",
       zoneDescription = "Balfiera Isle is the ancestral home of Clan Direnni, and the site of the the oldest structure on Tamriel - the Adamantine Tower.",
       blobTexture = "AccurateWorldMap/blobs/blob-balfiera.dds",
@@ -671,7 +649,7 @@ mapData = {
     [189] = { xN = 0.222, yN = 0.332 }, -- Wayrest Sewers II Dungeon
     [16] = { xN = 0.194, yN = 0.308 }, -- Firebrand Keep Wayshrine
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Stormhaven",
       zoneDescription = "Stormhaven is the geographic center of High Rock, and also the home of the great trading city of Wayrest, capital of the Daggerfall Covenant.",
       zoneID = 12,
@@ -751,7 +729,7 @@ mapData = {
     [13] = { xN = 0.173, yN = 0.230 }, -- Staging Grounds Wayshrine
     [208] = { xN = 0.171, yN = 0.240 }, -- Shrouded Pass Wayshrine
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Rivenspire",
       zoneDescription = "This northwestern region of High Rock contains some of the province's most dramatic terrain, including towering, flinty crags, windswept moors, and narrow canyons.",
       zoneID = 10,
@@ -817,7 +795,7 @@ mapData = {
     [238] = { xN = 0.284, yN = 0.247 }, -- Icy Shore Wayshrine 
     [237] = { xN = 0.301, yN = 0.256 }, -- Shatul Wayshrine 
     
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Wrothgar",
       zoneDescription = "The Wrothgar Mountains have been home to northern Tamriel's Orcs since the beginning of recorded history.",
       zoneID = 667,
@@ -886,7 +864,7 @@ mapData = {
     [181] = { xN = 0.082, yN = 0.436 }, -- Stonetooth Wayshrine
     [183] = { xN = 0.082, yN = 0.444 }, -- Carved Hills Wayshrine
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Betnikh",
       zoneDescription = "Originally called Betony, this isle was conquered by the Seamount Orcs, who then renamed it to Betnikh.",
       zoneID = 227,
@@ -937,7 +915,7 @@ mapData = {
     [395] = { xN = 0.410, yN = 0.394 }, -- Elinhir Private Arena House
     [310] = { xN = 0.432, yN = 0.381 }, -- Domus Phrasticus House
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Craglorn",
       zoneDescription = "Though crossed by caravans and Covenant troops going to and from Cyrodiil, this wild region of eastern Hammerfell is a virtual no-man's-land.",
       zoneID = 1126,
@@ -997,7 +975,7 @@ mapData = {
     [206] = { xN = 0.305, yN = 0.279 }, -- Halcyon Lake Wayshrine
     [186] = { xN = 0.281, yN = 0.301 }, -- Blackheart Haven Dungeon
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Bangkorai",
       zoneDescription = "This region takes its name from its most famous feature, the Bangkorai Pass, which has served as High Rock's defense against the wild raiders of Hammerfell for countless generations.",
       zoneID = 20,
@@ -1072,7 +1050,7 @@ mapData = {
     -- The Alik'r --
     [46] = { xN = 0.238, yN = 0.376 }, -- Satakalaam Wayshrine
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "The Alik'r",
       zoneDescription = "The Alik'r may be rich in mineral resources, but its fierce creatures and harsh terrain are too daunting for most.",
       zoneID = 30,
@@ -1124,7 +1102,7 @@ mapData = {
     [257] = { xN = 0.263, yN = 0.524 }, -- No Shira Citadel Wayshrine 
     [256] = { xN = 0.250, yN = 0.510 }, -- Zeht's Displeasure Wayshrine 
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Hew's Bane",
       zoneDescription = "Prince Hubalajad claimed this Hammerfell peninsula for his own, but when all of his ambitious endeavors ended in failure, the region acquired the nickname Hew's Bane.",
       zoneID = 994,
@@ -1165,7 +1143,7 @@ mapData = {
     [324] = { xN = 0.167, yN = 0.547 }, -- Hunding's Palatial Hall House
     [138] = { xN = 0.159, yN = 0.542 }, -- Port Hunding Wayshrine 
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Stros M'Kai",
       zoneDescription = "The island of Stros M'Kai was one of the first regions settled by the Redguards when they sailed east from their lost homeland of Yokuda.",
       zoneID = 201,
@@ -1220,7 +1198,7 @@ mapData = {
     [335] = { xN = 0.673, yN = 0.269 }, -- Ald Velothi Harbour House
     [465] = { xN = 0.718, yN = 0.261 }, -- Kushalit Sanctuary House
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Vvardenfell",
       zoneDescription = "The sprawling volcanic island of Vvardenfell dominates northern Morrowind, with the ever-smoldering peak of Red Mountain at its centre.",
       zoneID = 1060,
@@ -1286,7 +1264,7 @@ mapData = {
     }),
 
     -- Firemoth Island --
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Firemoth Island",
       zoneDescription = "The Firemoth islets seem to float like forgotten derelicts on the surface of the Inner Sea, shrouded in mists that might hide all manner of crimes and corruption.",
       zoneID = 1248,
@@ -1308,7 +1286,7 @@ mapData = {
     }),
 
     -- Stonefalls --
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Stonefalls",
       zoneDescription = "This ashy region of Morrowind known as Stonefalls was where the recent invading army from Akavir met its bloody end.",
       zoneID = 7,
@@ -1375,7 +1353,7 @@ mapData = {
     }),
 
     -- Bal Foyen --
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Bal Foyen",
       zoneDescription = "This region is known as Bal Foyen, a wild expanse of marshland and volcanic landscapes, now being used to farm saltrice by the Dark Elves' former Argonian slaves.",
       zoneID = 75,
@@ -1402,7 +1380,7 @@ mapData = {
     }),
 
     -- Deshaan --
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Deshaan",
       zoneDescription = "The fertile valleys of Deshaan are home to lush fungal forests, deep kwama mines, and broad pastures where netches and guar graze.",
       zoneID = 13,
@@ -1484,7 +1462,7 @@ mapData = {
     [305] = { xN = 0.734, yN = 0.583 }, -- The Ample Domicile House 
     [316] = { xN = 0.755, yN = 0.611 }, -- Stay-Moist Mansion House
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Shadowfen",
       zoneDescription = "The fetid mire of Shadowfen has had more contact with Tamrielic civilization than most of Black Marsh, primarily due to the activities of the Dunmeri slavers who once operated here.",
       zoneID = 26,
@@ -1519,7 +1497,7 @@ mapData = {
     [377] = { xN = 0.758, yN = 0.739 }, -- Root-Whisper Wayshrine
     [388] = { xN = 0.724, yN = 0.735 }, -- Lakemire Xanmeer Manor House 
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Murkmire",
       zoneDescription = "Legend holds that the region informally known as Murkmire once extended much further south before it sank beneath the waves.",
       zoneID = 1484,
@@ -1574,7 +1552,7 @@ mapData = {
     }),
 
     -- Norg-Tzel --
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Norg-Tzel",
       zoneDescription = "Norg-Tzel, which means 'forbidden place' in the Argonian tongue, has much the same climate and terrain as the region of Black Marsh known as Murkmire.",
       zoneID = 1552,
@@ -1611,7 +1589,7 @@ mapData = {
     [463] = { xN = 0.620, yN = 0.703 }, -- Blueblood Wayshrine
     [472] = { xN = 0.603, yN = 0.687 }, -- Water's Edge House
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Blackwood",
       zoneDescription = "Straddling the great Niben River and extending east into the bogs of the Argonian homeland, the Blackwood region serves as the maritime gate to Cyrodiil.",
       zoneID = 1887,
@@ -1695,7 +1673,7 @@ mapData = {
     -- ctrl + f aid: elsweyr
 
     -- Northern Elsweyr --
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Anequina",
       zoneDescription = "The region of Anequina derives its name from the dusty Ne-Quin-Al desert, which lies in its heart.",
       blobTexture = "AccurateWorldMap/blobs/blob-northernelsweyr.dds",
@@ -1764,7 +1742,7 @@ mapData = {
     -- Southern Elsweyr --
     [407] = { xN = 0.614, yN = 0.790 }, -- Dragonguard Sanctum Wayshrine
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Quin'rawl",
       zoneDescription = "Also known as Southern Elsweyr, this land's complex history stretches back into antiquity.",
       blobTexture = "AccurateWorldMap/blobs/blob-southernelsweyr.dds",
@@ -1823,7 +1801,7 @@ mapData = {
       }
     }),
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Khenarthi's Roost",
       zoneDescription = "This island off the southern coast of Elsweyr is named after the Khajiiti goddess of weather and the sky, who is usually represented as a great hawk.",
       zoneID = 258,
@@ -1863,7 +1841,7 @@ mapData = {
     [321] = { xN = 0.483, yN = 0.579 }, -- Dawnshadow House
     [320] = { xN = 0.472, yN = 0.560 }, -- Strident Springs Demesne House
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Reaper's March",
       zoneDescription = "Once known simply as Northern Valenwood, this region that borders Cyrodiil and Elsweyr has seen much bloody warfare.",
       zoneID = 256,
@@ -1943,7 +1921,7 @@ mapData = {
     -- Grahtwood --
     [398] = { xN = 0.463, yN = 0.717 }, -- Lair of Maarselok Dungeon 
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Grahtwood",
       zoneDescription = "This region is the southern heart of the Wood Elves' great forest, and home to more of the gigantic graht-oaks than any other part of Valenwood.",
       zoneID = 9,
@@ -2023,7 +2001,7 @@ mapData = {
     -- Malabal Tor -- 
     [106] = { name = "Baandari Trading Post Wayshrine" }, -- Baandari Trading Post Wayshrine
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Malabal Tor",
       zoneDescription = "Malabal Tor is the northwest region of Valenwood, on the coast of the Abecean Sea and the Strid River estuary.",
       zoneID = 22,
@@ -2095,7 +2073,7 @@ mapData = {
     -- Tempest Island --
     [188] = { xN = 0.283, yN = 0.604 }, -- Tempest Island Dungeon
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Tempest Island",
       zoneDescription = "This island in the Strid estuary has long been a haven for pirates, raiders, and fugitives from law enforcement.",
       zoneID = 292,
@@ -2116,7 +2094,7 @@ mapData = {
     [197] = { xN = 0.356, yN = 0.674 }, -- City of Ash I Dungeon
     [268] = { xN = 0.356, yN = 0.674 }, -- City of Ash II Dungeon 
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Greenshade",
       zoneDescription = "Greenshade is a land of flowing rivers and fertile plains that occupies the southwest portion of Valenwood.",
       zoneID = 300,
@@ -2208,7 +2186,7 @@ mapData = {
     [368] = { xN = 0.177, yN = 0.797 }, -- Colossal Aldmeri Grotto
     [497] = { xN = 0.160, yN = 0.636 }, -- Coral Aerie Dungeon
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Summerset Isle",
       zoneDescription = "The land called Summerset is the birthplace of civilization and magic as we know it in Tamriel.",
       zoneID = 1349,
@@ -2287,7 +2265,7 @@ mapData = {
     [315] = { xN = 0.231, yN = 0.688 }, -- Mathiisen Manor House
     [285] = { xN = 0.245, yN = 0.668 }, -- Barbed Hook Private Room House
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Auridon",
       zoneDescription = "The second largest of the Summerset Isles, Auridon has always served the High Elves as a buffer between their serene archipelago and the turmoil of Tamriel.",
       zoneID = 143,
@@ -2351,7 +2329,7 @@ mapData = {
     -- Eyevea --
     [215] = { xN = 0.070, yN = 0.600, disabled = false, name = "Eyevea Wayshrine" }, -- Eyevea Wayshrine
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Eyevea",
       zoneDescription = "Originally an island belonging to the Summerset Isles, Eyevea now serves as the home of the Mages Guild.",
       zoneID = 108,
@@ -2383,7 +2361,7 @@ mapData = {
 -- [x] = { xN = x, yN = y }, -- 
 -- ctrl + f aid: eltheric ocean
 
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Eltheric Ocean",
       zoneDescription = "The seas of Western Tamriel are home to the sunken realm of Thras, the Systres Archipelago, and the Yokudan continent.",
       overrideLoreRenames = true,
@@ -2450,9 +2428,10 @@ mapData = {
     isExclusive = true,
 
     -- Tamriel --
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Tamriel",
       zoneDescription = "In the ancient tongues, the land called 'Tamriel' means 'Dawn's Beauty'.",
+      zoomLevel = 4,
       isWorldMap = true,
       zoneID = 27,
       xN = "0.196",
@@ -2507,7 +2486,7 @@ mapData = {
     }, true),
 
     -- Blackreach --
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Blackreach",
       zoneDescription = "Blackreach, a legendary and long-forgotten realm that extends beneath Skyrim - and perhaps beyond.",
       blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
@@ -2530,7 +2509,7 @@ mapData = {
     }),
 
     -- Clockwork City --
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Clockwork City",
       zoneDescription = "Clockwork City is the mysterious mechanical realm of Sotha Sil, one of the living gods of the Tribunal - it's purpose is unknown.",
       blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
@@ -2559,7 +2538,7 @@ mapData = {
     }),
 
     -- The Deadlands --
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "The Deadlands",
       zoneDescription = "The Deadlands is Mehrunes Dagon's realm of unending destruction, fire and storm and disaster personified.",
       blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
@@ -2584,7 +2563,7 @@ mapData = {
     }),
 
     -- Fargrave --
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Fargrave",
       zoneDescription = "The princeless realm of Fargrave is known as 'The Celestial Palanquin' - a place where mortal and Daedra alike are free to do whatever they please.",
       blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
@@ -2608,7 +2587,7 @@ mapData = {
     }),
 
     -- Artaeum --
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Artaeum",
       zoneDescription = "Home to the Psijic Order, this island was formerly part of the Summerset Isles, but disappeared from Nirn several centuries ago under mysterious circumstances.",
       blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
@@ -2635,7 +2614,7 @@ mapData = {
     }),
 
     -- Coldharbour --
-    zoneData = hackyJoin({
+    zoneData = join({
       zoneName = "Coldharbour",
       zoneDescription = "The dreadful Oblivion plane of Coldharbour is Molag Bal's realm of death, despair, and infinite cruelty.",
       blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
@@ -2871,5 +2850,12 @@ AccurateWorldMap.optionsData = {
     tooltip = "Toggle debug mode on/off.Note: Will cause significant lag.",
     getFunc = function() return AccurateWorldMap.options.isDebug end,
     setFunc = function(value) AccurateWorldMap.options.isDebug = value end
+  },
+  {
+    type = "checkbox",
+    name = "Move Player Icons (Beta)",
+    tooltip = "Moves player and group icons according to AccurateWorldMap's zone placement, WIP.",
+    getFunc = function() return AccurateWorldMap.options.movePlayerIcons end,
+    setFunc = function(value) AccurateWorldMap.options.movePlayerIcons = value end
   },
 }

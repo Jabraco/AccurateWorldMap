@@ -61,6 +61,22 @@ end
 
 local zos_GetMapTitle = ZO_WorldMap_GetMapTitle
 ZO_WorldMap_GetMapTitle = function()
-  return getZoneNameFromID(getCurrentZoneID())
+  return getZoneNameFromID(getCurrentMapID())
 end
 
+-------------------------------------------------------------------------------
+-- ZOS WorldMap Zoom controller
+-------------------------------------------------------------------------------
+
+-- Override ESO's zone zoom levels with any custom defined ones.
+
+-------------------------------------------------------------------------------
+
+local zos_GetMapCustomMaxZoom = GetMapCustomMaxZoom
+GetMapCustomMaxZoom = function()
+  if (getCurrentZoneInfo() ~= nil and getCurrentZoneInfo().zoomLevel ~= nil ) then
+    return getCurrentZoneInfo().zoomLevel
+  else
+    return zos_GetMapCustomMaxZoom()
+  end
+end

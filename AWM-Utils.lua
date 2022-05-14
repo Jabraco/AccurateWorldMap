@@ -46,6 +46,22 @@ function getAddonInfo(addonName)
 end
 
 -------------------------------------------------------------------------------
+-- Merge multiple tables into one
+-------------------------------------------------------------------------------
+
+local mergedTable = {}
+
+function join(extra, newWorldspace)
+
+  if (newWorldspace) then
+    mergedTable = {}
+  end
+
+  table.insert(mergedTable, extra)
+  return mergedTable
+end
+
+-------------------------------------------------------------------------------
 -- Print text to chat
 -------------------------------------------------------------------------------
 
@@ -174,7 +190,7 @@ end
 -- Get the mapID of the current zone
 -------------------------------------------------------------------------------
 
-function getCurrentZoneID()
+function getCurrentMapID()
 
   local zoneID = GetCurrentMapId()
 
@@ -326,3 +342,15 @@ function hideAllZoneBlobs()
 
   end
 end
+
+
+-------------------------------------------------------------------------------
+-- Get current zone info table if it exists
+-------------------------------------------------------------------------------
+
+function getCurrentZoneInfo()
+
+  return getZoneInfoByID(getCurrentMapID())
+
+end
+

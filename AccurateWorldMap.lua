@@ -8,24 +8,20 @@
 
 Todo:
 
-- Get Dranil Kir blob
-- Get Silitar blob
-- Get Earth Forge blob
-- Get Fort Grief blob
-- Add Arcane University battleground blob in cyrodiil zone
-- Get Breaux to draw IC sewers aurbis circle and give me blob
-
-
 Things that need to be done before release:
 
-- Fixed Aurbis tamriel blob
->> Aurbis Tamriel needs waves as well
+- Do a once over of all zone descriptions with breaux so that she's happy with them
+- add Systres blobs and stuff to the map
+- Fix the Aurbis tamriel blob - mismatches with what is there currently
+>> Aurbis Tamriel is missing its waves as well
 - Fix Aurbis rings not containing their proper text
 
 - Fix Eltheric Ocean ring not being the correct colour, and looking werid
 >> Eltheric Ocean map ring should be blackreach ring coloured, with a ship icon
 >> Ring back to Tamriel should be an aurbis-themed smaller version of tamriel inside the ring, with waves
 (like https://cdn.discordapp.com/attachments/806672739057664034/974778491373518868/unknown.png)
+>> also note that the aurbis circle rings seem to be semitransparent - the western skyrim one has a slight blue tint as its in the sea
+
 
 - Fix player location being incorrect (and also group pins)
 - Add Eltheric ocean map properly with High isle wayshrines
@@ -36,13 +32,65 @@ Things that need to be done before release:
 >> Arcane University
 >> The Earth Forge (Reach)
 >> Sword's Rest Isle
+>> Arcane University
 
-- Add option to customise wayshrines on world map
-  
+- Add option to customise wayshrines on world map 
+
+Breaux said she would look into:
+
+- sort out W.Skyrim's outline situation (as per carto club)
+- fix castle volikhar
+
+
+After release:
+
+- Add IC Sewers circle to IC map and get blob
+- Rotate IC on the cyrodiil map 45 degrees to be consistent with oblivion (edit the tiles)
+https://cdn.discordapp.com/attachments/806672739057664034/975049286305861672/unknown.png
+- Remove Dragonhold from S.E map by editing the tiles again (Add as option to remove dragonhold from zone map)
 
 
 
 Move player marker brainstorming:
+
+then i'd need to override GetUniversallyNormalizedMapInfo and then use libgps to fix the position?
+override getmapplayerposition and override with the output from libgps, where it thinks the player should be
+
+what i am understanding is that libgps uses GetUniversallyNormalizedMapInfo and some magic to convert local coordinates to global, in vanilla these coordinates are the same and match up
+if i override GetUniversallyNormalizedMapInfo then that would affect libgps' local to global and thus shift where it would think the global position is
+then i could use output of that to override GetMapPlayerPosition() for pins
+
+  that's what i'm saying.. in vanilla, a local to global call will result in where the player marker actually is on the tamriel map
+if a user is in 0.5, 0.5 in eastmarch, then local to global will give that location in the tamriel world map
+the issue is, it gives the location according to the (vanilla) world map
+which would be wrong in my addon, my eastmarch is shifted about 4cm to the left of where it is in vanilla
+
+exactly, so when i override GetUniversallyNormalizedMapInfo with my addon's zone info, libgps will return the correct position on the world map for my addon
+it would effectively give me the moved player marker's position
+and i could then use that output of local-to-global to pipe into overriding GetMapPlayerPosition to force it to move to where it should be, visually
+
+use GetUniversallyNormalizedMapInfo()
+
+local originalCreatePin = ZO_WorldMapPins.CreatePin
+ZO_WorldMapPins.CreatePin = function(self, pinType, pinTag, xLoc, yLoc, radius, borderInformation, ...)
+    xLoc, yLoc = ApplyMyTransformation(xLoc, yLoc)
+    return originalCreatePin(self, pinType, pinTag, xLoc, yLoc, radius, borderInformation, ...)
+end
+
+https://github.com/esoui/esoui/blob/master/esoui/ingame/map/mappin.lua#L2870
+
+function ZO_MapPin:SetLocation(xLoc, yLoc, radius, borderInformation)
+
+that function is called whenever pins are created or updated
+so likely the best place for the transform. you can access the pinType via self:GetPinType() too, in order to filter any pins you do not want to adjust
+
+
+that might work. are group players and companions counted as MAP_PIN_TYPE_PLAYER ?
+sirinsidiator (sirinsidiator)
+no, I believe they are separate types like MAP_PIN_TYPE_GROUPand MAP_PIN_TYPE_ACTIVE_COMPANION
+but the type should not really matter for you, since you want to transform any pin?
+
+you could check for MAP_PIN_TYPE_FAST_TRAVEL_WAYSHRINE and don't apply transformations in that case?
 
 - can make a function to find the furthest left-upmost point from zone hitbox polygon, and same for right bottommost one
 - that counts as the zone's player marker square area
@@ -68,21 +116,15 @@ all player and companions use the GetMapPlayerPosition function, so if you overr
 keep isShownInCurrentMap unless some override is checked
 
 
-
-
 Interesting events to consider:
 
 
-* EVENT_ZONE_CHANGED (*string* _zoneName_, *string* _subZoneName_, *bool* _newSubzone_, *integer* _zoneId_, *integer* _subZoneId_)
 * EVENT_GROUP_TYPE_CHANGED (*bool* _largeGroup_)
 * EVENT_GROUP_UPDATE
 * EVENT_GROUP_MEMBER_JOINED (*string* _memberCharacterName_, *string* _memberDisplayName_, *bool* _isLocalPlayer_)
 * EVENT_GROUP_MEMBER_LEFT (*string* _memberCharacterName_, *[GroupLeaveReason|#GroupLeaveReason]* _reason_, *bool* _isLocalPlayer_, *bool* _isLeader_, *string* _memberDisplayName_, *bool* _actionRequiredVote_)
 * EVENT_GROUP_MEMBER_ROLE_CHANGED (*string* _unitTag_, *[LFGRole|#LFGRole]* _newRole_)
 * EVENT_GROUP_MEMBER_SUBZONE_CHANGED
-
-* EVENT_GLOBAL_MOUSE_DOWN (*[MouseButtonIndex|#MouseButtonIndex]* _button_, *bool* _ctrl_, *bool* _alt_, *bool* _shift_, *bool* _command_)
-* EVENT_GLOBAL_MOUSE_UP (*[MouseButtonIndex|#MouseButtonIndex]* _button_, *bool* _ctrl_, *bool* _alt_, *bool* _shift_, *bool* _command_)
 
 ---------------------------------------------------------------------------]]--
 -- Create root addon object
@@ -99,6 +141,7 @@ AccurateWorldMap.defaults = {
   mapStyle = "Vanilla",
   worldMapWayshrines = "Default (All)",
   hideIconGlow = false,
+  movePlayerIcons = false,
 }
 
 -------------------------------------------------------------------------------
@@ -151,7 +194,7 @@ local mapDimensions = 4096 -- px
 function AccurateWorldMap.GetMapTileTexture(index)
     local tex = _GetMapTileTexture(index)
 
-    if (GetCurrentMapIndex() == 1) or getCurrentZoneID() == 315 then
+    if (GetCurrentMapIndex() == 1) or getCurrentMapID() == 315 then
       for i = 1, 16 do
         if tamriel_tiles[i] == tex then
           ---- Replace certain tiles if you are on live server and have spoilers enabled
@@ -173,12 +216,6 @@ function AccurateWorldMap.GetMapTileTexture(index)
     
     return tex
 end
-
-local _GetMapCustomMaxZoom = GetMapCustomMaxZoom
-
-
-
-    
 
 
 local function onMousePressed()
@@ -323,18 +360,6 @@ local function main()
 
   end
 end
-
-
-
-function AccurateWorldMap.GetMapCustomMaxZoom()
-    if not enabled then return _GetMapCustomMaxZoom() end
-    if GetMapName() == "Tamriel" then
-        return 3
-    else
-        return _GetMapCustomMaxZoom()
-    end
-end
-
 
 
 local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
@@ -592,7 +617,7 @@ local function onZoneChanged()
 
   AWM_MouseOverGrungeTex:SetHidden(true)
 
-  local mapIndex = getCurrentZoneID()
+  local mapIndex = getCurrentMapID()
 
   if (mapIndex ~= nil) then
 
@@ -687,7 +712,6 @@ local function initialise(event, addonName)
   SLASH_COMMANDS["/set_map_to"] = navigateToMap
   
   GetMapTileTexture = AccurateWorldMap.GetMapTileTexture
-  GetMapCustomMaxZoom = AccurateWorldMap.GetMapCustomMaxZoom
 
   -- register LAM settings
   local panelName = "AccurateWorldMapSettings"
@@ -759,10 +783,10 @@ end)
 ZO_PreHook("ZO_WorldMap_MouseUp", function(mapControl, mouseButton, upInside)
 
   if (mouseButton == MOUSE_BUTTON_INDEX_RIGHT and upInside) then
-    if (mapData[getCurrentZoneID()] ~= nil) then
-      if (mapData[getCurrentZoneID()].parentMapID ~= nil) then
+    if (mapData[getCurrentMapID()] ~= nil) then
+      if (mapData[getCurrentMapID()].parentMapID ~= nil) then
 
-        navigateToMap(mapData[getCurrentZoneID()].parentMapID)
+        navigateToMap(mapData[getCurrentMapID()].parentMapID)
 
         return true
       end
@@ -782,7 +806,7 @@ end)
 local zos_GetMapMouseoverInfo = GetMapMouseoverInfo
 GetMapMouseoverInfo = function(xN, yN)
 
-  local mapIndex = getCurrentZoneID()
+  local mapIndex = getCurrentMapID()
 
   -- invisible blank default mouseover data
   local locationName = ""
@@ -844,7 +868,7 @@ GetFastTravelNodeInfo = function(nodeIndex)
         d(" ")
   end
 
-  local mapIndex = getCurrentZoneID()
+  local mapIndex = getCurrentMapID()
 
   if (AccurateWorldMap.options.hideIconGlow) then
 
