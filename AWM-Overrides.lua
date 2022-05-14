@@ -80,3 +80,30 @@ GetMapCustomMaxZoom = function()
     return zos_GetMapCustomMaxZoom()
   end
 end
+
+
+
+local zos_GetPOIMapInfo = GetPOIMapInfo
+GetPOIMapInfo = function(zoneIndex, poiIndex)
+
+  local normalisedX, normalisedZ, poiPinType, icon, isShownInCurrentMap, linkedCollectibleIsLocked, isDiscovered, isNearby = zos_GetPOIMapInfo(zoneIndex, poiIndex)
+
+  if (getCurrentMapID() == 1719) then
+
+    if (string.match(icon, "poi_raiddungeon_")) then
+      isShownInCurrentMap = false
+      isNearby = false
+      icon = nil
+    end
+
+
+  end
+
+
+  return normalisedX, normalisedZ, poiPinType, icon, isShownInCurrentMap, linkedCollectibleIsLocked, isDiscovered, isNearby
+  
+  
+end
+
+
+
