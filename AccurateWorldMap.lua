@@ -733,12 +733,6 @@ CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", onZoneChanged)
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapShown", onWorldMapDrawn)
 
 
--- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
--- ██░▄▄▄░██░▄▄▄░██░▄▄▄░████░▄▄▄██░██░██░▀██░██░▄▄▀█▄▄░▄▄█▄░▄██░▄▄▄░██░▀██░██░▄▄▄░██
--- ██▀▀▀▄▄██░███░██▄▄▄▀▀████░▄▄███░██░██░█░█░██░██████░████░███░███░██░█░█░██▄▄▄▀▀██
--- ██░▀▀▀░██░▀▀▀░██░▀▀▀░████░█████▄▀▀▄██░██▄░██░▀▀▄███░███▀░▀██░▀▀▀░██░██▄░██░▀▀▀░██
--- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
-
 -------------------------------------------------------------------------------
 -- Process map click function
 -------------------------------------------------------------------------------
@@ -769,29 +763,6 @@ ZO_PreHook("ProcessMapClick", function(xN, yN)
     return true
   end
 
-end)
-
--------------------------------------------------------------------------------
--- ZOS WorldMap MouseUp event
--------------------------------------------------------------------------------
-
--- Override the function called when user releases a mouse button on the worldmap
--- so that we can intercept and redirect the user to a custom parent map if available
-
--------------------------------------------------------------------------------
-
-ZO_PreHook("ZO_WorldMap_MouseUp", function(mapControl, mouseButton, upInside)
-
-  if (mouseButton == MOUSE_BUTTON_INDEX_RIGHT and upInside) then
-    if (mapData[getCurrentMapID()] ~= nil) then
-      if (mapData[getCurrentMapID()].parentMapID ~= nil) then
-
-        navigateToMap(mapData[getCurrentMapID()].parentMapID)
-
-        return true
-      end
-    end
-  end
 end)
 
 -------------------------------------------------------------------------------
@@ -849,74 +820,3 @@ GetMapMouseoverInfo = function(xN, yN)
 end
 
 
--------------------------------------------------------------------------------
--- ZOS get fast travel node info function
--------------------------------------------------------------------------------
-
--- Controls placement, display, and location of wayshrine/dungeon/house icons.
--- We override it to stream in our custom data.
-
--------------------------------------------------------------------------------
-
-local zos_GetFastTravelNodeInfo = GetFastTravelNodeInfo    
-GetFastTravelNodeInfo = function(nodeIndex)
-  local known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked, disabled = zos_GetFastTravelNodeInfo(nodeIndex)
-
-  if AccurateWorldMap.options.isDebug == true then
-        d("Current Node: "..nodeIndex)
-        d("Name: "..name)
-        d(" ")
-  end
-
-  local mapIndex = getCurrentMapID()
-
-  if (AccurateWorldMap.options.hideIconGlow) then
-
-    glowIcon = nil
-
-  end
-
-
-  
-
-
-  if (mapData[mapIndex] ~= nil) then
-
-    if (mapData[mapIndex][nodeIndex] ~= nil) then
-
-      local zoneData = mapData[mapIndex]
-
-      if (zoneData[nodeIndex] ~= nil) then 
-
-
-        if zoneData[nodeIndex].xN ~= nil then
-          normalizedX = zoneData[nodeIndex].xN
-        end
-
-        if zoneData[nodeIndex].yN ~= nil then
-          normalizedY = zoneData[nodeIndex].yN
-        end
-
-        if (zoneData[nodeIndex].name ~= nil and AccurateWorldMap.options.loreRenames) then
-          name = zoneData[nodeIndex].name
-        end
-
-        if zoneData[nodeIndex].disabled ~= nil then
-
-          if (zoneData[nodeIndex].disabled) then
-
-            isLocatedInCurrentMap = false
-            disabled = true
-
-          else
-
-            isLocatedInCurrentMap = true
-            disabled = false
-
-          end
-        end
-      end
-    end
-  end
-  return known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked, disabled
-end

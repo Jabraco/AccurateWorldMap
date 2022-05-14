@@ -81,7 +81,7 @@ mapData = {
     [392] = { xN = 0.547, yN = 0.286 }, -- Frostvault Chasm House
     [389] = { xN = 0.548, yN = 0.284 }, -- Frostvault Dungeon
     [312] = { xN = 0.582, yN = 0.264 }, -- Grymhearth's Woe House
-    [87] = { xN = 0.578, yN = 0.264 }, -- Windhelm Wayshrine
+    [87] = { xN = 0.578, yN = 0.264, majorCity = true }, -- Windhelm Wayshrine
     [94] = { xN = 0.576, yN = 0.324 }, -- Mistwatch Wayshrine
     [195] = { xN = 0.610, yN = 0.328 }, -- Direfrost Keep Dungeon
     [92] = { xN = 0.539, yN = 0.310 }, -- Fort Amol Wayshrine
@@ -2390,7 +2390,6 @@ mapData = {
         { xN = 0.053, yN = 0.582 },           
       }
     }),
-
   },
 
   [315] = { -- Eltheric Ocean Map
@@ -2841,7 +2840,7 @@ AccurateWorldMap.optionsData = {
   },
   {
     type = "description",
-    text = "Don't use this unless you know what you're doing.",
+    text = "Don't use these unless you know what you're doing.",
     width = "full",
   },
   {
