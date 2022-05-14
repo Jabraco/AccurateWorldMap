@@ -710,6 +710,7 @@ local function initialise(event, addonName)
   SLASH_COMMANDS["/record_polygon"] = recordPolygon
   SLASH_COMMANDS["/get_blobs"] = getBlobTextureDetails
   SLASH_COMMANDS["/set_map_to"] = navigateToMap
+  SLASH_COMMANDS["/awm_debug"] = function() AccurateWorldMap.options.isDebug = not AccurateWorldMap.options.isDebug navigateToMap(getCurrentMapID()) end
   
   GetMapTileTexture = AccurateWorldMap.GetMapTileTexture
 

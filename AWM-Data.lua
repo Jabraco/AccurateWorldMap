@@ -70,21 +70,21 @@ mapData = {
     }),
 
     -- Eastmarch --
-    [88] = { xN = 0.559, yN = 0.287 }, -- Fort Morvunskar Wayshrine
+    [88] = { xN = 0.559, yN = 0.287, majorSettlement = true }, -- Fort Morvunskar Wayshrine
     [90] = { xN = 0.565, yN = 0.274 }, -- Voljar Meadery Wayshrine
     [89] = { xN = 0.575, yN = 0.283 }, -- Kynesgrove Wayshrine
     [93] = { xN = 0.569, yN = 0.308 }, -- Wittestadr Wayshrine
     [97] = { xN = 0.608, yN = 0.306 }, -- Skuldafn Wayshrine
     [96] = { xN = 0.592, yN = 0.308 }, -- Logging Camp Wayshrine
-    [95] = { xN = 0.601, yN = 0.314 }, -- Jorunn's Stand Wayshrine
-    [91] = { xN = 0.541, yN = 0.289 }, -- Cradlecrush Wayshrine
+    [95] = { xN = 0.601, yN = 0.314, majorSettlement = true }, -- Jorunn's Stand Wayshrine
+    [91] = { xN = 0.541, yN = 0.289, majorSettlement = true }, -- Cradlecrush Wayshrine
     [392] = { xN = 0.547, yN = 0.286 }, -- Frostvault Chasm House
     [389] = { xN = 0.548, yN = 0.284 }, -- Frostvault Dungeon
     [312] = { xN = 0.582, yN = 0.264 }, -- Grymhearth's Woe House
-    [87] = { xN = 0.578, yN = 0.264, majorCity = true }, -- Windhelm Wayshrine
-    [94] = { xN = 0.576, yN = 0.324 }, -- Mistwatch Wayshrine
+    [87] = { xN = 0.578, yN = 0.264, majorSettlement = true }, -- Windhelm Wayshrine
+    [94] = { xN = 0.576, yN = 0.324, majorSettlement = true }, -- Mistwatch Wayshrine
     [195] = { xN = 0.610, yN = 0.328 }, -- Direfrost Keep Dungeon
-    [92] = { xN = 0.539, yN = 0.310 }, -- Fort Amol Wayshrine
+    [92] = { xN = 0.539, yN = 0.310, majorSettlement = true }, -- Fort Amol Wayshrine
     [380] = { xN = 0.577, yN = 0.281 }, -- Enchanted Snow Globe Home
 
     zoneData = join({
@@ -142,18 +142,18 @@ mapData = {
     [119] = { xN = 0.556, yN = 0.361 }, -- Ragged Hills Wayshrine
     [115] = { xN = 0.580, yN = 0.343 }, -- Northwind Mine Wayshrine 
     [301] = { xN = 0.552, yN = 0.346 }, -- Autumn's Gate House 
-    [114] = { xN = 0.598, yN = 0.341 }, -- Fallowstone Hall Wayshrine 
+    [114] = { xN = 0.598, yN = 0.341, majorSettlement = true }, -- Fallowstone Hall Wayshrine 
     [372] = { xN = 0.611, yN = 0.356 }, -- Hunter's Glade House 
-    [118] = { xN = 0.549, yN = 0.354 }, -- Nimalten Wayshrine
-    [116] = { xN = 0.541, yN = 0.337 }, -- Geirmund's Hall Wayshrine 
+    [118] = { xN = 0.549, yN = 0.354, majorSettlement = true }, -- Nimalten Wayshrine
+    [116] = { xN = 0.541, yN = 0.337, majorSettlement = true }, -- Geirmund's Hall Wayshrine 
     [117] = { xN = 0.538, yN = 0.353 }, -- Taarengrav Wayshrine
     [113] = { xN = 0.571, yN = 0.367 }, -- Honrich Tower Wayshrine
     [110] = { xN = 0.599, yN = 0.371 }, -- Skald's Retreat Wayshrine
     [322] = { xN = 0.610, yN = 0.372 }, -- Old Mistveil Manor House 
-    [109] = { xN = 0.607, yN = 0.363 }, -- Riften Wayshrine
+    [109] = { xN = 0.607, yN = 0.363, majorSettlement = true }, -- Riften Wayshrine
     [112] = { xN = 0.608, yN = 0.396 }, -- Trollhetta Summit Wayshrine 
     [111] = { xN = 0.616, yN = 0.385 }, -- Trollhetta Wayshrine
-    [120] = { xN = 0.620, yN = 0.373 }, -- Fullhelm Fort Wayshrine
+    [120] = { xN = 0.620, yN = 0.373, majorSettlement = true }, -- Fullhelm Fort Wayshrine
     [187] = { xN = 0.627, yN = 0.379 }, -- Blessed Crucible Dungeon
 
     zoneData = join({
@@ -206,6 +206,11 @@ mapData = {
     -- Western Skyrim --
     [424] = { xN = 0.404, yN = 0.157 }, -- Icereach Dungeon
     [434] = { xN = 0.408, yN = 0.186 }, -- Kyne's Aegis Trial
+    [418] = { majorSettlement = true }, -- Dragon Bridge Wayshrine
+    [417] = { majorSettlement = true }, -- Mor Khazgur Wayshrine
+    [416] = { majorSettlement = true }, -- Morthal Wayshrine
+    [421] = { majorSettlement = true }, -- Solitude Wayshrine
+    [419] = { majorSettlement = true }, -- Southern Watch Wayshrine
 
     zoneData = join({
       zoneName = "Western Skyrim",
@@ -303,8 +308,10 @@ mapData = {
     }),
 
     -- The Reach --
-    [445] = { xN = 0.377, yN = 0.270 }, -- Karthwasten Wayshrine
+    [445] = { xN = 0.377, yN = 0.270, majorSettlement = true }, -- Karthwasten Wayshrine
     [221] = { xN = 0.336, yN = 0.278, disabled = false, name = "The Earth Forge Wayshrine" }, -- The Earth Forge Wayshrine
+    [449] = { majorSettlement = true }, -- Markarth Wayshrine
+    [447] = { majorSettlement = true }, -- Rebel's Retreat Wayshrine
 
     zoneData = join({
       zoneName = "The Reach",
@@ -1098,8 +1105,8 @@ mapData = {
     }),
 
     -- Hew's Bane --
-    [255] = { xN = 0.261, yN = 0.500 }, -- Abah's Landing Wayshrine
-    [257] = { xN = 0.263, yN = 0.524 }, -- No Shira Citadel Wayshrine 
+    [255] = { xN = 0.261, yN = 0.500, majorSettlement = true }, -- Abah's Landing Wayshrine
+    [257] = { xN = 0.263, yN = 0.524, majorSettlement = true }, -- No Shira Citadel Wayshrine 
     [256] = { xN = 0.250, yN = 0.510 }, -- Zeht's Displeasure Wayshrine 
 
     zoneData = join({
@@ -2170,18 +2177,18 @@ mapData = {
     [369] = { xN = 0.131, yN = 0.627 }, -- Veyond Wyte Wayshrine 
     [349] = { xN = 0.157, yN = 0.660 }, -- King's Haven Pass Wayshrine 
     [359] = { xN = 0.164, yN = 0.688 }, -- Eldbur Ruins Wayshrine
-    [350] = { xN = 0.166, yN = 0.715 }, -- Shimmerene Wayshrine 
+    [350] = { xN = 0.166, yN = 0.715, majorSettlement = true }, -- Shimmerene Wayshrine 
     [351] = { xN = 0.195, yN = 0.748 }, -- Sil-Var-Woad Wayshrine 
     [357] = { xN = 0.182, yN = 0.768 }, -- Eastern Pass Wayshrine
-    [365] = { xN = 0.143, yN = 0.782 }, -- Sunhold Wayshrine
+    [365] = { xN = 0.143, yN = 0.782, majorSettlement = true }, -- Sunhold Wayshrine
     [352] = { xN = 0.132, yN = 0.714 }, -- Russafield Heights Wayshrine
     [364] = { xN = 0.134, yN = 0.679 }, -- Cloudrest Trial
     [358] = { xN = 0.090, yN = 0.656 }, -- Crystal Tower Wayshrine
     [354] = { xN = 0.104, yN = 0.687 }, -- Ebon Stadmont Wayshrine
-    [356] = { xN = 0.058, yN = 0.703 }, -- Lilandril Wayshrine
+    [356] = { xN = 0.058, yN = 0.703, majorSettlement = true }, -- Lilandril Wayshrine
     [353] = { xN = 0.093, yN = 0.729 }, -- Cey-Tarn Keep Wayshrine
     [366] = { xN = 0.090, yN = 0.747 }, -- Golden Gryphon Garret House
-    [355] = { xN = 0.094, yN = 0.757 }, -- Alinor Wayshrine
+    [355] = { xN = 0.094, yN = 0.757, majorSettlement = true }, -- Alinor Wayshrine
     [367] = { xN = 0.089, yN = 0.760 }, -- Alinor Crest Townhouse 
     [368] = { xN = 0.177, yN = 0.797 }, -- Colossal Aldmeri Grotto
     [497] = { xN = 0.160, yN = 0.636 }, -- Coral Aerie Dungeon
@@ -2327,7 +2334,7 @@ mapData = {
     }),
     
     -- Eyevea --
-    [215] = { xN = 0.070, yN = 0.600, disabled = false, name = "Eyevea Wayshrine" }, -- Eyevea Wayshrine
+    [215] = { xN = 0.070, yN = 0.600, disabled = false, name = "Eyevea Wayshrine", majorSettlement = true }, -- Eyevea Wayshrine
 
     zoneData = join({
       zoneName = "Eyevea",
@@ -2820,7 +2827,7 @@ AccurateWorldMap.optionsData = {
     type = "dropdown",
     name = "World Map Wayshrines",
     tooltip = "Choose how to display wayshrines, trials, and dungeons on the world map.",
-    choices = {"Default (All)", "Only Major Cities", "None"},
+    choices = {"Default (All)", "Only Major Settlements", "None"},
     getFunc = function() return AccurateWorldMap.options.worldMapWayshrines end,
     setFunc = function(value) AccurateWorldMap.options.worldMapWayshrines = value end,
   },

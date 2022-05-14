@@ -121,9 +121,9 @@ GetFastTravelNodeInfo = function(nodeIndex)
 
   end
 
-  if (getCurrentZoneInfo().isWorldMap) then
+  if (getCurrentZoneInfo() ~= nil and getCurrentZoneInfo().isWorldMap) then
 
-    if (AccurateWorldMap.options.worldMapWayshrines == "None" or AccurateWorldMap.options.worldMapWayshrines == "Only Major Cities") then
+    if (AccurateWorldMap.options.worldMapWayshrines == "None" or AccurateWorldMap.options.worldMapWayshrines == "Only Major Settlements") then
 
       isLocatedInCurrentMap = false
       disabled = true
@@ -132,7 +132,7 @@ GetFastTravelNodeInfo = function(nodeIndex)
 
     if (mapData[mapIndex] ~= nil and mapData[mapIndex][nodeIndex] ~= nil) then
 
-      if (mapData[mapIndex][nodeIndex].majorCity ~= nil) then
+      if (mapData[mapIndex][nodeIndex].majorSettlement ~= nil) then
 
         isLocatedInCurrentMap = true
         disabled = false
