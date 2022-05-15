@@ -10,6 +10,7 @@ Todo:
 
 Things that need to be done before release:
 
+- Sort out K&M and gamepad desc grunge, get breaux to make new textures for both
 - Do a once over of all zone descriptions with breaux so that she's happy with them
 - add Systres blobs and stuff to the map
 - Fix the Aurbis tamriel blob - mismatches with what is there currently
@@ -139,7 +140,7 @@ AccurateWorldMap.defaults = {
   zoneDescriptions = false,
   loreRenames = true,
   mapStyle = "Vanilla",
-  worldMapWayshrines = "Default (All)",
+  worldMapWayshrines = "All (Default)",
   hideIconGlow = false,
   movePlayerIcons = false,
 }

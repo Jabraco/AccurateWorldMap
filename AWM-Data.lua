@@ -1298,6 +1298,10 @@ mapData = {
     }),
 
     -- Stonefalls --
+    [76] = { majorSettlement = true }, -- Kragenmoor Wayshrine
+    [67] = { majorSettlement = true }, -- Ebonheart Wayshrine
+    [65] = { majorSettlement = true }, -- Davon's Watch Wayshrine
+
     zoneData = join({
       zoneName = "Stonefalls",
       zoneDescription = "This ashy region of Morrowind known as Stonefalls was where the recent invading army from Akavir met its bloody end.",
@@ -1366,7 +1370,6 @@ mapData = {
 
     -- Bal Foyen --
     [173] = { majorSettlement = true }, -- Dhalmora Wayshrine
-    [125] = { majorSettlement = true }, -- Fort Zeren Wayshrine
 
     zoneData = join({
       zoneName = "Bal Foyen",
@@ -1395,6 +1398,10 @@ mapData = {
     }),
 
     -- Deshaan --
+    [79] = { majorSettlement = true }, -- Selfora Wayshrine
+    [28] = { majorSettlement = true }, -- Mournhold Wayshrine
+    [24] = { majorSettlement = true }, -- West Narsis Wayshrine
+
     zoneData = join({
       zoneName = "Deshaan",
       zoneDescription = "The fertile valleys of Deshaan are home to lush fungal forests, deep kwama mines, and broad pastures where netches and guar graze.",
@@ -1505,12 +1512,13 @@ mapData = {
     }),
 
     -- Murkmire --
-    [376] = { xN = 0.703, yN = 0.754 }, -- Dead-Water Wayshrine 
+    [376] = { xN = 0.703, yN = 0.754, majorSettlement = true }, -- Dead-Water Wayshrine 
     [378] = { xN = 0.712, yN = 0.769 }, -- Blackrose Prison Dungeon
     [379] = { xN = 0.725, yN = 0.780 }, -- Blackrose Prison Wayshrine 
-    [375] = { xN = 0.755, yN = 0.782 }, -- Bright-Throat Wayshrine 
+    [375] = { xN = 0.755, yN = 0.782, majorSettlement = true }, -- Bright-Throat Wayshrine 
     [377] = { xN = 0.758, yN = 0.739 }, -- Root-Whisper Wayshrine
     [388] = { xN = 0.724, yN = 0.735 }, -- Lakemire Xanmeer Manor House 
+    [374] = { majorSettlement = true }, -- Lilmoth Wayshrine
 
     zoneData = join({
       zoneName = "Murkmire",
@@ -1587,13 +1595,13 @@ mapData = {
 
     -- Blackwood --
     [462] = { xN = 0.671, yN = 0.631 }, -- Bloodrun Wayshrine 
-    [483] = { xN = 0.673, yN = 0.657 }, -- Hutan-Tzel Wayshrine
-    [459] = { xN = 0.654, yN = 0.680 }, -- Gideon Wayshrine 
-    [464] = { xN = 0.662, yN = 0.721 }, -- Stonewastes Wayshrine
+    [483] = { xN = 0.673, yN = 0.657, majorSettlement = true }, -- Hutan-Tzel Wayshrine
+    [459] = { xN = 0.654, yN = 0.680, majorSettlement = true }, -- Gideon Wayshrine 
+    [464] = { xN = 0.662, yN = 0.721, majorSettlement = true }, -- Stonewastes Wayshrine
     [484] = { xN = 0.688, yN = 0.714 }, -- Vunalk Wayshrine
     [468] = { xN = 0.684, yN = 0.742 }, -- Rockgrove Trial
     [473] = { xN = 0.687, yN = 0.624 }, -- Pantherfang Chapel House 
-    [458] = { xN = 0.597, yN = 0.685 }, -- Leyawiin Wayshrine 
+    [458] = { xN = 0.597, yN = 0.685, majorSettlement = true }, -- Leyawiin Wayshrine 
     [467] = { xN = 0.601, yN = 0.677 }, -- Leyawin Outskirts Wayshrine
     [471] = { xN = 0.600, yN = 0.683 }, -- Pilgrim's Rest House 
     [469] = { xN = 0.664, yN = 0.610 }, -- The Dread Cellar Dungeon 
@@ -1688,6 +1696,11 @@ mapData = {
     -- ctrl + f aid: elsweyr
 
     -- Northern Elsweyr --
+    [383] = { majorSettlement = true }, -- The Stitches Wayshrine
+    [381] = { majorSettlement = true }, -- Riverhold Wayshrine Wayshrine
+    [382] = { majorSettlement = true }, -- Rimmen Wayshrine
+    [387] = { majorSettlement = true }, -- Hakoshae Wayshrine
+
     zoneData = join({
       zoneName = "Anequina",
       zoneDescription = "The region of Anequina derives its name from the dusty Ne-Quin-Al desert, which lies in its heart.",
@@ -1755,7 +1768,9 @@ mapData = {
     }),
 
     -- Southern Elsweyr --
-    [407] = { xN = 0.614, yN = 0.790 }, -- Dragonguard Sanctum Wayshrine
+    [407] = { xN = 0.614, yN = 0.790, majorSettlement = true }, -- Dragonguard Sanctum Wayshrine
+    [405] = { majorSettlement = true }, -- Black Heights Wayshrine
+    [402] = { majorSettlement = true }, -- Senchal Wayshrine
 
     zoneData = join({
       zoneName = "Quin'rawl",
@@ -1816,6 +1831,9 @@ mapData = {
       }
     }),
 
+    -- Khenarthi's Roost --
+    [142] = { majorSettlement = true }, -- Mistral Wayshrine
+
     zoneData = join({
       zoneName = "Khenarthi's Roost",
       zoneDescription = "This island off the southern coast of Elsweyr is named after the Khajiiti goddess of weather and the sky, who is usually represented as a great hawk.",
@@ -1848,13 +1866,16 @@ mapData = {
     -- ctrl + f aid: valenwood
     
     -- Reapers March --
-    [158] = { xN = 0.461, yN = 0.564 }, -- Arenthia Wayshrine
+    [158] = { xN = 0.461, yN = 0.564, majorSettlement = true }, -- Arenthia Wayshrine
     [156] = { xN = 0.436, yN = 0.569 }, -- Fort Grimwatch Wayshrine
     [144] = { xN = 0.420, yN = 0.600 }, -- Vinedusk Wayshrine
     [157] = { xN = 0.481, yN = 0.569 }, -- Fort Sphinxmoth Wayshrine
     [371] = { xN = 0.450, yN = 0.560 }, -- Moon Hunter Keep Dungeon
     [321] = { xN = 0.483, yN = 0.579 }, -- Dawnshadow House
     [320] = { xN = 0.472, yN = 0.560 }, -- Strident Springs Demesne House
+    [162] = { majorSettlement = true }, -- Rawl'kha Wayshrine
+    [159] = { majorSettlement = true }, -- Dune Wayshrine
+    [163] = { majorSettlement = true }, -- S'ren-ja Wayshrine
 
     zoneData = join({
       zoneName = "Reaper's March",
@@ -1935,6 +1956,12 @@ mapData = {
 
     -- Grahtwood --
     [398] = { xN = 0.463, yN = 0.717 }, -- Lair of Maarselok Dungeon 
+    [166] = { majorSettlement = true }, -- Redfur Trading Post Wayshrine
+    [168] = { majorSettlement = true }, -- Cormount Wayshrine
+    [214] = { majorSettlement = true }, -- Elden Root Wayshrine
+    [164] = { majorSettlement = true }, -- Gilvardale Wayshrine
+    [167] = { majorSettlement = true }, -- Southpoint Wayshrine
+    [165] = { majorSettlement = true }, -- Haven Wayshrine
 
     zoneData = join({
       zoneName = "Grahtwood",
@@ -2014,7 +2041,10 @@ mapData = {
     }),
 
     -- Malabal Tor -- 
-    [106] = { name = "Baandari Trading Post Wayshrine" }, -- Baandari Trading Post Wayshrine
+    [106] = { name = "Baandari Trading Post Wayshrine", majorSettlement = true }, -- Baandari Trading Post Wayshrine
+    [107] = { majorSettlement = true }, -- Valeguard Wayshrine
+    [100] = { majorSettlement = true }, -- Vulkwasten Wayshrine
+    [102] = { xN = 0.308, yN = 0.627, majorSettlement = true }, -- Velyn Harbour Wayshrine
 
     zoneData = join({
       zoneName = "Malabal Tor",
@@ -2108,6 +2138,9 @@ mapData = {
     -- Greenshade --
     [197] = { xN = 0.356, yN = 0.674 }, -- City of Ash I Dungeon
     [268] = { xN = 0.356, yN = 0.674 }, -- City of Ash II Dungeon 
+    [147] = { majorSettlement = true }, -- Greenheart Wayshrine
+    [143] = { majorSettlement = true }, -- Marbruk Wayshrine
+    [152] = { majorSettlement = true }, -- Woodhearth Wayshrine
 
     zoneData = join({
       zoneName = "Greenshade",
@@ -2833,13 +2866,12 @@ AccurateWorldMap.optionsData = {
   -- },
   {
     type = "dropdown",
-    name = "World Map Wayshrines",
-    tooltip = "Choose how to display wayshrines, trials, and dungeons on the world map.",
-    choices = {"Default (All)", "Only Major Settlements", "None"},
+    name = "Icons on World Map",
+    tooltip = "Choose how to display icons on the world map.",
+    choices = {"All (Default)", "Only Major Settlements", "None"},
     getFunc = function() return AccurateWorldMap.options.worldMapWayshrines end,
     setFunc = function(value) AccurateWorldMap.options.worldMapWayshrines = value end,
   },
-
   {
     type = "checkbox",
     name = "Hide Icon Glow",

@@ -132,7 +132,7 @@ GetFastTravelNodeInfo = function(nodeIndex)
 
     if (mapData[mapIndex] ~= nil and mapData[mapIndex][nodeIndex] ~= nil) then
 
-      if (mapData[mapIndex][nodeIndex].majorSettlement ~= nil) then
+      if (mapData[mapIndex][nodeIndex].majorSettlement ~= nil and AccurateWorldMap.options.worldMapWayshrines == "Only Major Settlements") then
 
         isLocatedInCurrentMap = true
         disabled = false
