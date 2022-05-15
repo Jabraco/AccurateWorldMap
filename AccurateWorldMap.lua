@@ -35,8 +35,6 @@ Things that need to be done before release:
 >> Sword's Rest Isle
 >> Arcane University
 
-- Add option to customise wayshrines on world map 
-
 Breaux said she would look into:
 
 - sort out W.Skyrim's outline situation (as per carto club)

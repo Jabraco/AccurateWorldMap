@@ -220,13 +220,10 @@ GetMapTileTexture = function(tileIndex)
 
   local tileTexture = zos_GetMapTileTexture(tileIndex)
 
-
   if (tileIndex ~= nil) then
 
     if (getCurrentMapID() == 439) then
-
       return "AccurateWorldMap/tiles/" .. "Aurbis_" .. tileIndex .. ".dds"
-  
     end
 
     if (getCurrentZoneInfo() ~= nil and getCurrentZoneInfo().customTileName ~= nil) then
@@ -239,7 +236,6 @@ GetMapTileTexture = function(tileIndex)
       return "AccurateWorldMap/tiles/" .. getCurrentZoneInfo().customTileName .. "_" .. tileIndex .. ".dds"
   
     end
-
   end
   
   return tileTexture
