@@ -210,4 +210,37 @@ ZO_MapPin.TOOLTIP_CREATORS[MAP_PIN_TYPE_FAST_TRAVEL_WAYSHRINE].creator = functio
     end
   end
 end
-   
+
+-------------------------------------------------------------------------------
+-- Worldmap Map Tile Texture controller
+-------------------------------------------------------------------------------
+
+local zos_GetMapTileTexture = GetMapTileTexture
+GetMapTileTexture = function(tileIndex)
+
+  local tileTexture = zos_GetMapTileTexture(tileIndex)
+
+
+  if (tileIndex ~= nil) then
+
+    if (getCurrentMapID() == 439) then
+
+      return "AccurateWorldMap/tiles/" .. "Aurbis_" .. tileIndex .. ".dds"
+  
+    end
+
+    if (getCurrentZoneInfo() ~= nil and getCurrentZoneInfo().customTileName ~= nil) then
+
+      -- Replace tiles with debug version if debug is enabled
+      if AccurateWorldMap.options.isDebug then
+          i = tostring(i) .. "_debug"  
+      end
+  
+      return "AccurateWorldMap/tiles/" .. getCurrentZoneInfo().customTileName .. "_" .. tileIndex .. ".dds"
+  
+    end
+
+  end
+  
+  return tileTexture
+end

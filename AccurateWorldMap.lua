@@ -179,7 +179,7 @@ local newPolygonData = {}
 local currentZoneInfo = {}
 
 
-local _GetMapTileTexture = GetMapTileTexture
+
 
 -- todo: fix this for gamepad mode as well
 AWM_MouseOverGrungeTex = CreateControl("AWM_MouseOverGrungeTex", ZO_WorldMap, CT_TEXTURE)
@@ -191,33 +191,6 @@ AWM_MouseOverGrungeTex:SetTexture("/esoui/art/performance/statusmetermunge.dds")
 -------------------------------------------------------------------------------
 
 local mapDimensions = 4096 -- px
-
-function AccurateWorldMap.GetMapTileTexture(index)
-    local tex = _GetMapTileTexture(index)
-
-    if (GetCurrentMapIndex() == 1) or getCurrentMapID() == 315 then
-      for i = 1, 16 do
-        if tamriel_tiles[i] == tex then
-          ---- Replace certain tiles if you are on live server and have spoilers enabled
-          if AccurateWorldMap.options.isDebug then
-              i = tostring(i) .. "_debug"  
-          end
-          return "AccurateWorldMap/tiles/tamriel_" .. i .. ".dds"
-        end
-      end
-    end
-
-    if (GetCurrentMapIndex() == 24) then
-      for i = 1, 4 do
-        if aurbis_tiles[i] == tex then
-          return "AccurateWorldMap/tiles/aurbis_" .. i .. ".dds"
-        end
-      end
-    end
-    
-    return tex
-end
-
 
 local function onMousePressed()
 
@@ -712,8 +685,6 @@ local function initialise(event, addonName)
   SLASH_COMMANDS["/get_blobs"] = getBlobTextureDetails
   SLASH_COMMANDS["/set_map_to"] = navigateToMap
   SLASH_COMMANDS["/awm_debug"] = function() AccurateWorldMap.options.isDebug = not AccurateWorldMap.options.isDebug navigateToMap(getCurrentMapID()) end
-  
-  GetMapTileTexture = AccurateWorldMap.GetMapTileTexture
 
   -- register LAM settings
   local panelName = "AccurateWorldMapSettings"

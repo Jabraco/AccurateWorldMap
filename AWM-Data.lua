@@ -2477,6 +2477,7 @@ mapData = {
     -- Tamriel --
     zoneData = join({
       zoneName = "Tamriel",
+      customTileName = "tamriel",
       zoneDescription = "In the ancient tongues, the land called 'Tamriel' means 'Dawn's Beauty'.",
       zoomLevel = 3.5,
       isWorldMap = true,
@@ -2760,40 +2761,6 @@ mapData = {
   [660] = { -- Imperial City Map
     [236] = { xN = 0.495, yN = 0.132, disabled = false }, -- Imperial City Prison Dungeon
   },
-}
-
--------------------------------------------------------------------------------
--- Custom map tiles
--------------------------------------------------------------------------------
-
--- Data tables of custom map tiles that are used in the addon
-
--------------------------------------------------------------------------------
-
-tamriel_tiles = { -- tamriel world map map tiles
-  "Art/maps/tamriel/Tamriel_0.dds",
-  "Art/maps/tamriel/Tamriel_1.dds",
-  "Art/maps/tamriel/Tamriel_2.dds",
-  "Art/maps/tamriel/Tamriel_3.dds",
-  "Art/maps/tamriel/Tamriel_4.dds",
-  "Art/maps/tamriel/Tamriel_5.dds",
-  "Art/maps/tamriel/Tamriel_6.dds",
-  "Art/maps/tamriel/Tamriel_7.dds",
-  "Art/maps/tamriel/Tamriel_8.dds",
-  "Art/maps/tamriel/Tamriel_9.dds",
-  "Art/maps/tamriel/Tamriel_10.dds",
-  "Art/maps/tamriel/Tamriel_11.dds",
-  "Art/maps/tamriel/Tamriel_12.dds",
-  "Art/maps/tamriel/Tamriel_13.dds",
-  "Art/maps/tamriel/Tamriel_14.dds",
-  "Art/maps/tamriel/Tamriel_15.dds",
-}
-
-aurbis_tiles = { -- the "cosmic", or aurbis, custom map tiles
-  "Art/maps/tamriel/mundus_base_0.dds",
-  "Art/maps/tamriel/mundus_base_1.dds",
-  "Art/maps/tamriel/mundus_base_2.dds",
-  "Art/maps/tamriel/mundus_base_3.dds",
 }
 
 -------------------------------------------------------------------------------
