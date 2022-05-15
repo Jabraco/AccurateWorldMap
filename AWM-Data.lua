@@ -2887,20 +2887,13 @@ AccurateWorldMap.optionsData = {
   },
   {
     type = "description",
-    text = "Don't use these unless you know what you're doing.",
+    text = "Experimental features that may or may not work yet. Beware bugs.",
     width = "full",
   },
   {
     type = "checkbox",
-    name = "Debug Mode",
-    tooltip = "Toggle debug mode on/off.Note: Will cause significant lag.",
-    getFunc = function() return AccurateWorldMap.options.isDebug end,
-    setFunc = function(value) AccurateWorldMap.options.isDebug = value end
-  },
-  {
-    type = "checkbox",
     name = "Move Player Icons (Beta)",
-    tooltip = "Moves player and group icons according to AccurateWorldMap's zone placement, WIP.",
+    tooltip = "Moves player and group icons according to AccurateWorldMap's zone placement.",
     getFunc = function() return AccurateWorldMap.options.movePlayerIcons end,
     setFunc = function(value) AccurateWorldMap.options.movePlayerIcons = value end
   },
