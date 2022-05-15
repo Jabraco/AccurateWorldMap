@@ -48,7 +48,7 @@ mapData = {
     -- ctrl + f aid: skyrim
 
     -- Bleakrock Isle --
-    [172] = { xN = 0.617, yN = 0.232 }, -- Bleakrock Isle Wayshrine
+    [172] = { xN = 0.617, yN = 0.232, majorSettlement = true }, -- Bleakrock Isle Wayshrine
 
     zoneData = join({
       zoneName = "Bleakrock Isle",
@@ -76,13 +76,13 @@ mapData = {
     [93] = { xN = 0.569, yN = 0.308 }, -- Wittestadr Wayshrine
     [97] = { xN = 0.608, yN = 0.306 }, -- Skuldafn Wayshrine
     [96] = { xN = 0.592, yN = 0.308 }, -- Logging Camp Wayshrine
-    [95] = { xN = 0.601, yN = 0.314, majorSettlement = true }, -- Jorunn's Stand Wayshrine
-    [91] = { xN = 0.541, yN = 0.289, majorSettlement = true }, -- Cradlecrush Wayshrine
+    [95] = { xN = 0.601, yN = 0.314 }, -- Jorunn's Stand Wayshrine
+    [91] = { xN = 0.541, yN = 0.289 }, -- Cradlecrush Wayshrine
     [392] = { xN = 0.547, yN = 0.286 }, -- Frostvault Chasm House
     [389] = { xN = 0.548, yN = 0.284 }, -- Frostvault Dungeon
     [312] = { xN = 0.582, yN = 0.264 }, -- Grymhearth's Woe House
     [87] = { xN = 0.578, yN = 0.264, majorSettlement = true }, -- Windhelm Wayshrine
-    [94] = { xN = 0.576, yN = 0.324, majorSettlement = true }, -- Mistwatch Wayshrine
+    [94] = { xN = 0.576, yN = 0.324 }, -- Mistwatch Wayshrine
     [195] = { xN = 0.610, yN = 0.328 }, -- Direfrost Keep Dungeon
     [92] = { xN = 0.539, yN = 0.310, majorSettlement = true }, -- Fort Amol Wayshrine
     [380] = { xN = 0.577, yN = 0.281 }, -- Enchanted Snow Globe Home
@@ -153,7 +153,7 @@ mapData = {
     [109] = { xN = 0.607, yN = 0.363, majorSettlement = true }, -- Riften Wayshrine
     [112] = { xN = 0.608, yN = 0.396 }, -- Trollhetta Summit Wayshrine 
     [111] = { xN = 0.616, yN = 0.385 }, -- Trollhetta Wayshrine
-    [120] = { xN = 0.620, yN = 0.373, majorSettlement = true }, -- Fullhelm Fort Wayshrine
+    [120] = { xN = 0.620, yN = 0.373 }, -- Fullhelm Fort Wayshrine
     [187] = { xN = 0.627, yN = 0.379 }, -- Blessed Crucible Dungeon
 
     zoneData = join({
@@ -210,7 +210,6 @@ mapData = {
     [417] = { majorSettlement = true }, -- Mor Khazgur Wayshrine
     [416] = { majorSettlement = true }, -- Morthal Wayshrine
     [421] = { majorSettlement = true }, -- Solitude Wayshrine
-    [419] = { majorSettlement = true }, -- Southern Watch Wayshrine
 
     zoneData = join({
       zoneName = "Western Skyrim",
@@ -372,12 +371,12 @@ mapData = {
     -- ctrl + f aid: cyrodiil
     
     -- Cyrodiil --
-    [201] = { xN = 0.509, yN = 0.593, name = "Western Elsweyr Gate Wayshrine" }, -- Western Elsweyr Wayshrine
-    [200] = { xN = 0.556, yN = 0.594, name = "Eastern Elsweyr Gate Wayshrine" }, -- Eastern Elsweyr Wayshrine
-    [202] = { xN = 0.622, yN = 0.410, name = "Northern Morrowind Gate Wayshrine" }, -- Northern Morrowind Wayshrine
-    [203] = { xN = 0.643, yN = 0.455, name = "Southern Morrowind Gate Wayshrine" }, -- Southern Morrowind Wayshrine
-    [170] = { xN = 0.449, yN = 0.411, name = "Northern Hammerfell Gate Wayshrine" }, -- Northern Hammerfell Wayshrine
-    [199] = { xN = 0.429, yN = 0.449, name = "Southern Hammerfell Gate Wayshrine" }, -- Southern Hammerfell Wayshrine
+    [201] = { xN = 0.509, yN = 0.593, name = "Western Elsweyr Gate Wayshrine", majorSettlement = true }, -- Western Elsweyr Wayshrine
+    [200] = { xN = 0.556, yN = 0.594, name = "Eastern Elsweyr Gate Wayshrine", majorSettlement = true }, -- Eastern Elsweyr Wayshrine
+    [202] = { xN = 0.622, yN = 0.410, name = "Northern Morrowind Gate Wayshrine", majorSettlement = true }, -- Northern Morrowind Wayshrine
+    [203] = { xN = 0.643, yN = 0.455, name = "Southern Morrowind Gate Wayshrine", majorSettlement = true }, -- Southern Morrowind Wayshrine
+    [170] = { xN = 0.449, yN = 0.411, name = "Northern Hammerfell Gate Wayshrine", majorSettlement = true }, -- Northern Hammerfell Wayshrine
+    [199] = { xN = 0.429, yN = 0.449, name = "Southern Hammerfell Gate Wayshrine", majorSettlement = true }, -- Southern Hammerfell Wayshrine
     [236] = { xN = 0.542, yN = 0.475 }, -- Imperial City Prison Dungeon
     [247] = { xN = 0.536, yN = 0.486 }, -- White Gold Tower Dungeon
 
@@ -464,6 +463,8 @@ mapData = {
 
     -- Gold Coast --
     [390] = { xN = 0.304, yN = 0.559 }, -- Depths of Malatar Dungeon 
+    [251] = { majorSettlement = true }, -- Anvil Wayshrine
+    [252] = { majorSettlement = true }, -- Kvatch Wayshrine
 
     zoneData = join({
       zoneName = "Gold Coast",
@@ -544,15 +545,15 @@ mapData = {
     [210] = { xN = 0.079, yN = 0.396 }, -- The Harborage (Daggerfall Covernant) 
     [3] = { xN = 0.099, yN = 0.381 }, -- Deleyn's Mill Wayshrine 
     [20] = { xN = 0.083, yN = 0.384 }, -- Baelborne Rock Wayshrine 
-    [62] = { xN = 0.068, yN = 0.385 }, -- Daggerfall Wayshrine 
+    [62] = { xN = 0.068, yN = 0.385, majorSettlement = true }, -- Daggerfall Wayshrine 
     [289] = { xN = 0.065, yN = 0.383 }, -- The Rosy Lion House 
     [1] = { xN = 0.086, yN = 0.361 }, -- Wyrd Tree Wayshrine 
     [8] = { xN = 0.064, yN = 0.348 }, -- Farwatch Wayshrine 
-    [2] = { xN = 0.109, yN = 0.357 }, -- Aldcroft Wayshrine 
+    [2] = { xN = 0.109, yN = 0.357, majorSettlement = true }, -- Aldcroft Wayshrine 
     [4] = { xN = 0.098, yN = 0.331 }, -- Eagle's Brook Wayshrine 
     [216] = { xN = 0.134, yN = 0.335 }, -- Hag Fen Wayshrine 
     [470] = { xN = 0.151, yN = 0.310 }, -- Red Petal Bastion Dungeon 
-    [7] = { xN = 0.144, yN = 0.299 }, -- Crosswyrch Wayshrine 
+    [7] = { xN = 0.144, yN = 0.299, majorSettlement = true }, -- Crosswyrch Wayshrine 
     [6] = { xN = 0.120, yN = 0.315 }, -- Lionguard Redoubt Wayshrine 
     [64] = { xN = 0.140, yN = 0.322 }, -- Burial Tombs Wayshrine 
     [267] = { xN = 0.134, yN = 0.326 }, -- Spindleclutch II Dungeon
@@ -647,11 +648,11 @@ mapData = {
     }),
 
     -- Stormhaven --
-    [15] = { xN = 0.179, yN = 0.290 }, -- Alcaire Castle Wayshrine 
-    [14] = { xN = 0.171, yN = 0.308 }, -- Koeglin Village Wayshrine 
-    [22] = { xN = 0.244, yN = 0.317 }, -- Wind Keep Wayshrine 
+    [15] = { xN = 0.179, yN = 0.290, majorSettlement = true }, -- Alcaire Castle Wayshrine 
+    [14] = { xN = 0.171, yN = 0.308, majorSettlement = true }, -- Koeglin Village Wayshrine 
+    [22] = { xN = 0.244, yN = 0.317, majorSettlement = true }, -- Wind Keep Wayshrine 
     [363] = { xN = 0.233, yN = 0.312 }, -- Scalecaller Peak Dungeon
-    [56] = { xN = 0.227, yN = 0.338 }, -- Wayrest Wayshrine
+    [56] = { xN = 0.227, yN = 0.338, majorSettlement = true }, -- Wayrest Wayshrine
     [263] = { xN = 0.222, yN = 0.332 }, -- Wayrest Sewers I Dungeon
     [189] = { xN = 0.222, yN = 0.332 }, -- Wayrest Sewers II Dungeon
     [16] = { xN = 0.194, yN = 0.308 }, -- Firebrand Keep Wayshrine
@@ -724,14 +725,14 @@ mapData = {
     [498] = { xN = 0.219, yN = 0.245 }, -- Shipwright's Regret Dungeon
     [190] = { xN = 0.211, yN = 0.277 }, -- Crypt Of Hearts I Dungeon
     [269] = { xN = 0.211, yN = 0.277 }, -- Crypt Of Hearts I Dungeon
-    [82] = { xN = 0.220, yN = 0.215 }, -- Northpoint Wayshrine
+    [82] = { xN = 0.220, yN = 0.215, majorSettlement = true }, -- Northpoint Wayshrine
     [12] = { xN = 0.213, yN = 0.226 }, -- Boralis Wayshrine
     [9] = { xN = 0.180, yN = 0.278 }, -- Oldgate Wayshrine
     [86] = { xN = 0.206, yN = 0.272 }, -- Sanguine Barrows Wayshrine
-    [10] = { xN = 0.155, yN = 0.252 }, -- Crestshade Wayshrine
+    [10] = { xN = 0.155, yN = 0.252, majorSettlement = true }, -- Crestshade Wayshrine
     [11] = { xN = 0.153, yN = 0.271 }, -- Tamrith Camp Wayshrine
-    [55] = { xN = 0.176, yN = 0.257 }, -- Shornhelm Wayshrine
-    [84] = { xN = 0.195, yN = 0.261 }, -- Hoarfrost Downs Wayshrine
+    [55] = { xN = 0.176, yN = 0.257, majorSettlement = true }, -- Shornhelm Wayshrine
+    [84] = { xN = 0.195, yN = 0.261, majorSettlement = true }, -- Hoarfrost Downs Wayshrine
     [83] = { xN = 0.209, yN = 0.241 }, -- Fell's Run Wayshrine
     [13] = { xN = 0.173, yN = 0.230 }, -- Staging Grounds Wayshrine
     [208] = { xN = 0.171, yN = 0.240 }, -- Shrouded Pass Wayshrine
@@ -796,7 +797,7 @@ mapData = {
     [242] = { xN = 0.257, yN = 0.291 }, -- Frostbreak Ridge Wayshrine 
     [241] = { xN = 0.244, yN = 0.286 }, -- Great Bay Wayshrine 
     [246] = { xN = 0.282, yN = 0.285 }, -- Merchant Gate's Wayshrine 
-    [244] = { xN = 0.293, yN = 0.277 }, -- Orsinium Wayshrine 
+    [244] = { xN = 0.293, yN = 0.277, majorSettlement = true }, -- Orsinium Wayshrine 
     [245] = { xN = 0.273, yN = 0.278 }, -- Trader's Road Wayshrine 
     [240] = { xN = 0.262, yN = 0.260 }, -- Morkul Plain Wayshrine 
     [238] = { xN = 0.284, yN = 0.247 }, -- Icy Shore Wayshrine 
@@ -868,7 +869,7 @@ mapData = {
 
     -- Betnikh --
     [182] = { xN = 0.074, yN = 0.435 }, -- Grimfield Wayshrine 
-    [181] = { xN = 0.082, yN = 0.436 }, -- Stonetooth Wayshrine
+    [181] = { xN = 0.082, yN = 0.436, majorSettlement = true }, -- Stonetooth Wayshrine
     [183] = { xN = 0.082, yN = 0.444 }, -- Carved Hills Wayshrine
 
     zoneData = join({
@@ -904,13 +905,13 @@ mapData = {
     [217] = { xN = 0.379, yN = 0.374 }, -- Seeker's Archive Wayshrine
     [341] = { xN = 0.405, yN = 0.348 }, -- Fang Lair Dungeon
     [225] = { xN = 0.392, yN = 0.377 }, -- Spellscar Wayshrine 
-    [220] = { xN = 0.387, yN = 0.387 }, -- Belkarth Wayshrine 
+    [220] = { xN = 0.387, yN = 0.387, majorSettlement = true }, -- Belkarth Wayshrine 
     [326] = { xN = 0.404, yN = 0.395 }, -- Bloodroot Forge Dungeon 
     [226] = { xN = 0.401, yN = 0.359 }, -- Mountain Overlook Wayshrine 
     [227] = { xN = 0.421, yN = 0.367 }, -- Inazzur's Hold Wayshrine
-    [229] = { xN = 0.420, yN = 0.382 }, -- Elinhir Wayshrine 
+    [229] = { xN = 0.420, yN = 0.382, majorSettlement = true }, -- Elinhir Wayshrine 
     [231] = { xN = 0.428, yN = 0.377 }, -- Aetherian Archive Trial 
-    [233] = { xN = 0.334, yN = 0.338 }, -- Dragonstar Wayshrine 
+    [233] = { xN = 0.334, yN = 0.338, majorSettlement = true }, -- Dragonstar Wayshrine 
     [270] = { xN = 0.335, yN = 0.324 }, -- Dragonstar Arena Dungeon
     [219] = { xN = 0.354, yN = 0.373 }, -- Sandy Path Wayshrine
     [235] = { xN = 0.388, yN = 0.350 }, -- Valley of Scars Wayshrine 
@@ -981,6 +982,8 @@ mapData = {
      -- Bangkorai --
     [206] = { xN = 0.305, yN = 0.279 }, -- Halcyon Lake Wayshrine
     [186] = { xN = 0.281, yN = 0.301 }, -- Blackheart Haven Dungeon
+    [33] = { majorSettlement = true }, -- Evermore Wayshrine
+    [38] = { majorSettlement = true }, -- Hallin's Stand Wayshrine
 
     zoneData = join({
       zoneName = "Bangkorai",
@@ -1055,7 +1058,9 @@ mapData = {
     }),
 
     -- The Alik'r --
-    [46] = { xN = 0.238, yN = 0.376 }, -- Satakalaam Wayshrine
+    [46] = { xN = 0.238, yN = 0.376, majorSettlement = true }, -- Satakalaam Wayshrine
+    [43] = { majorSettlement = true }, -- Sentinel Wayshrine
+    [44] = { majorSettlement = true }, -- Bergama Wayshrine
 
     zoneData = join({
       zoneName = "The Alik'r",
@@ -1106,7 +1111,7 @@ mapData = {
 
     -- Hew's Bane --
     [255] = { xN = 0.261, yN = 0.500, majorSettlement = true }, -- Abah's Landing Wayshrine
-    [257] = { xN = 0.263, yN = 0.524, majorSettlement = true }, -- No Shira Citadel Wayshrine 
+    [257] = { xN = 0.263, yN = 0.524 }, -- No Shira Citadel Wayshrine 
     [256] = { xN = 0.250, yN = 0.510 }, -- Zeht's Displeasure Wayshrine 
 
     zoneData = join({
@@ -1146,9 +1151,9 @@ mapData = {
 
     -- Stros M'Kai --
     [179] = { xN = 0.169, yN = 0.534 }, -- Sandy Grotto Wayshrine 
-    [180] = { xN = 0.159, yN = 0.551 }, -- Saintsport Wayshrine 
+    [180] = { xN = 0.159, yN = 0.551, majorSettlement = true }, -- Saintsport Wayshrine 
     [324] = { xN = 0.167, yN = 0.547 }, -- Hunding's Palatial Hall House
-    [138] = { xN = 0.159, yN = 0.542 }, -- Port Hunding Wayshrine 
+    [138] = { xN = 0.159, yN = 0.542, majorSettlement = true }, -- Port Hunding Wayshrine 
 
     zoneData = join({
       zoneName = "Stros M'Kai",
@@ -1186,19 +1191,19 @@ mapData = {
     -- Vvardenfell --
     [330] = { xN = 0.685, yN = 0.266 }, -- Urskilaku Camp Wayshrine
     [282] = { xN = 0.757, yN = 0.265 }, -- Valley of the Wind Wayshrine
-    [280] = { xN = 0.777, yN = 0.278 }, -- Tel Mora Wayshrine
-    [273] = { xN = 0.671, yN = 0.290 }, -- Gnisis Wayshrine
+    [280] = { xN = 0.777, yN = 0.278, majorSettlement = true }, -- Tel Mora Wayshrine
+    [273] = { xN = 0.671, yN = 0.290, majorSettlement = true }, -- Gnisis Wayshrine
     [329] = { xN = 0.691, yN = 0.308 }, -- West Gash Wayshrine
-    [274] = { xN = 0.710, yN = 0.315 }, -- Ald'ruhn Wayshrine
-    [281] = { xN = 0.812, yN = 0.324 }, -- Sadrith Mora Wayshrine 
+    [274] = { xN = 0.710, yN = 0.315, majorSettlement = true }, -- Ald'ruhn Wayshrine
+    [281] = { xN = 0.812, yN = 0.324, majorSettlement = true }, -- Sadrith Mora Wayshrine 
     [331] = { xN = 0.798, yN = 0.336 }, -- Halls of Fabrication Trial
     [279] = { xN = 0.774, yN = 0.346 }, -- Nchuleftingth Wayshrine 
-    [275] = { xN = 0.714, yN = 0.359 }, -- Balmora Wayshrine
-    [276] = { xN = 0.750, yN = 0.369 }, -- Suran Wayshrine
-    [277] = { xN = 0.796, yN = 0.377 }, -- Molag Mar Wayshrine 
-    [278] = { xN = 0.796, yN = 0.407 }, -- Tel Branora Wayshrine
-    [272] = { xN = 0.716, yN = 0.384 }, -- Seyda Neen Wayshrine 
-    [284] = { xN = 0.733, yN = 0.398 }, -- Vivec City Wayshrine 
+    [275] = { xN = 0.714, yN = 0.359, majorSettlement = true }, -- Balmora Wayshrine
+    [276] = { xN = 0.750, yN = 0.369, majorSettlement = true }, -- Suran Wayshrine
+    [277] = { xN = 0.796, yN = 0.377, majorSettlement = true }, -- Molag Mar Wayshrine 
+    [278] = { xN = 0.796, yN = 0.407, majorSettlement = true }, -- Tel Branora Wayshrine
+    [272] = { xN = 0.716, yN = 0.384, majorSettlement = true }, -- Seyda Neen Wayshrine 
+    [284] = { xN = 0.733, yN = 0.398, majorSettlement = true }, -- Vivec City Wayshrine 
     [333] = { xN = 0.741, yN = 0.402 }, -- Saint Delyn Penthouse 
     [328] = { xN = 0.744, yN = 0.407 }, -- Vivec Temple Wayshrine
     [334] = { xN = 0.725, yN = 0.374 }, -- Amanya Lake Lodge House
@@ -1360,6 +1365,9 @@ mapData = {
     }),
 
     -- Bal Foyen --
+    [173] = { majorSettlement = true }, -- Dhalmora Wayshrine
+    [125] = { majorSettlement = true }, -- Fort Zeren Wayshrine
+
     zoneData = join({
       zoneName = "Bal Foyen",
       zoneDescription = "This region is known as Bal Foyen, a wild expanse of marshland and volcanic landscapes, now being used to farm saltrice by the Dark Elves' former Argonian slaves.",
@@ -1453,7 +1461,7 @@ mapData = {
     -- ctrl + f aid: black marsh
     
     -- Shadowfen --
-    [48] = { xN = 0.748, yN = 0.584 }, -- Stormhold Wayshrine
+    [48] = { xN = 0.748, yN = 0.584, majorSettlement = true }, -- Stormhold Wayshrine
     [260] = { xN = 0.712, yN = 0.582 }, -- Ruins of Mazzatun Dungeon 
     [171] = { xN = 0.760, yN = 0.593 }, -- Bogmother Wayshrine
     [85] = { xN = 0.777, yN = 0.605 }, -- Forsaken Hamlet Wayshrine 
@@ -1461,7 +1469,7 @@ mapData = {
     [261] = { xN = 0.716, yN = 0.594 }, -- Cradle of Shadows Dungeon
     [78] = { xN = 0.721, yN = 0.611 }, -- Venomnous Fens Wayshrine 
     [49] = { xN = 0.754, yN = 0.627 }, -- Hatching Pools Wayshrine 
-    [50] = { xN = 0.765, yN = 0.625 }, -- Alten Corimont Wayshrine 
+    [50] = { xN = 0.765, yN = 0.625, majorSettlement = true }, -- Alten Corimont Wayshrine 
     [51] = { xN = 0.771, yN = 0.647 }, -- Perlocating Mire Wayshrine
     [192] = { xN = 0.707, yN = 0.622 }, -- Arx Corinium Dungeon
     [52] = { xN = 0.739, yN = 0.639 }, -- Hissmir Wayshrine 
@@ -2257,18 +2265,18 @@ mapData = {
     -- Auridon --
     [194] = { xN = 0.185, yN = 0.594 }, -- Banished Cells I Dungeon 
     [262] = { xN = 0.185, yN = 0.594 }, -- Banished Cells II Dungeon 
-    [175] = { xN = 0.192, yN = 0.619 }, -- Firsthold Wayshrine 
+    [175] = { xN = 0.192, yN = 0.619, majorSettlement = true }, -- Firsthold Wayshrine 
     [124] = { xN = 0.177, yN = 0.626 }, -- Greenwater Wayshrine 
     [123] = { xN = 0.218, yN = 0.631 }, -- College Wayshrine 
     [122] = { xN = 0.231, yN = 0.648 }, -- Quendeluun Wayshrine
-    [121] = { xN = 0.237, yN = 0.662 }, -- Skywatch Wayshrine 
-    [176] = { xN = 0.219, yN = 0.674 }, -- Mathiisen Wayshrine 
+    [121] = { xN = 0.237, yN = 0.662, majorSettlement = true }, -- Skywatch Wayshrine 
+    [176] = { xN = 0.219, yN = 0.674, majorSettlement = true }, -- Mathiisen Wayshrine 
     [174] = { xN = 0.221, yN = 0.698 }, -- Tanzelwil Wayshrine
     [178] = { xN = 0.232, yN = 0.706 }, -- Phaer Wayshrine 
     [127] = { xN = 0.222, yN = 0.715 }, -- Windy Glade Wayshrine
     [288] = { xN = 0.236, yN = 0.725 }, -- Mara's Kiss Public House 
     [211] = { xN = 0.247, yN = 0.730 }, -- The Harborage (Aldmeri Dominion)
-    [177] = { xN = 0.237, yN = 0.728 }, -- Vulkhel Guard Wayshrine
+    [177] = { xN = 0.237, yN = 0.728, majorSettlement = true }, -- Vulkhel Guard Wayshrine
     [315] = { xN = 0.231, yN = 0.688 }, -- Mathiisen Manor House
     [285] = { xN = 0.245, yN = 0.668 }, -- Barbed Hook Private Room House
 
