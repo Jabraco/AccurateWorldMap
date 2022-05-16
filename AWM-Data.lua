@@ -1780,54 +1780,7 @@ mapData = {
       xN = "0.500",
       yN = "0.6945",
       zonePolygonData = {
-        { xN = 0.556, yN = 0.751 },
-        { xN = 0.556, yN = 0.737 },
-        { xN = 0.568, yN = 0.731 },
-        { xN = 0.576, yN = 0.722 },
-        { xN = 0.578, yN = 0.716 },
-        { xN = 0.574, yN = 0.707 },
-        { xN = 0.568, yN = 0.702 },
-        { xN = 0.562, yN = 0.702 },
-        { xN = 0.556, yN = 0.708 },
-        { xN = 0.547, yN = 0.709 },
-        { xN = 0.539, yN = 0.706 },
-        { xN = 0.531, yN = 0.712 },
-        { xN = 0.520, yN = 0.716 },
-        { xN = 0.509, yN = 0.728 },
-        { xN = 0.505, yN = 0.734 },
-        { xN = 0.508, yN = 0.745 },
-        { xN = 0.507, yN = 0.748 },
-        { xN = 0.511, yN = 0.759 },
-        { xN = 0.511, yN = 0.762 },
-        { xN = 0.505, yN = 0.763 },
-        { xN = 0.505, yN = 0.766 },
-        { xN = 0.504, yN = 0.770 },
-        { xN = 0.500, yN = 0.772 },
-        { xN = 0.502, yN = 0.775 },
-        { xN = 0.505, yN = 0.779 },
-        { xN = 0.510, yN = 0.779 },
-        { xN = 0.512, yN = 0.778 },
-        { xN = 0.519, yN = 0.781 },
-        { xN = 0.526, yN = 0.785 },
-        { xN = 0.531, yN = 0.786 },
-        { xN = 0.534, yN = 0.787 },
-        { xN = 0.537, yN = 0.790 },
-        { xN = 0.540, yN = 0.795 },
-        { xN = 0.543, yN = 0.797 },
-        { xN = 0.546, yN = 0.796 },
-        { xN = 0.556, yN = 0.791 },
-        { xN = 0.568, yN = 0.789 },
-        { xN = 0.576, yN = 0.787 },
-        { xN = 0.582, yN = 0.795 },
-        { xN = 0.589, yN = 0.795 },
-        { xN = 0.614, yN = 0.802 },
-        { xN = 0.626, yN = 0.786 },
-        { xN = 0.612, yN = 0.782 },
-        { xN = 0.592, yN = 0.777 },
-        { xN = 0.586, yN = 0.771 },
-        { xN = 0.578, yN = 0.764 },
-        { xN = 0.567, yN = 0.753 },
-        { xN = 0.554, yN = 0.751 },        
+
       }
     }),
 
@@ -2409,6 +2362,27 @@ mapData = {
 -- [x] = { xN = x, yN = y }, -- 
 -- ctrl + f aid: eltheric ocean
 
+    -- High Isle --
+    [488] = { disabled = true }, -- Dreadsail Reef Trial
+    [501] = { disabled = true }, -- Coral Road Wayshrine
+    [502] = { disabled = true }, -- Tor Draioch Wayshrine
+    [503] = { disabled = true }, -- Steadfast Manor Wayshrine
+    [504] = { disabled = true }, -- Castle Navire Wayshrine
+    [505] = { disabled = true }, -- Garick's Rest Wayshrine
+    [506] = { disabled = true }, -- Stonelore Grove Wayshrine
+    [507] = { disabled = true }, -- Dufort Shipyards Wayshrine
+    [508] = { disabled = true }, -- Amenos Station Wayshrine
+    [509] = { disabled = true }, -- Brokerock Wayshrine
+    [510] = { disabled = true }, -- All Flags Wayshrine
+    [511] = { disabled = true }, -- Trappers Peak Wayshrine
+    [512] = { disabled = true }, -- Westbay Wayshrine
+    [513] = { disabled = true }, -- Gonfalon Square Wayshrine
+    [517] = { disabled = true }, -- All Flags Islet Wayshrine
+    [518] = { disabled = true }, -- Serpents Hollow Wayshrine
+    [519] = { disabled = true }, -- Flooded Coast Wayshrine
+    [522] = { disabled = true }, -- Ancient Anchor Berth House
+    [523] = { disabled = true }, -- Highhallow Hold House
+
     zoneData = join({
       zoneName = "Eltheric Ocean",
       zoneDescription = "The seas of Western Tamriel are home to the sunken realm of Thras, the Systres Archipelago, and the Yokudan continent.",
@@ -2457,6 +2431,20 @@ mapData = {
     [311] = { disabled = true }, -- Sleek Creek House
     [291] = { disabled = true }, -- Serenity Falls Estate House
     [321] = { disabled = true }, -- Dawnshadow House
+
+    -- The Systres --
+    [488] = { xN = 0.654, yN = 0.681, disabled = false }, -- Dreadsail Reef Trial
+
+    zoneData = join({
+      zoneName = "The Systres",
+      zoneDescription = "Add proper description here later",
+      zoneID = 2114,
+      xN = "0.097",
+      yN = "0.289",
+      zonePolygonData = {
+        -- Add hitbox                     
+      }
+    }, true),
 
   },
 
@@ -2738,6 +2726,10 @@ mapData = {
 
   [108] = { -- Eyevea Map 
     [215] = { xN = 0.866, yN = 0.357, disabled = false, name = "Eyevea Wayshrine" }, -- Eyevea Wayshrine
+  },
+
+  [2114] = { -- The Systres Map
+    parentMapID = 315
   },
 
   [1719] = { -- Western Skyrim Map 

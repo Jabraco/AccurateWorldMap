@@ -10,14 +10,27 @@ Todo:
 
 Things that need to be done before release:
 
-General:
-
-- go over zone descs with breaux to get them finalised
+TJ:
+- refactor AccurateWorldMap to AWM
+- and AccurateWorldMap.options to AWM.settings
+- fix zone description text being cut off
+- fix zone description text being truncating on map open
+- implement gamepad desc background
+- Fix player location being incorrect (and also group pins)
+- Sort out K&M and gamepad desc grunge
+- Do a once over of all zone descriptions with breaux so that she's happy with them
+- add Systres blobs and stuff to the map
+- Add Eltheric ocean map properly with High isle wayshrines
+- Implement proper waypoint and player marker tracking and moving
+- Make Tideholm its own zone, separate from s.e
+- Do the same to Wasten Coraldale in summerset
+- Add a "Recording" dot that appears when recording blob
+- Add a close button to the polygon record control, and allow to reset without reload ui
+- find a way to override g_playerChoseCurrentMap for High Isle
 
 Breaux:
 
 - add aurbis ring lines to tamriel and systres icons
-
 
 - Make description background textures for both gamepad and K&M
 - Fix the Aurbis tamriel blob - mismatches with what is there currently
@@ -55,18 +68,6 @@ https://cdn.discordapp.com/attachments/806672739057664034/975049286305861672/unk
 - Remove Dragonhold from S.E map by editing the tiles again (Add as option to remove dragonhold from zone map)
 
 
-TJ:
-- refactor AccurateWorldMap to AWM
-- and AccurateWorldMap.options to AWM.settings
-- fix zone description text being cut off
-- fix zone description text being truncating on map open
-- implement gamepad desc background
-- Fix player location being incorrect (and also group pins)
-- Sort out K&M and gamepad desc grunge
-- Do a once over of all zone descriptions with breaux so that she's happy with them
-- add Systres blobs and stuff to the map
-- Add Eltheric ocean map properly with High isle wayshrines
-- Implement proper waypoint and player marker tracking and moving
 
 
 
