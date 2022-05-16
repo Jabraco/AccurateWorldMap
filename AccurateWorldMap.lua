@@ -26,7 +26,11 @@ TJ:
 - Do the same to Wasten Coraldale in summerset
 - Add a "Recording" dot that appears when recording blob
 - Add a close button to the polygon record control, and allow to reset without reload ui
-- find a way to override g_playerChoseCurrentMap for High Isle
+- Change Zone name location in Filters sidebar in map menu too
+- Find a way to move the zone name and clock to be closer to the actual map in K&M mode like gamepad
+
+- update readme to say that this addon works with Votan's Improved Locations as long as OptionalDependsOn: AccurateWorldMap is added to its addon manifest file
+
 
 Breaux:
 
@@ -140,6 +144,11 @@ keep isShownInCurrentMap unless some override is checked
 Interesting events to consider:
 
 
+* GetPlayerActiveZoneName()
+
+** _Returns:_ *string* _zoneName_
+
+
 * EVENT_GROUP_TYPE_CHANGED (*bool* _largeGroup_)
 * EVENT_GROUP_UPDATE
 * EVENT_GROUP_MEMBER_JOINED (*string* _memberCharacterName_, *string* _memberDisplayName_, *bool* _isLocalPlayer_)
@@ -147,12 +156,20 @@ Interesting events to consider:
 * EVENT_GROUP_MEMBER_ROLE_CHANGED (*string* _unitTag_, *[LFGRole|#LFGRole]* _newRole_)
 * EVENT_GROUP_MEMBER_SUBZONE_CHANGED
 
+
+
+ZO_WorldMapLocationsListContents, has all the locations in it
+
+inside is a bunch of controls
+
+
+
 ---------------------------------------------------------------------------]]--
 -- Create root addon object
 -------------------------------------------------------------------------------
 
 -- set saved variable version number
-AccurateWorldMap.variableVersion = 2
+AccurateWorldMap.variableVersion = 3
 
 -- set default options
 AccurateWorldMap.defaults = {
@@ -163,6 +180,7 @@ AccurateWorldMap.defaults = {
   worldMapWayshrines = "All (Default)",
   hideIconGlow = false,
   movePlayerIcons = false,
+  isDeveloper = false,
 }
 
 -------------------------------------------------------------------------------
@@ -222,6 +240,8 @@ local function onMousePressed()
       local xN, yN = getNormalisedMouseCoordinates()
 
       table.insert(newPolygonData, {xN, yN})
+
+
       currentCoordinateCount = currentCoordinateCount + 1
 
     end
@@ -230,6 +250,55 @@ local function onMousePressed()
   end
 
 end
+
+local function fixLocations()
+
+  if (VOTANS_IMPROVED_LOCATIONS) then
+    print("found votans!", true)
+    VOTANS_IMPROVED_LOCATIONS.mapData = nil
+    WORLD_MAP_LOCATIONS:BuildLocationList()
+  else
+    local locations = WORLD_MAP_LOCATIONS
+    locations.data.mapData = nil
+
+    ZO_ScrollList_Clear(locations.list)
+    local scrollData = ZO_ScrollList_GetDataList(locations.list)
+
+    local mapData = locations.data:GetLocationList()
+
+    for i,entry in ipairs(mapData) do
+        scrollData[#scrollData + 1] = ZO_ScrollList_CreateDataEntry(1, entry)
+    end
+
+    ZO_ScrollList_Commit(locations.list)
+
+  end
+end
+
+-- if (VOTANS_IMPROVED_LOCATIONS) then
+--   print("found votans!", true)
+--   VOTANS_IMPROVED_LOCATIONS.mapData = nil
+-- end
+
+-- local locations = WORLD_MAP_LOCATIONS
+-- locations.data.mapData = nil
+
+-- ZO_ScrollList_Clear(locations.list)
+-- local scrollData = ZO_ScrollList_GetDataList(locations.list)
+
+-- local mapData = locations.data:GetLocationList()
+
+-- for i,entry in ipairs(mapData) do
+--     scrollData[#scrollData + 1] = ZO_ScrollList_CreateDataEntry(1, entry)
+-- end
+
+-- ZO_ScrollList_Commit(locations.list)
+
+-- if (VOTANS_IMPROVED_LOCATIONS) then
+--   WORLD_MAP_LOCATIONS:BuildLocationList()
+-- end
+
+
 
 local function updateCurrentPolygon(polygon) 
 
@@ -387,8 +456,12 @@ local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
 
     for key, data in pairs(polygonData) do
 
-      if (isDebug) then
+
+
+      if (isDebug and data.xN ~= nil and data.yN ~= nil) then
+
         polygonCode = polygonCode .. ("{ xN = "..string.format("%.03f", data.xN)..", yN = "..string.format("%.03f", data.yN).." },\n")  
+
       end
   
       polygon:AddPoint(data.xN, data.yN)
@@ -397,6 +470,7 @@ local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
     end
 
     if (isDebug) then
+      d(polygonData)
       AWM_EditTextTextBox:SetText(polygonCode)
     end
 
@@ -693,6 +767,8 @@ local function initialise(event, addonName)
   -- Compile blob texture details
   compileBlobTextures()
 
+  fixLocations()
+
   -- set up saved variables
   AccurateWorldMap.options = ZO_SavedVars:NewAccountWide("AWMVars", AccurateWorldMap.variableVersion, nil, AccurateWorldMap.defaults)
 
@@ -702,6 +778,8 @@ local function initialise(event, addonName)
   SLASH_COMMANDS["/get_blobs"] = getBlobTextureDetails
   SLASH_COMMANDS["/set_map_to"] = navigateToMap
   SLASH_COMMANDS["/awm_debug"] = function() AccurateWorldMap.options.isDebug = not AccurateWorldMap.options.isDebug navigateToMap(getCurrentMapID()) end
+  SLASH_COMMANDS["/fix_locations"] = fixLocations
+  SLASH_COMMANDS["/set_is_developer"] = function() AccurateWorldMap.options.isDeveloper = not AccurateWorldMap.options.isDeveloper end
 
   -- register LAM settings
   local panelName = "AccurateWorldMapSettings"
@@ -786,12 +864,8 @@ GetMapMouseoverInfo = function(xN, yN)
 
     if (isInBlobHitbox) then 
 
-        if (AccurateWorldMap.options.loreRenames) then
-          locationName = currentZoneInfo.zoneName
-        else
-          locationName = getZoneNameFromID(currentZoneInfo.zoneID)
-        end
 
+        locationName = getZoneNameFromID(currentZoneInfo.zoneID)
         textureFile = currentZoneInfo.blobTexture
         widthN = currentZoneInfo.nBlobTextureWidth
         heightN = currentZoneInfo.nBlobTextureHeight

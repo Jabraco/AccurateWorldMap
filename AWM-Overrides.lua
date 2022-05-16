@@ -20,6 +20,25 @@ ZO_WorldMap_GetMapTitle = function()
   return getZoneNameFromID(getCurrentMapID())
 end
 
+
+local zos_GetZoneNameByIndex = GetZoneNameByIndex
+GetZoneNameByIndex = function(zoneIndex)
+  return getZoneNameFromID(GetMapIdByZoneId(GetZoneId(zoneIndex)))
+end
+
+
+local zos_GetMapInfoByIndex = GetMapInfoByIndex
+function GetMapInfoByIndex(zoneIndex)
+    local mapName, mapType, mapContentType, zoneIndex, description = zos_GetMapInfoByIndex(zoneIndex)
+    print(getZoneNameFromID(GetMapIdByZoneId(GetZoneId(zoneIndex))), true)
+
+    if (getZoneNameFromID(GetMapIdByZoneId(GetZoneId(zoneIndex))) ~= "") then
+      mapName = getZoneNameFromID(GetMapIdByZoneId(GetZoneId(zoneIndex)))
+    end
+
+    return mapName, mapType, mapContentType, zoneIndex, description
+end
+
 -------------------------------------------------------------------------------
 -- ZOS WorldMap Zoom controller
 -------------------------------------------------------------------------------

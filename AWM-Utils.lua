@@ -239,7 +239,16 @@ function getZoneNameFromID(zoneID)
 
     if (getZoneInfoByID(zoneID) ~= nil) then
 
-      return getZoneInfoByID(zoneID).zoneName
+      if (AccurateWorldMap.options.isDeveloper and getZoneInfoByID(zoneID).altZoneName ~= nil) then -- is user a developer?
+
+        return getZoneInfoByID(zoneID).altZoneName -- switch to better custom names
+
+      else
+
+        return getZoneInfoByID(zoneID).zoneName -- ekse switch to normal custom names to keep breaux happy
+
+      end
+
 
     else
 

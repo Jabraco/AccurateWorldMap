@@ -1702,7 +1702,8 @@ mapData = {
     [387] = { majorSettlement = true }, -- Hakoshae Wayshrine
 
     zoneData = join({
-      zoneName = "Anequina",
+      zoneName = "Ne-Quin-Al Desert",
+      altZoneName = "Anequina",
       zoneDescription = "The region of Anequina derives its name from the dusty Ne-Quin-Al desert, which lies in its heart.",
       blobTexture = "AccurateWorldMap/blobs/blob-northernelsweyr.dds",
       zoneID = 1555,
@@ -2434,15 +2435,34 @@ mapData = {
 
     -- The Systres --
     [488] = { xN = 0.654, yN = 0.681, disabled = false }, -- Dreadsail Reef Trial
+    -- Add more here
 
     zoneData = join({
-      zoneName = "The Systres",
+      zoneName = "High Isle & Amenos",
+      altZoneName = "The Systres",
+      blobTexture = "AccurateWorldMap/blobs/blob-thesystres.dds",
       zoneDescription = "Add proper description here later",
       zoneID = 2114,
-      xN = "0.097",
-      yN = "0.289",
+      xN = "0.696",
+      yN = "0.660",
       zonePolygonData = {
-        -- Add hitbox                     
+        { xN = 0.761, yN = 0.679 },
+        { xN = 0.760, yN = 0.687 },
+        { xN = 0.751, yN = 0.693 },  
+        { xN = 0.750, yN = 0.710 }, 
+        { xN = 0.730, yN = 0.720 }, 
+        { xN = 0.723, yN = 0.723 }, 
+        { xN = 0.708, yN = 0.723 }, 
+        { xN = 0.692, yN = 0.712 }, 
+        { xN = 0.696, yN = 0.685 }, 
+        { xN = 0.705, yN = 0.674 }, 
+        { xN = 0.713, yN = 0.673 }, 
+        { xN = 0.715, yN = 0.667 }, 
+        { xN = 0.719, yN = 0.655 }, 
+        { xN = 0.749, yN = 0.661 }, 
+        { xN = 0.759, yN = 0.671 }, 
+        { xN = 0.760, yN = 0.681 }, 
+        
       }
     }, true),
 
