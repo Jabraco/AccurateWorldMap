@@ -366,3 +366,30 @@ function getCurrentZoneInfo()
 
 end
 
+-------------------------------------------------------------------------------
+-- Update location info on the side bar
+-------------------------------------------------------------------------------
+
+function updateLocationsInfo()
+
+  if (VOTANS_IMPROVED_LOCATIONS) then
+    VOTANS_IMPROVED_LOCATIONS.mapData = nil
+    WORLD_MAP_LOCATIONS:BuildLocationList()
+  else
+    local locations = WORLD_MAP_LOCATIONS
+    locations.data.mapData = nil
+
+    ZO_ScrollList_Clear(locations.list)
+    local scrollData = ZO_ScrollList_GetDataList(locations.list)
+
+    local mapData = locations.data:GetLocationList()
+
+    for i,entry in ipairs(mapData) do
+      scrollData[#scrollData + 1] = ZO_ScrollList_CreateDataEntry(1, entry)
+    end
+
+    ZO_ScrollList_Commit(locations.list)
+
+  end
+end
+

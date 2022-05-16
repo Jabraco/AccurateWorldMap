@@ -2433,9 +2433,26 @@ mapData = {
     [291] = { disabled = true }, -- Serenity Falls Estate House
     [321] = { disabled = true }, -- Dawnshadow House
 
+    -- [] = { xN = 0.x, yN = 0.x, disabled = false }, -- 
+
     -- The Systres --
     [488] = { xN = 0.654, yN = 0.681, disabled = false }, -- Dreadsail Reef Trial
-    -- Add more here
+    [510] = { xN = 0.712, yN = 0.700, disabled = false }, -- All Flags Wayshrine
+    [513] = { xN = 0.727, yN = 0.714, disabled = false, majorSettlement = true }, -- Gonfalon Square Wayshrine
+    [522] = { xN = 0.727, yN = 0.713, disabled = false }, -- Ancient Anchor Berth House
+    [512] = { xN = 0.723, yN = 0.715, disabled = false }, -- Westbay Wayshrine
+    [501] = { xN = 0.709, yN = 0.712, disabled = false }, -- Coral Road Wayshrine 
+    [504] = { xN = 0.699, yN = 0.709, disabled = false }, -- Castle Navire Wayshrine
+    [506] = { xN = 0.702, yN = 0.697, disabled = false }, -- Stonelore Grove Wayshrine 
+    [505] = { xN = 0.709, yN = 0.683, disabled = false }, -- Garrick's Rest Wayshrine
+    [507] = { xN = 0.728, yN = 0.694, disabled = false }, -- Dufort Shipyard Wayshrine
+    [502] = { xN = 0.730, yN = 0.705, disabled = false }, -- Tor Draioch Wayshrine 
+    [508] = { xN = 0.737, yN = 0.688, disabled = false, majorSettlement = true }, -- Amenos Station
+    [511] = { xN = 0.734, yN = 0.677, disabled = false }, -- Trapper's Peak Wayshrine 
+    [518] = { xN = 0.741, yN = 0.679, disabled = false }, -- Serpent's Hollow Wayshrine
+    [519] = { xN = 0.749, yN = 0.669, disabled = false }, -- Flooded Coast Wayshrine 
+    [509] = { xN = 0.753, yN = 0.680, disabled = false }, -- Brokerock Mine Wayshrine
+
 
     zoneData = join({
       zoneName = "High Isle & Amenos",
