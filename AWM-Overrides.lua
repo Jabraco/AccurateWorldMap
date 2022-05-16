@@ -230,7 +230,7 @@ GetMapTileTexture = function(tileIndex)
 
       -- Replace tiles with debug version if debug is enabled
       if AccurateWorldMap.options.isDebug then
-          i = tostring(i) .. "_debug"  
+        tileIndex = tostring(tileIndex) .. "_debug"  
       end
   
       return "AccurateWorldMap/tiles/" .. getCurrentZoneInfo().customTileName .. "_" .. tileIndex .. ".dds"

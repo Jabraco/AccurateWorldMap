@@ -52,7 +52,7 @@ mapData = {
 
     zoneData = join({
       zoneName = "Bleakrock Isle",
-      zoneDescription = "Sitting at the mouth of the Yorgrim River, Bleakrock Isle may seem like a quaint fishing Isle, but its strategic importance cannot be understated - it acts as a checkpoint to every port city in the Ebonheart Pact.",
+      zoneDescription = "Bleakrock may seem like a quaint fishing isle, but its strategic importance cannot be understated - it acts as a checkpoint to every port city in the Ebonheart Pact.",
       zoneID = 74,
       xN = "0.6075",
       yN = "0.223",
@@ -2414,6 +2414,8 @@ mapData = {
       zoneDescription = "The seas of Western Tamriel are home to the sunken realm of Thras, the Systres Archipelago, and the Yokudan continent.",
       overrideLoreRenames = true,
       isWorldMap = true,
+      customTileName = "Eltheric",
+      zoomLevel = 5,
       zoneID = 315,
       blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
       xN = "-0.06",

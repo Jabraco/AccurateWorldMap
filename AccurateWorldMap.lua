@@ -10,12 +10,19 @@ Todo:
 
 Things that need to be done before release:
 
-- Sort out K&M and gamepad desc grunge, get breaux to make new textures for both
-- Do a once over of all zone descriptions with breaux so that she's happy with them
-- add Systres blobs and stuff to the map
+General:
+
+- go over zone descs with breaux to get them finalised
+
+Breaux:
+
+- add aurbis ring lines to tamriel and systres icons
+
+
+- Make description background textures for both gamepad and K&M
 - Fix the Aurbis tamriel blob - mismatches with what is there currently
 >> Aurbis Tamriel is missing its waves as well
-- Fix Aurbis rings not containing their proper text
+- Fix Aurbis rings not containing their proper daedric/elven text
 
 - Fix Eltheric Ocean ring not being the correct colour, and looking werid
 >> Eltheric Ocean map ring should be blackreach ring coloured, with a ship icon
@@ -23,10 +30,7 @@ Things that need to be done before release:
 (like https://cdn.discordapp.com/attachments/806672739057664034/974778491373518868/unknown.png)
 >> also note that the aurbis circle rings seem to be semitransparent - the western skyrim one has a slight blue tint as its in the sea
 
-
-- Fix player location being incorrect (and also group pins)
-- Add Eltheric ocean map properly with High isle wayshrines
-- Get blobs for the following:
+- Give TJ blobs for the following:
 >> Dranil-Kir
 >> Silitar
 >> Fort Grief
@@ -34,19 +38,36 @@ Things that need to be done before release:
 >> The Earth Forge (Reach)
 >> Sword's Rest Isle
 >> Arcane University
+>> Imperial City Prison
+
 
 Breaux said she would look into:
 
-- sort out W.Skyrim's outline situation (as per carto club)
-- fix castle volikhar
+- sorting out W.Skyrim's outline situation (as per carto club)
+- fixing castle volikhar
 
 
-After release:
+Optional:
 
 - Add IC Sewers circle to IC map and get blob
 - Rotate IC on the cyrodiil map 45 degrees to be consistent with oblivion (edit the tiles)
 https://cdn.discordapp.com/attachments/806672739057664034/975049286305861672/unknown.png
 - Remove Dragonhold from S.E map by editing the tiles again (Add as option to remove dragonhold from zone map)
+
+
+TJ:
+- refactor AccurateWorldMap to AWM
+- and AccurateWorldMap.options to AWM.settings
+- fix zone description text being cut off
+- fix zone description text being truncating on map open
+- implement gamepad desc background
+- Fix player location being incorrect (and also group pins)
+- Sort out K&M and gamepad desc grunge
+- Do a once over of all zone descriptions with breaux so that she's happy with them
+- add Systres blobs and stuff to the map
+- Add Eltheric ocean map properly with High isle wayshrines
+- Implement proper waypoint and player marker tracking and moving
+
 
 
 
@@ -232,9 +253,6 @@ end
 
 local function onWorldMapDrawn()
 
-  -- do anchors and resize it to be around 0.5 or more of the map window
-  -- then remove all hardcoded \n from descs
-
   local mapWidth, mapHeight = ZO_WorldMapContainer:GetDimensions()
   local enlargeConst = 1.5
 
@@ -249,7 +267,7 @@ local function onWorldMapDrawn()
 
   -- set up map description label control
   ZO_WorldMapMouseOverDescription:SetFont("ZoFontGameLargeBold")
-  ZO_WorldMapMouseOverDescription:SetMaxLineCount(2)
+  ZO_WorldMapMouseOverDescription:SetMaxLineCount(2.5)
   ZO_WorldMapMouseOverDescription:SetWrapMode(TEXT_WRAP_MODE_ELLIPSIS)
 
   ZO_WorldMapMouseOverDescription:ClearAnchors()
@@ -551,7 +569,7 @@ local function compileBlobTextures()
   -- if texture compilation has had no issues, then go ahead
   if (hasError == false and areTexturesCompiled == false) then
 
-    print("AccurateWorldMap succesfully loaded.", true)
+    print("Successfully loaded.", true)
     areTexturesCompiled = true
 
   end
@@ -566,7 +584,7 @@ local function onPlayerLoaded()
 
   if (areTexturesCompiled == false) then
   
-    print("Compiling map textures, please wait ...", true)
+    print("Loading, please wait ...", true)
 
     -- call compileBlobTextures twice to make sure it's loaded
     zo_callLater(function()
