@@ -382,7 +382,7 @@ mapData = {
 
     zoneData = join({
       zoneName = "Cyrodiil",
-      zoneDescription = "With the Empire's collapse, armies of the Dominion, Covenant, and Pact have all invadedthe Heartlands of Cyrodiil, vying for the Imperial throne.",
+      zoneDescription = "With the Empire's collapse, armies of the Dominion, Covenant, and Pact have all invaded the Heartlands of Cyrodiil, vying for the Imperial throne.",
       zoneID = 16,
       xN = "0.420",
       yN = "0.384",
@@ -2452,6 +2452,7 @@ mapData = {
     [518] = { xN = 0.741, yN = 0.679, disabled = false }, -- Serpent's Hollow Wayshrine
     [519] = { xN = 0.749, yN = 0.669, disabled = false }, -- Flooded Coast Wayshrine 
     [509] = { xN = 0.753, yN = 0.680, disabled = false }, -- Brokerock Mine Wayshrine
+    [523] = { xN = 0.728, yN = 0.713, disabled = false }, -- High Hallow Hold House
 
 
     zoneData = join({
