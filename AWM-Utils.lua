@@ -285,6 +285,8 @@ end
 -- Navigate map to provided map via map data object or ID
 -------------------------------------------------------------------------------
 
+local GPS = LibGPS3
+
 function navigateToMap(mapInfo)
 
   local mapID
@@ -312,6 +314,7 @@ function navigateToMap(mapInfo)
     isInBlobHitbox = false
     SetMapToMapId(mapID)
     currentZoneInfo = {}
+    GPS:SetPlayerChoseCurrentMap()
     CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
 
     -- force map to zoom out
