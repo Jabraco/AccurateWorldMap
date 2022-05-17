@@ -304,7 +304,7 @@ end
 -------------------------------------------------------------------------------
 
 local function main()
-  if (isWorldMapShown()) then
+  if (isWorldMapShown() and isMouseWithinMapWindow()) then
 
 
     if (isInGamepadMode()) then
