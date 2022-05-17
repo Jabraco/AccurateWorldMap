@@ -83,9 +83,6 @@ GetMapMouseoverInfo = function(xN, yN)
   -- if the current map is not set to exclusive, or we don't have any data for it, get vanilla values for the current position
   if (not getIsCurrentMapExclusive() or not doesCurrentMapHaveCustomZoneData()) then
    locationName, textureFile, widthN, heightN, locXN, locYN = zos_GetMapMouseoverInfo(xN, yN)
-
-   AWM_MouseOverGrungeTex:SetHidden(true)
-
   end
 
   if (doesCurrentMapHaveCustomZoneData()) then

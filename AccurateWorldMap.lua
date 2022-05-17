@@ -12,20 +12,19 @@ Things that need to be done before release:
 
 TJ:
 
-- fix zone description text being cut off
-- fix zone description text being truncating on map open
-- implement gamepad desc background
+- Fix polygon recording
+
+
+- Sort out breaux's custom K&M and gamepad desc grunge design
+
 - Fix player location being incorrect (and also group pins)
-- Sort out K&M and gamepad desc grunge
 - Implement proper waypoint and player marker tracking and moving
 
 - Do the same to Wasten Coraldale in summerset
 - And Coral Aerie
 - Add a "Recording" dot that appears when recording blob
 - Add a close button to the polygon record control, and allow to reset without reload ui
-- Change Zone name location in Filters sidebar in map menu too
 - Find a way to move the zone name and clock to be closer to the actual map in K&M mode like gamepad
-
 
 
 Breaux:
@@ -192,6 +191,7 @@ AWM.isInsideBlobHitbox = false
 AWM.blobZoneInfo = {}
 AWM.currentlySelectedPolygon = nil
 AWM.canRedrawMap = true
+AWM.areTexturesCompiled = false
 
 -- bools
 local recordCoordinates = false
@@ -199,7 +199,7 @@ local mouseDownOnPolygon = false
 local hasDragged = false
 
 local waitForRelease = false
-local areTexturesCompiled = false
+
 
 -- ints
 local currentCoordinateCount = 0
@@ -213,37 +213,12 @@ local polygonData = {}
 local newPolygonData = {}
 
 
-local mapDimensions = 4096 -- px
-
-
-local function onMousePressed()
-
-  if isMouseWithinMapWindow() then
-
-    if (recordCoordinates) then 
-      PlaySound(SOUNDS.COUNTDOWN_TICK)
-
-      local xN, yN = getNormalisedMouseCoordinates()
-
-      table.insert(newPolygonData, {xN, yN})
-
-
-      currentCoordinateCount = currentCoordinateCount + 1
-
-    end
-
-  end
-
-end
-
-
-
 -- todo: fix this for gamepad mode as well
 AWM_MouseOverGrungeTex = CreateControl("AWM_MouseOverGrungeTex", ZO_WorldMap, CT_TEXTURE)
 AWM_MouseOverGrungeTex:SetTexture("/esoui/art/performance/statusmetermunge.dds")
 
 
-local function updateCurrentPolygon(polygon) 
+function updateCurrentPolygon(polygon) 
 
   currentMapIndex = getCurrentMapID()
   AWM.isInsideBlobHitbox = true
@@ -255,7 +230,6 @@ local function updateCurrentPolygon(polygon)
     if (not isInGamepadMode()) then
       AWM_MouseOverGrungeTex:SetHidden(false)
     end
-
 
   end
 
@@ -305,13 +279,55 @@ local function onWorldMapDrawn()
 
 end
 
+
+local function onMousePressed()
+
+  if isMouseWithinMapWindow() then
+
+    if (recordCoordinates) then 
+      PlaySound(SOUNDS.COUNTDOWN_TICK)
+
+      d(getNormalisedMouseCoordinates())
+
+      local xN, yN = getNormalisedMouseCoordinates()
+
+      table.insert(newPolygonData, {xN, yN})
+
+
+      currentCoordinateCount = currentCoordinateCount + 1
+
+    end
+
+  end
+
+end
+
+local function recordPolygon()
+
+  if recordCoordinates == true then
+    d("Coordinates recorded.")
+
+    createZoneHitbox(newPolygonData, nil, true)
+
+    newPolygonData = {}
+    currentCoordinateCount = 0
+    recordCoordinates = false
+  end
+
+  if recordCoordinates == false then
+    d("Recording coordinates... click on the map to draw a polygon")
+    recordCoordinates = true
+  end
+
+
+end
+
 -------------------------------------------------------------------------------
 -- Main addon event loop
 -------------------------------------------------------------------------------
 
 local function main()
   if (isWorldMapShown() and isMouseWithinMapWindow()) then
-
 
     if (isInGamepadMode()) then
 
@@ -339,8 +355,8 @@ local function main()
       end
   
     end
-  
-  
+       
+
     if (AWM.currentlySelectedPolygon ~= nil) then
   
       -- check to make sure that the user has actually left the hitbox, and is not just hovering over a wayshrine
@@ -367,252 +383,22 @@ local function main()
   end
 end
 
-
-local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
-
-  local polygonID
-
-
-  if (zoneInfo ~= nil) then
-
-    polygonID = "blobHitbox-"..zoneInfo.zoneID.."-"..zoneInfo.zoneName
-
-
-  else
-
-    isDebug = true
-    polygonID = "debugPolygon"
-
-  end
-
-  -- check if polygon by this name exists
-  if (WINDOW_MANAGER:GetControlByName(polygonID) == nil) then
-
-
-    local polygon = ZO_WorldMapContainer:CreateControl(polygonID, CT_POLYGON)
-    polygon:SetAnchorFill(ZO_WorldMapContainer)
-
-
-    local polygonCode = ""
-
-    if (isDebug) then
-      AWM_EditTextWindow:SetHidden(false)
-    end
-
-
-    for key, data in pairs(polygonData) do
-
-
-
-      if (isDebug and data.xN ~= nil and data.yN ~= nil) then
-
-        polygonCode = polygonCode .. ("{ xN = "..string.format("%.03f", data.xN)..", yN = "..string.format("%.03f", data.yN).." },\n")  
-
-      end
-  
-      polygon:AddPoint(data.xN, data.yN)
-  
-  
-    end
-
-    if (isDebug) then
-      d(polygonData)
-      AWM_EditTextTextBox:SetText(polygonCode)
-    end
-
-  
-    if (isDebug) then
-      polygon:SetCenterColor(0, 1, 0, 0.5)
-    else
-      polygon:SetCenterColor(0, 0, 0, 0)
-    end
-    
-    polygon:SetMouseEnabled(true)
-    polygon:SetHandler("OnMouseDown", function(control, button, ctrl, alt, shift, command)
-
-      if (waitForRelease == false) then
-        currentMapOffsetX, currentMapOffsetY = getWorldMapOffsets()
-        waitForRelease = true
-      end
-
-
-      AWM.currentlySelectedPolygon = polygon
-      ZO_WorldMap_MouseDown(button, ctrl, alt, shift)    
-    end)
-
-    polygon:SetHandler("OnMouseUp", function(control, button, upInside, ctrl, alt, shift, command)
-      
-      ZO_WorldMap_MouseUp(control, button, upInside)
-
-
-      if (AWM.blobZoneInfo ~= nil and upInside and button == MOUSE_BUTTON_INDEX_LEFT) then
-
-        if (waitForRelease) then
-
-          local mapOffsetX, mapOffsetY = getWorldMapOffsets()
-
-          local deltaX, deltaY
-
-
-          if (mapOffsetX >= currentMapOffsetX) then
-            deltaX = mapOffsetX - currentMapOffsetX
-          else 
-            deltaX = currentMapOffsetX - mapOffsetX
-          end
-
-          if (mapOffsetY >= currentMapOffsetY) then
-            deltaY = mapOffsetY - currentMapOffsetY
-          else 
-            deltaY = currentMapOffsetY - mapOffsetY
-          end
-
-          print(tostring(deltaX))
-
-          if (deltaX <= 10 and deltaX <= 10) then
-
-            navigateToMap(AWM.blobZoneInfo)
-
-          end
-
-
-        end
-
-
-      end
-
-      waitForRelease = false
-
-    end)
-      
-  
-    polygon:SetHandler("OnMouseEnter", function()
-
-      if (not isInGamepadMode()) then
-        updateCurrentPolygon(polygon)
-      end
-
-    end)
-  
-  else 
-    -- it already exists, we just need to show it again
-    WINDOW_MANAGER:GetControlByName(polygonID):SetHidden(false)
-    WINDOW_MANAGER:GetControlByName(polygonID):SetMouseEnabled(true)
-  end
-end
-
-local function recordPolygon()
-
-  if recordCoordinates == true then
-    d("Coordinates recorded.")
-
-    createOrShowZonePolygon(newPolygonData)
-
-
-    newPolygonData = {}
-    currentCoordinateCount = 0
-    recordCoordinates = false
-  end
-
-  if recordCoordinates == false then
-    d("Recording coordinates... click on the map to draw a polygon")
-    recordCoordinates = true
-  end
-
-
-end
-
-local function compileBlobTextures()
-
-  AWM_TextureControl:SetAlpha(0)
-  
-  local hasError = false
-
-  --print("getting blob info!")
-
-
-  -- iterate through all of mapData
-  for mapID, zoneData in pairs(mapData) do
-
-
-    if (zoneData.zoneData ~= nil) then
-
-      --print("got to here!")
-
-      local zoneInfo = zoneData.zoneData
-
-      for zoneIndex, zoneInfo in pairs(zoneInfo) do
-
-        --print("checking zone info!")
-
-        if (zoneInfo.zoneName ~= nil) then
-
-          --print("there is a zone name!")
-
-          if (zoneInfo.blobTexture == nil or zoneInfo.nBlobTextureHeight == nil or zoneInfo.nBlobTextureWidth == nil ) then
-
-            --print("loading in textures!")
-
-            local textureDirectory
-            
-            if (zoneInfo.blobTexture ~= nil) then
-              textureDirectory = zoneInfo.blobTexture
-            else
-              textureDirectory = getFileDirectoryFromMapName(zoneInfo.zoneName)
-            end
-
-            -- load texture into control from name
-            AWM_TextureControl:SetTexture(textureDirectory)
-
-            -- check if texture exists before doing stuff
-            if (AWM_TextureControl:IsTextureLoaded()) then
-
-              -- get the dimensions
-              local textureHeight, textureWidth = AWM_TextureControl:GetTextureFileDimensions()
-
-              -- save texture name and dimensions
-              mapData[mapID].zoneData[zoneIndex].blobTexture = textureDirectory
-              mapData[mapID].zoneData[zoneIndex].nBlobTextureHeight = textureHeight / mapDimensions
-              mapData[mapID].zoneData[zoneIndex].nBlobTextureWidth = textureWidth / mapDimensions
-
-            else
-
-              print("The following texture failed to load: "..textureDirectory)
-              hasError = true
-
-            end
-          end
-        end
-      end
-    end
-  end
-
-  -- if texture compilation has had no issues, then go ahead
-  if (hasError == false and areTexturesCompiled == false) then
-
-    print("Successfully loaded.", true)
-    areTexturesCompiled = true
-
-
-  end
-
-end
-
 -------------------------------------------------------------------------------
---  On player ready / loaded function
+--  On player loaded function
 -------------------------------------------------------------------------------
 
 local function onPlayerLoaded()
 
   updateLocationsInfo()
 
-  if (areTexturesCompiled == false) then
+  if (not AWM.areTexturesCompiled) then
   
     print("Loading, please wait ...", true)
 
-    -- call compileBlobTextures twice to make sure it's loaded
+    -- call compileMapTextures twice to make sure it's loaded
     zo_callLater(function()
-      compileBlobTextures()
-      zo_callLater(function() compileBlobTextures()
+      compileMapTextures()
+      zo_callLater(function() compileMapTextures()
        end, 1000 )
     end, 2000 )
 
@@ -625,79 +411,15 @@ end
 
 local function onZoneChanged()
 
-  -- Hide all existing zone blobs
+  -- hide all existing zone blobs
   hideAllZoneBlobs()
 
+  -- hide map info description background
   AWM_MouseOverGrungeTex:SetHidden(true)
 
-  local mapIndex = getCurrentMapID()
+  -- parse current map for any custom data
+  parseMapData(getCurrentMapID())
 
-  if (mapIndex ~= nil) then
-
-
-    print("Current map id: ".. mapIndex)
-
-
-    -- Check if the current zone/map has any custom map data set to it
-    if (mapData[mapIndex] ~= nil) then
-      
-      --print("This map has custom data!")
-
-
-      if (mapData[mapIndex].isExclusive ~= nil) then
-        isExclusive = mapData[mapIndex].isExclusive
-      else
-        isExclusive = false
-      end
-
-
-      if (mapData[mapIndex].zoneData ~= nil) then
-        --print("This map has custom zone data!")
-        local zoneData = mapData[mapIndex].zoneData
-
-        for zoneAttribute, zoneInfo in pairs(zoneData) do
-
-
-          if (zoneInfo.zoneName ~= nil) then
-
-            print(zoneInfo.zoneName)
-
-            print(tostring(zoneAttribute))
-            print(tostring(zoneInfo))
-
-            if (zoneInfo.xN ~= nil and zoneInfo.yN ~= nil) then
-              if (zoneInfo.blobTexture ~= nil and zoneInfo.nBlobTextureHeight ~= nil and zoneInfo.nBlobTextureHeight ~= nil ) then
-                if (zoneInfo.zonePolygonData ~= nil) then
-
-                  createOrShowZonePolygon(zoneInfo.zonePolygonData, zoneInfo)
-
-
-                  -- add polygons, make zone data
-
-                else 
-                  print("Warning: Custom Zone "..zoneInfo.zoneName.." ".."is missing its hitbox polygon!")
-                end
-              else
-                print("Warning: Custom Zone "..zoneInfo.zoneName.." ".."is missing its texture details!")
-
-                -- rerun texture details for this zone
-                -- getTextureDetails() --getTextureDetails(nil)
-
-              end
-            else
-              print("Warning: Custom Zone "..zoneInfo.zoneName.." ".." has invalid zone coordinates!")
-            end
-          else
-            print("Warning: Custom Zone ID #"..tostring(zoneInfo.zoneID).." has no name!")
-          end
-        end
-      end
-
-    else
-      isExclusive = false
-    end
-  end
-  print("isExclusive: "..tostring(isExclusive))
 end
 
 -------------------------------------------------------------------------------
@@ -712,8 +434,8 @@ local function initialise(event, addonName)
   -- unregister as addon is now loaded
   EVENT_MANAGER:UnregisterForEvent(AWM.name, EVENT_ADD_ON_LOADED)
   
-  -- compile blob texture details
-  compileBlobTextures()
+  -- compile map textures
+  compileMapTextures()
 
   -- update locations info on the sidebar
   updateLocationsInfo()
@@ -724,7 +446,7 @@ local function initialise(event, addonName)
   -- set up slash commands
   SLASH_COMMANDS["/get_map_id"] = function() print(GetCurrentMapId(), true) end
   SLASH_COMMANDS["/record_polygon"] = recordPolygon
-  SLASH_COMMANDS["/get_blobs"] = compileBlobTextures
+  SLASH_COMMANDS["/get_blobs"] = compileMapTextures
   SLASH_COMMANDS["/set_map_to"] = navigateToMap
   SLASH_COMMANDS["/awm_debug"] = function() AWM.options.isDebug = not AWM.options.isDebug navigateToMap(getCurrentMapID()) end
   SLASH_COMMANDS["/fix_locations"] = fixLocations

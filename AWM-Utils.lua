@@ -406,7 +406,6 @@ function getIsCurrentMapExclusive()
 
 end
 
-
 -------------------------------------------------------------------------------
 -- Get whether the current map has custom zone data or not
 -------------------------------------------------------------------------------
@@ -414,6 +413,291 @@ end
 function doesCurrentMapHaveCustomZoneData()
 
   return (mapData[getCurrentMapID()] ~= nil and mapData[getCurrentMapID()].zoneData ~= nil)
+
+end
+
+-------------------------------------------------------------------------------
+-- Creates zone hitbox on the map given some coordinates
+-------------------------------------------------------------------------------
+
+function createZoneHitbox(polygonData, zoneInfo)
+
+  local polygonID
+  local isDebug
+
+
+  if (zoneInfo ~= nil) then
+
+    polygonID = "blobHitbox-"..zoneInfo.zoneID.."-"..zoneInfo.zoneName
+
+
+  else
+
+    isDebug = true
+    polygonID = "debugPolygon"
+
+  end
+
+  -- check if polygon by this name exists
+  if (WINDOW_MANAGER:GetControlByName(polygonID) == nil) then
+
+
+    local polygon = ZO_WorldMapContainer:CreateControl(polygonID, CT_POLYGON)
+    polygon:SetAnchorFill(ZO_WorldMapContainer)
+
+
+    local polygonCode = ""
+
+    if (isDebug) then
+      AWM_EditTextWindow:SetHidden(false)
+    end
+
+
+    for key, data in pairs(polygonData) do
+
+
+      if (isDebug) then
+
+        d(data.xN, data.yN)
+
+        polygonCode = polygonCode .. ("{ xN = "..string.format("%.03f", data.xN)..", yN = "..string.format("%.03f", data.yN).." },\n")  
+
+      end
+
+      polygon:AddPoint(data.xN, data.yN)
+  
+    end
+
+    if (isDebug) then
+      d(polygonData)
+      AWM_EditTextTextBox:SetText(polygonCode)
+    end
+
+  
+    if (isDebug) then
+      polygon:SetCenterColor(0, 1, 0, 0.5)
+    else
+      polygon:SetCenterColor(0, 0, 0, 0)
+    end
+    
+    polygon:SetMouseEnabled(true)
+    polygon:SetHandler("OnMouseDown", function(control, button, ctrl, alt, shift, command)
+
+      if (waitForRelease == false) then
+        currentMapOffsetX, currentMapOffsetY = getWorldMapOffsets()
+        waitForRelease = true
+      end
+
+
+      AWM.currentlySelectedPolygon = polygon
+      ZO_WorldMap_MouseDown(button, ctrl, alt, shift)    
+    end)
+
+    polygon:SetHandler("OnMouseUp", function(control, button, upInside, ctrl, alt, shift, command)
+      
+      ZO_WorldMap_MouseUp(control, button, upInside)
+
+
+      if (AWM.blobZoneInfo ~= nil and upInside and button == MOUSE_BUTTON_INDEX_LEFT) then
+
+        if (waitForRelease) then
+
+          local mapOffsetX, mapOffsetY = getWorldMapOffsets()
+
+          local deltaX, deltaY
+
+
+          if (mapOffsetX >= currentMapOffsetX) then
+            deltaX = mapOffsetX - currentMapOffsetX
+          else 
+            deltaX = currentMapOffsetX - mapOffsetX
+          end
+
+          if (mapOffsetY >= currentMapOffsetY) then
+            deltaY = mapOffsetY - currentMapOffsetY
+          else 
+            deltaY = currentMapOffsetY - mapOffsetY
+          end
+
+          print(tostring(deltaX))
+
+          if (deltaX <= 10 and deltaX <= 10) then
+
+            navigateToMap(AWM.blobZoneInfo)
+
+          end
+
+
+        end
+
+
+      end
+
+      waitForRelease = false
+
+    end)
+      
+  
+    polygon:SetHandler("OnMouseEnter", function()
+
+      if (not isInGamepadMode()) then
+        updateCurrentPolygon(polygon)
+      end
+
+    end)
+  
+  else 
+    -- it already exists, we just need to show it again
+    WINDOW_MANAGER:GetControlByName(polygonID):SetHidden(false)
+    WINDOW_MANAGER:GetControlByName(polygonID):SetMouseEnabled(true)
+  end
+end
+
+-------------------------------------------------------------------------------
+-- Compile map textures
+-------------------------------------------------------------------------------
+
+function compileMapTextures()
+
+  AWM_TextureControl:SetAlpha(0)
+  
+  local hasError = false
+
+  --print("getting blob info!")
+
+
+  -- iterate through all of mapData
+  for mapID, zoneData in pairs(mapData) do
+
+
+    if (zoneData.zoneData ~= nil) then
+
+      --print("got to here!")
+
+      local zoneInfo = zoneData.zoneData
+
+      for zoneIndex, zoneInfo in pairs(zoneInfo) do
+
+        --print("checking zone info!")
+
+        if (zoneInfo.zoneName ~= nil) then
+
+          --print("there is a zone name!")
+
+          if (zoneInfo.blobTexture == nil or zoneInfo.nBlobTextureHeight == nil or zoneInfo.nBlobTextureWidth == nil ) then
+
+            --print("loading in textures!")
+
+            local textureDirectory
+            
+            if (zoneInfo.blobTexture ~= nil) then
+              textureDirectory = zoneInfo.blobTexture
+            else
+              textureDirectory = getFileDirectoryFromMapName(zoneInfo.zoneName)
+            end
+
+            -- load texture into control from name
+            AWM_TextureControl:SetTexture(textureDirectory)
+
+            -- check if texture exists before doing stuff
+            if (AWM_TextureControl:IsTextureLoaded()) then
+
+              -- get the dimensions
+              local textureHeight, textureWidth = AWM_TextureControl:GetTextureFileDimensions()
+
+              -- save texture name and dimensions
+              mapData[mapID].zoneData[zoneIndex].blobTexture = textureDirectory
+              mapData[mapID].zoneData[zoneIndex].nBlobTextureHeight = textureHeight / 4096
+              mapData[mapID].zoneData[zoneIndex].nBlobTextureWidth = textureWidth / 4096
+
+            else
+
+              print("The following texture failed to load: "..textureDirectory)
+              hasError = true
+
+            end
+          end
+        end
+      end
+    end
+  end
+
+  -- if texture compilation has had no issues, then go ahead
+  if (hasError == false and not AWM.areTexturesCompiled) then
+
+    print("Successfully loaded.", true)
+    AWM.areTexturesCompiled = true
+
+  end
+end
+
+function parseMapData(mapID)
+
+  if (mapID ~= nil) then
+
+
+    print("Current map id: ".. mapID)
+
+
+    -- Check if the current zone/map has any custom map data set to it
+    if (mapData[mapID] ~= nil) then
+      
+      --print("This map has custom data!")
+
+
+      if (mapData[mapID].isExclusive ~= nil) then
+        isExclusive = mapData[mapID].isExclusive
+      else
+        isExclusive = false
+      end
+
+
+      if (mapData[mapID].zoneData ~= nil) then
+        --print("This map has custom zone data!")
+        local zoneData = mapData[mapID].zoneData
+
+        for zoneAttribute, zoneInfo in pairs(zoneData) do
+
+
+          if (zoneInfo.zoneName ~= nil) then
+
+            print(zoneInfo.zoneName)
+
+            print(tostring(zoneAttribute))
+            print(tostring(zoneInfo))
+
+            if (zoneInfo.xN ~= nil and zoneInfo.yN ~= nil) then
+              if (zoneInfo.blobTexture ~= nil and zoneInfo.nBlobTextureHeight ~= nil and zoneInfo.nBlobTextureHeight ~= nil ) then
+                if (zoneInfo.zonePolygonData ~= nil) then
+
+                  createZoneHitbox(zoneInfo.zonePolygonData, zoneInfo)
+
+                  -- add polygons, make zone data
+
+                else 
+                  print("Warning: Custom Zone "..zoneInfo.zoneName.." ".."is missing its hitbox polygon!")
+                end
+              else
+                print("Warning: Custom Zone "..zoneInfo.zoneName.." ".."is missing its texture details!")
+
+                -- rerun texture details for this zone
+                -- getTextureDetails() --getTextureDetails(nil)
+
+              end
+            else
+              print("Warning: Custom Zone "..zoneInfo.zoneName.." ".." has invalid zone coordinates!")
+            end
+          else
+            print("Warning: Custom Zone ID #"..tostring(zoneInfo.zoneID).." has no name!")
+          end
+        end
+      end
+
+    else
+      isExclusive = false
+    end
+  end
+  print("isExclusive: "..tostring(isExclusive))
 
 end
 
