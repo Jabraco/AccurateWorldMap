@@ -2404,7 +2404,6 @@ mapData = {
       zoneName = "Eltheric Ocean",
       zoneDescription = "The seas of Western Tamriel are home to the sunken realm of Thras, the Systres Archipelago, and the Yokudan continent.",
       overrideLoreRenames = true,
-      isExclusive = true,
       isWorldMap = true,
       customTileName = "Eltheric",
       zoomLevel = 5,
