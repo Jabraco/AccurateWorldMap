@@ -2,14 +2,19 @@
                         AccurateWorldMap Overrides
 ===============================================================================
 
-            Vanilla/ZOS functions that AccurateWorldMap needs to override
-                              in order to function.
+        Functions that AccurateWorldMap needs to override in order to
+                              work properly.
 
 ---------------------------------------------------------------------------]]--
 
+-- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+-- ██░▄▄▄░██░▄▄▄░██░▄▄▄░████░▄▄▄██░██░██░▀██░██░▄▄▀█▄▄░▄▄█▄░▄██░▄▄▄░██░▀██░██░▄▄▄░██
+-- ██▀▀▀▄▄██░███░██▄▄▄▀▀████░▄▄███░██░██░█░█░██░██████░████░███░███░██░█░█░██▄▄▄▀▀██
+-- ██░▀▀▀░██░▀▀▀░██░▀▀▀░████░█████▄▀▀▄██░██▄░██░▀▀▄███░███▀░▀██░▀▀▀░██░██▄░██░▀▀▀░██
+-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
 
 -------------------------------------------------------------------------------
--- Override ZOS World map click function
+-- Override world map click function
 -------------------------------------------------------------------------------
 
 -- These functions control when the user's click is passed through to the map 
@@ -23,14 +28,10 @@ ZO_PreHook("ProcessMapClick", function(xN, yN)
   -- in K&M mode, this function gets fired on every double click for some reason
   -- whereas in gamepad this gets fired every click
 
-  print("processed map click function!")
-
   if ((AWM.isInsideBlobHitbox and AWM.blobZoneInfo ~= nil) or getIsCurrentMapExclusive()) then
 
     if (isInGamepadMode() and (AWM.isInsideBlobHitbox and AWM.blobZoneInfo ~= nil)) then
-
       navigateToMap(AWM.blobZoneInfo)
-
     end
 
 
@@ -41,7 +42,7 @@ end)
 
 
 -------------------------------------------------------------------------------
--- Map mouseover info function
+-- Override map mouseover info function
 -------------------------------------------------------------------------------
 
 -- Controls the "blobs", the highlight effect that appears  when hovering over
@@ -125,21 +126,7 @@ function GetMapInfoByIndex(zoneIndex)
     return mapName, mapType, mapContentType, zoneIndex, description
 end
 
--------------------------------------------------------------------------------
--- Compatibility patch for True Exploration addon
--------------------------------------------------------------------------------
 
-local zos_GetMapType = GetMapType
-function GetMapType()
-
-  local mapType = zos_GetMapType()
-
-  if (getCurrentMapID() == 315) then
-    return MAPTYPE_WORLD
-  end
-
-  return mapType
-end
 
 -------------------------------------------------------------------------------
 -- ZOS WorldMap Zoom controller
@@ -363,3 +350,29 @@ GetMapTileTexture = function(tileIndex)
 end
 
 
+-- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+-- ██░▄▄▀██░▄▄▄░██░▄▀▄░██░▄▄░█░▄▄▀█▄▄░▄▄█▄░▄██░▄▄▀█▄░▄██░████▄░▄█▄▄░▄▄██░███░████░▄▄░█░▄▄▀█▄▄░▄▄██░▄▄▀██░██░██░▄▄▄██░▄▄▄░██
+-- ██░█████░███░██░█░█░██░▀▀░█░▀▀░███░████░███░▄▄▀██░███░█████░████░████▄▀▀▀▄████░▀▀░█░▀▀░███░████░█████░▄▄░██░▄▄▄██▄▄▄▀▀██
+-- ██░▀▀▄██░▀▀▀░██░███░██░████░██░███░███▀░▀██░▀▀░█▀░▀██░▀▀░█▀░▀███░██████░██████░████░██░███░████░▀▀▄██░██░██░▀▀▀██░▀▀▀░██
+-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+
+-------------------------------------------------------------------------------
+-- Compatibility patch for True Exploration
+-------------------------------------------------------------------------------
+
+-- Mark the Eltheric Ocean map as a MAPTYPE_WORLD so that True Exploration
+-- doesn't fade it out.
+
+-------------------------------------------------------------------------------
+
+local zos_GetMapType = GetMapType
+function GetMapType()
+
+  local mapType = zos_GetMapType()
+
+  if (getCurrentMapID() == 315) then
+    return MAPTYPE_WORLD
+  end
+
+  return mapType
+end

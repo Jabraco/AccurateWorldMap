@@ -182,6 +182,7 @@ AWM.defaults = {
 -------------------------------------------------------------------------------
 
 local LAM = LibAddonMenu2
+local GPS = LibGPS3
 
 -------------------------------------------------------------------------------
 -- Globals
@@ -214,8 +215,6 @@ local newPolygonData = {}
 local mapDimensions = 4096 -- px
 
 
-
-
 local function onMousePressed()
 
   if isMouseWithinMapWindow() then
@@ -231,7 +230,6 @@ local function onMousePressed()
       currentCoordinateCount = currentCoordinateCount + 1
 
     end
-
 
   end
 
@@ -353,7 +351,6 @@ local function main()
       end
   
     end
-
 
   else
 
@@ -578,7 +575,6 @@ local function compileBlobTextures()
               print("The following texture failed to load: "..textureDirectory)
               hasError = true
 
-
             end
           end
         end
@@ -712,10 +708,10 @@ local function initialise(event, addonName)
   -- unregister as addon is now loaded
   EVENT_MANAGER:UnregisterForEvent(AWM.name, EVENT_ADD_ON_LOADED)
   
-  -- Compile blob texture details
+  -- compile blob texture details
   compileBlobTextures()
 
-  -- Update locations info on the sidebar
+  -- update locations info on the sidebar
   updateLocationsInfo()
 
   -- set up saved variables
@@ -745,6 +741,5 @@ EVENT_MANAGER:RegisterForEvent(AWM.name, EVENT_ADD_ON_LOADED, initialise)
 EVENT_MANAGER:RegisterForEvent("onMouseDown", EVENT_GLOBAL_MOUSE_DOWN, onMousePressed)
 EVENT_MANAGER:RegisterForEvent(AWM.name, EVENT_PLAYER_ACTIVATED, onPlayerLoaded)
 EVENT_MANAGER:RegisterForUpdate("mainLoop", 0, main)
-
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", onZoneChanged)
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapShown", onWorldMapDrawn)
