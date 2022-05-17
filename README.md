@@ -31,6 +31,13 @@ GuildShrines is unneeded when using this addon, as AccurateWorldMap replicates i
 
 Destinations and MapPins add pins to vanilla locations, so they are not compatible. MapPins' incompatibility cannot be mitigated, but Destinations can be fixed by unticking "Unknown POI's" in the in-game map filters menu.
 
+## Works Great With
+
+This addon works great with the following addons:
+
+- True Exploration
+- Votan's Improved Locations
+
 ## Issues
 
 The player location on the map will be incorrect in certain zones, this is because this addon moves certain zones on the world map to where they are in the lore, to be more accurate. We hope to fix this in a future version.
