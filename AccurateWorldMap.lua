@@ -169,10 +169,10 @@ inside is a bunch of controls
 -------------------------------------------------------------------------------
 
 -- set saved variable version number
-AccurateWorldMap.variableVersion = 3
+AWM.variableVersion = 3
 
 -- set default options
-AccurateWorldMap.defaults = {
+AWM.defaults = {
   isDebug = false,
   zoneDescriptions = false,
   loreRenames = true,
@@ -283,7 +283,7 @@ local function updateCurrentPolygon(polygon)
   --print("User has entered zone hitbox")
   currentPolygon = polygon
 
-  if (AccurateWorldMap.options.zoneDescriptions == true) then
+  if (AWM.options.zoneDescriptions == true) then
 
     if (not isInGamepadMode()) then
       AWM_MouseOverGrungeTex:SetHidden(false)
@@ -738,10 +738,10 @@ end
 local function initialise(event, addonName)
 
   -- skip all addons that aren't ours
-  if (addonName ~= AccurateWorldMap.name) then return end
+  if (addonName ~= AWM.name) then return end
   
   -- unregister as addon is now loaded
-  EVENT_MANAGER:UnregisterForEvent(AccurateWorldMap.name, EVENT_ADD_ON_LOADED)
+  EVENT_MANAGER:UnregisterForEvent(AWM.name, EVENT_ADD_ON_LOADED)
   
   -- Compile blob texture details
   compileBlobTextures()
@@ -750,21 +750,21 @@ local function initialise(event, addonName)
   updateLocationsInfo()
 
   -- set up saved variables
-  AccurateWorldMap.options = ZO_SavedVars:NewAccountWide("AWMVars", AccurateWorldMap.variableVersion, nil, AccurateWorldMap.defaults)
+  AWM.options = ZO_SavedVars:NewAccountWide("AWMVars", AWM.variableVersion, nil, AWM.defaults)
 
   -- set up slash commands
   SLASH_COMMANDS["/get_map_id"] = function() print(GetCurrentMapId(), true) end
   SLASH_COMMANDS["/record_polygon"] = recordPolygon
   SLASH_COMMANDS["/get_blobs"] = getBlobTextureDetails
   SLASH_COMMANDS["/set_map_to"] = navigateToMap
-  SLASH_COMMANDS["/awm_debug"] = function() AccurateWorldMap.options.isDebug = not AccurateWorldMap.options.isDebug navigateToMap(getCurrentMapID()) end
+  SLASH_COMMANDS["/awm_debug"] = function() AWM.options.isDebug = not AWM.options.isDebug navigateToMap(getCurrentMapID()) end
   SLASH_COMMANDS["/fix_locations"] = fixLocations
-  SLASH_COMMANDS["/set_is_developer"] = function() AccurateWorldMap.options.isDeveloper = not AccurateWorldMap.options.isDeveloper end
+  SLASH_COMMANDS["/set_is_developer"] = function() AWM.options.isDeveloper = not AWM.options.isDeveloper end
 
   -- register LAM settings
-  local panelName = "AccurateWorldMapSettings"
-  local panel = LAM:RegisterAddonPanel(panelName, AccurateWorldMap.panelData)
-  LAM:RegisterOptionControls(panelName, AccurateWorldMap.optionsData)
+  local panelName = "AWMSettings"
+  local panel = LAM:RegisterAddonPanel(panelName, AWM.panelData)
+  LAM:RegisterOptionControls(panelName, AWM.optionsData)
   
 end
 
@@ -772,9 +772,9 @@ end
 -- Registering for events and callbacks
 -------------------------------------------------------------------------------
 
-EVENT_MANAGER:RegisterForEvent(AccurateWorldMap.name, EVENT_ADD_ON_LOADED, initialise)
+EVENT_MANAGER:RegisterForEvent(AWM.name, EVENT_ADD_ON_LOADED, initialise)
 EVENT_MANAGER:RegisterForEvent("onMouseDown", EVENT_GLOBAL_MOUSE_DOWN, onMousePressed)
-EVENT_MANAGER:RegisterForEvent(AccurateWorldMap.name, EVENT_PLAYER_ACTIVATED, onPlayerLoaded)
+EVENT_MANAGER:RegisterForEvent(AWM.name, EVENT_PLAYER_ACTIVATED, onPlayerLoaded)
 EVENT_MANAGER:RegisterForUpdate("mainLoop", 0, main)
 
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", onZoneChanged)
@@ -852,7 +852,7 @@ GetMapMouseoverInfo = function(xN, yN)
         locXN = currentZoneInfo.xN
         locYN = currentZoneInfo.yN
 
-        if (currentZoneInfo.zoneDescription ~= nil and AccurateWorldMap.options.zoneDescriptions == true) then
+        if (currentZoneInfo.zoneDescription ~= nil and AWM.options.zoneDescriptions == true) then
           ZO_WorldMapMouseOverDescription:SetText(currentZoneInfo.zoneDescription)
         end
 

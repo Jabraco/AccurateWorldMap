@@ -10,7 +10,7 @@
 -- Get base addon object
 -------------------------------------------------------------------------------
 
-AccurateWorldMap = AccurateWorldMap or {}
+AWM = AWM or {}
 
 -------------------------------------------------------------------------------
 -- World map wayshrine & zone data
@@ -2433,8 +2433,6 @@ mapData = {
     [291] = { disabled = true }, -- Serenity Falls Estate House
     [321] = { disabled = true }, -- Dawnshadow House
 
-    -- [] = { xN = 0.x, yN = 0.x, disabled = false }, -- 
-
     -- The Systres --
     [488] = { xN = 0.654, yN = 0.681, disabled = false }, -- Dreadsail Reef Trial
     [510] = { xN = 0.712, yN = 0.700, disabled = false }, -- All Flags Wayshrine
@@ -2483,7 +2481,6 @@ mapData = {
         
       }
     }, true),
-
   },
 
 
@@ -2800,22 +2797,22 @@ mapData = {
 -------------------------------------------------------------------------------
 
 -- Get addon info
-AccurateWorldMap = getAddonInfo("AccurateWorldMap")
+AWM = getAddonInfo("AccurateWorldMap")
 
-AccurateWorldMap.panelData = {
+AWM.panelData = {
   type = "panel",
   name = "Accurate World Map",
-  displayName = AccurateWorldMap.title,
-  author = AccurateWorldMap.author,
-  version = AccurateWorldMap.version,
+  displayName = AWM.title,
+  author = AWM.author,
+  version = AWM.version,
   registerForRefresh = true,
   slashCommand = "/awm",
 }
 
-AccurateWorldMap.optionsData = {
+AWM.optionsData = {
   {
     type = "description",
-    text = AccurateWorldMap.description,
+    text = AWM.description,
     width = "full",
   },
 
@@ -2833,15 +2830,15 @@ AccurateWorldMap.optionsData = {
     type = "checkbox",
     name = "Zone Descriptions",
     tooltip = "Toggle adding lore-friendly zone description tooltips when hovering over zones.",
-    getFunc = function() return AccurateWorldMap.options.zoneDescriptions end,
-    setFunc = function(value) AccurateWorldMap.options.zoneDescriptions = value end
+    getFunc = function() return AWM.options.zoneDescriptions end,
+    setFunc = function(value) AWM.options.zoneDescriptions = value end
   },
   {
     type = "checkbox",
     name = "Lore Accurate Names",
     tooltip = "Toggle renaming certain zones and wayshrines to be more lore accurate.",
-    getFunc = function() return AccurateWorldMap.options.loreRenames end,
-    setFunc = function(value) AccurateWorldMap.options.loreRenames = value end
+    getFunc = function() return AWM.options.loreRenames end,
+    setFunc = function(value) AWM.options.loreRenames = value end
   },
 
   {
@@ -2859,8 +2856,8 @@ AccurateWorldMap.optionsData = {
   --   name = "Map Style",
   --   tooltip = "Choose between a vanilla styled map (default), or a more immersive geographic one.",
   --   choices = {"Vanilla", "Geographic"},
-  --   getFunc = function() return AccurateWorldMap.options.mapStyle end,
-  --   setFunc = function(value) AccurateWorldMap.options.mapStyle = value end,
+  --   getFunc = function() return AWM.options.mapStyle end,
+  --   setFunc = function(value) AWM.options.mapStyle = value end,
   --   width = "full",
   -- },
   {
@@ -2868,15 +2865,15 @@ AccurateWorldMap.optionsData = {
     name = "Icons on World Map",
     tooltip = "Choose how to display icons on the world map.",
     choices = {"All (Default)", "Only Major Settlements", "None"},
-    getFunc = function() return AccurateWorldMap.options.worldMapWayshrines end,
-    setFunc = function(value) AccurateWorldMap.options.worldMapWayshrines = value end,
+    getFunc = function() return AWM.options.worldMapWayshrines end,
+    setFunc = function(value) AWM.options.worldMapWayshrines = value end,
   },
   {
     type = "checkbox",
     name = "Hide Icon Glow",
     tooltip = "Toggle the glow behind wayshrines and other icons on the world map.",
-    getFunc = function() return AccurateWorldMap.options.hideIconGlow end,
-    setFunc = function(value) AccurateWorldMap.options.hideIconGlow = value end
+    getFunc = function() return AWM.options.hideIconGlow end,
+    setFunc = function(value) AWM.options.hideIconGlow = value end
   },
 
   {
@@ -2893,7 +2890,7 @@ AccurateWorldMap.optionsData = {
     type = "checkbox",
     name = "Move Player Icons (Beta)",
     tooltip = "Moves player and group icons according to AccurateWorldMap's zone placement.",
-    getFunc = function() return AccurateWorldMap.options.movePlayerIcons end,
-    setFunc = function(value) AccurateWorldMap.options.movePlayerIcons = value end
+    getFunc = function() return AWM.options.movePlayerIcons end,
+    setFunc = function(value) AWM.options.movePlayerIcons = value end
   },
 }

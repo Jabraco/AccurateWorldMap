@@ -10,7 +10,7 @@
 -- Get base addon object and callbacks
 -------------------------------------------------------------------------------
 
-AccurateWorldMap = AccurateWorldMap or {}
+AWM = AWM or {}
 local LocalCallbackManager = ZO_CallbackObject:Subclass()
 
 -------------------------------------------------------------------------------
@@ -66,8 +66,8 @@ end
 -------------------------------------------------------------------------------
 
 function print(message, isForced, ...)
-  if (AccurateWorldMap.options.isDebug or isForced) then
-    df("[%s] %s", AccurateWorldMap.name, tostring(message):format(...))
+  if (AWM.options.isDebug or isForced) then
+    df("[%s] %s", AWM.name, tostring(message):format(...))
   end
 end
 
@@ -235,11 +235,11 @@ end
 function getZoneNameFromID(zoneID)
 
   -- does this map have a custom name / are custom names enabled? 
-  if ((getZoneInfoByID(zoneID) ~= nil and getZoneInfoByID(zoneID).overrideLoreRenames ~= nil) or AccurateWorldMap.options.loreRenames) then
+  if ((getZoneInfoByID(zoneID) ~= nil and getZoneInfoByID(zoneID).overrideLoreRenames ~= nil) or AWM.options.loreRenames) then
 
     if (getZoneInfoByID(zoneID) ~= nil) then
 
-      if (AccurateWorldMap.options.isDeveloper and getZoneInfoByID(zoneID).altZoneName ~= nil) then -- is user a developer?
+      if (AWM.options.isDeveloper and getZoneInfoByID(zoneID).altZoneName ~= nil) then -- is user a developer?
 
         return getZoneInfoByID(zoneID).altZoneName -- switch to better custom names
 

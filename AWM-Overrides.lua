@@ -30,7 +30,6 @@ end
 local zos_GetMapInfoByIndex = GetMapInfoByIndex
 function GetMapInfoByIndex(zoneIndex)
     local mapName, mapType, mapContentType, zoneIndex, description = zos_GetMapInfoByIndex(zoneIndex)
-    print(getZoneNameFromID(GetMapIdByZoneId(GetZoneId(zoneIndex))), true)
 
     if (getZoneNameFromID(GetMapIdByZoneId(GetZoneId(zoneIndex))) ~= "") then
       mapName = getZoneNameFromID(GetMapIdByZoneId(GetZoneId(zoneIndex)))
@@ -109,7 +108,7 @@ local zos_GetFastTravelNodeInfo = GetFastTravelNodeInfo
 GetFastTravelNodeInfo = function(nodeIndex)
   local known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked, disabled = zos_GetFastTravelNodeInfo(nodeIndex)
 
-  if AccurateWorldMap.options.isDebug == true then
+  if AWM.options.isDebug == true then
         d("Current Node: "..nodeIndex)
         d("Name: "..name)
         d(" ")
@@ -117,7 +116,7 @@ GetFastTravelNodeInfo = function(nodeIndex)
 
   local mapIndex = getCurrentMapID()
 
-  if (AccurateWorldMap.options.hideIconGlow) then
+  if (AWM.options.hideIconGlow) then
     glowIcon = nil
   end
 
@@ -134,7 +133,7 @@ GetFastTravelNodeInfo = function(nodeIndex)
         normalizedY = zoneData[nodeIndex].yN
       end
 
-      if (zoneData[nodeIndex].name ~= nil and AccurateWorldMap.options.loreRenames) then
+      if (zoneData[nodeIndex].name ~= nil and AWM.options.loreRenames) then
         name = zoneData[nodeIndex].name
       end
 
@@ -158,7 +157,7 @@ GetFastTravelNodeInfo = function(nodeIndex)
 
   if (getCurrentZoneInfo() ~= nil and getCurrentZoneInfo().isWorldMap) then
 
-    if (AccurateWorldMap.options.worldMapWayshrines == "None" or AccurateWorldMap.options.worldMapWayshrines == "Only Major Settlements") then
+    if (AWM.options.worldMapWayshrines == "None" or AWM.options.worldMapWayshrines == "Only Major Settlements") then
 
       isLocatedInCurrentMap = false
       disabled = true
@@ -167,7 +166,7 @@ GetFastTravelNodeInfo = function(nodeIndex)
 
     if (mapData[mapIndex] ~= nil and mapData[mapIndex][nodeIndex] ~= nil) then
 
-      if (mapData[mapIndex][nodeIndex].majorSettlement ~= nil and AccurateWorldMap.options.worldMapWayshrines == "Only Major Settlements") then
+      if (mapData[mapIndex][nodeIndex].majorSettlement ~= nil and AWM.options.worldMapWayshrines == "Only Major Settlements") then
 
         isLocatedInCurrentMap = true
         disabled = false
@@ -264,7 +263,7 @@ GetMapTileTexture = function(tileIndex)
     if (getCurrentZoneInfo() ~= nil and getCurrentZoneInfo().customTileName ~= nil) then
 
       -- Replace tiles with debug version if debug is enabled
-      if AccurateWorldMap.options.isDebug then
+      if AWM.options.isDebug then
         tileIndex = tostring(tileIndex) .. "_debug"  
       end
   
