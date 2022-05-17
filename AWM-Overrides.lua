@@ -31,6 +31,7 @@ local zos_GetMapInfoByIndex = GetMapInfoByIndex
 function GetMapInfoByIndex(zoneIndex)
     local mapName, mapType, mapContentType, zoneIndex, description = zos_GetMapInfoByIndex(zoneIndex)
 
+
     if (getZoneNameFromID(GetMapIdByZoneId(GetZoneId(zoneIndex))) ~= "") then
       mapName = getZoneNameFromID(GetMapIdByZoneId(GetZoneId(zoneIndex)))
     end

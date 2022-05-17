@@ -11,25 +11,20 @@ Todo:
 Things that need to be done before release:
 
 TJ:
-- refactor AccurateWorldMap to AWM
-- and AccurateWorldMap.options to AWM.settings
+
 - fix zone description text being cut off
 - fix zone description text being truncating on map open
 - implement gamepad desc background
 - Fix player location being incorrect (and also group pins)
 - Sort out K&M and gamepad desc grunge
-- Do a once over of all zone descriptions with breaux so that she's happy with them
-- add Systres blobs and stuff to the map
-- Add Eltheric ocean map properly with High isle wayshrines
 - Implement proper waypoint and player marker tracking and moving
-- Make Tideholm its own zone, separate from s.e
+
 - Do the same to Wasten Coraldale in summerset
 - Add a "Recording" dot that appears when recording blob
 - Add a close button to the polygon record control, and allow to reset without reload ui
 - Change Zone name location in Filters sidebar in map menu too
 - Find a way to move the zone name and clock to be closer to the actual map in K&M mode like gamepad
 
-- update readme to say that this addon works with Votan's Improved Locations as long as OptionalDependsOn: AccurateWorldMap is added to its addon manifest file
 
 
 Breaux:
@@ -56,6 +51,9 @@ Breaux:
 >> Sword's Rest Isle
 >> Arcane University
 >> Imperial City Prison
+>> Dread Sail Reef Blob
+>> High Isle Blob
+>> Amenos Blob
 
 
 Breaux said she would look into:
@@ -755,7 +753,7 @@ local function initialise(event, addonName)
   -- set up slash commands
   SLASH_COMMANDS["/get_map_id"] = function() print(GetCurrentMapId(), true) end
   SLASH_COMMANDS["/record_polygon"] = recordPolygon
-  SLASH_COMMANDS["/get_blobs"] = getBlobTextureDetails
+  SLASH_COMMANDS["/get_blobs"] = compileBlobTextures
   SLASH_COMMANDS["/set_map_to"] = navigateToMap
   SLASH_COMMANDS["/awm_debug"] = function() AWM.options.isDebug = not AWM.options.isDebug navigateToMap(getCurrentMapID()) end
   SLASH_COMMANDS["/fix_locations"] = fixLocations

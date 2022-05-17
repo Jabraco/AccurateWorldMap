@@ -1769,7 +1769,6 @@ mapData = {
     }),
 
     -- Southern Elsweyr --
-    [407] = { xN = 0.614, yN = 0.790, majorSettlement = true }, -- Dragonguard Sanctum Wayshrine
     [405] = { majorSettlement = true }, -- Black Heights Wayshrine
     [402] = { majorSettlement = true }, -- Senchal Wayshrine
 
@@ -1782,6 +1781,25 @@ mapData = {
       yN = "0.6945",
       zonePolygonData = {
 
+      }
+    }),
+
+    -- Tideholm --
+    [407] = { xN = 0.614, yN = 0.790, majorSettlement = true }, -- Dragonguard Sanctum Wayshrine
+
+    zoneData = join({
+      zoneName = "Tideholm",
+      zoneDescription = "This unassuming island off the coast of Southern Elsweyr is known to house the ancient ruins of Fort Vashr - a former Dragonguard stronghold.",
+      blobTexture = "AccurateWorldMap/blobs/blob-tideholm.dds",
+      zoneID = 1684,
+      xN = "0.5995",
+      yN = "0.7770",
+      zonePolygonData = {
+        { xN = 0.615, yN = 0.804 },
+        { xN = 0.628, yN = 0.784 },
+        { xN = 0.602, yN = 0.781 },
+        { xN = 0.601, yN = 0.786 },
+        { xN = 0.614, yN = 0.803 },
       }
     }),
 
@@ -2363,7 +2381,7 @@ mapData = {
 -- [x] = { xN = x, yN = y }, -- 
 -- ctrl + f aid: eltheric ocean
 
-    -- High Isle --
+    -- High Isle Wayshrines --
     [488] = { disabled = true }, -- Dreadsail Reef Trial
     [501] = { disabled = true }, -- Coral Road Wayshrine
     [502] = { disabled = true }, -- Tor Draioch Wayshrine
@@ -2433,7 +2451,7 @@ mapData = {
     [291] = { disabled = true }, -- Serenity Falls Estate House
     [321] = { disabled = true }, -- Dawnshadow House
 
-    -- The Systres --
+    -- High Isle & Amenos --
     [488] = { xN = 0.654, yN = 0.681, disabled = false }, -- Dreadsail Reef Trial
     [510] = { xN = 0.712, yN = 0.700, disabled = false }, -- All Flags Wayshrine
     [513] = { xN = 0.727, yN = 0.714, disabled = false, majorSettlement = true }, -- Gonfalon Square Wayshrine
@@ -2455,7 +2473,6 @@ mapData = {
 
     zoneData = join({
       zoneName = "High Isle & Amenos",
-      altZoneName = "The Systres",
       blobTexture = "AccurateWorldMap/blobs/blob-thesystres.dds",
       zoneDescription = "Add proper description here later",
       zoneID = 2114,
@@ -2504,7 +2521,7 @@ mapData = {
       zoneName = "Tamriel",
       customTileName = "tamriel",
       zoneDescription = "In the ancient tongues, the land called 'Tamriel' means 'Dawn's Beauty'.",
-      zoomLevel = 3.5,
+      zoomLevel = 4,
       isWorldMap = true,
       zoneID = 27,
       xN = "0.196",
@@ -2772,6 +2789,10 @@ mapData = {
   },
 
   [1737] = { -- Icereach Map 
+    parentMapID = 27,
+  },
+
+  [1684] = { -- Tideholm Map
     parentMapID = 27,
   },
 
