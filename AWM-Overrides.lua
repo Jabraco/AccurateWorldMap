@@ -81,13 +81,18 @@ GetMapMouseoverInfo = function(xN, yN)
   local locYN = 0
 
   -- if the current map is not set to exclusive, or we don't have any data for it, get vanilla values
-  if (not getIsCurrentMapExclusive() or mapData[mapID] == nil) then
+  if (not getIsCurrentMapExclusive() or not doesCurrentMapHaveCustomZoneData()) then
    locationName, textureFile, widthN, heightN, locXN, locYN = zos_GetMapMouseoverInfo(xN, yN)
+
+   AWM.currentlySelectedPolygon = nil
+   AWM.isInsideBlobHitbox = false
+   AWM.blobZoneInfo = nil
+
   end
 
   if (mapData[mapID] ~= nil) then
 
-    if (AWM.isInsideBlobHitbox) then 
+    if (AWM.isInsideBlobHitbox and AWM.currentlySelectedPolygon ~= nil) then 
 
       local blobInfo = AWM.blobZoneInfo
 

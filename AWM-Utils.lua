@@ -280,6 +280,25 @@ function getFileDirectoryFromMapName(providedZoneName)
   return blobFileDirectory
 end
 
+-------------------------------------------------------------------------------
+-- Hide all zone blobs (hitboxes) on the map
+-------------------------------------------------------------------------------
+
+function hideAllZoneBlobs()
+
+  for i = 1, ZO_WorldMapContainer:GetNumChildren() do
+
+    local childControl = ZO_WorldMapContainer:GetChild(i)
+    local controlName = childControl:GetName()
+
+    if (string.match(controlName, "blobHitbox-")) then
+      childControl:SetHidden(true)
+      childControl:SetMouseEnabled(false)
+
+    end
+
+  end
+end
 
 -------------------------------------------------------------------------------
 -- Navigate map to provided map via map data object or ID
@@ -310,13 +329,12 @@ function navigateToMap(mapInfo)
 
     end
 
-    AWM.currentlySelectedPolygon = nil
-    AWM.isInsideBlobHitbox = false
+
 
     SetMapToMapId(mapID)
     GPS:SetPlayerChoseCurrentMap()
+    hideAllZoneBlobs()
     CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
-    AWM.blobZoneInfo = getCurrentZoneInfo()
 
     -- force map to zoom out
     local mapPanAndZoom = ZO_WorldMap_GetPanAndZoom()
@@ -326,25 +344,7 @@ function navigateToMap(mapInfo)
 
 end
 
--------------------------------------------------------------------------------
--- Hide all zone blobs (hitboxes) on the map
--------------------------------------------------------------------------------
 
-function hideAllZoneBlobs()
-
-  for i = 1, ZO_WorldMapContainer:GetNumChildren() do
-
-    local childControl = ZO_WorldMapContainer:GetChild(i)
-    local controlName = childControl:GetName()
-
-    if (string.match(controlName, "blobHitbox-")) then
-      childControl:SetHidden(true)
-      childControl:SetMouseEnabled(false)
-
-    end
-
-  end
-end
 
 
 -------------------------------------------------------------------------------
@@ -393,3 +393,15 @@ function getIsCurrentMapExclusive()
   return (getCurrentZoneInfo() ~= nil and (getCurrentZoneInfo().isExclusive ~= nil and getCurrentZoneInfo().isExclusive)) 
 
 end
+
+
+-------------------------------------------------------------------------------
+-- Get whether the current map has custom zone data or not
+-------------------------------------------------------------------------------
+
+function doesCurrentMapHaveCustomZoneData()
+
+  return (mapData[getCurrentMapID()] ~= nil and mapData[getCurrentMapID()].zoneData ~= nil)
+
+end
+
