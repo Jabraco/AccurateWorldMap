@@ -14,46 +14,63 @@
 -- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
 
 -------------------------------------------------------------------------------
--- Override world map click function
+-- Worldmap click process function
 -------------------------------------------------------------------------------
 
--- These functions control when the user's click is passed through to the map 
--- for events such as zone changing. We override that that so that our custom 
--- zone hitbox polygons get the priority, as long as isExclusive is true.
+-- Override worldmap's click process function so that clicks don't get passed
+-- to vanilla zone locations on isExclusive maps, as well as making sure that
+-- our custom zone blobs get the click priority. 
 
 -------------------------------------------------------------------------------
 
 ZO_PreHook("ProcessMapClick", function(xN, yN)
 
-  -- in K&M mode, this function gets fired on every double click for some reason
-  -- whereas in gamepad this gets fired every click
-
   if ((AWM.isInsideBlobHitbox and AWM.blobZoneInfo ~= nil) or getIsCurrentMapExclusive()) then
 
+    -- handle zone clicks if in gamepad mode
     if (isInGamepadMode() and (AWM.isInsideBlobHitbox and AWM.blobZoneInfo ~= nil)) then
       navigateToMap(AWM.blobZoneInfo)
     end
-
 
     return true
   end
 
 end)
 
+-------------------------------------------------------------------------------
+-- Worldmap mouse release event
+-------------------------------------------------------------------------------
+
+-- Override the function called when user releases a mouse button on the worldmap
+-- so that we can intercept and redirect the user to a custom parent map if available
 
 -------------------------------------------------------------------------------
--- Override map mouseover info function
+
+ZO_PreHook("ZO_WorldMap_MouseUp", function(mapControl, mouseButton, upInside)
+
+  if (mouseButton == MOUSE_BUTTON_INDEX_RIGHT and upInside) then
+    if (mapData[getCurrentMapID()] ~= nil and mapData[getCurrentMapID()].parentMapID ~= nil) then
+
+        navigateToMap(mapData[getCurrentMapID()].parentMapID)
+        return true
+        
+    end
+  end
+end)
+
+-------------------------------------------------------------------------------
+-- Map mouseover info function
 -------------------------------------------------------------------------------
 
--- Controls the "blobs", the highlight effect that appears  when hovering over
--- the zones on the map.
+-- Override vanilla's map mouseover info function to prevent vanilla highlight
+-- blobs from showing on the map, and to show our own.
 
 -------------------------------------------------------------------------------
 
 local zos_GetMapMouseoverInfo = GetMapMouseoverInfo
 GetMapMouseoverInfo = function(xN, yN)
 
-  local mapIndex = getCurrentMapID()
+  local mapID = getCurrentMapID()
 
   -- invisible blank default mouseover data
   local locationName = ""
@@ -64,23 +81,25 @@ GetMapMouseoverInfo = function(xN, yN)
   local locYN = 0
 
   -- if the current map is not set to exclusive, or we don't have any data for it, get vanilla values
-  if (not getIsCurrentMapExclusive() or mapData[mapIndex] == nil) then
+  if (not getIsCurrentMapExclusive() or mapData[mapID] == nil) then
    locationName, textureFile, widthN, heightN, locXN, locYN = zos_GetMapMouseoverInfo(xN, yN)
   end
 
-  if (mapData[mapIndex] ~= nil) then
+  if (mapData[mapID] ~= nil) then
 
     if (AWM.isInsideBlobHitbox) then 
 
-      locationName = getZoneNameFromID(AWM.blobZoneInfo.zoneID)
-      textureFile = AWM.blobZoneInfo.blobTexture
-      widthN = AWM.blobZoneInfo.nBlobTextureWidth
-      heightN = AWM.blobZoneInfo.nBlobTextureHeight
-      locXN = AWM.blobZoneInfo.xN
-      locYN = AWM.blobZoneInfo.yN
+      local blobInfo = AWM.blobZoneInfo
 
-      if (AWM.blobZoneInfo.zoneDescription ~= nil and AWM.options.zoneDescriptions == true) then
-        ZO_WorldMapMouseOverDescription:SetText(AWM.blobZoneInfo.zoneDescription)
+      locationName = getZoneNameFromID(blobInfo.zoneID)
+      textureFile = blobInfo.blobTexture
+      widthN = blobInfo.nBlobTextureWidth
+      heightN = blobInfo.nBlobTextureHeight
+      locXN = blobInfo.xN
+      locYN = blobInfo.yN
+
+      if (blobInfo.zoneDescription ~= nil and AWM.options.zoneDescriptions == true) then
+        ZO_WorldMapMouseOverDescription:SetText(blobInfo.zoneDescription)
       end
 
     end
@@ -90,12 +109,8 @@ GetMapMouseoverInfo = function(xN, yN)
   return locationName, textureFile, widthN, heightN, locXN, locYN
 end
 
-
-
-
-
 -------------------------------------------------------------------------------
--- ZOS Map Name functions
+-- Zone name functions
 -------------------------------------------------------------------------------
 
 -- Override ESO's zone names with AccurateWorldMap's custom ones.
@@ -126,13 +141,11 @@ function GetMapInfoByIndex(zoneIndex)
     return mapName, mapType, mapContentType, zoneIndex, description
 end
 
-
-
 -------------------------------------------------------------------------------
--- ZOS WorldMap Zoom controller
+-- Map zoom controller
 -------------------------------------------------------------------------------
 
--- Override ESO's zone zoom levels with any custom defined ones.
+-- Override vanilla's map zoom levels with any custom defined ones.
 
 -------------------------------------------------------------------------------
 
@@ -146,10 +159,10 @@ GetMapCustomMaxZoom = function()
 end
 
 -------------------------------------------------------------------------------
--- ZOS WorldMap POI Icon controller
+-- Map POI icon controller
 -------------------------------------------------------------------------------
 
--- Override ESO's zone map POI icon info with AccurateWorldMap custom data.
+-- Override vanilla's map POI icon info with AccurateWorldMap custom data.
 
 -------------------------------------------------------------------------------
 
@@ -171,7 +184,7 @@ GetPOIMapInfo = function(zoneIndex, poiIndex)
 end
 
 -------------------------------------------------------------------------------
--- ZOS get fast travel node info function
+-- Map wayshrine/dungeon node icon controller
 -------------------------------------------------------------------------------
 
 -- Controls placement, display, and location of wayshrine/dungeon/house icons.
@@ -255,33 +268,13 @@ GetFastTravelNodeInfo = function(nodeIndex)
 end
 
 -------------------------------------------------------------------------------
--- ZOS WorldMap MouseUp event
+-- Map pin tooltip controller
 -------------------------------------------------------------------------------
 
--- Override the function called when user releases a mouse button on the worldmap
--- so that we can intercept and redirect the user to a custom parent map if available
+-- Overrides default tooltip handler to add custom tooltips to Eyevea and Earth 
+-- Forge wayshrines in both gamepad and keyboard & mouse mode.
 
--------------------------------------------------------------------------------
-
-ZO_PreHook("ZO_WorldMap_MouseUp", function(mapControl, mouseButton, upInside)
-
-  if (mouseButton == MOUSE_BUTTON_INDEX_RIGHT and upInside) then
-    if (mapData[getCurrentMapID()] ~= nil and mapData[getCurrentMapID()].parentMapID ~= nil) then
-
-        navigateToMap(mapData[getCurrentMapID()].parentMapID)
-        return true
-        
-    end
-  end
-end)
-
--------------------------------------------------------------------------------
--- ZOS Pin Tooltip Controller
--------------------------------------------------------------------------------
-
--- Borrowed from GuildShrines addon. Overrides default tooltip handler to adds 
--- custom tooltips to Eyevea and Earth Forge wayshrines in both gamepad and 
--- keyboard & mouse mode.
+-- Borrowed from GuildShrines addon. 
 
 -------------------------------------------------------------------------------
 
@@ -320,7 +313,12 @@ ZO_MapPin.TOOLTIP_CREATORS[MAP_PIN_TYPE_FAST_TRAVEL_WAYSHRINE].creator = functio
 end
 
 -------------------------------------------------------------------------------
--- Worldmap Map Tile Texture controller
+-- Map tile texture controller
+-------------------------------------------------------------------------------
+
+-- Overrides certain map's textures with AccurateWorldMap ones if a custom
+-- tile name is specified.
+
 -------------------------------------------------------------------------------
 
 local zos_GetMapTileTexture = GetMapTileTexture
@@ -329,10 +327,6 @@ GetMapTileTexture = function(tileIndex)
   local tileTexture = zos_GetMapTileTexture(tileIndex)
 
   if (tileIndex ~= nil) then
-
-    if (getCurrentMapID() == 439) then
-      return "AccurateWorldMap/tiles/" .. "Aurbis_" .. tileIndex .. ".dds"
-    end
 
     if (getCurrentZoneInfo() ~= nil and getCurrentZoneInfo().customTileName ~= nil) then
 
@@ -348,7 +342,6 @@ GetMapTileTexture = function(tileIndex)
   
   return tileTexture
 end
-
 
 -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
 -- ██░▄▄▀██░▄▄▄░██░▄▀▄░██░▄▄░█░▄▄▀█▄▄░▄▄█▄░▄██░▄▄▀█▄░▄██░████▄░▄█▄▄░▄▄██░███░████░▄▄░█░▄▄▀█▄▄░▄▄██░▄▄▀██░██░██░▄▄▄██░▄▄▄░██

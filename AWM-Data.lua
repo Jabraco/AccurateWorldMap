@@ -2735,6 +2735,7 @@ mapData = {
       zoneName = "The Aurbis",
       zoneID = 439,
       isExclusive = true,
+      customTileName = "aurbis",
     }),
 
   }, 
