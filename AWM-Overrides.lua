@@ -7,6 +7,92 @@
 
 ---------------------------------------------------------------------------]]--
 
+
+-------------------------------------------------------------------------------
+-- Override ZOS World map click function
+-------------------------------------------------------------------------------
+
+-- These functions control when the user's click is passed through to the map 
+-- for events such as zone changing. We override that that so that our custom 
+-- zone hitbox polygons get the priority, as long as isExclusive is true.
+
+-------------------------------------------------------------------------------
+
+ZO_PreHook("ProcessMapClick", function(xN, yN)
+
+  -- in K&M mode, this function gets fired on every double click for some reason
+  -- whereas in gamepad this gets fired every click
+
+  print("processed map click function!")
+
+  if ((AWM.isInsideBlobHitbox and AWM.blobZoneInfo ~= nil) or getIsCurrentMapExclusive()) then
+
+    if (isInGamepadMode() and (AWM.isInsideBlobHitbox and AWM.blobZoneInfo ~= nil)) then
+
+      navigateToMap(AWM.blobZoneInfo)
+
+    end
+
+
+    return true
+  end
+
+end)
+
+
+-------------------------------------------------------------------------------
+-- Map mouseover info function
+-------------------------------------------------------------------------------
+
+-- Controls the "blobs", the highlight effect that appears  when hovering over
+-- the zones on the map.
+
+-------------------------------------------------------------------------------
+
+local zos_GetMapMouseoverInfo = GetMapMouseoverInfo
+GetMapMouseoverInfo = function(xN, yN)
+
+  local mapIndex = getCurrentMapID()
+
+  -- invisible blank default mouseover data
+  local locationName = ""
+  local textureFile = "" 
+  local widthN = 0.01
+  local heightN = 0.01
+  local locXN = 0
+  local locYN = 0
+
+  -- if the current map is not set to exclusive, or we don't have any data for it, get vanilla values
+  if (not getIsCurrentMapExclusive() or mapData[mapIndex] == nil) then
+   locationName, textureFile, widthN, heightN, locXN, locYN = zos_GetMapMouseoverInfo(xN, yN)
+  end
+
+  if (mapData[mapIndex] ~= nil) then
+
+    if (AWM.isInsideBlobHitbox) then 
+
+      locationName = getZoneNameFromID(AWM.blobZoneInfo.zoneID)
+      textureFile = AWM.blobZoneInfo.blobTexture
+      widthN = AWM.blobZoneInfo.nBlobTextureWidth
+      heightN = AWM.blobZoneInfo.nBlobTextureHeight
+      locXN = AWM.blobZoneInfo.xN
+      locYN = AWM.blobZoneInfo.yN
+
+      if (AWM.blobZoneInfo.zoneDescription ~= nil and AWM.options.zoneDescriptions == true) then
+        ZO_WorldMapMouseOverDescription:SetText(AWM.blobZoneInfo.zoneDescription)
+      end
+
+    end
+
+  end
+
+  return locationName, textureFile, widthN, heightN, locXN, locYN
+end
+
+
+
+
+
 -------------------------------------------------------------------------------
 -- ZOS Map Name functions
 -------------------------------------------------------------------------------
@@ -275,3 +361,5 @@ GetMapTileTexture = function(tileIndex)
   
   return tileTexture
 end
+
+

@@ -20,6 +20,7 @@ TJ:
 - Implement proper waypoint and player marker tracking and moving
 
 - Do the same to Wasten Coraldale in summerset
+- And Coral Aerie
 - Add a "Recording" dot that appears when recording blob
 - Add a close button to the polygon record control, and allow to reset without reload ui
 - Change Zone name location in Filters sidebar in map menu too
@@ -156,11 +157,6 @@ Interesting events to consider:
 
 
 
-ZO_WorldMapLocationsListContents, has all the locations in it
-
-inside is a bunch of controls
-
-
 
 ---------------------------------------------------------------------------]]--
 -- Create root addon object
@@ -191,14 +187,15 @@ local LAM = LibAddonMenu2
 -- Globals
 -------------------------------------------------------------------------------
 
+AWM.isInsideBlobHitbox = false
+AWM.blobZoneInfo = {}
+AWM.currentlySelectedPolygon = nil
+
 -- bools
 local recordCoordinates = false
 local mouseDownOnPolygon = false
-local enabled = true
-local debug = false
-local isExclusive = false
 local hasDragged = false
-local isInBlobHitbox = false
+
 local waitForRelease = false
 local areTexturesCompiled = false
 
@@ -209,24 +206,15 @@ local currentMapOffsetY
 local currentMapIndex
 
 -- objects
-local currentPolygon = nil
+
 local polygonData = {}
 local newPolygonData = {}
-local currentZoneInfo = {}
 
-
-
-
--- todo: fix this for gamepad mode as well
-AWM_MouseOverGrungeTex = CreateControl("AWM_MouseOverGrungeTex", ZO_WorldMap, CT_TEXTURE)
-AWM_MouseOverGrungeTex:SetTexture("/esoui/art/performance/statusmetermunge.dds")
-
-
--------------------------------------------------------------------------------
--- Constants
--------------------------------------------------------------------------------
 
 local mapDimensions = 4096 -- px
+
+
+
 
 local function onMousePressed()
 
@@ -249,37 +237,19 @@ local function onMousePressed()
 
 end
 
--- if (VOTANS_IMPROVED_LOCATIONS) then
---   print("found votans!", true)
---   VOTANS_IMPROVED_LOCATIONS.mapData = nil
--- end
 
--- local locations = WORLD_MAP_LOCATIONS
--- locations.data.mapData = nil
 
--- ZO_ScrollList_Clear(locations.list)
--- local scrollData = ZO_ScrollList_GetDataList(locations.list)
-
--- local mapData = locations.data:GetLocationList()
-
--- for i,entry in ipairs(mapData) do
---     scrollData[#scrollData + 1] = ZO_ScrollList_CreateDataEntry(1, entry)
--- end
-
--- ZO_ScrollList_Commit(locations.list)
-
--- if (VOTANS_IMPROVED_LOCATIONS) then
---   WORLD_MAP_LOCATIONS:BuildLocationList()
--- end
-
+-- todo: fix this for gamepad mode as well
+AWM_MouseOverGrungeTex = CreateControl("AWM_MouseOverGrungeTex", ZO_WorldMap, CT_TEXTURE)
+AWM_MouseOverGrungeTex:SetTexture("/esoui/art/performance/statusmetermunge.dds")
 
 
 local function updateCurrentPolygon(polygon) 
 
   currentMapIndex = GetCurrentMapIndex()
-  isInBlobHitbox = true
+  AWM.isInsideBlobHitbox = true
   --print("User has entered zone hitbox")
-  currentPolygon = polygon
+  AWM.currentlySelectedPolygon = polygon
 
   if (AWM.options.zoneDescriptions == true) then
 
@@ -291,7 +261,7 @@ local function updateCurrentPolygon(polygon)
   end
 
   -- update with current zone info
-  currentZoneInfo = getZoneInfoByID(getMapIDFromPolygonName(polygon:GetName()))
+  AWM.blobZoneInfo = getZoneInfoByID(getMapIDFromPolygonName(polygon:GetName()))
 
 end
 
@@ -341,7 +311,7 @@ local function main()
 
     if (isInGamepadMode()) then
 
-      if (currentPolygon == nil) then
+      if (AWM.currentlySelectedPolygon == nil) then
   
         tempPolygon = WINDOW_MANAGER:GetControlAtPoint(getMouseCoordinates())
   
@@ -355,9 +325,9 @@ local function main()
   
         else
   
-          isInBlobHitbox = false
-          currentPolygon = nil
-          currentZoneInfo = {}
+          AWM.isInsideBlobHitbox = false
+          AWM.currentlySelectedPolygon = nil
+          AWM.blobZoneInfo = {}
   
         end
   
@@ -367,15 +337,16 @@ local function main()
     end
   
   
-    if (currentPolygon ~= nil) then
+    if (AWM.currentlySelectedPolygon ~= nil) then
   
       -- check to make sure that the user has actually left the hitbox, and is not just hovering over a wayshrine
-      if (not (currentPolygon:IsPointInside(getMouseCoordinates()) and currentMapIndex == GetCurrentMapIndex())) then
+      if (not (AWM.currentlySelectedPolygon:IsPointInside(getMouseCoordinates()) and currentMapIndex == GetCurrentMapIndex())) then
   
-        --print("left hitbox!")
-        isInBlobHitbox = false
-        currentPolygon = nil
-        currentZoneInfo = {}
+        -- Left hitbox!
+        AWM.isInsideBlobHitbox = false
+        AWM.currentlySelectedPolygon = nil
+        AWM.blobZoneInfo = {}
+        
         ZO_WorldMapMouseOverDescription:SetText("")
         AWM_MouseOverGrungeTex:SetHidden(true)
   
@@ -464,7 +435,7 @@ local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
       end
 
 
-      currentPolygon = polygon
+      AWM.currentlySelectedPolygon = polygon
       ZO_WorldMap_MouseDown(button, ctrl, alt, shift)    
     end)
 
@@ -473,7 +444,7 @@ local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
       ZO_WorldMap_MouseUp(control, button, upInside)
 
 
-      if (currentZoneInfo ~= nil and upInside and button == MOUSE_BUTTON_INDEX_LEFT) then
+      if (AWM.blobZoneInfo ~= nil and upInside and button == MOUSE_BUTTON_INDEX_LEFT) then
 
         if (waitForRelease) then
 
@@ -498,7 +469,7 @@ local function createOrShowZonePolygon(polygonData, zoneInfo, isDebug)
 
           if (deltaX <= 10 and deltaX <= 10) then
 
-            navigateToMap(currentZoneInfo)
+            navigateToMap(AWM.blobZoneInfo)
 
           end
 
@@ -777,88 +748,3 @@ EVENT_MANAGER:RegisterForUpdate("mainLoop", 0, main)
 
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", onZoneChanged)
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapShown", onWorldMapDrawn)
-
-
--------------------------------------------------------------------------------
--- Process map click function
--------------------------------------------------------------------------------
-
--- These functions control when the user's click is passed through to the map 
--- for events such as zone changing. We override that that so that our custom 
--- zone hitbox polygons get the priority, as long as isExclusive is true.
-
--------------------------------------------------------------------------------
-
-ZO_PreHook("ProcessMapClick", function(xN, yN)
-
-  -- in K&M mode, this function gets fired on every double click for some reason
-  -- whereas in gamepad this gets fired every click
-
-  print("processed map click function!")
-
-  if ((isInBlobHitbox and currentZoneInfo ~= nil) or isExclusive) then
-
-
-    if (isInGamepadMode() and (isInBlobHitbox and currentZoneInfo ~= nil)) then
-
-      navigateToMap(currentZoneInfo)
-
-    end
-
-
-    return true
-  end
-
-end)
-
--------------------------------------------------------------------------------
--- Map mouseover info function
--------------------------------------------------------------------------------
-
--- Controls the "blobs", the highlight effect that appears  when hovering over
--- the zones on the map.
-
--------------------------------------------------------------------------------
-
-local zos_GetMapMouseoverInfo = GetMapMouseoverInfo
-GetMapMouseoverInfo = function(xN, yN)
-
-  local mapIndex = getCurrentMapID()
-
-  -- invisible blank default mouseover data
-  local locationName = ""
-  local textureFile = "" 
-  local widthN = 0.01
-  local heightN = 0.01
-  local locXN = 0
-  local locYN = 0
-
-  -- if the current map is not set to exclusive, or we don't have any data for it, get vanilla values
-  if (isExclusive == false or mapData[mapIndex] == nil) then
-   locationName, textureFile, widthN, heightN, locXN, locYN = zos_GetMapMouseoverInfo(xN, yN)
-  end
-
-  if (mapData[mapIndex] ~= nil) then
-
-    if (isInBlobHitbox) then 
-
-
-        locationName = getZoneNameFromID(currentZoneInfo.zoneID)
-        textureFile = currentZoneInfo.blobTexture
-        widthN = currentZoneInfo.nBlobTextureWidth
-        heightN = currentZoneInfo.nBlobTextureHeight
-        locXN = currentZoneInfo.xN
-        locYN = currentZoneInfo.yN
-
-        if (currentZoneInfo.zoneDescription ~= nil and AWM.options.zoneDescriptions == true) then
-          ZO_WorldMapMouseOverDescription:SetText(currentZoneInfo.zoneDescription)
-        end
-
-    end
-
-  end
-
-  return locationName, textureFile, widthN, heightN, locXN, locYN
-end
-
-

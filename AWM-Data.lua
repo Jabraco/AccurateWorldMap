@@ -37,8 +37,6 @@ mapData = {
   
   [27] = { -- Tamriel World Map
 
-    isExclusive = true,
-        
     -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
     -- ██░▄▄▄░██░█▀▄██░███░██░▄▄▀█▄░▄██░▄▀▄░██
     -- ██▄▄▄▀▀██░▄▀███▄▀▀▀▄██░▀▀▄██░███░█░█░██
@@ -2523,6 +2521,7 @@ mapData = {
       zoneDescription = "In the ancient tongues, the land called 'Tamriel' means 'Dawn's Beauty'.",
       zoomLevel = 4,
       isWorldMap = true,
+      isExclusive = true,
       zoneID = 27,
       xN = "0.196",
       yN = "0.2045",
@@ -2729,6 +2728,13 @@ mapData = {
         { xN = 0.152, yN = 0.290 },
         { xN = 0.172, yN = 0.288 },                        
       }
+    }),
+
+    -- The Aurbis --
+    zoneData = join({
+      zoneName = "The Aurbis",
+      zoneID = 439,
+      isExclusive = true,
     }),
 
   }, 

@@ -239,16 +239,7 @@ function getZoneNameFromID(zoneID)
 
     if (getZoneInfoByID(zoneID) ~= nil) then
 
-      if (AWM.options.isDeveloper and getZoneInfoByID(zoneID).altZoneName ~= nil) then -- is user a developer?
-
-        return getZoneInfoByID(zoneID).altZoneName -- switch to better custom names
-
-      else
-
-        return getZoneInfoByID(zoneID).zoneName -- ekse switch to normal custom names to keep breaux happy
-
-      end
-
+      return getZoneInfoByID(zoneID).zoneName
 
     else
 
@@ -319,12 +310,13 @@ function navigateToMap(mapInfo)
 
     end
 
-    currentPolygon = nil
-    isInBlobHitbox = false
+    AWM.currentlySelectedPolygon = nil
+    AWM.isInsideBlobHitbox = false
+
     SetMapToMapId(mapID)
-    currentZoneInfo = {}
     GPS:SetPlayerChoseCurrentMap()
     CALLBACK_MANAGER:FireCallbacks("OnWorldMapChanged")
+    AWM.blobZoneInfo = getCurrentZoneInfo()
 
     -- force map to zoom out
     local mapPanAndZoom = ZO_WorldMap_GetPanAndZoom()
@@ -341,7 +333,6 @@ end
 function hideAllZoneBlobs()
 
   for i = 1, ZO_WorldMapContainer:GetNumChildren() do
-
 
     local childControl = ZO_WorldMapContainer:GetChild(i)
     local controlName = childControl:GetName()
@@ -393,3 +384,12 @@ function updateLocationsInfo()
   end
 end
 
+-------------------------------------------------------------------------------
+-- Get whether the current map is exclusive or not
+-------------------------------------------------------------------------------
+
+function getIsCurrentMapExclusive()
+
+  return (getCurrentZoneInfo() ~= nil and (getCurrentZoneInfo().isExclusive ~= nil and getCurrentZoneInfo().isExclusive)) 
+
+end
