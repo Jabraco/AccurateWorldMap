@@ -191,6 +191,7 @@ local GPS = LibGPS3
 AWM.isInsideBlobHitbox = false
 AWM.blobZoneInfo = {}
 AWM.currentlySelectedPolygon = nil
+AWM.canRedrawMap = true
 
 -- bools
 local recordCoordinates = false
@@ -204,7 +205,7 @@ local areTexturesCompiled = false
 local currentCoordinateCount = 0
 local currentMapOffsetX
 local currentMapOffsetY
-local currentMapIndex
+local currentMapID
 
 -- objects
 
@@ -244,7 +245,7 @@ AWM_MouseOverGrungeTex:SetTexture("/esoui/art/performance/statusmetermunge.dds")
 
 local function updateCurrentPolygon(polygon) 
 
-  currentMapIndex = GetCurrentMapIndex()
+  currentMapIndex = getCurrentMapID()
   AWM.isInsideBlobHitbox = true
   --print("User has entered zone hitbox")
   AWM.currentlySelectedPolygon = polygon
@@ -265,36 +266,41 @@ end
 
 local function onWorldMapDrawn()
 
-  local mapWidth, mapHeight = ZO_WorldMapContainer:GetDimensions()
-  local enlargeConst = 1.5
+  if (AWM.canRedrawMap) then
 
-  AWM_MouseOverGrungeTex:ClearAnchors()
-  AWM_MouseOverGrungeTex:SetAnchor(TOPLEFT, ZO_WorldMap, TOPLEFT, (mapWidth - (mapWidth*enlargeConst))/2, -(0.47 * mapHeight))
-  AWM_MouseOverGrungeTex:SetDrawTier(DT_PARENT)
-  AWM_MouseOverGrungeTex:SetDimensions(mapWidth*enlargeConst, mapHeight)
-  AWM_MouseOverGrungeTex:SetDrawLayer(DL_OVERLAY)
-  AWM_MouseOverGrungeTex:SetDrawLayer(DL_CONTROLS)
-  AWM_MouseOverGrungeTex:SetAlpha(0.55)
-  AWM_MouseOverGrungeTex:SetHidden(true)
+    AWM.canRedrawMap = false
 
-  -- set up map description label control
-  ZO_WorldMapMouseOverDescription:SetFont("ZoFontGameLargeBold")
-  ZO_WorldMapMouseOverDescription:SetMaxLineCount(2.5)
-  ZO_WorldMapMouseOverDescription:SetWrapMode(TEXT_WRAP_MODE_ELLIPSIS)
+    local mapWidth, mapHeight = ZO_WorldMapContainer:GetDimensions()
+    local enlargeConst = 1.5
+  
+    AWM_MouseOverGrungeTex:ClearAnchors()
+    AWM_MouseOverGrungeTex:SetAnchor(TOPLEFT, ZO_WorldMap, TOPLEFT, (mapWidth - (mapWidth*enlargeConst))/2, -(0.47 * mapHeight))
+    AWM_MouseOverGrungeTex:SetDrawTier(DT_PARENT)
+    AWM_MouseOverGrungeTex:SetDimensions(mapWidth*enlargeConst, mapHeight)
+    AWM_MouseOverGrungeTex:SetDrawLayer(DL_OVERLAY)
+    AWM_MouseOverGrungeTex:SetDrawLayer(DL_CONTROLS)
+    AWM_MouseOverGrungeTex:SetAlpha(0.65)
+    AWM_MouseOverGrungeTex:SetHidden(true)
+  
+    -- set up map description label control
+    ZO_WorldMapMouseOverDescription:SetFont("ZoFontGameLargeBold")
+    ZO_WorldMapMouseOverDescription:SetWrapMode(TEXT_WRAP_MODE_ELLIPSIS)
+  
+    ZO_WorldMapMouseOverDescription:ClearAnchors()
+  
+    local mapDescPaddingAmount = mapWidth * 0.15
+  
+    ZO_WorldMapMouseOverDescription:SetAnchor(TOPLEFT, ZO_WorldMapMouseoverName, BOTTOMLEFT, mapDescPaddingAmount, 2)
+    ZO_WorldMapMouseOverDescription:SetAnchor(TOPRIGHT, ZO_WorldMapMouseoverName, BOTTOMRIGHT, -(mapDescPaddingAmount), 2)
+  
+    if (not isInGamepadMode()) then
+      ZO_WorldMap:SetAutoRectClipChildren(true)
+      ZO_WorldMapContainerRaggedEdge:SetHidden(true)
+    else
+      ZO_WorldMap:SetAutoRectClipChildren(false)
+      ZO_WorldMapContainerRaggedEdge:SetHidden(false)
+    end
 
-  ZO_WorldMapMouseOverDescription:ClearAnchors()
-
-  local mapDescPaddingAmount = mapWidth * 0.15
-
-  ZO_WorldMapMouseOverDescription:SetAnchor(TOPLEFT, ZO_WorldMapMouseoverName, BOTTOMLEFT, mapDescPaddingAmount, 2)
-  ZO_WorldMapMouseOverDescription:SetAnchor(TOPRIGHT, ZO_WorldMapMouseoverName, BOTTOMRIGHT, -(mapDescPaddingAmount), 2)
-
-  if (not isInGamepadMode()) then
-    ZO_WorldMap:SetAutoRectClipChildren(true)
-    ZO_WorldMapContainerRaggedEdge:SetHidden(true)
-  else
-    ZO_WorldMap:SetAutoRectClipChildren(false)
-    ZO_WorldMapContainerRaggedEdge:SetHidden(false)
   end
 
 end
@@ -338,7 +344,7 @@ local function main()
     if (AWM.currentlySelectedPolygon ~= nil) then
   
       -- check to make sure that the user has actually left the hitbox, and is not just hovering over a wayshrine
-      if (not (AWM.currentlySelectedPolygon:IsPointInside(getMouseCoordinates()) and currentMapIndex == GetCurrentMapIndex())) then
+      if (not (AWM.currentlySelectedPolygon:IsPointInside(getMouseCoordinates()) and currentMapIndex == getCurrentMapID())) then
   
         -- Left hitbox!
         AWM.isInsideBlobHitbox = false
@@ -354,11 +360,9 @@ local function main()
 
   else
 
-
     -- hide mouseover info
     ZO_WorldMapMouseOverDescription:SetText("")
     AWM_MouseOverGrungeTex:SetHidden(true)
-
 
   end
 end

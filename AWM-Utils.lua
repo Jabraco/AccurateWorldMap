@@ -147,7 +147,15 @@ end
 -- Simpler function to check if user is in gamepad mode
 -------------------------------------------------------------------------------
 
+local lastGamepadPreference
+
 function isInGamepadMode()
+
+  if (lastGamepadPreference ~= IsInGamepadPreferredMode()) then
+    lastGamepadPreference = IsInGamepadPreferredMode()
+    AWM.canRedrawMap = true
+  end
+
   return IsInGamepadPreferredMode()
 end
 
@@ -234,12 +242,14 @@ end
 
 function getZoneNameFromID(zoneID)
 
+  local zoneInfo = getZoneInfoByID(zoneID)
+
   -- does this map have a custom name / are custom names enabled? 
-  if ((getZoneInfoByID(zoneID) ~= nil and getZoneInfoByID(zoneID).overrideLoreRenames ~= nil) or AWM.options.loreRenames) then
+  if ((zoneInfo ~= nil and zoneInfo.overrideLoreRenames ~= nil) or AWM.options.loreRenames) then
 
-    if (getZoneInfoByID(zoneID) ~= nil) then
+    if (zoneInfo ~= nil) then
 
-      return getZoneInfoByID(zoneID).zoneName
+      return zoneInfo.zoneName
 
     else
 
@@ -390,7 +400,9 @@ end
 
 function getIsCurrentMapExclusive()
 
-  return (getCurrentZoneInfo() ~= nil and (getCurrentZoneInfo().isExclusive ~= nil and getCurrentZoneInfo().isExclusive)) 
+  local currentZoneInfo = getCurrentZoneInfo()
+
+  return (currentZoneInfo ~= nil and (currentZoneInfo.isExclusive ~= nil and currentZoneInfo.isExclusive)) 
 
 end
 
