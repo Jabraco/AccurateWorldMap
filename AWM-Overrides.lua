@@ -8,7 +8,7 @@
 ---------------------------------------------------------------------------]]--
 
 -------------------------------------------------------------------------------
--- ZOS WorldMap Get Map Title
+-- ZOS Map Name functions
 -------------------------------------------------------------------------------
 
 -- Override ESO's zone names with AccurateWorldMap's custom ones.
@@ -37,6 +37,22 @@ function GetMapInfoByIndex(zoneIndex)
     end
 
     return mapName, mapType, mapContentType, zoneIndex, description
+end
+
+-------------------------------------------------------------------------------
+-- Compatibility patch for True Exploration addon
+-------------------------------------------------------------------------------
+
+local zos_GetMapType = GetMapType
+function GetMapType()
+
+  local mapType = zos_GetMapType()
+
+  if (getCurrentMapID() == 315) then
+    return MAPTYPE_WORLD
+  end
+
+  return mapType
 end
 
 -------------------------------------------------------------------------------
