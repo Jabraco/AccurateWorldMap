@@ -430,7 +430,6 @@ function createZoneHitbox(polygonData, zoneInfo)
 
     polygonID = "blobHitbox-"..zoneInfo.zoneID.."-"..zoneInfo.zoneName
 
-
   else
 
     isDebug = true
@@ -445,20 +444,19 @@ function createZoneHitbox(polygonData, zoneInfo)
     local polygon = ZO_WorldMapContainer:CreateControl(polygonID, CT_POLYGON)
     polygon:SetAnchorFill(ZO_WorldMapContainer)
 
-
     local polygonCode = ""
 
     if (isDebug) then
       AWM_EditTextWindow:SetHidden(false)
     end
 
-
     for key, data in pairs(polygonData) do
-
 
       if (isDebug) then
 
-        d(data.xN, data.yN)
+        d(AWM.polygonData)
+
+        --d(data.xN, data.yN)
 
         polygonCode = polygonCode .. ("{ xN = "..string.format("%.03f", data.xN)..", yN = "..string.format("%.03f", data.yN).." },\n")  
 
@@ -469,7 +467,6 @@ function createZoneHitbox(polygonData, zoneInfo)
     end
 
     if (isDebug) then
-      d(polygonData)
       AWM_EditTextTextBox:SetText(polygonCode)
     end
 

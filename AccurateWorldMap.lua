@@ -71,9 +71,6 @@ https://cdn.discordapp.com/attachments/806672739057664034/975049286305861672/unk
 
 
 
-
-
-
 Move player marker brainstorming:
 
 then i'd need to override GetUniversallyNormalizedMapInfo and then use libgps to fix the position?
@@ -155,8 +152,6 @@ Interesting events to consider:
 * EVENT_GROUP_MEMBER_SUBZONE_CHANGED
 
 
-
-
 ---------------------------------------------------------------------------]]--
 -- Create root addon object
 -------------------------------------------------------------------------------
@@ -187,36 +182,78 @@ local GPS = LibGPS3
 -- Globals
 -------------------------------------------------------------------------------
 
-AWM.isInsideBlobHitbox = false
+-- objects
 AWM.blobZoneInfo = {}
 AWM.currentlySelectedPolygon = nil
+polygonData = {}
+
+-- booleans
 AWM.canRedrawMap = true
 AWM.areTexturesCompiled = false
+AWM.isInsideBlobHitbox = false
 
--- bools
 local recordCoordinates = false
-local mouseDownOnPolygon = false
 local hasDragged = false
-
 local waitForRelease = false
 
-
 -- ints
-local currentCoordinateCount = 0
-local currentMapOffsetX
-local currentMapOffsetY
-local currentMapID
+local coordinateCount = 0
 
--- objects
+-------------------------------------------------------------------------------
+-- Create map info background texture control
+-------------------------------------------------------------------------------
 
-local polygonData = {}
-local newPolygonData = {}
-
-
--- todo: fix this for gamepad mode as well
 AWM_MouseOverGrungeTex = CreateControl("AWM_MouseOverGrungeTex", ZO_WorldMap, CT_TEXTURE)
 AWM_MouseOverGrungeTex:SetTexture("/esoui/art/performance/statusmetermunge.dds")
 
+-------------------------------------------------------------------------------
+-- On mouse clicked function
+-------------------------------------------------------------------------------
+
+local function onMouseClicked()
+
+  if (isMouseWithinMapWindow()) then
+
+    if (recordCoordinates) then 
+      PlaySound(SOUNDS.COUNTDOWN_TICK)
+
+      d(getNormalisedMouseCoordinates())
+
+      local xNormalised, yNormalised = getNormalisedMouseCoordinates()
+
+      table.insert(polygonData, {xN = xNormalised, yN = yNormalised})
+
+      coordinateCount = coordinateCount + 1
+
+    end
+  end
+end
+
+-------------------------------------------------------------------------------
+-- Record new zone polygon function
+-------------------------------------------------------------------------------
+
+local function recordPolygon()
+
+  if recordCoordinates == true then
+    d("Coordinates recorded.")
+
+    createZoneHitbox(polygonData)
+
+    polygonData = {}
+    coordinateCount = 0
+    recordCoordinates = false
+  end
+
+  if recordCoordinates == false then
+    d("Recording coordinates... click on the map to draw a polygon")
+    recordCoordinates = true
+  end
+end
+
+-------------------------------------------------------------------------------
+-- On world map opened function
+-------------------------------------------------------------------------------
 
 function updateCurrentPolygon(polygon) 
 
@@ -235,10 +272,13 @@ function updateCurrentPolygon(polygon)
 
   -- update with current zone info
   AWM.blobZoneInfo = getZoneInfoByID(getMapIDFromPolygonName(polygon:GetName()))
-
 end
 
-local function onWorldMapDrawn()
+-------------------------------------------------------------------------------
+-- On world map opened
+-------------------------------------------------------------------------------
+
+local function onWorldMapOpened()
 
   if (AWM.canRedrawMap) then
 
@@ -274,52 +314,7 @@ local function onWorldMapDrawn()
       ZO_WorldMap:SetAutoRectClipChildren(false)
       ZO_WorldMapContainerRaggedEdge:SetHidden(false)
     end
-
   end
-
-end
-
-
-local function onMousePressed()
-
-  if isMouseWithinMapWindow() then
-
-    if (recordCoordinates) then 
-      PlaySound(SOUNDS.COUNTDOWN_TICK)
-
-      d(getNormalisedMouseCoordinates())
-
-      local xN, yN = getNormalisedMouseCoordinates()
-
-      table.insert(newPolygonData, {xN, yN})
-
-
-      currentCoordinateCount = currentCoordinateCount + 1
-
-    end
-
-  end
-
-end
-
-local function recordPolygon()
-
-  if recordCoordinates == true then
-    d("Coordinates recorded.")
-
-    createZoneHitbox(newPolygonData, nil, true)
-
-    newPolygonData = {}
-    currentCoordinateCount = 0
-    recordCoordinates = false
-  end
-
-  if recordCoordinates == false then
-    d("Recording coordinates... click on the map to draw a polygon")
-    recordCoordinates = true
-  end
-
-
 end
 
 -------------------------------------------------------------------------------
@@ -335,7 +330,6 @@ local function main()
   
         tempPolygon = WINDOW_MANAGER:GetControlAtPoint(getMouseCoordinates())
   
-  
         print(tempPolygon:GetName())
     
         if string.find(tempPolygon:GetName(), "blobHitbox") then
@@ -350,12 +344,8 @@ local function main()
           AWM.blobZoneInfo = {}
   
         end
-  
-  
       end
-  
     end
-       
 
     if (AWM.currentlySelectedPolygon ~= nil) then
   
@@ -371,9 +361,7 @@ local function main()
         AWM_MouseOverGrungeTex:SetHidden(true)
   
       end
-  
     end
-
   else
 
     -- hide mouseover info
@@ -406,10 +394,10 @@ local function onPlayerLoaded()
 end
 
 -------------------------------------------------------------------------------
---  On zone/map change callback function
+--  On map change callback function
 -------------------------------------------------------------------------------
 
-local function onZoneChanged()
+local function onMapChanged()
 
   -- hide all existing zone blobs
   hideAllZoneBlobs()
@@ -464,8 +452,8 @@ end
 -------------------------------------------------------------------------------
 
 EVENT_MANAGER:RegisterForEvent(AWM.name, EVENT_ADD_ON_LOADED, initialise)
-EVENT_MANAGER:RegisterForEvent("onMouseDown", EVENT_GLOBAL_MOUSE_DOWN, onMousePressed)
+EVENT_MANAGER:RegisterForEvent("onMouseDown", EVENT_GLOBAL_MOUSE_DOWN, onMouseClicked)
 EVENT_MANAGER:RegisterForEvent(AWM.name, EVENT_PLAYER_ACTIVATED, onPlayerLoaded)
 EVENT_MANAGER:RegisterForUpdate("mainLoop", 0, main)
-CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", onZoneChanged)
-CALLBACK_MANAGER:RegisterCallback("OnWorldMapShown", onWorldMapDrawn)
+CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", onMapChanged)
+CALLBACK_MANAGER:RegisterCallback("OnWorldMapShown", onWorldMapOpened)
