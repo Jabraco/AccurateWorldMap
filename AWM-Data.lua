@@ -88,7 +88,7 @@ mapData = {
     zoneData = join({
       zoneName = "Eastmarch",
       zoneID = 61,
-      zoneDescription = "The first of the Old Holds, Eastmarch was among the earliest regions settled by the Nords when they arrived from Atmora. It houses the ancient city of Windhelm, which is the oldest continuously inhabited Nordic city on Tamriel.",
+      zoneDescription = "The first of the Old Holds, Eastmarch was among the earliest regions settled by the Nords when they arrived from Atmora.",
       xN = "0.5275",
       yN = "0.249",
       zonePolygonData = {
@@ -466,7 +466,7 @@ mapData = {
 
     zoneData = join({
       zoneName = "Gold Coast",
-      zoneDescription = "The Gold Coast always served as Cyrodiil's gateway to the Abecean Sea, but with the Alliance War, the region has gone its own way.",
+      zoneDescription = "The Gold Coast has always served as Cyrodiil's gateway to the Abecean Sea, but with the Alliance War, the region has gone its own way.",
       zoneID = 1006,
       xN = "0.299",
       yN = "0.515",
@@ -506,10 +506,12 @@ mapData = {
       }
     }),
 
+     
+
     -- Stirk --
     zoneData = join({
       zoneName = "Stirk",
-      zoneDescription = "Stirk was once occupied by the Ayleids. Now, though, it belongs to the Pirates of the Abecean Sea.",
+      zoneDescription = "In the past, the lonesome island of Stirk has claimed by Valenwood, the Gold Coast, Hammerfell, and even the Ayleids. Now though, it's no-man's-land.",
       zoneID = 415,
       xN = "0.269",
       yN = "0.5715",
@@ -923,7 +925,7 @@ mapData = {
 
     zoneData = join({
       zoneName = "Craglorn",
-      zoneDescription = "Though crossed by caravans and Covenant troops going to and from Cyrodiil, this wild region of eastern Hammerfell is a virtual no-man's-land.",
+      zoneDescription = "Though occasionally crossed by caravans and Covenant troops going to and from Cyrodiil, this wild region of eastern Hammerfell is otherwise a virtual no-man's-land.",
       zoneID = 1126,
       xN = "0.3225",
       yN = "0.300",
@@ -985,7 +987,7 @@ mapData = {
 
     zoneData = join({
       zoneName = "Bangkorai",
-      zoneDescription = "This region takes its name from its most famous feature, the Bangkorai Pass, which has served as High Rock's defense against the wild raiders of Hammerfell for countless generations.",
+      zoneDescription = "This region takes its name from its most famous feature, the Bangkorai Pass, which has served as High Rock's defense against the wild raiders of Hammerfell for generations.",
       zoneID = 20,
       xN = "0.232",
       yN = "0.273",
@@ -1114,7 +1116,7 @@ mapData = {
 
     zoneData = join({
       zoneName = "Hew's Bane",
-      zoneDescription = "Prince Hubalajad claimed this Hammerfell peninsula for his own, but when all of his ambitious endeavors ended in failure, the region acquired the nickname Hew's Bane.",
+      zoneDescription = "Prince Hew claimed this Hammerfell peninsula for his own, but when all of his ambitious endeavors ended in failure, the region acquired the nickname Hew's Bane.",
       zoneID = 994,
       xN = "0.220",
       yN = "0.4765",
@@ -1276,7 +1278,7 @@ mapData = {
     -- Firemoth Island --
     zoneData = join({
       zoneName = "Firemoth Island",
-      zoneDescription = "The Firemoth islets seem to float like forgotten derelicts on the surface of the Inner Sea, shrouded in mists that might hide all manner of crimes and corruption.",
+      zoneDescription = "The Firemoth islets seem to float like forgotten derelicts on the surface of the Inner Sea, shrouded in mists that hide all manner of crimes and corruption.",
       zoneID = 1248,
       xN = "0.674",
       yN = "0.3815",
@@ -1484,7 +1486,7 @@ mapData = {
 
     zoneData = join({
       zoneName = "Shadowfen",
-      zoneDescription = "The fetid mire of Shadowfen has had more contact with Tamrielic civilization than most of Black Marsh, primarily due to the activities of the Dunmeri slavers who once operated here.",
+      zoneDescription = "Shadowfen has had more contact with Tamrielic civilisation than most of Black Marsh, primarily due to the activities of the Dunmeri slavers who once operated here.",
       zoneID = 26,
       xN = "0.691",
       yN = "0.5565",
@@ -1827,7 +1829,7 @@ mapData = {
 
     zoneData = join({
       zoneName = "Tideholm",
-      zoneDescription = "This unassuming island off the coast of Southern Elsweyr is known to house the ancient ruins of Fort Vashr - a former Dragonguard stronghold.",
+      zoneDescription = "This unassuming island off the southern coast of Elsweyr is known to house the ancient ruins of Fort Vashr - a former Dragonguard stronghold.",
       blobTexture = "AccurateWorldMap/blobs/blob-tideholm.dds",
       zoneID = 1684,
       xN = "0.5995",
@@ -2126,7 +2128,7 @@ mapData = {
     }),
 
     -- Tempest Island --
-    [188] = { xN = 0.283, yN = 0.604 }, -- Tempest Island Dungeon
+    [188] = { xN = 0.282, yN = 0.604 }, -- Tempest Island Dungeon
 
     zoneData = join({
       zoneName = "Tempest Island",
@@ -2242,66 +2244,93 @@ mapData = {
     [355] = { xN = 0.094, yN = 0.757, majorSettlement = true }, -- Alinor Wayshrine
     [367] = { xN = 0.089, yN = 0.760 }, -- Alinor Crest Townhouse 
     [368] = { xN = 0.177, yN = 0.797 }, -- Colossal Aldmeri Grotto
-    [497] = { xN = 0.160, yN = 0.636 }, -- Coral Aerie Dungeon
 
     zoneData = join({
       zoneName = "Summerset Isle",
-      zoneDescription = "The land called Summerset is the birthplace of civilization and magic as we know it in Tamriel.",
+      zoneDescription = "The land called Summerset is the birthplace of civilisation and magic as we know it in Tamriel.",
       zoneID = 1349,
       xN = "0.021",
       yN = "0.6095",
       zonePolygonData = {
-        { xN = 0.113, yN = 0.780 },
-        { xN = 0.112, yN = 0.784 },
-        { xN = 0.089, yN = 0.800 },
-        { xN = 0.068, yN = 0.795 },
-        { xN = 0.054, yN = 0.776 },
-        { xN = 0.052, yN = 0.768 },
-        { xN = 0.050, yN = 0.757 },
-        { xN = 0.045, yN = 0.750 },
-        { xN = 0.033, yN = 0.745 },
-        { xN = 0.027, yN = 0.736 },
-        { xN = 0.026, yN = 0.726 },
-        { xN = 0.031, yN = 0.721 },
-        { xN = 0.039, yN = 0.714 },
-        { xN = 0.036, yN = 0.708 },
-        { xN = 0.029, yN = 0.701 },
-        { xN = 0.029, yN = 0.688 },
-        { xN = 0.048, yN = 0.689 },
-        { xN = 0.055, yN = 0.669 },
-        { xN = 0.064, yN = 0.656 },
-        { xN = 0.072, yN = 0.659 },
-        { xN = 0.099, yN = 0.623 },
-        { xN = 0.106, yN = 0.622 },
-        { xN = 0.108, yN = 0.627 },
-        { xN = 0.118, yN = 0.626 },
-        { xN = 0.128, yN = 0.612 },
-        { xN = 0.139, yN = 0.616 },
-        { xN = 0.150, yN = 0.623 },
-        { xN = 0.155, yN = 0.630 },
-        { xN = 0.162, yN = 0.632 },
-        { xN = 0.165, yN = 0.638 },
-        { xN = 0.175, yN = 0.649 },
-        { xN = 0.189, yN = 0.655 },
+        { xN = 0.114, yN = 0.783 },
+        { xN = 0.124, yN = 0.798 },
+        { xN = 0.135, yN = 0.796 },
+        { xN = 0.148, yN = 0.799 },
+        { xN = 0.169, yN = 0.815 },
+        { xN = 0.193, yN = 0.814 },
+        { xN = 0.210, yN = 0.801 },
+        { xN = 0.220, yN = 0.782 },
+        { xN = 0.209, yN = 0.761 },
+        { xN = 0.210, yN = 0.745 },
+        { xN = 0.180, yN = 0.721 },
+        { xN = 0.189, yN = 0.714 },
+        { xN = 0.185, yN = 0.699 },
+        { xN = 0.177, yN = 0.698 },
+        { xN = 0.178, yN = 0.690 },
+        { xN = 0.189, yN = 0.688 },
+        { xN = 0.192, yN = 0.679 },
         { xN = 0.193, yN = 0.671 },
-        { xN = 0.188, yN = 0.686 },
-        { xN = 0.182, yN = 0.693 },
-        { xN = 0.184, yN = 0.702 },
-        { xN = 0.188, yN = 0.712 },
-        { xN = 0.177, yN = 0.720 },
-        { xN = 0.208, yN = 0.744 },
-        { xN = 0.207, yN = 0.765 },
-        { xN = 0.218, yN = 0.778 },
-        { xN = 0.216, yN = 0.786 },
-        { xN = 0.208, yN = 0.799 },
-        { xN = 0.196, yN = 0.807 },
-        { xN = 0.177, yN = 0.811 },
-        { xN = 0.154, yN = 0.802 },
-        { xN = 0.134, yN = 0.788 },
-        { xN = 0.125, yN = 0.795 },
-        { xN = 0.119, yN = 0.789 },
-        { xN = 0.120, yN = 0.784 },
-        { xN = 0.116, yN = 0.781 },           
+        { xN = 0.189, yN = 0.656 },
+        { xN = 0.177, yN = 0.649 },
+        { xN = 0.149, yN = 0.643 },
+        { xN = 0.147, yN = 0.633 },
+        { xN = 0.154, yN = 0.624 },
+        { xN = 0.130, yN = 0.613 },
+        { xN = 0.110, yN = 0.625 },
+        { xN = 0.104, yN = 0.622 },
+        { xN = 0.092, yN = 0.631 },
+        { xN = 0.087, yN = 0.644 },
+        { xN = 0.070, yN = 0.661 },
+        { xN = 0.064, yN = 0.657 },
+        { xN = 0.051, yN = 0.681 },
+        { xN = 0.052, yN = 0.687 },
+        { xN = 0.030, yN = 0.687 },
+        { xN = 0.029, yN = 0.701 },
+        { xN = 0.051, yN = 0.706 },
+        { xN = 0.061, yN = 0.717 },
+        { xN = 0.072, yN = 0.717 },
+        { xN = 0.078, yN = 0.734 },
+        { xN = 0.052, yN = 0.764 },
+        { xN = 0.064, yN = 0.789 },
+        { xN = 0.076, yN = 0.800 },
+        { xN = 0.087, yN = 0.801 },
+        { xN = 0.106, yN = 0.790 },
+        { xN = 0.110, yN = 0.785 },
+      }
+    }),
+
+    -- Coral Aerie --
+    [497] = { xN = 0.160, yN = 0.636 }, -- Coral Aerie Dungeon
+
+    zoneData = join({
+      zoneName = "Coral Aerie",
+      zoneDescription = "This undisturbed little islet off the coast of Summerset acts as popular breeding grounds for all manner of sea life, migratory birds, and even large predators.",
+      zoneID = 2186,
+      xN = "0.147",
+      yN = "0.623",
+      zonePolygonData = {
+        { xN = 0.154, yN = 0.638 },
+        { xN = 0.166, yN = 0.641 },
+        { xN = 0.166, yN = 0.631 },
+        { xN = 0.156, yN = 0.631 },
+        { xN = 0.153, yN = 0.636 },
+      }
+    }),
+
+    -- Wasten Coraldale --
+    zoneData = join({
+      zoneName = "Wasten Coraldale",
+      zoneDescription = "The offshore island of Wasten Coraldale is famous for its Hanging Gardens and fertile grottos, where sea creatures of all sorts spawn and thrive.",
+      zoneID = 1469,
+      xN = "0.0225",
+      yN = "0.719",
+      zonePolygonData = {
+        { xN = 0.038, yN = 0.748 },
+        { xN = 0.050, yN = 0.739 },
+        { xN = 0.043, yN = 0.725 },
+        { xN = 0.030, yN = 0.721 },
+        { xN = 0.022, yN = 0.730 },
+        { xN = 0.028, yN = 0.743 },
       }
     }),
 
@@ -2512,7 +2541,7 @@ mapData = {
     zoneData = join({
       zoneName = "High Isle & Amenos",
       blobTexture = "AccurateWorldMap/blobs/blob-thesystres.dds",
-      zoneDescription = "Add proper description here later",
+      zoneDescription = "Consisting of the two largest islands in the Systres Archipelago, High Isle and Amenos are the cosmopolitan heart of this remote island chain, with the former serving as a prison for dissidents.",
       zoneID = 2114,
       xN = "0.696",
       yN = "0.660",
@@ -2536,6 +2565,36 @@ mapData = {
         
       }
     }, true),
+
+    -- -- Tamriel --
+    -- zoneData = join({
+    --   zoneName = "Tamriel",
+    --   zoneDescription = "In the ancient tongues, the land called 'Tamriel' means 'Dawn's Beauty'.",
+    --   zoneID = 27,
+    --   blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
+    --   xN = "0.196",
+    --   yN = "0.2045",
+    --   zonePolygonData = {
+    --     { xN = 0.838, yN = 0.708 },
+    --     { xN = 0.855, yN = 0.706 },
+    --     { xN = 0.874, yN = 0.694 },
+    --     { xN = 0.887, yN = 0.682 },
+    --     { xN = 0.895, yN = 0.666 },
+    --     { xN = 0.913, yN = 0.647 },
+    --     { xN = 0.895, yN = 0.630 },
+    --     { xN = 0.884, yN = 0.608 },
+    --     { xN = 0.866, yN = 0.593 },
+    --     { xN = 0.840, yN = 0.586 },
+    --     { xN = 0.814, yN = 0.591 },
+    --     { xN = 0.795, yN = 0.602 },
+    --     { xN = 0.782, yN = 0.619 },
+    --     { xN = 0.775, yN = 0.638 },
+    --     { xN = 0.777, yN = 0.664 },
+    --     { xN = 0.788, yN = 0.684 },
+    --     { xN = 0.810, yN = 0.701 },             
+    --   }
+    -- }),
+
   },
 
 
@@ -2774,13 +2833,13 @@ mapData = {
     zoneData = join({
       zoneName = "The Aurbis",
       zoneID = 439,
+      blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
       isExclusive = true,
       customTileName = "aurbis",
     }),
-
   }, 
   
-
+  
 -- ███████████████████████████████████████████████████████████████████████████████████████████████████
 -- █   ███████   █   ███      ███████   ██████████   ███████   ███████  ████████        █████      ███
 -- █      ██     █   █   ████   ██    █    ███████      ██     ██████     ██████   ████   █   ████   █
@@ -2817,6 +2876,14 @@ mapData = {
 
   [1349] = { -- Summerset Isle Map 
     [497] = { xN = 0.573, yN = 0.173 }, -- Coral Aerie Dungeon
+  },
+
+  [1469] = { -- Wasten Coraldale Map
+    parentMapID = 27,
+  },
+
+  [2186] = { -- Coral Aerie Map
+    parentMapID = 27,
   },
 
   [1429] = { -- Artaeum Map Map 

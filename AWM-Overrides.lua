@@ -14,10 +14,10 @@
 -- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
 
 -------------------------------------------------------------------------------
--- Worldmap click process function
+-- Worldmap click events
 -------------------------------------------------------------------------------
 
--- Override worldmap's click process function so that clicks don't get passed
+-- Override vanilla's worldmap's click functions so that clicks don't get passed
 -- to vanilla zone locations on isExclusive maps, as well as making sure that
 -- our custom zone blobs get the click priority. 
 
@@ -36,15 +36,6 @@ ZO_PreHook("ProcessMapClick", function(xN, yN)
   end
 
 end)
-
--------------------------------------------------------------------------------
--- Worldmap mouse release event
--------------------------------------------------------------------------------
-
--- Override the function called when user releases a mouse button on the worldmap
--- so that we can intercept and redirect the user to a custom parent map if available
-
--------------------------------------------------------------------------------
 
 ZO_PreHook("ZO_WorldMap_MouseUp", function(mapControl, mouseButton, upInside)
 

@@ -12,19 +12,13 @@ Things that need to be done before release:
 
 TJ:
 
-- Fix polygon recording
-
-
-- Sort out breaux's custom K&M and gamepad desc grunge design
-
 - Fix player location being incorrect (and also group pins)
 - Implement proper waypoint and player marker tracking and moving
 
-- Do the same to Wasten Coraldale in summerset
-- And Coral Aerie
-- Add a "Recording" dot that appears when recording blob
-- Add a close button to the polygon record control, and allow to reset without reload ui
 - Find a way to move the zone name and clock to be closer to the actual map in K&M mode like gamepad
+- Sort out breaux's custom K&M and gamepad desc grunge design
+
+
 
 
 Breaux:
@@ -138,6 +132,10 @@ keep isShownInCurrentMap unless some override is checked
 
 Interesting events to consider:
 
+GetDisplayName() returns user id 
+
+use that to make an isDeveloper() function
+
 
 * GetPlayerActiveZoneName()
 
@@ -217,12 +215,8 @@ local function onMouseClicked()
     if (recordCoordinates) then 
       PlaySound(SOUNDS.COUNTDOWN_TICK)
 
-      d(getNormalisedMouseCoordinates())
-
       local xNormalised, yNormalised = getNormalisedMouseCoordinates()
-
       table.insert(polygonData, {xN = xNormalised, yN = yNormalised})
-
       coordinateCount = coordinateCount + 1
 
     end
