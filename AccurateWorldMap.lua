@@ -19,8 +19,6 @@ TJ:
 - Sort out breaux's custom K&M and gamepad desc grunge design
 
 
-
-
 Breaux:
 
 - add aurbis ring lines to tamriel and systres icons
@@ -46,8 +44,10 @@ Breaux:
 >> Arcane University
 >> Imperial City Prison
 >> Dread Sail Reef Blob
->> High Isle Blob
->> Amenos Blob
+>> High Isle & Amenos Blob
+
+- add caecilly isle to eltheric and HR map:
+https://cdn.discordapp.com/attachments/654414794144743425/977115570497531924/unknown.png
 
 
 Breaux said she would look into:
@@ -62,7 +62,6 @@ Optional:
 - Rotate IC on the cyrodiil map 45 degrees to be consistent with oblivion (edit the tiles)
 https://cdn.discordapp.com/attachments/806672739057664034/975049286305861672/unknown.png
 - Remove Dragonhold from S.E map by editing the tiles again (Add as option to remove dragonhold from zone map)
-
 
 
 Move player marker brainstorming:
@@ -175,6 +174,7 @@ AWM.defaults = {
 
 local LAM = LibAddonMenu2
 local GPS = LibGPS3
+local LMP = LibMapPing2
 
 -------------------------------------------------------------------------------
 -- Globals
@@ -185,11 +185,11 @@ AWM.blobZoneInfo = {}
 AWM.currentlySelectedPolygon = nil
 polygonData = {}
 
--- booleans
+
+
 AWM.canRedrawMap = true
 AWM.areTexturesCompiled = false
 AWM.isInsideBlobHitbox = false
-
 local recordCoordinates = false
 local hasDragged = false
 local waitForRelease = false
@@ -203,6 +203,20 @@ local coordinateCount = 0
 
 AWM_MouseOverGrungeTex = CreateControl("AWM_MouseOverGrungeTex", ZO_WorldMap, CT_TEXTURE)
 AWM_MouseOverGrungeTex:SetTexture("/esoui/art/performance/statusmetermunge.dds")
+
+-------------------------------------------------------------------------------
+-- On waypoint / map ping added function
+-------------------------------------------------------------------------------
+
+local function onPingAdded(pingType, pingTag, xN, yN, isPingOwner)
+
+
+    d("\n")
+    d("new waypoint added:")
+    d(xN, yN)
+
+
+end
 
 -------------------------------------------------------------------------------
 -- On mouse clicked function
@@ -246,14 +260,13 @@ local function recordPolygon()
 end
 
 -------------------------------------------------------------------------------
--- On world map opened function
+-- On blob updated function
 -------------------------------------------------------------------------------
 
 function updateCurrentPolygon(polygon) 
 
   currentMapIndex = getCurrentMapID()
   AWM.isInsideBlobHitbox = true
-  --print("User has entered zone hitbox")
   AWM.currentlySelectedPolygon = polygon
 
   if (AWM.options.zoneDescriptions == true) then
@@ -433,6 +446,7 @@ local function initialise(event, addonName)
   SLASH_COMMANDS["/awm_debug"] = function() AWM.options.isDebug = not AWM.options.isDebug navigateToMap(getCurrentMapID()) end
   SLASH_COMMANDS["/fix_locations"] = fixLocations
   SLASH_COMMANDS["/set_is_developer"] = function() AWM.options.isDeveloper = not AWM.options.isDeveloper end
+  SLASH_COMMANDS["/getboundingbox"] = getBoundingBox
 
   -- register LAM settings
   local panelName = "AWMSettings"
@@ -451,3 +465,4 @@ EVENT_MANAGER:RegisterForEvent(AWM.name, EVENT_PLAYER_ACTIVATED, onPlayerLoaded)
 EVENT_MANAGER:RegisterForUpdate("mainLoop", 0, main)
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", onMapChanged)
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapShown", onWorldMapOpened)
+LMP:RegisterCallback("AfterPingAdded", onPingAdded)

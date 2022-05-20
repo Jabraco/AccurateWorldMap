@@ -7,6 +7,33 @@
 
 ---------------------------------------------------------------------------]]--
 
+-- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+-- ██░▄▄▀██░▄▄▄░██░▄▀▄░██░▄▄░█░▄▄▀█▄▄░▄▄█▄░▄██░▄▄▀█▄░▄██░████▄░▄█▄▄░▄▄██░███░████░▄▄░█░▄▄▀█▄▄░▄▄██░▄▄▀██░██░██░▄▄▄██░▄▄▄░██
+-- ██░█████░███░██░█░█░██░▀▀░█░▀▀░███░████░███░▄▄▀██░███░█████░████░████▄▀▀▀▄████░▀▀░█░▀▀░███░████░█████░▄▄░██░▄▄▄██▄▄▄▀▀██
+-- ██░▀▀▄██░▀▀▀░██░███░██░████░██░███░███▀░▀██░▀▀░█▀░▀██░▀▀░█▀░▀███░██████░██████░████░██░███░████░▀▀▄██░██░██░▀▀▀██░▀▀▀░██
+-- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+
+-------------------------------------------------------------------------------
+-- Compatibility patch for True Exploration
+-------------------------------------------------------------------------------
+
+-- Mark the Eltheric Ocean map as a MAPTYPE_WORLD so that True Exploration
+-- doesn't fade it out.
+
+-------------------------------------------------------------------------------
+
+local zos_GetMapType = GetMapType
+function GetMapType()
+
+  local mapType = zos_GetMapType()
+
+  if (getCurrentMapID() == getElthericMapID()) then
+    return MAPTYPE_WORLD
+  end
+
+  return mapType
+end
+
 -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
 -- ██░▄▄▄░██░▄▄▄░██░▄▄▄░████░▄▄▄██░██░██░▀██░██░▄▄▀█▄▄░▄▄█▄░▄██░▄▄▄░██░▀██░██░▄▄▄░██
 -- ██▀▀▀▄▄██░███░██▄▄▄▀▀████░▄▄███░██░██░█░█░██░██████░████░███░███░██░█░█░██▄▄▄▀▀██
@@ -334,29 +361,87 @@ GetMapTileTexture = function(tileIndex)
   return tileTexture
 end
 
--- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
--- ██░▄▄▀██░▄▄▄░██░▄▀▄░██░▄▄░█░▄▄▀█▄▄░▄▄█▄░▄██░▄▄▀█▄░▄██░████▄░▄█▄▄░▄▄██░███░████░▄▄░█░▄▄▀█▄▄░▄▄██░▄▄▀██░██░██░▄▄▄██░▄▄▄░██
--- ██░█████░███░██░█░█░██░▀▀░█░▀▀░███░████░███░▄▄▀██░███░█████░████░████▄▀▀▀▄████░▀▀░█░▀▀░███░████░█████░▄▄░██░▄▄▄██▄▄▄▀▀██
--- ██░▀▀▄██░▀▀▀░██░███░██░████░██░███░███▀░▀██░▀▀░█▀░▀██░▀▀░█▀░▀███░██████░██████░████░██░███░████░▀▀▄██░██░██░▀▀▀██░▀▀▀░██
--- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
-
 -------------------------------------------------------------------------------
--- Compatibility patch for True Exploration
+-- Worldmap player pin & waypoint positioning
 -------------------------------------------------------------------------------
 
--- Mark the Eltheric Ocean map as a MAPTYPE_WORLD so that True Exploration
--- doesn't fade it out.
+-- Override vanilla's player pin and waypoint positioning to be more consistent
+-- with AccurateWorldMap's zone positioning
 
 -------------------------------------------------------------------------------
 
-local zos_GetMapType = GetMapType
-function GetMapType()
+local zos_GetUniversallyNormalizedMapInfo = GetUniversallyNormalizedMapInfo
+GetUniversallyNormalizedMapInfo = function(mapID)
 
-  local mapType = zos_GetMapType()
+  local normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
 
-  if (getCurrentMapID() == 315) then
-    return MAPTYPE_WORLD
+  d("Requesting normalised map info for map " .. mapID)
+
+  if (not isMapTamriel(mapID)) then
+
+    if (isMapInAurbis(mapID)) then
+
+      -- hide daedric realms off the north edge of the map so that they can't be seen
+      normalisedOffsetX = 0
+      normalisedOffsetY = -0.5
+      normalisedWidth = 0.5
+      normalisedHeight = 0.5
+
+    else
+
+      if (isMapEltheric(mapID)) then
+
+        normalisedOffsetX = -0.330916282
+        normalisedOffsetY = 0.125655899
+        normalisedWidth = 0.462096243
+        normalisedHeight = 0.462096243
+
+      else
+
+        if (doesMapHaveCustomZoneData(mapID)) then
+
+          d("custom data detected")
+      
+          if (getZoneHitboxPolygonByID(mapID) ~= nil) then
+      
+            d("custom data loaded")
+      
+            _, normalisedWidth, normalisedHeight, normalisedOffsetX, normalisedOffsetY = getPolygonBoundingBox(getZoneHitboxPolygonByID(mapID))
+      
+          end
+
+          if (isMapInEltheric(mapID)) then
+
+            local nOffsetX, nOffsetY = GetUniversallyNormalizedMapInfo(getElthericMapID())
+  
+            -- normalisedOffsetX = 1 -  
+            -- normalisedOffsetY 
+  
+          end
+
+    
+    
+        end
+      end
+    end
   end
 
-  return mapType
+  d(("X Offset: " .. normalisedOffsetX), ("Y Offset: " .. normalisedOffsetY), ("Normalised width: " .. normalisedWidth), ("Normalised height: " .. normalisedHeight) )
+
+  return normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight
+
 end
+
+local zos_GetMapPlayerWaypoint = GetMapPlayerWaypoint
+GetMapPlayerWaypoint = function()
+
+  normalisedX, normalisedY = zos_GetMapPlayerWaypoint()
+
+  -- d("Waypoint pin drawn")
+
+  -- d(("Normalised X: " .. normalisedX), ("Normalised Y: " .. normalisedY))
+
+  return normalisedX, normalisedY
+
+end
+

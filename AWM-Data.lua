@@ -2566,35 +2566,6 @@ mapData = {
       }
     }, true),
 
-    -- -- Tamriel --
-    -- zoneData = join({
-    --   zoneName = "Tamriel",
-    --   zoneDescription = "In the ancient tongues, the land called 'Tamriel' means 'Dawn's Beauty'.",
-    --   zoneID = 27,
-    --   blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
-    --   xN = "0.196",
-    --   yN = "0.2045",
-    --   zonePolygonData = {
-    --     { xN = 0.838, yN = 0.708 },
-    --     { xN = 0.855, yN = 0.706 },
-    --     { xN = 0.874, yN = 0.694 },
-    --     { xN = 0.887, yN = 0.682 },
-    --     { xN = 0.895, yN = 0.666 },
-    --     { xN = 0.913, yN = 0.647 },
-    --     { xN = 0.895, yN = 0.630 },
-    --     { xN = 0.884, yN = 0.608 },
-    --     { xN = 0.866, yN = 0.593 },
-    --     { xN = 0.840, yN = 0.586 },
-    --     { xN = 0.814, yN = 0.591 },
-    --     { xN = 0.795, yN = 0.602 },
-    --     { xN = 0.782, yN = 0.619 },
-    --     { xN = 0.775, yN = 0.638 },
-    --     { xN = 0.777, yN = 0.664 },
-    --     { xN = 0.788, yN = 0.684 },
-    --     { xN = 0.810, yN = 0.701 },             
-    --   }
-    -- }),
-
   },
 
 
@@ -2926,6 +2897,14 @@ mapData = {
     [236] = { xN = 0.495, yN = 0.132, disabled = false }, -- Imperial City Prison Dungeon
   },
 }
+
+
+-------------------------------------------------------------------------------
+-- Map Offset Data
+-------------------------------------------------------------------------------
+
+-- nXOffset, nYOffset, nWidth, nHeight
+AWM.TAMRIEL_MAP_OFFSETS = { nOffsetX = 0, nOffsetY = -0.14000000059605, nWidth = 1, nHeight = 1 }
 
 -------------------------------------------------------------------------------
 -- LibAddonMenu Settings Data

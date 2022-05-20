@@ -407,14 +407,26 @@ function getIsCurrentMapExclusive()
 end
 
 -------------------------------------------------------------------------------
+-- Get whether the provided map has custom zone data or not
+-------------------------------------------------------------------------------
+
+function doesMapHaveCustomZoneData(mapID)
+
+  return ((mapData[mapID] ~= nil and mapData[mapID].zoneData ~= nil) or getZoneInfoByID(mapID) ~= nil)
+
+end
+
+
+-------------------------------------------------------------------------------
 -- Get whether the current map has custom zone data or not
 -------------------------------------------------------------------------------
 
 function doesCurrentMapHaveCustomZoneData()
-
-  return (mapData[getCurrentMapID()] ~= nil and mapData[getCurrentMapID()].zoneData ~= nil)
+  
+  return doesMapHaveCustomZoneData(getCurrentMapID())
 
 end
+
 
 -------------------------------------------------------------------------------
 -- Creates zone hitbox on the map given some coordinates
@@ -698,3 +710,338 @@ function parseMapData(mapID)
 
 end
 
+-------------------------------------------------------------------------------
+-- Get polygon data by ID
+-------------------------------------------------------------------------------
+
+function getZoneHitboxPolygonByID(mapID)
+
+  if (mapID ~= nil) then
+
+    local zoneInfo = getZoneInfoByID(mapID)
+
+    if (zoneInfo ~= nil and zoneInfo.zonePolygonData ~= nil) then
+
+      local zonePolygonData = zoneInfo.zonePolygonData
+      local polygonName = "AWM-TempPolygon"
+
+      local newPolygon = WINDOW_MANAGER:GetControlByName(polygonName)
+
+      if (newPolygon ~= nil) then
+
+        newPolygon:ClearPoints()
+
+      else
+        newPolygon = ZO_WorldMapContainer:CreateControl(polygonName, CT_POLYGON)
+      end
+
+      for index, data in pairs(zonePolygonData) do  
+        newPolygon:AddPoint(zonePolygonData[index].xN, zonePolygonData[index].yN)
+      end
+
+      return newPolygon
+
+    end
+  end
+end
+
+-------------------------------------------------------------------------------
+-- Get polygon bounding box function
+-------------------------------------------------------------------------------
+
+function getPolygonBoundingBox(polygon)
+
+  if (polygon ~= nil) then
+
+    local leftMostCoord
+    local rightMostCoord
+    local topMostCoord
+    local bottomMostCoord
+
+    for i = 1, polygon:GetNumPoints() do -- loop through all polygon points
+
+      local xN, yN = polygon:GetPoint(i)
+
+      -- get left most side of rect
+      if (leftMostCoord == nil or xN <= leftMostCoord) then
+        leftMostCoord = xN
+      end
+
+      -- get right most side of rect
+      if (rightMostCoord == nil or rightMostCoord <= xN) then
+        rightMostCoord = xN
+      end
+
+      -- get top most side of rect
+      if (topMostCoord == nil or yN <= topMostCoord) then
+        topMostCoord = yN
+      end
+
+      -- get bottom most side of rect
+      if (bottomMostCoord == nil or bottomMostCoord <= yN) then
+        bottomMostCoord = yN
+      end
+
+    end
+
+    -- top left corner
+    local topLeft = { xN = leftMostCoord, yN = topMostCoord }
+
+    -- top right corner
+    local topRight = { xN = rightMostCoord, yN = topMostCoord }
+
+    -- bottom left corner
+    local bottomLeft = { xN = leftMostCoord, yN = bottomMostCoord }
+
+    -- bottom right corner
+    local bottomRight = { xN = rightMostCoord, yN = bottomMostCoord }
+
+    local nWidth = rightMostCoord - leftMostCoord
+    local nHeight = bottomMostCoord - topMostCoord
+
+    local nOffsetX = leftMostCoord
+    local nOffsetY = topMostCoord
+
+    local nStart = topLeft
+
+    print("Leftmost coord: "..leftMostCoord)
+    print("Rightmost coord: "..rightMostCoord)
+    print("Topmost coord: "..topMostCoord)
+    print("Bottommost coord: "..bottomMostCoord)
+    print("nWidth: "..nWidth)
+    print("nHeight: "..nHeight)
+
+    return nStart, nWidth, nHeight, nOffsetX, nOffsetY
+
+  end
+
+end
+
+-------------------------------------------------------------------------------
+-- Get zoneInfo object by name function
+-------------------------------------------------------------------------------
+
+function getZoneInfoByName(name)
+
+  if (mapData ~= nil) then
+
+    for mapID, mapInfo in pairs(mapData) do
+
+      if (mapInfo.zoneName ~= nil) then
+
+        local zoneInfo = mapInfo.zoneData
+
+          for zoneIndex, zoneInfo in pairs(zoneInfo) do
+        
+            if (zoneInfo.zoneName == name) then
+              return zoneInfo
+            end
+          end
+      end
+    end
+  end
+end
+
+-------------------------------------------------------------------------------
+-- Is Tamriel Map function
+-------------------------------------------------------------------------------
+
+function isMapTamriel(mapID)
+
+  local zoneInfo = getZoneInfoByID(mapID)
+
+  return (zoneInfo ~= nil and zoneInfo.zoneName == "Tamriel")
+
+end
+
+-------------------------------------------------------------------------------
+-- Is Eltheric Map function
+-------------------------------------------------------------------------------
+
+function isMapEltheric(mapID)
+
+  local zoneInfo = getZoneInfoByID(mapID)
+
+  return (zoneInfo ~= nil and zoneInfo.zoneName == "Eltheric Ocean")
+
+end
+
+-------------------------------------------------------------------------------
+-- Is Map Artaeum function
+-------------------------------------------------------------------------------
+
+function isMapArtaeum(mapID)
+
+  local zoneInfo = getZoneInfoByID(mapID)
+
+  return (zoneInfo ~= nil and zoneInfo.zoneName == "Artaeum")
+
+end
+
+-------------------------------------------------------------------------------
+-- Is Map Aurbis function
+-------------------------------------------------------------------------------
+
+function isMapAurbis(mapID)
+
+  local zoneInfo = getZoneInfoByID(mapID)
+
+  return (zoneInfo ~= nil and zoneInfo.zoneName == "The Aurbis")
+
+end
+
+-------------------------------------------------------------------------------
+-- Get Aurbis map ID function
+-------------------------------------------------------------------------------
+
+function getAurbisMapID()
+  return 439
+end
+
+-------------------------------------------------------------------------------
+-- Get Eltheric map ID function
+-------------------------------------------------------------------------------
+
+function getElthericMapID()
+  return 315
+end
+
+-------------------------------------------------------------------------------
+-- Get top level zone mapID function
+-------------------------------------------------------------------------------
+
+function getTopLevelZoneMapID(mapID)
+
+  if (mapID == nil) then
+    mapID = getCurrentMapID()
+  end
+
+  if(isMapArtaeum(mapID)) then
+    return mapID
+  end
+
+  local zoneName, _, _, zoneIndex, _ = GetMapInfoById(mapID)
+
+  if (zoneIndex ~= nil) then
+
+    local zoneID = GetZoneId(zoneIndex)
+
+    if (zoneID ~= nil) then
+
+      local lastParentMapID = -100
+      local parentMapID = GetMapIdByZoneId(GetParentZoneId(zoneID))
+      local originalParentMapID = parentMapID
+
+      -- get the top-most zone mapID
+      while( lastParentMapID ~= parentMapID ) do
+
+        parentMapID = GetMapIdByZoneId(GetParentZoneId(zoneID))
+
+        if (lastParentID ~= parentMapID and parentMapID ~= nil) then
+          lastParentMapID = parentMapID
+        end
+
+      end
+
+      if (parentMapID ~= nil) then
+
+        if (originalParentMapID == 0) then
+
+          return mapID
+
+        else
+
+          -- fix fargrave being weird
+          if (parentMapID == 2035) then
+
+            return 2119
+
+          else
+
+            return parentMapID
+
+          end
+        end
+      end
+    end
+  end
+end
+
+-------------------------------------------------------------------------------
+-- Check if map is inside the Aurbis map
+-------------------------------------------------------------------------------
+
+function isMapInAurbis(mapID)
+
+  if (mapID == nil) then
+    mapID = getCurrentMapID()
+  end
+
+  local topLevelMapID = getTopLevelZoneMapID(mapID)
+  local isInAurbis = false
+
+  if (isMapTamriel(topLevelMapID) or isMapAurbis(topLevelMapID)) then
+    return isInAurbis
+  end
+
+  -- does this map have custom defined data
+  if (doesMapHaveCustomZoneData(topLevelMapID)) then
+
+    local aurbisMapData = mapData[getAurbisMapID()].zoneData
+
+    -- then check if it's in the aurbis
+    for zoneIndex, data in pairs(aurbisMapData) do
+
+      local zoneData = mapData[getAurbisMapID()].zoneData[zoneIndex]
+
+      if (zoneData.zoneID == topLevelMapID) then
+
+        isInAurbis = true
+
+      end
+    end
+  end
+
+  return isInAurbis
+end
+
+-------------------------------------------------------------------------------
+-- Check if map is inside Eltheric Ocean map
+-------------------------------------------------------------------------------
+
+function isMapInEltheric(mapID)
+
+  if (mapID == nil) then
+    mapID = getCurrentMapID()
+  end
+
+  local topLevelMapID = getTopLevelZoneMapID(mapID)
+  local isInEltheric = false
+
+  -- does this map have custom defined data
+  if (doesMapHaveCustomZoneData(topLevelMapID)) then
+
+    local elthericMapData = mapData[getElthericMapID()].zoneData
+
+    -- then check if it's in the eltheric
+    for zoneIndex, data in pairs(elthericMapData) do
+
+      local zoneData = mapData[getElthericMapID()].zoneData[zoneIndex]
+
+      if (zoneData.zoneID == topLevelMapID) then
+
+        isInEltheric = true
+
+      end
+    end
+  end
+
+  local parentMapSetToEltheric = false
+
+  if (isInEltheric) then
+    parentMapSetToEltheric = (mapData[mapID] ~= nil and mapData[mapID].parentMapID ~= nil and mapData[mapID].parentMapID == getElthericMapID() )
+  end
+
+
+  return (isInEltheric or parentMapSetToEltheric)
+end
