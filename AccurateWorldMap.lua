@@ -212,9 +212,11 @@ local function onPingAdded(pingType, pingTag, xN, yN, isPingOwner)
 
 
     d("\n")
-    d("new waypoint added:")
-    d(xN, yN)
+    -- d("new waypoint added:")
+    -- d(xN, yN)
 
+
+    d(GPS:LocalToGlobal(xN, yN))
 
 end
 

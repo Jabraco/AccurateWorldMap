@@ -397,24 +397,27 @@ GetUniversallyNormalizedMapInfo = function(mapID)
         normalisedHeight = 0.462096243
 
       else
-
         if (doesMapHaveCustomZoneData(mapID)) then
 
-          d("custom data detected")
+          -- if this map doesn't have custom data, but its parent does, then scale the current normalised position to inside of the main zone's one
+
+          print("custom data detected")
       
           if (getZoneHitboxPolygonByID(mapID) ~= nil) then
       
-            d("custom data loaded")
+            print("custom data loaded")
       
             _, normalisedWidth, normalisedHeight, normalisedOffsetX, normalisedOffsetY = getPolygonBoundingBox(getZoneHitboxPolygonByID(mapID))
-      
+
+            normalisedOffsetY = normalisedOffsetY - 0.14000000059605
+  
           end
 
           if (isMapInEltheric(mapID)) then
 
             local nOffsetX, nOffsetY = GetUniversallyNormalizedMapInfo(getElthericMapID())
   
-            -- normalisedOffsetX = 1 -  
+            --normalisedOffsetX = 1 -  
             -- normalisedOffsetY 
   
           end
