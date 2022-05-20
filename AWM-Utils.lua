@@ -593,7 +593,7 @@ function compileMapTextures()
 
           --print("there is a zone name!")
 
-          if (zoneInfo.blobTexture == nil or zoneInfo.nBlobTextureHeight == nil or zoneInfo.nBlobTextureWidth == nil ) then
+          if (zoneInfo.blobTexture == nil or (zoneInfo.nBlobTextureHeight == nil or zoneInfo.nBlobTextureWidth == nil) ) then
 
             --print("loading in textures!")
 
@@ -848,6 +848,10 @@ end
 
 function isMapTamriel(mapID)
 
+  if (mapID == nil) then
+    mapID = getCurrentMapID()
+  end
+
   local zoneInfo = getZoneInfoByID(mapID)
 
   return (zoneInfo ~= nil and zoneInfo.zoneName == "Tamriel")
@@ -859,6 +863,10 @@ end
 -------------------------------------------------------------------------------
 
 function isMapEltheric(mapID)
+
+  if (mapID == nil) then
+    mapID = getCurrentMapID()
+  end
 
   local zoneInfo = getZoneInfoByID(mapID)
 
@@ -1044,4 +1052,29 @@ function isMapInEltheric(mapID)
 
 
   return (isInEltheric or parentMapSetToEltheric)
+end
+
+-------------------------------------------------------------------------------
+-- Get zone bounding box function
+-------------------------------------------------------------------------------
+
+function getMapBoundingBoxByID(mapID)
+
+  mapInfo = getZoneInfoByID(mapID)
+
+  if (mapInfo ~= nil) then
+
+    -- does a debug anchor texture exist for this map?
+    if (mapInfo.nDebugBlobTextureWidth ~= nil) then
+
+      return mapInfo.debugXN, mapInfo.debugYN, mapInfo.nDebugBlobTextureWidth, mapInfo.nDebugBlobTextureHeight
+
+    else
+
+      -- else return the normal blob texture
+      return mapInfo.xN, mapInfo.yN, mapInfo.nBlobTextureWidth, mapInfo.nBlobTextureHeight
+
+    end
+
+  end
 end

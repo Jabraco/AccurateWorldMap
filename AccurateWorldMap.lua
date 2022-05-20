@@ -185,6 +185,8 @@ AWM.blobZoneInfo = {}
 AWM.currentlySelectedPolygon = nil
 polygonData = {}
 
+AWM.wpData = {}
+
 
 
 AWM.canRedrawMap = true
@@ -210,13 +212,17 @@ AWM_MouseOverGrungeTex:SetTexture("/esoui/art/performance/statusmetermunge.dds")
 
 local function onPingAdded(pingType, pingTag, xN, yN, isPingOwner)
 
+  if (isMapTamriel() or isMapEltheric()) then
+    AWM.wpData.lastWaypointType = "GLOBAL"
+    AWM.wpData.xN, AWM.wpData.yN = GPS:GlobalToLocal(xN, yN)
+  else
+    AWM.wpData.lastWaypointType = "LOCAL"
+    AWM.wpData.xN, AWM.wpData.yN = GPS:LocalToGlobal(xN, yN)
+  end
 
-    d("\n")
-    -- d("new waypoint added:")
-    -- d(xN, yN)
 
-
-    d(GPS:LocalToGlobal(xN, yN))
+  d("\n")
+  d(AWM.wpData.lastWaypointType)
 
 end
 

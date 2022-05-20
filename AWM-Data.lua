@@ -89,8 +89,10 @@ mapData = {
       zoneName = "Eastmarch",
       zoneID = 61,
       zoneDescription = "The first of the Old Holds, Eastmarch was among the earliest regions settled by the Nords when they arrived from Atmora.",
-      xN = "0.5275",
-      yN = "0.249",
+      xN = "0.5074",
+      yN = "0.2263",
+      debugXN = "0.5074",
+      debugYN = "0.2263",
       zonePolygonData = {
         { xN = 0.617, yN = 0.331 },
         { xN = 0.618, yN = 0.324 },

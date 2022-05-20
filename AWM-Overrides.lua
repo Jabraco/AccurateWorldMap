@@ -7,6 +7,12 @@
 
 ---------------------------------------------------------------------------]]--
 
+-------------------------------------------------------------------------------
+-- Get base addon object
+-------------------------------------------------------------------------------
+
+AWM = AWM or {}
+
 -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
 -- ██░▄▄▀██░▄▄▄░██░▄▀▄░██░▄▄░█░▄▄▀█▄▄░▄▄█▄░▄██░▄▄▀█▄░▄██░████▄░▄█▄▄░▄▄██░███░████░▄▄░█░▄▄▀█▄▄░▄▄██░▄▄▀██░██░██░▄▄▄██░▄▄▄░██
 -- ██░█████░███░██░█░█░██░▀▀░█░▀▀░███░████░███░▄▄▀██░███░█████░████░████▄▀▀▀▄████░▀▀░█░▀▀░███░████░█████░▄▄░██░▄▄▄██▄▄▄▀▀██
@@ -110,12 +116,25 @@ GetMapMouseoverInfo = function(xN, yN)
       local blobInfo = AWM.blobZoneInfo
 
       locationName = getZoneNameFromID(blobInfo.zoneID)
-      textureFile = blobInfo.blobTexture
-      widthN = blobInfo.nBlobTextureWidth
-      heightN = blobInfo.nBlobTextureHeight
-      locXN = blobInfo.xN
-      locYN = blobInfo.yN
 
+      if (AWM.options.isDebug and blobInfo.nDebugBlobTextureWidth ~= nil) then
+
+        textureFile = blobInfo.debugBlobTexture
+        widthN = blobInfo.nDebugBlobTextureWidth
+        heightN = blobInfo.nDebugBlobTextureHeight
+        locXN = blobInfo.debugXN
+        locYN = blobInfo.debugYN
+
+      else
+
+        textureFile = blobInfo.blobTexture
+        widthN = blobInfo.nBlobTextureWidth
+        heightN = blobInfo.nBlobTextureHeight
+        locXN = blobInfo.xN
+        locYN = blobInfo.yN
+      end
+
+      
       if (blobInfo.zoneDescription ~= nil and AWM.options.zoneDescriptions == true) then
         ZO_WorldMapMouseOverDescription:SetText(blobInfo.zoneDescription)
       end
@@ -391,10 +410,10 @@ GetUniversallyNormalizedMapInfo = function(mapID)
 
       if (isMapEltheric(mapID)) then
 
-        normalisedOffsetX = -0.330916282
-        normalisedOffsetY = 0.125655899
-        normalisedWidth = 0.462096243
-        normalisedHeight = 0.462096243
+        normalisedOffsetX = -0.331420898
+        normalisedOffsetY = 0.125502929
+        normalisedWidth = 0.462524414
+        normalisedHeight = 0.462524414
 
       else
         if (doesMapHaveCustomZoneData(mapID)) then
@@ -407,7 +426,9 @@ GetUniversallyNormalizedMapInfo = function(mapID)
       
             print("custom data loaded")
       
-            _, normalisedWidth, normalisedHeight, normalisedOffsetX, normalisedOffsetY = getPolygonBoundingBox(getZoneHitboxPolygonByID(mapID))
+            --_, normalisedWidth, normalisedHeight, normalisedOffsetX, normalisedOffsetY = getPolygonBoundingBox(getZoneHitboxPolygonByID(mapID))
+
+            normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight = getMapBoundingBoxByID(mapID)
 
             normalisedOffsetY = normalisedOffsetY - 0.14000000059605
   
@@ -435,16 +456,24 @@ GetUniversallyNormalizedMapInfo = function(mapID)
 
 end
 
+local GPS = LibGPS3
+
 local zos_GetMapPlayerWaypoint = GetMapPlayerWaypoint
 GetMapPlayerWaypoint = function()
 
   normalisedX, normalisedY = zos_GetMapPlayerWaypoint()
+  local isGlobal = (isMapTamriel() or isMapEltheric())
 
-  -- d("Waypoint pin drawn")
+  if (AWM.wpData ~= nil) then
 
-  -- d(("Normalised X: " .. normalisedX), ("Normalised Y: " .. normalisedY))
+    return AWM.wpData.xN, AWM.wpData.yN
 
-  return normalisedX, normalisedY
+
+  else
+
+    return normalisedX, normalisedY
+
+  end
 
 end
 
