@@ -18,6 +18,7 @@ TJ:
 - Find a way to move the zone name and clock to be closer to the actual map in K&M mode like gamepad
 - Sort out breaux's custom K&M and gamepad desc grunge design
 - allow setting waypoints on the zone blobs
+- fix zone blobs appearing on map transition
 
 
 Breaux:

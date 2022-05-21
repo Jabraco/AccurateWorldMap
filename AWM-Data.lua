@@ -1312,7 +1312,7 @@ mapData = {
       zoneID = 7,
       xN = "0.668",
       yN = "0.380",
-      debugXN = "0.660",
+      debugXN = "0.6605",
       debugYN = "0.380",
       zonePolygonData = {
         { xN = 0.678, yN = 0.406 },
@@ -1383,8 +1383,8 @@ mapData = {
       zoneID = 75,
       xN = "0.795",
       yN = "0.428",
-      debugXN = "0.795",
-      debugYN = "0.428",
+      debugXN = "0.7915",
+      debugYN = "0.424",
       zonePolygonData = {
         { xN = 0.796, yN = 0.454 },
         { xN = 0.802, yN = 0.459 },
@@ -1416,8 +1416,8 @@ mapData = {
       zoneID = 13,
       xN = "0.699",
       yN = "0.430",
-      debugXN = "0.699",
-      debugYN = "0.430",
+      debugXN = "0.6905",
+      debugYN = "0.427",
       zonePolygonData = {
         { xN = 0.701, yN = 0.493 },
         { xN = 0.697, yN = 0.498 },
