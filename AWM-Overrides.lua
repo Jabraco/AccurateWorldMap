@@ -498,3 +498,30 @@ GetMapPlayerWaypoint = function()
 
 end
 
+
+local zos_GetMapPlayerPosition = GetMapPlayerPosition
+GetMapPlayerPosition = function(unitTag)
+
+
+  if (isMapTamriel()) then
+
+    
+
+  end
+
+
+  -- note: fires every milisecond for all unitpins on screen
+
+  nX, nY, direction, isShownInCurrentMap = zos_GetMapPlayerPosition(unitTag)
+
+
+  GetNormalizedWorldPosition
+
+  GetUnitWorldPosition(tag)
+
+
+  --d(unitTag)
+
+  return nX, nY, direction, isShownInCurrentMap
+end
+

@@ -23,19 +23,11 @@ TJ:
 
 Breaux:
 
-- add aurbis ring lines to tamriel and systres icons
+- add aurbis ring lines to tamriel and systres icons (breaux said she would do this when she feels like it)
 
 - Make description background textures for both gamepad and K&M
 - Fix the Aurbis tamriel blob - mismatches with what is there currently
->> Aurbis Tamriel is missing its waves as well
 - Fix Aurbis rings not containing their proper daedric/elven text
-
-- Fix Eltheric Ocean ring not being the correct colour, and looking werid
->> Eltheric Ocean map ring should be blackreach ring coloured, with a ship icon
->> Ring back to Tamriel should be an aurbis-themed smaller version of tamriel inside the ring, with waves
-(like https://cdn.discordapp.com/attachments/806672739057664034/974778491373518868/unknown.png)
->> also note that the aurbis circle rings seem to be semitransparent - the western skyrim one has a slight blue tint as its in the sea
-
 - Give TJ blobs for the following:
 >> Dranil-Kir
 >> Silitar
@@ -47,6 +39,10 @@ Breaux:
 >> Imperial City Prison
 >> Dread Sail Reef Blob
 >> High Isle & Amenos Blob
+>> Eltheric Ocean circle blob
+>> Tamriel circle blob
+
+- give updated tiles for eltheric and tamriel
 
 - add caecilly isle to eltheric and HR map:
 https://cdn.discordapp.com/attachments/654414794144743425/977115570497531924/unknown.png
@@ -151,6 +147,18 @@ use that to make an isDeveloper() function
 * EVENT_GROUP_MEMBER_SUBZONE_CHANGED
 
 
+TODO: make issue on libgps library github about 
+
+https://github.com/sirinsidiator/ESO-LibGPS/ you can create an issue for it. maybe you are in luck and votan has some time to add it. otherwise you could create a pull request, but again not sure when I will have time to review and merge it
+
+GitHub - sirinsidiator/ESO-LibGPS - GitHub
+Contribute to sirinsidiator/ESO-LibGPS development by creating an account on GitHub.
+Thal-J
+i will keep in mind for future, in mean time i think i will just implement it locally in my addon
+sirinsidiator (sirinsidiator)
+I still urge you to create an issue and explain your use case, otherwise it will be forgotten 😉
+
+
 ---------------------------------------------------------------------------]]--
 -- Create root addon object
 -------------------------------------------------------------------------------
@@ -205,6 +213,33 @@ local coordinateCount = 0
 
 AWM_MouseOverGrungeTex = CreateControl("AWM_MouseOverGrungeTex", ZO_WorldMap, CT_TEXTURE)
 AWM_MouseOverGrungeTex:SetTexture("/esoui/art/performance/statusmetermunge.dds")
+
+-------------------------------------------------------------------------------
+--  On map change callback function
+-------------------------------------------------------------------------------
+
+local function onMapChanged()
+
+  -- hide all existing zone blobs
+  hideAllZoneBlobs()
+
+  -- hide map info description background
+  AWM_MouseOverGrungeTex:SetHidden(true)
+
+  -- parse current map for any custom data
+  parseMapData(getCurrentMapID())
+
+
+
+  -- if the current map is a custom one, then prepare to update local to global for the world map
+  -- set prepare to updateplayer flag to true, then put localtoglobal coordinates in a variable
+  -- then in overrides, it'll read that and update the player marker
+
+  -- 
+
+
+
+end
 
 -------------------------------------------------------------------------------
 -- On waypoint / map ping added function
@@ -419,23 +454,6 @@ local function onPlayerLoaded()
     end, 2000 )
 
   end
-end
-
--------------------------------------------------------------------------------
---  On map change callback function
--------------------------------------------------------------------------------
-
-local function onMapChanged()
-
-  -- hide all existing zone blobs
-  hideAllZoneBlobs()
-
-  -- hide map info description background
-  AWM_MouseOverGrungeTex:SetHidden(true)
-
-  -- parse current map for any custom data
-  parseMapData(getCurrentMapID())
-
 end
 
 -------------------------------------------------------------------------------
