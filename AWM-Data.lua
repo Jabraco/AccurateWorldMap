@@ -91,8 +91,8 @@ mapData = {
       zoneDescription = "The first of the Old Holds, Eastmarch was among the earliest regions settled by the Nords when they arrived from Atmora.",
       xN = "0.5074",
       yN = "0.2263",
-      debugXN = "0.5074",
-      debugYN = "0.2263",
+      debugXN = "0.5068",
+      debugYN = "0.2255",
       zonePolygonData = {
         { xN = 0.617, yN = 0.331 },
         { xN = 0.618, yN = 0.324 },
@@ -162,6 +162,8 @@ mapData = {
       zoneID = 125,
       xN = "0.5275",
       yN = "0.3145",
+      debugXN = "0.5225",
+      debugYN = "0.3045",
       zonePolygonData = {
         { xN = 0.626, yN = 0.397 },
         { xN = 0.625, yN = 0.391 },
@@ -1310,6 +1312,8 @@ mapData = {
       zoneID = 7,
       xN = "0.668",
       yN = "0.380",
+      debugXN = "0.660",
+      debugYN = "0.380",
       zonePolygonData = {
         { xN = 0.678, yN = 0.406 },
         { xN = 0.682, yN = 0.405 },
@@ -1379,6 +1383,8 @@ mapData = {
       zoneID = 75,
       xN = "0.795",
       yN = "0.428",
+      debugXN = "0.795",
+      debugYN = "0.428",
       zonePolygonData = {
         { xN = 0.796, yN = 0.454 },
         { xN = 0.802, yN = 0.459 },
@@ -1410,6 +1416,8 @@ mapData = {
       zoneID = 13,
       xN = "0.699",
       yN = "0.430",
+      debugXN = "0.699",
+      debugYN = "0.430",
       zonePolygonData = {
         { xN = 0.701, yN = 0.493 },
         { xN = 0.697, yN = 0.498 },

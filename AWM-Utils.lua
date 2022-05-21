@@ -274,19 +274,43 @@ function getMapIDFromPolygonName(polygonName)
 end
 
 -------------------------------------------------------------------------------
+-- Strip unneeded characters away from zone names
+-------------------------------------------------------------------------------
+
+function processZoneName(name)
+
+  -- example: transform "Stros M'Kai" to "strosmkai"
+  name = name:gsub("'", "")
+  name = name:gsub(" ", "")
+  name = name:gsub("-", "") 
+  name = name:lower()
+
+  return name
+end
+
+-------------------------------------------------------------------------------
 -- Get blob file directory from map name
 -------------------------------------------------------------------------------
 
 function getFileDirectoryFromMapName(providedZoneName)
   local providedZoneName = providedZoneName
 
-  -- example: transform "Stros M'Kai" to "strosmkai"
-  providedZoneName = providedZoneName:gsub("'", "")
-  providedZoneName = providedZoneName:gsub(" ", "")
-  providedZoneName = providedZoneName:gsub("-", "") 
-  providedZoneName = providedZoneName:lower()
-
+  providedZoneName = processZoneName(providedZoneName)
+  
   local blobFileDirectory = ("AccurateWorldMap/blobs/blob-"..providedZoneName..".dds")
+  return blobFileDirectory
+end
+
+-------------------------------------------------------------------------------
+-- Get debug blob file directory from map name
+-------------------------------------------------------------------------------
+
+function getDebugFileDirectoryFromMapName(providedZoneName)
+  local providedZoneName = providedZoneName
+
+  providedZoneName = processZoneName(providedZoneName)
+  
+  local blobFileDirectory = ("AccurateWorldMap/blobs/blob-"..providedZoneName.."-debug.dds")
   return blobFileDirectory
 end
 
@@ -535,18 +559,12 @@ function createZoneHitbox(polygonData, zoneInfo)
             navigateToMap(AWM.blobZoneInfo)
 
           end
-
-
         end
-
-
       end
 
       waitForRelease = false
 
     end)
-      
-  
     polygon:SetHandler("OnMouseEnter", function()
 
       if (not isInGamepadMode()) then
@@ -572,9 +590,6 @@ function compileMapTextures()
   
   local hasError = false
 
-  --print("getting blob info!")
-
-
   -- iterate through all of mapData
   for mapID, zoneData in pairs(mapData) do
 
@@ -591,11 +606,15 @@ function compileMapTextures()
 
         if (zoneInfo.zoneName ~= nil) then
 
+          local hasDebugTexture = (zoneInfo.debugXN ~= nil or zoneInfo.debugBlobTexture ~= nil)
+
           --print("there is a zone name!")
 
-          if (zoneInfo.blobTexture == nil or (zoneInfo.nBlobTextureHeight == nil or zoneInfo.nBlobTextureWidth == nil) ) then
+          if ( (zoneInfo.blobTexture == nil or zoneInfo.debugBlobTexture == nil) or (zoneInfo.nBlobTextureWidth == nil or zoneInfo.nDebugBlobTextureWidth == nil) ) then
 
-            --print("loading in textures!")
+            local mapResolution = 4096
+
+            -- load in textures
 
             local textureDirectory
             
@@ -616,13 +635,47 @@ function compileMapTextures()
 
               -- save texture name and dimensions
               mapData[mapID].zoneData[zoneIndex].blobTexture = textureDirectory
-              mapData[mapID].zoneData[zoneIndex].nBlobTextureHeight = textureHeight / 4096
-              mapData[mapID].zoneData[zoneIndex].nBlobTextureWidth = textureWidth / 4096
+              mapData[mapID].zoneData[zoneIndex].nBlobTextureHeight = textureHeight / mapResolution
+              mapData[mapID].zoneData[zoneIndex].nBlobTextureWidth = textureWidth / mapResolution
 
             else
 
               print("The following texture failed to load: "..textureDirectory)
               hasError = true
+
+            end
+
+            if (hasDebugTexture) then
+
+              -- load in textures
+              local debugTextureDirectory
+              
+              if (zoneInfo.debugBlobTexture ~= nil) then
+                debugTextureDirectory = zoneInfo.debugBlobTexture
+              else
+                debugTextureDirectory = getDebugFileDirectoryFromMapName(zoneInfo.zoneName)
+              end
+
+              -- load texture into control from name
+              AWM_TextureControl:SetTexture(debugTextureDirectory)
+
+              -- check if texture exists before doing stuff
+              if (AWM_TextureControl:IsTextureLoaded()) then
+
+                -- get the dimensions
+                local debugTextureHeight, debugTextureWidth = AWM_TextureControl:GetTextureFileDimensions()
+
+                -- save texture name and dimensions
+                mapData[mapID].zoneData[zoneIndex].debugBlobTexture = debugTextureDirectory
+                mapData[mapID].zoneData[zoneIndex].nDebugBlobTextureWidth = debugTextureWidth / mapResolution
+                mapData[mapID].zoneData[zoneIndex].nDebugBlobTextureHeight = debugTextureHeight / mapResolution
+
+              else
+
+                print("The following debug texture failed to load: "..textureDirectory)
+                hasError = true
+
+              end
 
             end
           end
@@ -915,64 +968,40 @@ function getElthericMapID()
 end
 
 -------------------------------------------------------------------------------
--- Get top level zone mapID function
+-- Get parent mapID function
 -------------------------------------------------------------------------------
 
-function getTopLevelZoneMapID(mapID)
+local LZ = LibZone 
+
+function getParentMapID(mapID)
 
   if (mapID == nil) then
     mapID = getCurrentMapID()
   end
 
-  if(isMapArtaeum(mapID)) then
-    return mapID
-  end
+  local parentMapID = LZ:GetGeographicalParentMapId(mapID)
 
-  local zoneName, _, _, zoneIndex, _ = GetMapInfoById(mapID)
 
-  if (zoneIndex ~= nil) then
+  if (parentMapID ~= nil) then
 
-    local zoneID = GetZoneId(zoneIndex)
+    -- if parentMapId is zero, then return itself
+    if (parentMapID == 0) then
 
-    if (zoneID ~= nil) then
+      return mapID
 
-      local lastParentMapID = -100
-      local parentMapID = GetMapIdByZoneId(GetParentZoneId(zoneID))
-      local originalParentMapID = parentMapID
-
-      -- get the top-most zone mapID
-      while( lastParentMapID ~= parentMapID ) do
-
-        parentMapID = GetMapIdByZoneId(GetParentZoneId(zoneID))
-
-        if (lastParentID ~= parentMapID and parentMapID ~= nil) then
-          lastParentMapID = parentMapID
-        end
-
-      end
-
-      if (parentMapID ~= nil) then
-
-        if (originalParentMapID == 0) then
-
-          return mapID
-
-        else
-
-          -- fix fargrave being weird
-          if (parentMapID == 2035) then
-
-            return 2119
-
-          else
-
-            return parentMapID
-
-          end
-        end
-      end
     end
+
+      -- if we have overwritten this map's parent ID, then return itself
+    if (mapData[mapID] ~= nil and mapData[mapID].parentMapID ~= nil) then
+
+      print(getZoneNameFromID(mapID), true)
+      return mapID
+
+    end
+
   end
+
+  return parentMapID
 end
 
 -------------------------------------------------------------------------------
@@ -985,15 +1014,15 @@ function isMapInAurbis(mapID)
     mapID = getCurrentMapID()
   end
 
-  local topLevelMapID = getTopLevelZoneMapID(mapID)
+  local parentMapID = getParentMapID(mapID)
   local isInAurbis = false
 
-  if (isMapTamriel(topLevelMapID) or isMapAurbis(topLevelMapID)) then
+  if (isMapTamriel(parentMapID) or isMapAurbis(parentMapID)) then
     return isInAurbis
   end
 
   -- does this map have custom defined data
-  if (doesMapHaveCustomZoneData(topLevelMapID)) then
+  if (doesMapHaveCustomZoneData(parentMapID)) then
 
     local aurbisMapData = mapData[getAurbisMapID()].zoneData
 
@@ -1002,7 +1031,7 @@ function isMapInAurbis(mapID)
 
       local zoneData = mapData[getAurbisMapID()].zoneData[zoneIndex]
 
-      if (zoneData.zoneID == topLevelMapID) then
+      if (zoneData.zoneID == parentMapID) then
 
         isInAurbis = true
 
@@ -1023,11 +1052,11 @@ function isMapInEltheric(mapID)
     mapID = getCurrentMapID()
   end
 
-  local topLevelMapID = getTopLevelZoneMapID(mapID)
+  local parentMapID = getParentMapID(mapID)
   local isInEltheric = false
 
   -- does this map have custom defined data
-  if (doesMapHaveCustomZoneData(topLevelMapID)) then
+  if (doesMapHaveCustomZoneData(parentMapID)) then
 
     local elthericMapData = mapData[getElthericMapID()].zoneData
 
@@ -1036,7 +1065,7 @@ function isMapInEltheric(mapID)
 
       local zoneData = mapData[getElthericMapID()].zoneData[zoneIndex]
 
-      if (zoneData.zoneID == topLevelMapID) then
+      if (zoneData.zoneID == parentMapID) then
 
         isInEltheric = true
 

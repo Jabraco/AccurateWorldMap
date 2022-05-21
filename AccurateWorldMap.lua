@@ -17,6 +17,7 @@ TJ:
 
 - Find a way to move the zone name and clock to be closer to the actual map in K&M mode like gamepad
 - Sort out breaux's custom K&M and gamepad desc grunge design
+- allow setting waypoints on the zone blobs
 
 
 Breaux:
@@ -187,8 +188,6 @@ polygonData = {}
 
 AWM.wpData = {}
 
-
-
 AWM.canRedrawMap = true
 AWM.areTexturesCompiled = false
 AWM.isInsideBlobHitbox = false
@@ -210,12 +209,25 @@ AWM_MouseOverGrungeTex:SetTexture("/esoui/art/performance/statusmetermunge.dds")
 -- On waypoint / map ping added function
 -------------------------------------------------------------------------------
 
+local function globalToLocal()
+  print("Global to Local:", true)
+  d(GPS:GlobalToLocal(getNormalisedMouseCoordinates()))
+end
+
+local function localToGlobal()
+  print("Local to Global:", true)
+  d(GPS:LocalToGlobal(getNormalisedMouseCoordinates()))
+end
+
+
 local function onPingAdded(pingType, pingTag, xN, yN, isPingOwner)
 
-  if (isMapTamriel() or isMapEltheric()) then
+  if (isMapTamriel()) then
+    AWM.wpData.previousMap = "GLOBAL"
     AWM.wpData.lastWaypointType = "GLOBAL"
-    AWM.wpData.xN, AWM.wpData.yN = GPS:GlobalToLocal(xN, yN)
+    AWM.wpData.globalYN, AWM.wpData.globalYN = xN, yN
   else
+    AWM.wpData.previousMap = "LOCAL"
     AWM.wpData.lastWaypointType = "LOCAL"
     AWM.wpData.xN, AWM.wpData.yN = GPS:LocalToGlobal(xN, yN)
   end
@@ -455,6 +467,9 @@ local function initialise(event, addonName)
   SLASH_COMMANDS["/fix_locations"] = fixLocations
   SLASH_COMMANDS["/set_is_developer"] = function() AWM.options.isDeveloper = not AWM.options.isDeveloper end
   SLASH_COMMANDS["/getboundingbox"] = getBoundingBox
+  SLASH_COMMANDS["/localtoglobal"] = localToGlobal
+  SLASH_COMMANDS["/globaltolocal"] = globalToLocal
+  SLASH_COMMANDS["/getparentmapid"] = getParentMapID
 
   -- register LAM settings
   local panelName = "AWMSettings"

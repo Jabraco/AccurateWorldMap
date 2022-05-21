@@ -402,9 +402,9 @@ GetUniversallyNormalizedMapInfo = function(mapID)
 
       -- hide daedric realms off the north edge of the map so that they can't be seen
       normalisedOffsetX = 0
-      normalisedOffsetY = -0.5
-      normalisedWidth = 0.5
-      normalisedHeight = 0.5
+      normalisedOffsetY = -0.8
+      normalisedWidth = 0.2
+      normalisedHeight = 0.2
 
     else
 
@@ -461,10 +461,31 @@ local GPS = LibGPS3
 local zos_GetMapPlayerWaypoint = GetMapPlayerWaypoint
 GetMapPlayerWaypoint = function()
 
+  -- this function places a waypoint every time the map changes
+  -- we can override its data based on what we know of the world and of the previous map
+  -- if the previous map was local, and we have set a local waypoint, then we need to convert
+  -- to global
+
+  -- likewise if the previous map was global, and we are local, then we need to convert to local
+
+  -- if the previous map was global, then do nothing
+
+  -- check if the last map was global or local
+  -- if it was global, then do nothing
+
+  -- local to global ONLY works when we are inside that local map, so that has to be calculated BEFORE map switch
+  -- if local to global is nil, then ignorei t
+
+  d("waypoint placed")
+
+  -- get vanilla values
   normalisedX, normalisedY = zos_GetMapPlayerWaypoint()
-  local isGlobal = (isMapTamriel() or isMapEltheric())
+
+  
+  local isGlobal = (isMapTamriel())
 
   if (AWM.wpData ~= nil) then
+
 
     return AWM.wpData.xN, AWM.wpData.yN
 
