@@ -505,7 +505,7 @@ GetMapPlayerPosition = function(unitTag)
 
   if (isMapTamriel()) then
 
-    
+
 
   end
 
@@ -515,9 +515,9 @@ GetMapPlayerPosition = function(unitTag)
   nX, nY, direction, isShownInCurrentMap = zos_GetMapPlayerPosition(unitTag)
 
 
-  GetNormalizedWorldPosition
+  -- GetNormalizedWorldPosition
 
-  GetUnitWorldPosition(tag)
+  -- GetUnitWorldPosition(tag)
 
 
   --d(unitTag)

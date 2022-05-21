@@ -23,6 +23,9 @@ TJ:
 
 Breaux:
 
+- add caecilly isle to eltheric and HR map:
+https://cdn.discordapp.com/attachments/654414794144743425/977115570497531924/unknown.png
+
 - add aurbis ring lines to tamriel and systres icons (breaux said she would do this when she feels like it)
 
 - Make description background textures for both gamepad and K&M
@@ -41,17 +44,13 @@ Breaux:
 >> High Isle & Amenos Blob
 >> Eltheric Ocean circle blob
 >> Tamriel circle blob
+>> Updated Aurbis Tamriel blob
 
-- give updated tiles for eltheric and tamriel
-
-- add caecilly isle to eltheric and HR map:
-https://cdn.discordapp.com/attachments/654414794144743425/977115570497531924/unknown.png
+- give TJ updated tiles for eltheric and tamriel
 
 
 Breaux said she would look into:
-
-- sorting out W.Skyrim's outline situation (as per carto club)
-- fixing castle volikhar
+- fixing castle volikhar's outline on the map to be like skyrim's heightmap
 
 
 Optional:
@@ -157,6 +156,9 @@ Thal-J
 i will keep in mind for future, in mean time i think i will just implement it locally in my addon
 sirinsidiator (sirinsidiator)
 I still urge you to create an issue and explain your use case, otherwise it will be forgotten 😉
+
+
+makePR to libzone to explain changes and stuff as per baetram
 
 
 ---------------------------------------------------------------------------]]--
