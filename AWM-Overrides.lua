@@ -430,7 +430,6 @@ GetUniversallyNormalizedMapInfo = function(mapID)
             print("custom data loaded")
 
             normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight = getMapBoundingBoxByID(mapID)
-
             normalisedOffsetY = normalisedOffsetY - 0.14000000059605
   
           end
@@ -445,8 +444,6 @@ GetUniversallyNormalizedMapInfo = function(mapID)
   
           end
 
-    
-    
         end
       end
     end
@@ -458,11 +455,55 @@ GetUniversallyNormalizedMapInfo = function(mapID)
     return zos_GetUniversallyNormalizedMapInfo(mapID)
   end
 
-  d(("X Offset: " .. normalisedOffsetX), ("Y Offset: " .. normalisedOffsetY), ("Normalised width: " .. normalisedWidth), ("Normalised height: " .. normalisedHeight) )
+  --d(("X Offset: " .. normalisedOffsetX), ("Y Offset: " .. normalisedOffsetY), ("Normalised width: " .. normalisedWidth), ("Normalised height: " .. normalisedHeight) )
 
   return normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight
 
 end
+
+local zos_GetMapPlayerPosition = GetMapPlayerPosition
+GetMapPlayerPosition = function(unitTag)
+
+  normalisedX, normalisedY, direction, isShownInCurrentMap = zos_GetMapPlayerPosition(unitTag)
+
+  local zoneID, _, _, _ = GetUnitRawWorldPosition(unitTag)
+  zoneID = getParentZoneID(zoneID)
+  local mapID = GetMapIdByZoneId(zoneID)
+
+  if (mapID ~= nil or mapID ~= 0) then
+
+
+    if (isMapTamriel() or isMapEltheric()) then
+
+      -- get vanilla blob offsets and position for a map
+      local nOffsetX, nOffsetY, nWidth, nHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
+
+      -- use that to get where the player is in that map
+      local nLocalX = (normalisedX - nOffsetX) / nWidth
+      local nLocalY = (normalisedY - (nOffsetY + 0.14000000059605)) / nHeight
+  
+      local measurement = GPS:GetMapMeasurementByMapId(mapID)
+      if (measurement ~= nil and GPS:GetMapMeasurementByMapId(mapID) ~= nil) then
+
+        -- then transform those coordinates inside the bounds of AWM's fixed blob positions
+        local fixedX, fixedY = measurement:ToGlobal(nLocalX, nLocalY)
+
+        d(fixedX, fixedY)
+  
+        return fixedX, fixedY, direction, isShownInCurrentMap
+  
+  
+      end
+
+    end
+
+  end
+
+
+  return normalisedX, normalisedY, direction, isShownInCurrentMap
+end
+
+
 
 local zos_GetMapPlayerWaypoint = GetMapPlayerWaypoint
 GetMapPlayerWaypoint = function()
@@ -504,43 +545,4 @@ GetMapPlayerWaypoint = function()
 
 end
 
-
-local zos_GetMapPlayerPosition = GetMapPlayerPosition
-GetMapPlayerPosition = function(unitTag)
-
-  normalisedX, normalisedY, direction, isShownInCurrentMap = zos_GetMapPlayerPosition(unitTag)
-
-  local zoneID, _, _, _ = GetUnitRawWorldPosition(unitTag)
-  zoneID = getParentZoneID(zoneID)
-  local mapID = GetMapIdByZoneId(zoneID)
-
-  if (mapID ~= nil or mapID ~= 0) then
-
-
-    if (isMapTamriel() or isMapEltheric()) then
-
-
-      local nOffsetX, nOffsetY, nWidth, nHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
-
-      local nLocalX = (normalisedX - nOffsetX) / nWidth
-      local nLocalY = (normalisedY - (nOffsetY + 0.14000000059605)) / nHeight
-  
-      local measurement = GPS:GetMapMeasurementByMapId(mapID)
-  
-      if (measurement ~= nil) then
-
-        local fixedX, fixedY = measurement:ToGlobal(nLocalX, nLocalY)
-  
-        return fixedX, fixedY, direction, isShownInCurrentMap
-  
-  
-      end
-
-    end
-
-  end
-
-
-  return normalisedX, normalisedY, direction, isShownInCurrentMap
-end
 

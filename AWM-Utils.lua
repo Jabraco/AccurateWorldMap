@@ -876,7 +876,14 @@ function getParentMapID(mapID)
     mapID = getCurrentMapID()
   end
 
-  local parentMapID = LZ:GetGeographicalParentMapId(mapID)
+  local parentMapID
+
+  if (LZ:GetGeographicalParentMapId(mapID) ~= nil ) then
+    parentMapID = LZ:GetGeographicalParentMapId(mapID)
+  else
+    local _, _, _, zoneIndex, _ = GetMapInfoById(mapID)
+    parentMapID = GetParentZoneId(GetZoneId(zoneIndex))
+  end
 
 
   if (parentMapID ~= nil) then
@@ -1011,8 +1018,14 @@ end
 
 function getParentZoneID(zoneID)
 
-  local parentZoneID = LZ:GetZoneGeographicalParentZoneId(zoneID)
-
+  local parentZoneID
+  
+  if (LZ:GetGeographicalParentMapId(mapID) ~= nil ) then
+    parentZoneID = LZ:GetGeographicalParentMapId(mapID)
+  else
+    parentZoneID = GetParentZoneId(zoneID)
+  end
+  
   if (parentZoneID == nil or parentZoneID == 0) then
     parentZoneID = GetParentZoneId(zoneID)
   end
