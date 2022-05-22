@@ -88,7 +88,7 @@ mapData = {
     zoneData = join({
       zoneName = "Eastmarch",
       zoneID = 61,
-      zoneDescription = "The first of the Old Holds, Eastmarch was among the earliest regions settled by the Nords when they arrived from Atmora.",
+      zoneDescription = "Eastmarch is the first of Old Holds - the earliest regions of Skyrim settled by the Nords when they arrived from Atmora.",
       xN = "0.5074",
       yN = "0.2263",
       debugXN = "0.5068",
@@ -923,7 +923,7 @@ mapData = {
     [234] = { xN = 0.362, yN = 0.349 }, -- Skyreach Wayshrine 
     [230] = { xN = 0.344, yN = 0.380 }, -- Hel Ra Citadel Trial
     [232] = { xN = 0.366, yN = 0.330 }, -- Sanctum Ophidia Trial
-    [327] = { xN = 0.328, yN = 0.351 }, -- Earthtear Caverns
+    [327] = { xN = 0.333, yN = 0.352 }, -- Earthtear Caverns
     [395] = { xN = 0.410, yN = 0.394 }, -- Elinhir Private Arena House
     [310] = { xN = 0.432, yN = 0.381 }, -- Domus Phrasticus House
 
@@ -2907,6 +2907,12 @@ mapData = {
     [236] = { xN = 0.495, yN = 0.132, disabled = false }, -- Imperial City Prison Dungeon
   },
 }
+
+-------------------------------------------------------------------------------
+-- World map offsets data
+-------------------------------------------------------------------------------
+
+AWM.TAMRIEL_VERTICAL_OFFSET = 0.14000000059605
 
 -------------------------------------------------------------------------------
 -- LibAddonMenu Settings Data

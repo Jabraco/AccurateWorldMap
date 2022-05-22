@@ -7,11 +7,12 @@
 ---------------------------------------------------------------------------]]--
 
 -------------------------------------------------------------------------------
--- Get base addon object and callbacks
+-- Get base addon object, callbacks, and dependencies
 -------------------------------------------------------------------------------
 
 AWM = AWM or {}
 local LocalCallbackManager = ZO_CallbackObject:Subclass()
+local LZ = LibZone 
 
 -------------------------------------------------------------------------------
 -- Get addon info from addon manifest
@@ -690,6 +691,11 @@ function compileMapTextures()
     print("Successfully loaded.", true)
     AWM.areTexturesCompiled = true
 
+    -- recalculate normalised info, as will be based on
+    -- vanilla values by the time this is done
+    GPS:ClearMapMeasurements()
+    GPS:CalculateMapMeasurement()
+
   end
 end
 
@@ -971,8 +977,6 @@ end
 -- Get parent mapID function
 -------------------------------------------------------------------------------
 
-local LZ = LibZone 
-
 function getParentMapID(mapID)
 
   if (mapID == nil) then
@@ -1106,4 +1110,22 @@ function getMapBoundingBoxByID(mapID)
     end
 
   end
+end
+
+-------------------------------------------------------------------------------
+-- Get parent zoneID
+-------------------------------------------------------------------------------
+
+function getParentZoneID(zoneID)
+
+  local parentZoneID = LZ:GetZoneGeographicalParentZoneId(zoneID)
+
+  if (parentZoneID == nil or parentZoneID == 0) then
+
+    parentZoneID = GetParentZoneId(zoneID)
+
+  end
+
+  return parentZoneID
+
 end

@@ -8,10 +8,13 @@
 ---------------------------------------------------------------------------]]--
 
 -------------------------------------------------------------------------------
--- Get base addon object
+-- Get base addon object and dependencies
 -------------------------------------------------------------------------------
 
 AWM = AWM or {}
+local LZ = LibZone 
+local GPS = LibGPS3
+
 
 -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
 -- ██░▄▄▀██░▄▄▄░██░▄▀▄░██░▄▄░█░▄▄▀█▄▄░▄▄█▄░▄██░▄▄▀█▄░▄██░████▄░▄█▄▄░▄▄██░███░████░▄▄░█░▄▄▀█▄▄░▄▄██░▄▄▀██░██░██░▄▄▄██░▄▄▄░██
@@ -422,17 +425,16 @@ GetUniversallyNormalizedMapInfo = function(mapID)
 
           print("custom data detected")
       
-          if (getZoneHitboxPolygonByID(mapID) ~= nil) then
-      
+          if (getMapBoundingBoxByID(mapID) ~= nil) then
+
             print("custom data loaded")
-      
-            --_, normalisedWidth, normalisedHeight, normalisedOffsetX, normalisedOffsetY = getPolygonBoundingBox(getZoneHitboxPolygonByID(mapID))
 
             normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight = getMapBoundingBoxByID(mapID)
 
             normalisedOffsetY = normalisedOffsetY - 0.14000000059605
   
           end
+
 
           if (isMapInEltheric(mapID)) then
 
@@ -450,13 +452,17 @@ GetUniversallyNormalizedMapInfo = function(mapID)
     end
   end
 
+
+  -- safety check in case something went wrong and our dataset is nil, return vanilla values
+  if (normalisedOffsetX == nil or normalisedOffsetY == nil or normalisedWidth == nil or normalisedHeight == nil) then
+    return zos_GetUniversallyNormalizedMapInfo(mapID)
+  end
+
   d(("X Offset: " .. normalisedOffsetX), ("Y Offset: " .. normalisedOffsetY), ("Normalised width: " .. normalisedWidth), ("Normalised height: " .. normalisedHeight) )
 
   return normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight
 
 end
-
-local GPS = LibGPS3
 
 local zos_GetMapPlayerWaypoint = GetMapPlayerWaypoint
 GetMapPlayerWaypoint = function()
@@ -502,26 +508,49 @@ end
 local zos_GetMapPlayerPosition = GetMapPlayerPosition
 GetMapPlayerPosition = function(unitTag)
 
+  normalisedX, normalisedY, direction, isShownInCurrentMap = zos_GetMapPlayerPosition(unitTag)
 
-  if (isMapTamriel()) then
+
+  if (not isMapTamriel()) then
+    d(normalisedX, normalisedY)
+  end
 
 
+
+  local zoneID, _, _, _ = GetUnitRawWorldPosition(unitTag)
+  zoneID = getParentZoneID(zoneID)
+  local mapID = GetMapIdByZoneId(zoneID)
+
+  if (mapID ~= nil or mapID ~= 0) then
+
+
+    if (isMapTamriel()) then
+
+
+      local nOffsetX, nOffsetY, nWidth, nHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
+
+      local nLocalX = (normalisedX - nOffsetX) / nWidth
+      local nLocalY = (normalisedY - (nOffsetY + 0.14000000059605)) / nHeight
+  
+      local measurement = GPS:GetMapMeasurementByMapId(mapID)
+  
+      d(nLocalX, nLocalY)
+
+
+      if (measurement ~= nil) then
+
+        local fixedX, fixedY = measurement:ToGlobal(nLocalX, nLocalY)
+  
+        return fixedX, fixedY, direction, isShownInCurrentMap
+  
+  
+      end
+
+    end
 
   end
 
 
-  -- note: fires every milisecond for all unitpins on screen
-
-  nX, nY, direction, isShownInCurrentMap = zos_GetMapPlayerPosition(unitTag)
-
-
-  -- GetNormalizedWorldPosition
-
-  -- GetUnitWorldPosition(tag)
-
-
-  --d(unitTag)
-
-  return nX, nY, direction, isShownInCurrentMap
+  return normalisedX, normalisedY, direction, isShownInCurrentMap
 end
 

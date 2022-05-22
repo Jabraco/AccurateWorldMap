@@ -493,7 +493,7 @@ local function initialise(event, addonName)
   SLASH_COMMANDS["/getparentmapid"] = getParentMapID
 
   -- register LAM settings
-  local panelName = "AWMSettings"
+  local panelName = "AWM_Settings"
   local panel = LAM:RegisterAddonPanel(panelName, AWM.panelData)
   LAM:RegisterOptionControls(panelName, AWM.optionsData)
   
