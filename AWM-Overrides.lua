@@ -510,13 +510,6 @@ GetMapPlayerPosition = function(unitTag)
 
   normalisedX, normalisedY, direction, isShownInCurrentMap = zos_GetMapPlayerPosition(unitTag)
 
-
-  if (not isMapTamriel()) then
-    d(normalisedX, normalisedY)
-  end
-
-
-
   local zoneID, _, _, _ = GetUnitRawWorldPosition(unitTag)
   zoneID = getParentZoneID(zoneID)
   local mapID = GetMapIdByZoneId(zoneID)
@@ -524,7 +517,7 @@ GetMapPlayerPosition = function(unitTag)
   if (mapID ~= nil or mapID ~= 0) then
 
 
-    if (isMapTamriel()) then
+    if (isMapTamriel() or isMapEltheric()) then
 
 
       local nOffsetX, nOffsetY, nWidth, nHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
@@ -534,9 +527,6 @@ GetMapPlayerPosition = function(unitTag)
   
       local measurement = GPS:GetMapMeasurementByMapId(mapID)
   
-      d(nLocalX, nLocalY)
-
-
       if (measurement ~= nil) then
 
         local fixedX, fixedY = measurement:ToGlobal(nLocalX, nLocalY)
