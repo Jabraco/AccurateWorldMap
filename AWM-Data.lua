@@ -2973,15 +2973,6 @@ AWM.optionsData = {
     text = "Change the way the world map looks.",
     width = "full",
   },
-  -- {
-  --   type = "dropdown",
-  --   name = "Map Style",
-  --   tooltip = "Choose between a vanilla styled map (default), or a more immersive geographic one.",
-  --   choices = {"Vanilla", "Geographic"},
-  --   getFunc = function() return AWM.options.mapStyle end,
-  --   setFunc = function(value) AWM.options.mapStyle = value end,
-  --   width = "full",
-  -- },
   {
     type = "dropdown",
     name = "Icons on World Map",

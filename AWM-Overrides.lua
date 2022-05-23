@@ -447,13 +447,11 @@ GetUniversallyNormalizedMapInfo = function(mapID)
             -- normalisedWidth = normalisedWidth * scale
             -- normalisedHeight = normalisedHeight * scale
 
-
           end
         end
       end
     end
   end
-
 
   -- safety check in case something went wrong and our dataset is nil, reset to vanilla values
   if (normalisedOffsetX == nil or normalisedOffsetY == nil or normalisedWidth == nil or normalisedHeight == nil) then
