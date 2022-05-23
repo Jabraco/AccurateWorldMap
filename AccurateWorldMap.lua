@@ -177,7 +177,6 @@ AWM.defaults = {
   worldMapWayshrines = "All (Default)",
   hideIconGlow = false,
   movePlayerIcons = false,
-  isDeveloper = false,
 }
 
 -------------------------------------------------------------------------------

@@ -2998,21 +2998,21 @@ AWM.optionsData = {
     setFunc = function(value) AWM.options.hideIconGlow = value end
   },
 
-  {
-    type = "header",
-    name = "Experimental",
-    width = "full",
-  },
-  {
-    type = "description",
-    text = "Experimental features that may or may not work yet. Beware bugs.",
-    width = "full",
-  },
-  {
-    type = "checkbox",
-    name = "Move Player Icons (Beta)",
-    tooltip = "Moves player and group icons according to AccurateWorldMap's zone placement.",
-    getFunc = function() return AWM.options.movePlayerIcons end,
-    setFunc = function(value) AWM.options.movePlayerIcons = value end
-  },
+  -- {
+  --   type = "header",
+  --   name = "Experimental",
+  --   width = "full",
+  -- },
+  -- {
+  --   type = "description",
+  --   text = "Experimental features that may or may not work yet. Beware bugs.",
+  --   width = "full",
+  -- },
+  -- {
+  --   type = "checkbox",
+  --   name = "Move Player Icons (Beta)",
+  --   tooltip = "Moves player and group icons according to AccurateWorldMap's zone placement.",
+  --   getFunc = function() return AWM.options.movePlayerIcons end,
+  --   setFunc = function(value) AWM.options.movePlayerIcons = value end
+  -- },
 }
