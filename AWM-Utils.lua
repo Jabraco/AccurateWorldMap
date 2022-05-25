@@ -215,7 +215,7 @@ end
 -- Get zoneInfo object by ID
 -------------------------------------------------------------------------------
 
-function getZoneInfoByID(zoneID)
+function getZoneInfoByID(zoneID, optionalIsDuplicate)
 
   if (mapData ~= nil) then
 
@@ -226,10 +226,21 @@ function getZoneInfoByID(zoneID)
         local zoneInfo = mapInfo.zoneData
 
           for zoneIndex, zoneInfo in pairs(zoneInfo) do
-        
-            if (zoneInfo.zoneID == zoneID) then
-              return zoneInfo
+
+            if (optionalIsDuplicate ~= nil and optionalIsDuplicate) then
+
+              if (zoneInfo.zoneID == zoneID and zoneInfo.isDuplicate ~= nil) then
+                return zoneInfo
+              end
+
+            else
+
+              if (zoneInfo.zoneID == zoneID and zoneInfo.isDuplicate == nil) then
+                return zoneInfo
+              end
+
             end
+
           end
       end
 
@@ -365,7 +376,6 @@ function navigateToMap(mapInfo)
     end
 
 
-
     SetMapToMapId(mapID)
     GPS:SetPlayerChoseCurrentMap()
     hideAllZoneBlobs()
@@ -465,7 +475,11 @@ function createZoneHitbox(polygonData, zoneInfo)
 
   if (zoneInfo ~= nil) then
 
-    polygonID = "blobHitbox-"..zoneInfo.zoneID.."-"..zoneInfo.zoneName
+    if (zoneInfo.isDuplicate ~= nil and zoneInfo.isDuplicate) then
+      polygonID = "blobHitbox-"..zoneInfo.zoneID.."-"..zoneInfo.zoneName
+    else
+      polygonID = "blobHitbox-"..zoneInfo.zoneID.."-"..zoneInfo.zoneName.."duplicate"
+    end
 
   else
 
@@ -513,7 +527,7 @@ function createZoneHitbox(polygonData, zoneInfo)
     else
       polygon:SetCenterColor(0, 0, 0, 0)
     end
-    
+
     polygon:SetMouseEnabled(true)
     polygon:SetHandler("OnMouseDown", function(control, button, ctrl, alt, shift, command)
 
@@ -521,7 +535,6 @@ function createZoneHitbox(polygonData, zoneInfo)
         currentMapOffsetX, currentMapOffsetY = getWorldMapOffsets()
         waitForRelease = true
       end
-
 
       AWM.currentlySelectedPolygon = polygon
       ZO_WorldMap_MouseDown(button, ctrl, alt, shift)    

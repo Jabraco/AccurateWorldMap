@@ -481,13 +481,9 @@ GetMapPlayerPosition = function(unitTag)
       -- get vanilla blob offsets and position for a map
       local nOffsetX, nOffsetY, nWidth, nHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
 
-      
-
       -- use that to get where the player is in that map
       local nLocalX = (normalisedX - nOffsetX) / nWidth --nWidth = scale
       local nLocalY = (normalisedY - (nOffsetY + 0.14000000059605)) / nHeight -- nHeight = scale
-
-      --d(nLocalX, nLocalY)
 
       if (GPS:GetMapMeasurementByMapId(mapID) ~= nil) then
 
@@ -496,8 +492,6 @@ GetMapPlayerPosition = function(unitTag)
   
           -- then transform those coordinates inside the bounds of AWM's fixed blob positions
           local fixedX, fixedY = measurement:ToGlobal(nLocalX, nLocalY)
-  
-          --d(fixedX, fixedY)
     
           return fixedX, fixedY, direction, isShownInCurrentMap
 
@@ -519,8 +513,6 @@ GetMapPlayerPosition = function(unitTag)
       -- use that to get the localised player coordinates in that map
       local nLocalX = (globalX - nOffsetX) / nWidth --nWidth = scale
       local nLocalY = (globalY - (nOffsetY + 0.14000000059605)) / nHeight -- nHeight = scale
-
-      --d(nLocalX, nLocalY)
       
       if (GPS:GetMapMeasurementByMapId(mapID) ~= nil) then
 

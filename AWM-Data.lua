@@ -1628,6 +1628,8 @@ mapData = {
       zoneID = 1887,
       xN = "0.570",
       yN = "0.5975",
+      debugXN = "0.6605",
+      debugYN = "0.380",
       zonePolygonData = {
         { xN = 0.593, yN = 0.708 },
         { xN = 0.583, yN = 0.696 },
@@ -1691,7 +1693,6 @@ mapData = {
         { xN = 0.594, yN = 0.707 },        
       }
     }),
-
 
     -- Grand Topal Hideaway --
     [325] = { xN = 0.641, yN = 0.738 }, -- Grand Topal Hideaway House
@@ -2547,7 +2548,6 @@ mapData = {
     [509] = { xN = 0.753, yN = 0.680, disabled = false }, -- Brokerock Mine Wayshrine
     [523] = { xN = 0.728, yN = 0.713, disabled = false }, -- High Hallow Hold House
 
-
     zoneData = join({
       zoneName = "High Isle & Amenos",
       blobTexture = "AccurateWorldMap/blobs/blob-thesystres.dds",
@@ -2572,9 +2572,36 @@ mapData = {
         { xN = 0.749, yN = 0.661 }, 
         { xN = 0.759, yN = 0.671 }, 
         { xN = 0.760, yN = 0.681 }, 
-        
       }
     }, true),
+
+    -- Tamriel --
+    zoneData = join({
+      zoneName = "Tamriel",
+      zoneDescription = "In the ancient tongues, the land called 'Tamriel' means 'Dawn's Beauty'.",
+      blobTexture = "AccurateWorldMap/blobs/blob-realm.dds",
+      isDuplicate = true,
+      zoneID = 27,
+      xN = "0.757",
+      yN = "0.575",
+      zonePolygonData = {
+        { xN = 0.839, yN = 0.710 },
+        { xN = 0.860, yN = 0.705 },
+        { xN = 0.879, yN = 0.690 },
+        { xN = 0.893, yN = 0.678 },
+        { xN = 0.895, yN = 0.665 },
+        { xN = 0.914, yN = 0.647 },
+        { xN = 0.895, yN = 0.631 },
+        { xN = 0.884, yN = 0.609 },
+        { xN = 0.860, yN = 0.590 },
+        { xN = 0.826, yN = 0.588 },
+        { xN = 0.802, yN = 0.599 },
+        { xN = 0.780, yN = 0.620 },
+        { xN = 0.775, yN = 0.644 },
+        { xN = 0.785, yN = 0.677 },
+        { xN = 0.798, yN = 0.694 },                      
+      }
+    }),
 
   },
 
@@ -2989,21 +3016,4 @@ AWM.optionsData = {
     setFunc = function(value) AWM.options.hideIconGlow = value end
   },
 
-  -- {
-  --   type = "header",
-  --   name = "Experimental",
-  --   width = "full",
-  -- },
-  -- {
-  --   type = "description",
-  --   text = "Experimental features that may or may not work yet. Beware bugs.",
-  --   width = "full",
-  -- },
-  -- {
-  --   type = "checkbox",
-  --   name = "Move Player Icons (Beta)",
-  --   tooltip = "Moves player and group icons according to AccurateWorldMap's zone placement.",
-  --   getFunc = function() return AWM.options.movePlayerIcons end,
-  --   setFunc = function(value) AWM.options.movePlayerIcons = value end
-  -- },
 }

@@ -322,6 +322,9 @@ end
 
 function updateCurrentPolygon(polygon) 
 
+
+  --d("hello")
+
   currentMapIndex = getCurrentMapID()
   AWM.isInsideBlobHitbox = true
   AWM.currentlySelectedPolygon = polygon
@@ -334,8 +337,18 @@ function updateCurrentPolygon(polygon)
 
   end
 
+
   -- update with current zone info
-  AWM.blobZoneInfo = getZoneInfoByID(getMapIDFromPolygonName(polygon:GetName()))
+  if (not string.match(polygon:GetName(), "duplicate")) then
+
+    AWM.blobZoneInfo = getZoneInfoByID(getMapIDFromPolygonName(polygon:GetName()), true)
+
+  else
+
+    AWM.blobZoneInfo = getZoneInfoByID(getMapIDFromPolygonName(polygon:GetName()))
+
+  end
+  
 end
 
 -------------------------------------------------------------------------------
