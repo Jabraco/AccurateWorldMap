@@ -252,9 +252,20 @@ end
 -- Get map name from ID
 -------------------------------------------------------------------------------
 
-function getZoneNameFromID(zoneID)
+function getZoneNameFromID(zoneID, getDuplicateName)
 
-  local zoneInfo = getZoneInfoByID(zoneID)
+  local zoneInfo
+
+  if (getDuplicateName) then
+
+    zoneInfo = getZoneInfoByID(zoneID, true)
+
+  else
+
+    zoneInfo = getZoneInfoByID(zoneID)
+
+  end
+  
 
   -- does this map have a custom name / are custom names enabled? 
   if ((zoneInfo ~= nil and zoneInfo.overrideLoreRenames ~= nil) or AWM.options.loreRenames) then
@@ -911,7 +922,6 @@ function getParentMapID(mapID)
       -- if we have overwritten this map's parent ID, then return itself
     if (mapData[mapID] ~= nil and mapData[mapID].parentMapID ~= nil) then
 
-      print(getZoneNameFromID(mapID), true)
       return mapID
 
     end

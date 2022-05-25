@@ -118,7 +118,12 @@ GetMapMouseoverInfo = function(xN, yN)
 
       local blobInfo = AWM.blobZoneInfo
 
-      locationName = getZoneNameFromID(blobInfo.zoneID)
+      if (not string.match(AWM.currentlySelectedPolygon:GetName(), "duplicate")) then
+        locationName = getZoneNameFromID(blobInfo.zoneID, true)
+      else
+        locationName = getZoneNameFromID(blobInfo.zoneID)
+      end
+
 
       if (AWM.options.isDebug and blobInfo.nDebugBlobTextureWidth ~= nil) then
 
@@ -168,7 +173,6 @@ GetZoneNameByIndex = function(zoneIndex)
   return getZoneNameFromID(GetMapIdByZoneId(GetZoneId(zoneIndex)))
 end
 
-
 local zos_GetMapInfoByIndex = GetMapInfoByIndex
 function GetMapInfoByIndex(zoneIndex)
     local mapName, mapType, mapContentType, zoneIndex, description = zos_GetMapInfoByIndex(zoneIndex)
@@ -180,6 +184,22 @@ function GetMapInfoByIndex(zoneIndex)
 
     return mapName, mapType, mapContentType, zoneIndex, description
 end
+
+local zos_GetJournalQuestLocationInfo = GetJournalQuestLocationInfo
+GetJournalQuestLocationInfo = function(questIndex)
+
+  local zoneName, objectiveName, zoneIndex, poiIndex = zos_GetJournalQuestLocationInfo(questIndex)
+
+  
+  zoneName = getZoneNameFromID(GetMapIdByZoneId(GetZoneId(zoneIndex)))
+
+
+  return zoneName, objectiveName, zoneIndex, poiIndex
+
+end
+
+
+
 
 -------------------------------------------------------------------------------
 -- Map zoom controller

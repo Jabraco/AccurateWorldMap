@@ -2255,6 +2255,7 @@ mapData = {
     [355] = { xN = 0.094, yN = 0.757, majorSettlement = true }, -- Alinor Wayshrine
     [367] = { xN = 0.089, yN = 0.760 }, -- Alinor Crest Townhouse 
     [368] = { xN = 0.177, yN = 0.797 }, -- Colossal Aldmeri Grotto
+    [497] = { xN = 0.160, yN = 0.636 }, -- Coral Aerie Dungeon
 
     zoneData = join({
       zoneName = "Summerset Isle",
@@ -2307,24 +2308,6 @@ mapData = {
         { xN = 0.087, yN = 0.801 },
         { xN = 0.106, yN = 0.790 },
         { xN = 0.110, yN = 0.785 },
-      }
-    }),
-
-    -- Coral Aerie --
-    [497] = { xN = 0.160, yN = 0.636 }, -- Coral Aerie Dungeon
-
-    zoneData = join({
-      zoneName = "Coral Aerie",
-      zoneDescription = "This undisturbed little islet off the coast of Summerset acts as popular breeding grounds for all manner of sea life, migratory birds, and even large predators.",
-      zoneID = 2186,
-      xN = "0.147",
-      yN = "0.623",
-      zonePolygonData = {
-        { xN = 0.154, yN = 0.638 },
-        { xN = 0.166, yN = 0.641 },
-        { xN = 0.166, yN = 0.631 },
-        { xN = 0.156, yN = 0.631 },
-        { xN = 0.153, yN = 0.636 },
       }
     }),
 
@@ -2459,7 +2442,7 @@ mapData = {
 -- [x] = { xN = x, yN = y }, -- 
 -- ctrl + f aid: eltheric ocean
 
-    -- High Isle Wayshrines --
+    -- High Isle --
     [488] = { disabled = true }, -- Dreadsail Reef Trial
     [501] = { disabled = true }, -- Coral Road Wayshrine
     [502] = { disabled = true }, -- Tor Draioch Wayshrine
@@ -2517,6 +2500,7 @@ mapData = {
 
     parentMapID = 27,
 
+    -- The Jodewood --
     [156] = { disabled = true }, -- Fort Grimwatch Wayshrine
     [371] = { disabled = true }, -- Moon Hunter Keep Dungeon
     [158] = { disabled = true }, -- Arenthia Wayshrine
@@ -2529,7 +2513,7 @@ mapData = {
     [291] = { disabled = true }, -- Serenity Falls Estate House
     [321] = { disabled = true }, -- Dawnshadow House
 
-    -- High Isle & Amenos --
+    -- High Isle --
     [488] = { xN = 0.654, yN = 0.681, disabled = false }, -- Dreadsail Reef Trial
     [510] = { xN = 0.712, yN = 0.700, disabled = false }, -- All Flags Wayshrine
     [513] = { xN = 0.727, yN = 0.714, disabled = false, majorSettlement = true }, -- Gonfalon Square Wayshrine
@@ -2549,31 +2533,55 @@ mapData = {
     [523] = { xN = 0.728, yN = 0.713, disabled = false }, -- High Hallow Hold House
 
     zoneData = join({
-      zoneName = "High Isle & Amenos",
+      zoneName = "High Isle",
       blobTexture = "AccurateWorldMap/blobs/blob-thesystres.dds",
       zoneDescription = "Consisting of the two largest islands in the Systres Archipelago, High Isle is the chain's cosmopolitan heart, whereas Amenos serves as a prison island for exiled dissidents.",
       zoneID = 2114,
       xN = "0.696",
       yN = "0.660",
       zonePolygonData = {
-        { xN = 0.761, yN = 0.679 },
-        { xN = 0.760, yN = 0.687 },
-        { xN = 0.751, yN = 0.693 },  
-        { xN = 0.750, yN = 0.710 }, 
-        { xN = 0.730, yN = 0.720 }, 
-        { xN = 0.723, yN = 0.723 }, 
-        { xN = 0.708, yN = 0.723 }, 
-        { xN = 0.692, yN = 0.712 }, 
-        { xN = 0.696, yN = 0.685 }, 
-        { xN = 0.705, yN = 0.674 }, 
-        { xN = 0.713, yN = 0.673 }, 
-        { xN = 0.715, yN = 0.667 }, 
-        { xN = 0.719, yN = 0.655 }, 
-        { xN = 0.749, yN = 0.661 }, 
-        { xN = 0.759, yN = 0.671 }, 
-        { xN = 0.760, yN = 0.681 }, 
+        { xN = 0.694, yN = 0.711 },
+        { xN = 0.708, yN = 0.724 },
+        { xN = 0.731, yN = 0.724 },
+        { xN = 0.739, yN = 0.712 },
+        { xN = 0.750, yN = 0.710 },
+        { xN = 0.749, yN = 0.698 },
+        { xN = 0.737, yN = 0.694 },
+        { xN = 0.726, yN = 0.689 },
+        { xN = 0.723, yN = 0.680 },
+        { xN = 0.712, yN = 0.675 },
+        { xN = 0.703, yN = 0.676 },
+        { xN = 0.698, yN = 0.683 },
+        { xN = 0.691, yN = 0.706 },
       }
     }, true),
+
+    -- Amenos --
+    zoneData = join({
+      zoneName = "Amenos",
+      isDuplicate = true,
+      blobTexture = "AccurateWorldMap/blobs/blob-thesystres.dds",
+      zoneDescription = "AMENOS AMOGUS.",
+      zoneID = 2114,
+      xN = "0.696",
+      yN = "0.660",
+      zonePolygonData = {
+        { xN = 0.716, yN = 0.670 },
+        { xN = 0.726, yN = 0.675 },
+        { xN = 0.731, yN = 0.675 },
+        { xN = 0.730, yN = 0.685 },
+        { xN = 0.732, yN = 0.689 },
+        { xN = 0.739, yN = 0.692 },
+        { xN = 0.751, yN = 0.692 },
+        { xN = 0.759, yN = 0.686 },
+        { xN = 0.760, yN = 0.679 },
+        { xN = 0.750, yN = 0.663 },
+        { xN = 0.739, yN = 0.659 },
+        { xN = 0.722, yN = 0.654 },
+        { xN = 0.715, yN = 0.663 },
+        { xN = 0.716, yN = 0.667 },
+      }
+    }),
 
     -- Tamriel --
     zoneData = join({
@@ -2602,7 +2610,6 @@ mapData = {
         { xN = 0.798, yN = 0.694 },                      
       }
     }),
-
   },
 
 
@@ -2890,9 +2897,6 @@ mapData = {
     parentMapID = 27,
   },
 
-  [2186] = { -- Coral Aerie Map
-    parentMapID = 27,
-  },
 
   [1429] = { -- Artaeum Map Map 
     [373] = { xN = 0.299, yN = 0.857 }, -- Grand Psijic Villa House
