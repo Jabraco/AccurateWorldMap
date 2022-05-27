@@ -145,6 +145,8 @@ GetMapMouseoverInfo = function(xN, yN)
       
       if (blobInfo.zoneDescription ~= nil and AWM.options.zoneDescriptions == true) then
         ZO_WorldMapMouseOverDescription:SetText(blobInfo.zoneDescription)
+      else
+        AWM_MouseOverGrungeTex:SetHidden(true)
       end
 
     end

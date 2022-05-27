@@ -2525,11 +2525,6 @@ mapData = {
     [505] = { xN = 0.709, yN = 0.683, disabled = false }, -- Garrick's Rest Wayshrine
     [507] = { xN = 0.728, yN = 0.694, disabled = false }, -- Dufort Shipyard Wayshrine
     [502] = { xN = 0.730, yN = 0.705, disabled = false }, -- Tor Draioch Wayshrine 
-    [508] = { xN = 0.737, yN = 0.688, disabled = false, majorSettlement = true }, -- Amenos Station
-    [511] = { xN = 0.734, yN = 0.677, disabled = false }, -- Trapper's Peak Wayshrine 
-    [518] = { xN = 0.741, yN = 0.679, disabled = false }, -- Serpent's Hollow Wayshrine
-    [519] = { xN = 0.749, yN = 0.669, disabled = false }, -- Flooded Coast Wayshrine 
-    [509] = { xN = 0.753, yN = 0.680, disabled = false }, -- Brokerock Mine Wayshrine
     [523] = { xN = 0.728, yN = 0.713, disabled = false }, -- High Hallow Hold House
 
     zoneData = join({
@@ -2557,6 +2552,12 @@ mapData = {
     }, true),
 
     -- Amenos --
+    [508] = { xN = 0.737, yN = 0.688, disabled = false, majorSettlement = true }, -- Amenos Station
+    [511] = { xN = 0.734, yN = 0.677, disabled = false }, -- Trapper's Peak Wayshrine 
+    [518] = { xN = 0.741, yN = 0.679, disabled = false }, -- Serpent's Hollow Wayshrine
+    [519] = { xN = 0.749, yN = 0.669, disabled = false }, -- Flooded Coast Wayshrine 
+    [509] = { xN = 0.753, yN = 0.680, disabled = false }, -- Brokerock Mine Wayshrine
+    
     zoneData = join({
       zoneName = "Amenos",
       isDuplicate = true,
@@ -2873,8 +2874,48 @@ mapData = {
     [199] = { name = "Southern Hammerfell Gate Wayshrine" }, -- Southern Hammerfell Wayshrine
     [200] = { name = "Eastern Elsweyr Gate Wayshrine" }, -- Eastern Elsweyr Wayshrine
     [201] = { name = "Western Elsweyr Gate Wayshrine" }, -- Western Elsweyr Wayshrine
-    [236] = { xN = 0.523, yN = 0.382 }, -- Imperial City Prison Dungeon
     [247] = { xN = 0.497, yN = 0.428 }, -- White Gold Tower Dungeon
+
+    -- Arcane University --
+    zoneData = join({
+      zoneName = "Arcane University",
+      zoneID = 1350,
+      xN = "0.514",
+      yN = "0.4635",
+      zonePolygonData = {
+        { xN = 0.524, yN = 0.488 },
+        { xN = 0.532, yN = 0.487 },
+        { xN = 0.537, yN = 0.480 },
+        { xN = 0.538, yN = 0.472 },
+        { xN = 0.532, yN = 0.465 },
+        { xN = 0.524, yN = 0.464 },
+        { xN = 0.517, yN = 0.470 },
+        { xN = 0.515, yN = 0.478 },
+        { xN = 0.516, yN = 0.482 },             
+      }
+    }, true),
+
+    -- Imperial City Prison --
+    [236] = { xN = 0.523, yN = 0.382 }, -- Imperial City Prison Dungeon
+
+    zoneData = join({
+      zoneName = "Imperial City Prison",
+      zoneID = 765,
+      xN = "0.514",
+      yN = "0.373",
+      zonePolygonData = {
+        { xN = 0.526, yN = 0.392 },
+        { xN = 0.531, yN = 0.389 },
+        { xN = 0.533, yN = 0.382 },
+        { xN = 0.530, yN = 0.376 },
+        { xN = 0.525, yN = 0.373 },
+        { xN = 0.519, yN = 0.374 },
+        { xN = 0.515, yN = 0.378 },
+        { xN = 0.514, yN = 0.386 },
+        { xN = 0.517, yN = 0.390 },                   
+      }
+    }),
+
   },
 
   [22] = { -- Malabal Tor Map

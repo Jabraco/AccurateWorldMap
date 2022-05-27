@@ -701,7 +701,6 @@ function compileMapTextures()
                 hasError = true
 
               end
-
             end
           end
         end
