@@ -1042,7 +1042,7 @@ function getParentZoneID(zoneID)
 
   local parentZoneID
   
-  if (LZ:GetGeographicalParentMapId(mapID) ~= nil ) then
+  if (LZ:GetGeographicalParentMapId() ~= nil and LZ:GetGeographicalParentMapId(mapID) ~= nil ) then
     parentZoneID = LZ:GetGeographicalParentMapId(mapID)
   else
     parentZoneID = GetParentZoneId(zoneID)
