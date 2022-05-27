@@ -14,152 +14,48 @@ TJ:
 
 - Fix player location being incorrect (and also group pins)
 - Implement proper waypoint and player marker tracking and moving
-
 - Find a way to move the zone name and clock to be closer to the actual map in K&M mode like gamepad
 - Sort out breaux's custom K&M and gamepad desc grunge design
 - allow setting waypoints on the zone blobs
 - fix zone blobs appearing on map transition
+- Update IsJustaGhost's LibZone PR to explain changes and stuff as per baertram
 
 
 Breaux:
 
-- add caecilly isle to eltheric and HR map:
-https://cdn.discordapp.com/attachments/654414794144743425/977115570497531924/unknown.png
-
-- add aurbis ring lines to tamriel and systres icons (breaux said she would do this when she feels like it)
-
-- Make description background textures for both gamepad and K&M
 - Fix the Aurbis tamriel blob - mismatches with what is there currently
 - Fix Aurbis rings not containing their proper daedric/elven text
-- Give TJ blobs for the following:
->> Dranil-Kir
->> Silitar
->> Fort Grief
->> Arcane University
->> The Earth Forge (Reach)
->> Sword's Rest Isle
->> Arcane University
->> Imperial City Prison
->> Dread Sail Reef Blob
->> High Isle & Amenos Blob
->> Eltheric Ocean circle blob
->> Tamriel circle blob
->> Updated Aurbis Tamriel blob
 
-- give TJ updated tiles for eltheric and tamriel
+Fix the following zone colouring and glow issues:
 
-
-Breaux said she would look into:
-- fixing castle volikhar's outline on the map to be like skyrim's heightmap
+- dreadsail
+- swords rest
+- balfiera
+- icereach
+-greyhome
+- tideholm (is now a separate blob)
+- wasten coraldale (is now a separate blob)
+- eyevea ?
+- firemoth?
+- fort grief?
+- stirk & tempest island?
+- two mini summerset quest islands?
 
 
 Optional:
-
 - Add IC Sewers circle to IC map and get blob
 - Rotate IC on the cyrodiil map 45 degrees to be consistent with oblivion (edit the tiles)
 https://cdn.discordapp.com/attachments/806672739057664034/975049286305861672/unknown.png
-- Remove Dragonhold from S.E map by editing the tiles again (Add as option to remove dragonhold from zone map)
 
-
-Move player marker brainstorming:
-
-then i'd need to override GetUniversallyNormalizedMapInfo and then use libgps to fix the position?
-override getmapplayerposition and override with the output from libgps, where it thinks the player should be
-
-what i am understanding is that libgps uses GetUniversallyNormalizedMapInfo and some magic to convert local coordinates to global, in vanilla these coordinates are the same and match up
-if i override GetUniversallyNormalizedMapInfo then that would affect libgps' local to global and thus shift where it would think the global position is
-then i could use output of that to override GetMapPlayerPosition() for pins
-
-  that's what i'm saying.. in vanilla, a local to global call will result in where the player marker actually is on the tamriel map
-if a user is in 0.5, 0.5 in eastmarch, then local to global will give that location in the tamriel world map
-the issue is, it gives the location according to the (vanilla) world map
-which would be wrong in my addon, my eastmarch is shifted about 4cm to the left of where it is in vanilla
-
-exactly, so when i override GetUniversallyNormalizedMapInfo with my addon's zone info, libgps will return the correct position on the world map for my addon
-it would effectively give me the moved player marker's position
-and i could then use that output of local-to-global to pipe into overriding GetMapPlayerPosition to force it to move to where it should be, visually
-
-use GetUniversallyNormalizedMapInfo()
-
-local originalCreatePin = ZO_WorldMapPins.CreatePin
-ZO_WorldMapPins.CreatePin = function(self, pinType, pinTag, xLoc, yLoc, radius, borderInformation, ...)
-    xLoc, yLoc = ApplyMyTransformation(xLoc, yLoc)
-    return originalCreatePin(self, pinType, pinTag, xLoc, yLoc, radius, borderInformation, ...)
-end
-
-https://github.com/esoui/esoui/blob/master/esoui/ingame/map/mappin.lua#L2870
-
-function ZO_MapPin:SetLocation(xLoc, yLoc, radius, borderInformation)
-
-that function is called whenever pins are created or updated
-so likely the best place for the transform. you can access the pinType via self:GetPinType() too, in order to filter any pins you do not want to adjust
-
-
-that might work. are group players and companions counted as MAP_PIN_TYPE_PLAYER ?
-sirinsidiator (sirinsidiator)
-no, I believe they are separate types like MAP_PIN_TYPE_GROUPand MAP_PIN_TYPE_ACTIVE_COMPANION
-but the type should not really matter for you, since you want to transform any pin?
-
-you could check for MAP_PIN_TYPE_FAST_TRAVEL_WAYSHRINE and don't apply transformations in that case?
-
-- can make a function to find the furthest left-upmost point from zone hitbox polygon, and same for right bottommost one
-- that counts as the zone's player marker square area
-- then get the player's position in the local map
-
-  - check if current map id is in the database
-  - if it is, then it is a visible zone
-
-
-useful functions for this:
-
-IsPlayerMoving() and IsPlayerTryingToMove()
-
-if these are true, and the map is visible, then updae position
-
-all player and companions use the GetMapPlayerPosition function, so if you override that you will affect them all
-
-* GetMapPlayerPosition(*string* _unitTag_)
-** _Returns:_ *number* _normalizedX_, *number* _normalizedZ_, *number* _heading_, *bool* _isShownInCurrentMap_
-
-"heading" must be the rotation in degrees
-
-keep isShownInCurrentMap unless some override is checked
 
 
 Interesting events to consider:
-
 GetDisplayName() returns user id 
-
 use that to make an isDeveloper() function
 
 
 * GetPlayerActiveZoneName()
-
 ** _Returns:_ *string* _zoneName_
-
-
-* EVENT_GROUP_TYPE_CHANGED (*bool* _largeGroup_)
-* EVENT_GROUP_UPDATE
-* EVENT_GROUP_MEMBER_JOINED (*string* _memberCharacterName_, *string* _memberDisplayName_, *bool* _isLocalPlayer_)
-* EVENT_GROUP_MEMBER_LEFT (*string* _memberCharacterName_, *[GroupLeaveReason|#GroupLeaveReason]* _reason_, *bool* _isLocalPlayer_, *bool* _isLeader_, *string* _memberDisplayName_, *bool* _actionRequiredVote_)
-* EVENT_GROUP_MEMBER_ROLE_CHANGED (*string* _unitTag_, *[LFGRole|#LFGRole]* _newRole_)
-* EVENT_GROUP_MEMBER_SUBZONE_CHANGED
-
-
-TODO: make issue on libgps library github about 
-
-https://github.com/sirinsidiator/ESO-LibGPS/ you can create an issue for it. maybe you are in luck and votan has some time to add it. otherwise you could create a pull request, but again not sure when I will have time to review and merge it
-
-GitHub - sirinsidiator/ESO-LibGPS - GitHub
-Contribute to sirinsidiator/ESO-LibGPS development by creating an account on GitHub.
-Thal-J
-i will keep in mind for future, in mean time i think i will just implement it locally in my addon
-sirinsidiator (sirinsidiator)
-I still urge you to create an issue and explain your use case, otherwise it will be forgotten 😉
-
-
-makePR to libzone to explain changes and stuff as per baetram
-
 
 ---------------------------------------------------------------------------]]--
 -- Create root addon object
@@ -323,8 +219,6 @@ end
 function updateCurrentPolygon(polygon) 
 
 
-  --d("hello")
-
   currentMapIndex = getCurrentMapID()
   AWM.isInsideBlobHitbox = true
   AWM.currentlySelectedPolygon = polygon
@@ -370,7 +264,7 @@ local function onWorldMapOpened()
     AWM_MouseOverGrungeTex:SetDimensions(mapWidth*enlargeConst, mapHeight)
     AWM_MouseOverGrungeTex:SetDrawLayer(DL_OVERLAY)
     AWM_MouseOverGrungeTex:SetDrawLayer(DL_CONTROLS)
-    AWM_MouseOverGrungeTex:SetAlpha(0.65)
+    AWM_MouseOverGrungeTex:SetAlpha(0.55)
     AWM_MouseOverGrungeTex:SetHidden(true)
   
     -- set up map description label control
