@@ -3073,7 +3073,6 @@ AWM.panelData = {
   name = "Accurate World Map",
   displayName = AWM.title,
   author = AWM.author,
-  version = AWM.version,
   registerForRefresh = true,
   slashCommand = "/awm",
 }
