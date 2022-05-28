@@ -27,6 +27,7 @@ Breaux:
 - Fix Dranil-Kir blob being too big
 - Fix Silatar blob being too big
 - Make custom description background for PC
+- Fix Fort Grief blob being too big
 
 Fix the following zone colouring and glow issues:
 

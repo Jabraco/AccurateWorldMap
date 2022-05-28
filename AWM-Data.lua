@@ -552,7 +552,20 @@ mapData = {
       }
     }),
 
-     
+    -- Fort Grief --
+    zoneData = join({
+      zoneName = "Fort Grief",
+      zoneDescription = "Fort Grief sits on an island at the mouth of the Niben Bay. It once was a command center for the Imperial Legion, but has since it fell into disuse and disrepair.",
+      zoneID = 2066,
+      xN = "0.600",
+      yN = "0.566",
+      zonePolygonData = {
+        { xN = 0.602, yN = 0.570 },
+        { xN = 0.612, yN = 0.577 },
+        { xN = 0.614, yN = 0.568 },
+        { xN = 0.605, yN = 0.565 },        
+      }
+    }),
 
     -- Stirk --
     zoneData = join({
@@ -2468,7 +2481,7 @@ mapData = {
     -- Silatar --
     zoneData = join({
       zoneName = "Silatar",
-      zoneDescription = "The picturesque island estate of Silatar is rumoured to have been created out of pure Magicka, and has been passed down amongst the nobles of Summerset for generations.",
+      zoneDescription = "The picturesque island estate of Silatar is rumoured to have been created out of pure Magicka, and has been passed down amongst the nobles of Summerset for generations",
       zoneID = 370,
       xN = "0.255",
       yN = "0.683",

@@ -723,7 +723,7 @@ function compileMapTextures()
     GPS:ClearMapMeasurements()
     GPS:CalculateMapMeasurement()
 
-    -- force reload map in case user had opened it by now
+    -- force reload map in case user had opened it
     navigateToMap(getCurrentMapID())
 
   end
