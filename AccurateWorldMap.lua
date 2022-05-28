@@ -13,7 +13,6 @@ TJ:
 - Fix player location being incorrect (and also group pins)
 - Implement proper waypoint and player marker tracking and moving
 - Find a way to move the zone name and clock to be closer to the actual map in K&M mode like gamepad
-- Sort out breaux's custom K&M and gamepad desc grunge design
 - allow setting waypoints on the zone blobs
 - fix zone blobs appearing on map transition
 - Update IsJustaGhost's LibZone PR to explain changes and stuff as per baertram
@@ -155,7 +154,6 @@ local function onPingAdded(pingType, pingTag, xN, yN, isPingOwner)
     AWM.wpData.xN, AWM.wpData.yN = GPS:LocalToGlobal(xN, yN)
   end
 
-
   d("\n")
   d(AWM.wpData.lastWaypointType)
 
@@ -245,7 +243,6 @@ local function onWorldMapOpened()
     local enlargeConst = 1.5
     local mapDescPaddingAmount = mapWidth * 0.15
   
-
     AWM_MouseOverGrungeTex:ClearAnchors()
   
     -- set up map description label control
@@ -255,36 +252,26 @@ local function onWorldMapOpened()
     ZO_WorldMapMouseOverDescription:SetAnchor(TOPLEFT, ZO_WorldMapMouseoverName, BOTTOMLEFT, mapDescPaddingAmount, 2)
     ZO_WorldMapMouseOverDescription:SetAnchor(TOPRIGHT, ZO_WorldMapMouseoverName, BOTTOMRIGHT, -(mapDescPaddingAmount), 2)
   
+    -- set up label description background 
     if (isInGamepadMode()) then
       AWM_MouseOverGrungeTex:SetTexture("AccurateWorldMap/misc/gamepadshadow.dds")
       AWM_MouseOverGrungeTex:SetAnchor(TOPLEFT, ZO_WorldMap, TOPLEFT, 0, 0)
-      AWM_MouseOverGrungeTex:SetDrawTier(DT_PARENT)
       AWM_MouseOverGrungeTex:SetDimensions(mapWidth, mapHeight)
-      AWM_MouseOverGrungeTex:SetDrawLayer(DL_OVERLAY)
-      AWM_MouseOverGrungeTex:SetDrawLayer(DL_CONTROLS)
-      AWM_MouseOverGrungeTex:SetAlpha(0.65)
-
-      ZO_WorldMap:SetAutoRectClipChildren(false)
-      ZO_WorldMapContainerRaggedEdge:SetHidden(false)
-
     else
-
       AWM_MouseOverGrungeTex:SetTexture("/esoui/art/performance/statusmetermunge.dds")
       AWM_MouseOverGrungeTex:SetAnchor(TOPLEFT, ZO_WorldMap, TOPLEFT, (mapWidth - (mapWidth*enlargeConst))/2, -(0.47 * mapHeight))
-      AWM_MouseOverGrungeTex:SetDrawTier(DT_PARENT)
       AWM_MouseOverGrungeTex:SetDimensions(mapWidth*enlargeConst, mapHeight)
-      AWM_MouseOverGrungeTex:SetDrawLayer(DL_OVERLAY)
-      AWM_MouseOverGrungeTex:SetDrawLayer(DL_CONTROLS)
-      AWM_MouseOverGrungeTex:SetAlpha(0.55)
-
-
-
-      ZO_WorldMap:SetAutoRectClipChildren(true)
-      ZO_WorldMapContainerRaggedEdge:SetHidden(true)
-      
     end
 
+    AWM_MouseOverGrungeTex:SetDrawTier(DT_PARENT)
+    AWM_MouseOverGrungeTex:SetDrawLayer(DL_OVERLAY)
+    AWM_MouseOverGrungeTex:SetDrawLayer(DL_CONTROLS)
+    AWM_MouseOverGrungeTex:SetAlpha(0.65)
     AWM_MouseOverGrungeTex:SetHidden(true)
+
+    -- hide serenated edge if in gamepad or not
+    ZO_WorldMap:SetAutoRectClipChildren(not isInGamepadMode())
+    ZO_WorldMapContainerRaggedEdge:SetHidden(not isInGamepadMode())
 
   end
 end

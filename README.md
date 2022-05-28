@@ -24,7 +24,7 @@ The following addons have been tested to be not compatible with Accurate World M
 - Destinations
 - MapPins
 
-GuildShrines is unneeded when using this addon, as AccurateWorldMap replicates its functionality. If you choose to keep GuildShrines enabled, then those wayshrines will be misaligned on the map.
+GuildShrines is unneeded when using this addon, as Accurate World Map replicates its functionality. If you choose to keep GuildShrines enabled, then those wayshrines will be misaligned on the map.
 
 Destinations and MapPins add pins to vanilla locations, so they are not compatible. MapPins' incompatibility cannot be mitigated, but Destinations can be fixed by unticking "Unknown POI's" in the in-game map filters menu.
 
@@ -34,6 +34,7 @@ This addon works great with the following addons:
 
 - True Exploration
 - Votan's Improved Locations
+- DarkUI
 
 ## Thanks To
 
