@@ -2954,18 +2954,15 @@ mapData = {
     zoneData = join({
       zoneName = "Northern Hammerfell Gate",
       zoneID = 572,
-      xN = "0.126",
-      yN = "0.070",
+      xN = "0.130",
+      yN = "0.068",
       zonePolygonData = {
-        { xN = 0.141, yN = 0.117 },
-        { xN = 0.153, yN = 0.120 },
-        { xN = 0.167, yN = 0.121 },
-        { xN = 0.183, yN = 0.116 },
-        { xN = 0.182, yN = 0.088 },
-        { xN = 0.164, yN = 0.071 },
-        { xN = 0.146, yN = 0.074 },
-        { xN = 0.137, yN = 0.099 },
-        { xN = 0.138, yN = 0.116 },                        
+        { xN = 0.139, yN = 0.127 },
+        { xN = 0.183, yN = 0.120 },
+        { xN = 0.189, yN = 0.108 },
+        { xN = 0.184, yN = 0.084 },
+        { xN = 0.173, yN = 0.065 },
+        { xN = 0.127, yN = 0.069 },
       }
     }),
 
@@ -3048,9 +3045,14 @@ mapData = {
     [236] = { xN = 0.495, yN = 0.132, disabled = false }, -- Imperial City Prison Dungeon
   },
 
+  [572] = { -- Northern Hammerfell Gate Map
+    [170] = { name = "Northern Hammerfell Gate Wayshrine" }, -- Northern Hammerfell Gate Wayshrine
+  },
+
   [575] = { -- Southern Hammerfell Gate Map
     [199] = { name = "Southern Hammerfell Gate Wayshrine" }, -- Southern Hammerfell Gate Wayshrine
   },
+
 }
 
 -------------------------------------------------------------------------------

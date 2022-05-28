@@ -24,6 +24,7 @@ TJ:
 
 Breaux:
 
+- Give TJ a debug tile with Bleakrock Isle on it
 - Fix the Aurbis tamriel blob - mismatches with what is there currently
 - Fix Aurbis rings not containing their proper daedric/elven text
 - Fix Dreadsail Reef blob being too big
