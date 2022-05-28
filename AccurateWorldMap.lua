@@ -20,29 +20,41 @@ TJ:
 
 Breaux:
 
-- Give TJ a debug tile with Bleakrock Isle on it
-- Fix the Aurbis tamriel blob - mismatches with what is there currently
-- Fix Aurbis rings not containing their proper daedric/elven text
-- Fix Dreadsail Reef blob being too big
-- Fix Dranil-Kir blob being too big
-- Fix Silatar blob being too big
-- Make custom description background for PC
-- Fix Fort Grief blob being too big
+Need the following tiles:
+
+- Debug tile with Bleakrock Isle on it
+- Updated Eltheric Ocean debug tiles
+
+Need the following blobs resized:
+
+- Dreadsail Reef blob (too big)
+- Fort Grief blob (too big)
+- Dranil-Kir blob (too big)
+- Silatar blob (too big)
+- High Isle Debug blob (too small, doesn't fit with debug tiles)
 
 Fix the following zone colouring and glow issues:
 
-- dreadsail
-- swords rest
-- balfiera
-- icereach
-- greyhome
-- tideholm (is now a separate blob)
-- wasten coraldale (is now a separate blob)
-- eyevea ?
-- firemoth?
-- fort grief?
-- stirk & tempest island?
-- two mini summerset quest islands?
+- Dreadsail Reef
+- Swords Rest Isle
+- Isle of Balfiera
+- Icereach
+- Greyhome
+- Tideholm (Is now a separate blob)
+- Wasten Coraldale (Is now a separate blob)
+- Eyevea
+- Firemoth
+- Fort Grief
+- Stirk
+- Tempest Island
+- Dranil Kir
+- Silatar
+
+Misc:
+
+- Fix the Aurbis tamriel blob - mismatches with what is there currently
+- Fix Aurbis rings not containing their proper daedric/elven text
+- Make custom description background for PC
 
 
 Optional:
