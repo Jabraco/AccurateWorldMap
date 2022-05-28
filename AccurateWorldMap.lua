@@ -10,7 +10,6 @@ Todo:
 
 TJ:
 
-- Remove version number from addon settings header
 - Fix player location being incorrect (and also group pins)
 - Implement proper waypoint and player marker tracking and moving
 - Find a way to move the zone name and clock to be closer to the actual map in K&M mode like gamepad
@@ -26,6 +25,7 @@ Breaux:
 - Fix the Aurbis tamriel blob - mismatches with what is there currently
 - Fix Aurbis rings not containing their proper daedric/elven text
 - Fix Dreadsail Reef blob being too big
+- Make custom description background for PC
 
 Fix the following zone colouring and glow issues:
 
@@ -33,7 +33,7 @@ Fix the following zone colouring and glow issues:
 - swords rest
 - balfiera
 - icereach
--greyhome
+- greyhome
 - tideholm (is now a separate blob)
 - wasten coraldale (is now a separate blob)
 - eyevea ?
@@ -109,7 +109,6 @@ local coordinateCount = 0
 -------------------------------------------------------------------------------
 
 AWM_MouseOverGrungeTex = CreateControl("AWM_MouseOverGrungeTex", ZO_WorldMap, CT_TEXTURE)
-AWM_MouseOverGrungeTex:SetTexture("/esoui/art/performance/statusmetermunge.dds")
 
 -------------------------------------------------------------------------------
 --  On map change callback function
@@ -215,11 +214,7 @@ function updateCurrentPolygon(polygon)
   AWM.currentlySelectedPolygon = polygon
 
   if (AWM.options.zoneDescriptions == true) then
-
-    if (not isInGamepadMode()) then
-      AWM_MouseOverGrungeTex:SetHidden(false)
-    end
-
+    AWM_MouseOverGrungeTex:SetHidden(false)
   end
 
 
@@ -248,34 +243,49 @@ local function onWorldMapOpened()
 
     local mapWidth, mapHeight = ZO_WorldMapContainer:GetDimensions()
     local enlargeConst = 1.5
+    local mapDescPaddingAmount = mapWidth * 0.15
   
+
     AWM_MouseOverGrungeTex:ClearAnchors()
-    AWM_MouseOverGrungeTex:SetAnchor(TOPLEFT, ZO_WorldMap, TOPLEFT, (mapWidth - (mapWidth*enlargeConst))/2, -(0.47 * mapHeight))
-    AWM_MouseOverGrungeTex:SetDrawTier(DT_PARENT)
-    AWM_MouseOverGrungeTex:SetDimensions(mapWidth*enlargeConst, mapHeight)
-    AWM_MouseOverGrungeTex:SetDrawLayer(DL_OVERLAY)
-    AWM_MouseOverGrungeTex:SetDrawLayer(DL_CONTROLS)
-    AWM_MouseOverGrungeTex:SetAlpha(0.55)
-    AWM_MouseOverGrungeTex:SetHidden(true)
   
     -- set up map description label control
     ZO_WorldMapMouseOverDescription:SetFont("ZoFontGameLargeBold")
     ZO_WorldMapMouseOverDescription:SetWrapMode(TEXT_WRAP_MODE_ELLIPSIS)
-  
     ZO_WorldMapMouseOverDescription:ClearAnchors()
-  
-    local mapDescPaddingAmount = mapWidth * 0.15
-  
     ZO_WorldMapMouseOverDescription:SetAnchor(TOPLEFT, ZO_WorldMapMouseoverName, BOTTOMLEFT, mapDescPaddingAmount, 2)
     ZO_WorldMapMouseOverDescription:SetAnchor(TOPRIGHT, ZO_WorldMapMouseoverName, BOTTOMRIGHT, -(mapDescPaddingAmount), 2)
   
-    if (not isInGamepadMode()) then
-      ZO_WorldMap:SetAutoRectClipChildren(true)
-      ZO_WorldMapContainerRaggedEdge:SetHidden(true)
-    else
+    if (isInGamepadMode()) then
+      AWM_MouseOverGrungeTex:SetTexture("AccurateWorldMap/misc/gamepadshadow.dds")
+      AWM_MouseOverGrungeTex:SetAnchor(TOPLEFT, ZO_WorldMap, TOPLEFT, 0, 0)
+      AWM_MouseOverGrungeTex:SetDrawTier(DT_PARENT)
+      AWM_MouseOverGrungeTex:SetDimensions(mapWidth, mapHeight)
+      AWM_MouseOverGrungeTex:SetDrawLayer(DL_OVERLAY)
+      AWM_MouseOverGrungeTex:SetDrawLayer(DL_CONTROLS)
+      AWM_MouseOverGrungeTex:SetAlpha(0.65)
+
       ZO_WorldMap:SetAutoRectClipChildren(false)
       ZO_WorldMapContainerRaggedEdge:SetHidden(false)
+
+    else
+
+      AWM_MouseOverGrungeTex:SetTexture("/esoui/art/performance/statusmetermunge.dds")
+      AWM_MouseOverGrungeTex:SetAnchor(TOPLEFT, ZO_WorldMap, TOPLEFT, (mapWidth - (mapWidth*enlargeConst))/2, -(0.47 * mapHeight))
+      AWM_MouseOverGrungeTex:SetDrawTier(DT_PARENT)
+      AWM_MouseOverGrungeTex:SetDimensions(mapWidth*enlargeConst, mapHeight)
+      AWM_MouseOverGrungeTex:SetDrawLayer(DL_OVERLAY)
+      AWM_MouseOverGrungeTex:SetDrawLayer(DL_CONTROLS)
+      AWM_MouseOverGrungeTex:SetAlpha(0.55)
+
+
+
+      ZO_WorldMap:SetAutoRectClipChildren(true)
+      ZO_WorldMapContainerRaggedEdge:SetHidden(true)
+      
     end
+
+    AWM_MouseOverGrungeTex:SetHidden(true)
+
   end
 end
 
