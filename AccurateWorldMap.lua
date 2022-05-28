@@ -275,18 +275,6 @@ end
 -------------------------------------------------------------------------------
 
 local function onWorldMapOpened()
-
-
-  -- * GetMapPlayerWaypoint()
-
-  -- ** _Returns:_ *number* _normalizedX_, *number* _normalizedY_
-
-
-
-
-  -- getModdedGlobalToLocal(mapID, vanillaLocalNX, vanillaLocalNY)
-
-  -- LMP:SetMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, MAP_TYPE_LOCATION_CENTERED, xN, yN)
   
   if (AWM.canRedrawMap) then
 
@@ -402,8 +390,6 @@ end
 -------------------------------------------------------------------------------
 
 local function onPlayerLoaded()
-
-  AWM.lastWaypointMapID = getCurrentMapID()
 
   updateLocationsInfo()
 

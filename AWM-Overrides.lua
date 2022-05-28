@@ -549,9 +549,20 @@ if (isPlayerTrackingEnabled()) then
     local isGlobal = (isMapTamriel())
 
 
+    -- 
+    if (AWM.lastWaypointMapID == nil and LMP:HasMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, "waypoint")) then
+      AWM.lastWaypointMapID = getCurrentMapID()
+      zo_callLater(function()
+        LMP:RefreshMapPin(MAP_PIN_TYPE_PLAYER_WAYPOINT, "waypoint")
+        -- LMP:RemoveMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT)
+        -- LMP:SetMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, MAP_TYPE_LOCATION_CENTERED, nX, nY)
+      end, 500 )
+      return nX, nY
+    end
+
     if (AWM.lastWaypointMapID ~= nil and LMP:HasMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, "waypoint")) then
 
-      d("waypoint automatically placed")
+      d("waypoint being automatically placed")
 
       -- if we're in tamriel map now, but weren't before
       if (isGlobal and not isMapTamriel(AWM.lastWaypointMapID)) then
@@ -574,6 +585,7 @@ if (isPlayerTrackingEnabled()) then
 
 
     else
+      AWM.lastWaypointMapID = nil
       return nX, nY
     end
   end
