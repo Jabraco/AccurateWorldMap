@@ -509,17 +509,13 @@ if (isPlayerTrackingEnabled()) then
         local nLocalX = (normalisedX - nOffsetX) / nWidth --nWidth = scale
         local nLocalY = (normalisedY - (nOffsetY + 0.14000000059605)) / nHeight -- nHeight = scale
 
-        if (GPS:GetMapMeasurementByMapId(mapID) ~= nil) then
+        local measurement = GPS:GetMapMeasurementByMapId(mapID)
+        if (measurement ~= nil) then
+  
+          -- then transform those coordinates inside the bounds of AWM's fixed blob positions
+          local fixedX, fixedY = measurement:ToGlobal(nLocalX, nLocalY)
+          return fixedX, fixedY, direction, isShownInCurrentMap
 
-          local measurement = GPS:GetMapMeasurementByMapId(mapID)
-          if (measurement ~= nil) then
-    
-            -- then transform those coordinates inside the bounds of AWM's fixed blob positions
-            local fixedX, fixedY = measurement:ToGlobal(nLocalX, nLocalY)
-      
-            return fixedX, fixedY, direction, isShownInCurrentMap
-
-          end
         end
       end
 
@@ -538,21 +534,18 @@ if (isPlayerTrackingEnabled()) then
         local nLocalX = (globalX - nOffsetX) / nWidth --nWidth = scale
         local nLocalY = (globalY - (nOffsetY + 0.14000000059605)) / nHeight -- nHeight = scale
         
-        if (GPS:GetMapMeasurementByMapId(mapID) ~= nil) then
+        local measurement = GPS:GetMapMeasurementByMapId(mapID)
+        if (measurement ~= nil) then
 
-          local measurement = GPS:GetMapMeasurementByMapId(mapID)
-          if (measurement ~= nil) then
+          -- then transform those coordinates inside the bounds of AWM's fixed blob positions
+          local fixedGlobalX, fixedGlobalY = measurement:ToGlobal(nLocalX, nLocalY)
 
-            -- then transform those coordinates inside the bounds of AWM's fixed blob positions
-            local fixedGlobalX, fixedGlobalY = measurement:ToGlobal(nLocalX, nLocalY)
+          -- and then transform that into the bounds of the custom Eltheric Map and return
+          local elthericMeasurement = GPS:GetMapMeasurementByMapId(getElthericMapID())
+          local fixedLocalX, fixedLocalY = elthericMeasurement:ToLocal(fixedGlobalX, fixedGlobalY)
 
-            -- and then transform that into the bounds of the custom Eltheric Map and return
-            local elthericMeasurement = GPS:GetMapMeasurementByMapId(getElthericMapID())
-            local fixedLocalX, fixedLocalY = elthericMeasurement:ToLocal(fixedGlobalX, fixedGlobalY)
-
-            return fixedLocalX, fixedLocalY, direction, true
-      
-          end
+          return fixedLocalX, fixedLocalY, direction, true
+    
         end
       end
     end

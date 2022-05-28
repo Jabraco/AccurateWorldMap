@@ -133,12 +133,18 @@ local function onMapChanged()
   -- hide all existing zone blobs
   hideAllZoneBlobs()
 
-  -- hide map info description background
-  AWM_MouseOverGrungeTex:SetHidden(true)
+  -- hide map blob info
+  zo_callLater(function()
 
+    AWM.currentlySelectedPolygon = nil
+    AWM.blobZoneInfo = {}
+    AWM.isInsideBlobHitbox = false
+    AWM_MouseOverGrungeTex:SetHidden(true)
+
+  end, 1 )
+  
   -- parse current map for any custom data
   parseMapData(getCurrentMapID())
-
 
 end
 
