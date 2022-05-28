@@ -32,14 +32,12 @@ function getAddonInfo(addonName)
     if (name == addonName) then -- we've found our addon!
 
       local addonTable = {}
-      local version = AddOnManager:GetAddOnVersion(i)
 
       -- set addon data to metatable
       addonTable.title = title
       addonTable.name = name
       addonTable.author = author
       addonTable.description = description
-      addonTable.version = tostring(version)
       addonTable.options = {}
 
       return addonTable

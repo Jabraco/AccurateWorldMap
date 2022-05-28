@@ -8,8 +8,6 @@
 
 Todo:
 
-Things that need to be done before release:
-
 TJ:
 
 - Remove version number from addon settings header
@@ -54,7 +52,6 @@ https://cdn.discordapp.com/attachments/806672739057664034/975049286305861672/unk
 
 Interesting events to consider:
 GetDisplayName() returns user id 
-use that to make an isDeveloper() function
 
 
 * GetPlayerActiveZoneName()
