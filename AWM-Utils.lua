@@ -181,6 +181,15 @@ function getMouseCoordinates()
 end
 
 -------------------------------------------------------------------------------
+-- Return a number to set significant figure
+-------------------------------------------------------------------------------
+
+function sigFig(num, figures)
+  local x = figures - math.ceil(math.log10(math.abs(num)))
+  return(math.floor(num*10^x+0.5)/10^x)
+end
+
+-------------------------------------------------------------------------------
 -- Get normalised cursor coordinates relative to worldmap
 -------------------------------------------------------------------------------
 
@@ -557,8 +566,6 @@ function createZoneHitbox(polygonData, zoneInfo)
 
     polygon:SetHandler("OnMouseUp", function(control, button, upInside, ctrl, alt, shift, command)
 
-      
-      
       ZO_WorldMap_MouseUp(control, button, upInside)
 
 
@@ -601,7 +608,6 @@ function createZoneHitbox(polygonData, zoneInfo)
       if (not isInGamepadMode()) then
         updateCurrentPolygon(polygon)
       end
-
     end)
   
   else 

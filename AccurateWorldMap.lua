@@ -174,23 +174,50 @@ local function localToGlobal()
   d(GPS:LocalToGlobal(getNormalisedMouseCoordinates()))
 end
 
+local lastXN, lastYN
+local waypointVisible
 
-local function onPingAdded(pingType, pingTag, xN, yN, isPingOwner)
+local function onWaypointSet(xN, yN)
 
-  if (isMapTamriel()) then
-    AWM.wpData.previousMap = "GLOBAL"
-    AWM.wpData.lastWaypointType = "GLOBAL"
-    AWM.wpData.globalYN, AWM.wpData.globalYN = xN, yN
+  if (xN == lastXN and yN == lastYN) then
+    LMP:RemoveMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT)
+    waypointVisible = false
+
   else
-    AWM.wpData.previousMap = "LOCAL"
-    AWM.wpData.lastWaypointType = "LOCAL"
-    AWM.wpData.xN, AWM.wpData.yN = GPS:LocalToGlobal(xN, yN)
+    if (xN ~= lastXN and yN ~= lastYN or not waypointVisible) then
+      LMP:SetMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, MAP_TYPE_LOCATION_CENTERED, xN, yN)
+
+      lastXN = xN
+      lastYN = yN
+      waypointVisible = true
+    end
   end
-
-  d("\n")
-  d(AWM.wpData.lastWaypointType)
-
 end
+
+-- function onPostWaypointSet(pingType, pingTag, xN, yN, isPingOwner)
+
+--   d(pingType, pingTag, xN, yN, isPingOwner)
+
+--   --LMP:SetMapPing(MapDisplayPinType pingType, MapDisplayType|number mapTypeOrWorldX, number xOrWorldY, number yOrWorldZ)
+
+
+--   print("deez nuts", true)
+
+
+--   if (isMapTamriel()) then
+--     AWM.wpData.previousMap = "GLOBAL"
+--     AWM.wpData.lastWaypointType = "GLOBAL"
+--     AWM.wpData.globalYN, AWM.wpData.globalYN = xN, yN
+--   else
+--     AWM.wpData.previousMap = "LOCAL"
+--     AWM.wpData.lastWaypointType = "LOCAL"
+--     AWM.wpData.xN, AWM.wpData.yN = GPS:LocalToGlobal(xN, yN)
+--   end
+
+--   d("\n")
+--   d(AWM.wpData.lastWaypointType)
+
+-- end
 
 -------------------------------------------------------------------------------
 -- On mouse clicked function
@@ -313,7 +340,6 @@ local function main()
   if (isWorldMapShown() and isMouseWithinMapWindow()) then
 
     if (isInGamepadMode()) then
-
       if (AWM.currentlySelectedPolygon == nil) then
   
         tempPolygon = WINDOW_MANAGER:GetControlAtPoint(getMouseCoordinates())
@@ -350,11 +376,30 @@ local function main()
   
       end
     end
+
+    if (AWM.currentlySelectedPolygon ~= nil and not isInGamepadMode()) then
+
+      AWMWaypointKeybind = {
+        {
+          name = "Set Destination",
+          keybind = "UI_SHORTCUT_TERTIARY",
+          callback = function() onWaypointSet(getNormalisedMouseCoordinates()) end,
+        },
+        alignment = KEYBIND_STRIP_ALIGN_CENTER,
+      }
+      
+      KEYBIND_STRIP:AddKeybindButtonGroup(AWMWaypointKeybind)
+
+    else
+      KEYBIND_STRIP:RemoveKeybindButtonGroup(AWMWaypointKeybind)
+    end
+
   else
 
     -- hide mouseover info
     ZO_WorldMapMouseOverDescription:SetText("")
     AWM_MouseOverGrungeTex:SetHidden(true)
+    KEYBIND_STRIP:RemoveKeybindButtonGroup(AWMWaypointKeybind)
 
   end
 end
@@ -433,4 +478,4 @@ EVENT_MANAGER:RegisterForEvent(AWM.name, EVENT_PLAYER_ACTIVATED, onPlayerLoaded)
 EVENT_MANAGER:RegisterForUpdate("mainLoop", 0, main)
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapChanged", onMapChanged)
 CALLBACK_MANAGER:RegisterCallback("OnWorldMapShown", onWorldMapOpened)
-LMP:RegisterCallback("AfterPingAdded", onPingAdded)
+LMP:RegisterCallback("AfterPingAdded", onPostWaypointSet)
