@@ -414,183 +414,189 @@ end
 
 -------------------------------------------------------------------------------
 
-local zos_GetUniversallyNormalizedMapInfo = GetUniversallyNormalizedMapInfo
-GetUniversallyNormalizedMapInfo = function(mapID)
+if (isPlayerTrackingEnabled()) then
 
-  local normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
+  local zos_GetUniversallyNormalizedMapInfo = GetUniversallyNormalizedMapInfo
+  GetUniversallyNormalizedMapInfo = function(mapID)
 
-  d("Requesting normalised map info for map " .. mapID)
+    local normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
 
-  if (not isMapTamriel(mapID)) then
+    d("Requesting normalised map info for map " .. mapID)
 
-    if (isMapInAurbis(mapID)) then
+    if (not isMapTamriel(mapID)) then
 
-      -- hide daedric realms off the north edge of the map so that they can't be seen
-      normalisedOffsetX = 0
-      normalisedOffsetY = -0.8
-      normalisedWidth = 0.2
-      normalisedHeight = 0.2
+      if (isMapInAurbis(mapID)) then
 
-    else
-
-      if (isMapEltheric(mapID)) then
-
-        --remember: the eltheric height offset already has the -0.14 built in
-        normalisedOffsetX = -0.331420898
-        normalisedOffsetY = 0.125502929
-        normalisedWidth = 0.462524414
-        normalisedHeight = 0.462524414
+        -- hide daedric realms off the north edge of the map so that they can't be seen
+        normalisedOffsetX = 0
+        normalisedOffsetY = -0.8
+        normalisedWidth = 0.2
+        normalisedHeight = 0.2
 
       else
-        if (doesMapHaveCustomZoneData(mapID)) then
 
-          -- if this map doesn't have custom data, but its parent does, then scale the current normalised position to inside of the main zone's one
+        if (isMapEltheric(mapID)) then
 
-          print("custom data detected")
-      
-          if (getMapBoundingBoxByID(mapID) ~= nil) then
+          --remember: the eltheric height offset already has the -0.14 built in
+          normalisedOffsetX = -0.331420898
+          normalisedOffsetY = 0.125502929
+          normalisedWidth = 0.462524414
+          normalisedHeight = 0.462524414
 
-            print("custom data loaded")
+        else
+          if (doesMapHaveCustomZoneData(mapID)) then
 
-            normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight = getMapBoundingBoxByID(mapID)
-            normalisedOffsetY = normalisedOffsetY - 0.14000000059605
-  
-          end
+            -- if this map doesn't have custom data, but its parent does, then scale the current normalised position to inside of the main zone's one
 
+            print("custom data detected")
+        
+            if (getMapBoundingBoxByID(mapID) ~= nil) then
 
-          if (isMapInEltheric(mapID)) then
+              print("custom data loaded")
 
-            -- todo: only do this for custom zones in the eltheric and not everything that's within high isle (inc subzones)
-
-            local nOffsetX, nOffsetY, scale = GetUniversallyNormalizedMapInfo(getElthericMapID())
-
-            normalisedOffsetX = ((1 - normalisedOffsetX) * nOffsetX) * scale
-            normalisedOffsetY = nOffsetY + (normalisedOffsetY * scale)
-            -- normalisedWidth = normalisedWidth * scale
-            -- normalisedHeight = normalisedHeight * scale
-
-          end
-        end
-      end
-    end
-  end
-
-  -- safety check in case something went wrong and our dataset is nil, reset to vanilla values
-  if (normalisedOffsetX == nil or normalisedOffsetY == nil or normalisedWidth == nil or normalisedHeight == nil) then
-    normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
-  end
-
-  d(("X Offset: " .. normalisedOffsetX), ("Y Offset: " .. normalisedOffsetY), ("Normalised width: " .. normalisedWidth), ("Normalised height: " .. normalisedHeight) )
-
-  return normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight
-
-end
-
-local zos_GetMapPlayerPosition = GetMapPlayerPosition
-GetMapPlayerPosition = function(unitTag)
-
-  normalisedX, normalisedY, direction, isShownInCurrentMap = zos_GetMapPlayerPosition(unitTag)
-
-  local zoneID, _, _, _ = GetUnitRawWorldPosition(unitTag)
-  zoneID = getParentZoneID(zoneID)
-  local mapID = GetMapIdByZoneId(zoneID)
-
-  if (mapID ~= nil or mapID ~= 0) then
-
-    -- looking at Tamriel map
-    if (isMapTamriel()) then
-
-      -- get vanilla blob offsets and position for a map
-      local nOffsetX, nOffsetY, nWidth, nHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
-
-      -- use that to get where the player is in that map
-      local nLocalX = (normalisedX - nOffsetX) / nWidth --nWidth = scale
-      local nLocalY = (normalisedY - (nOffsetY + 0.14000000059605)) / nHeight -- nHeight = scale
-
-      if (GPS:GetMapMeasurementByMapId(mapID) ~= nil) then
-
-        local measurement = GPS:GetMapMeasurementByMapId(mapID)
-        if (measurement ~= nil) then
-  
-          -- then transform those coordinates inside the bounds of AWM's fixed blob positions
-          local fixedX, fixedY = measurement:ToGlobal(nLocalX, nLocalY)
+              normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight = getMapBoundingBoxByID(mapID)
+              normalisedOffsetY = normalisedOffsetY - 0.14000000059605
     
-          return fixedX, fixedY, direction, isShownInCurrentMap
+            end
 
+
+            if (isMapInEltheric(mapID)) then
+
+              -- todo: only do this for custom zones in the eltheric and not everything that's within high isle (inc subzones)
+
+              local nOffsetX, nOffsetY, scale = GetUniversallyNormalizedMapInfo(getElthericMapID())
+
+              normalisedOffsetX = ((1 - normalisedOffsetX) * nOffsetX) * scale
+              normalisedOffsetY = nOffsetY + (normalisedOffsetY * scale)
+              -- normalisedWidth = normalisedWidth * scale
+              -- normalisedHeight = normalisedHeight * scale
+
+            end
+          end
         end
       end
     end
 
-    -- looking at Eltheric map
-    if (isMapEltheric()) then
+    -- safety check in case something went wrong and our dataset is nil, reset to vanilla values
+    if (normalisedOffsetX == nil or normalisedOffsetY == nil or normalisedWidth == nil or normalisedHeight == nil) then
+      normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
+    end
 
-      -- get the current vanilla global position values from the jodewood (what the eltheric is)
-      local offsetX, offsetY, scaleX, scaleY = zos_GetUniversallyNormalizedMapInfo(getElthericMapID())
-      local globalX = normalisedX * scaleX + offsetX
-      local globalY = normalisedY * scaleY + (offsetY + 0.14000000059605)
+    d(("X Offset: " .. normalisedOffsetX), ("Y Offset: " .. normalisedOffsetY), ("Normalised width: " .. normalisedWidth), ("Normalised height: " .. normalisedHeight) )
 
-      -- get vanilla blob offsets and position for the current map
-      local nOffsetX, nOffsetY, nWidth, nHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
+    return normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight
 
-      -- use that to get the localised player coordinates in that map
-      local nLocalX = (globalX - nOffsetX) / nWidth --nWidth = scale
-      local nLocalY = (globalY - (nOffsetY + 0.14000000059605)) / nHeight -- nHeight = scale
-      
-      if (GPS:GetMapMeasurementByMapId(mapID) ~= nil) then
+  end
 
-        local measurement = GPS:GetMapMeasurementByMapId(mapID)
-        if (measurement ~= nil) then
+  local zos_GetMapPlayerPosition = GetMapPlayerPosition
+  GetMapPlayerPosition = function(unitTag)
 
-          -- then transform those coordinates inside the bounds of AWM's fixed blob positions
-          local fixedGlobalX, fixedGlobalY = measurement:ToGlobal(nLocalX, nLocalY)
+    normalisedX, normalisedY, direction, isShownInCurrentMap = zos_GetMapPlayerPosition(unitTag)
 
-          -- and then transform that into the bounds of the custom Eltheric Map and return
-          local elthericMeasurement = GPS:GetMapMeasurementByMapId(getElthericMapID())
-          local fixedLocalX, fixedLocalY = elthericMeasurement:ToLocal(fixedGlobalX, fixedGlobalY)
+    local zoneID, _, _, _ = GetUnitRawWorldPosition(unitTag)
+    zoneID = getParentZoneID(zoneID)
+    local mapID = GetMapIdByZoneId(zoneID)
 
-          return fixedLocalX, fixedLocalY, direction, true
+    if (mapID ~= nil or mapID ~= 0) then
+
+      -- looking at Tamriel map
+      if (isMapTamriel()) then
+
+        -- get vanilla blob offsets and position for a map
+        local nOffsetX, nOffsetY, nWidth, nHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
+
+        -- use that to get where the player is in that map
+        local nLocalX = (normalisedX - nOffsetX) / nWidth --nWidth = scale
+        local nLocalY = (normalisedY - (nOffsetY + 0.14000000059605)) / nHeight -- nHeight = scale
+
+        if (GPS:GetMapMeasurementByMapId(mapID) ~= nil) then
+
+          local measurement = GPS:GetMapMeasurementByMapId(mapID)
+          if (measurement ~= nil) then
     
+            -- then transform those coordinates inside the bounds of AWM's fixed blob positions
+            local fixedX, fixedY = measurement:ToGlobal(nLocalX, nLocalY)
+      
+            return fixedX, fixedY, direction, isShownInCurrentMap
+
+          end
+        end
+      end
+
+      -- looking at Eltheric map
+      if (isMapEltheric()) then
+
+        -- get the current vanilla global position values from the jodewood (what the eltheric is)
+        local offsetX, offsetY, scaleX, scaleY = zos_GetUniversallyNormalizedMapInfo(getElthericMapID())
+        local globalX = normalisedX * scaleX + offsetX
+        local globalY = normalisedY * scaleY + (offsetY + 0.14000000059605)
+
+        -- get vanilla blob offsets and position for the current map
+        local nOffsetX, nOffsetY, nWidth, nHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
+
+        -- use that to get the localised player coordinates in that map
+        local nLocalX = (globalX - nOffsetX) / nWidth --nWidth = scale
+        local nLocalY = (globalY - (nOffsetY + 0.14000000059605)) / nHeight -- nHeight = scale
+        
+        if (GPS:GetMapMeasurementByMapId(mapID) ~= nil) then
+
+          local measurement = GPS:GetMapMeasurementByMapId(mapID)
+          if (measurement ~= nil) then
+
+            -- then transform those coordinates inside the bounds of AWM's fixed blob positions
+            local fixedGlobalX, fixedGlobalY = measurement:ToGlobal(nLocalX, nLocalY)
+
+            -- and then transform that into the bounds of the custom Eltheric Map and return
+            local elthericMeasurement = GPS:GetMapMeasurementByMapId(getElthericMapID())
+            local fixedLocalX, fixedLocalY = elthericMeasurement:ToLocal(fixedGlobalX, fixedGlobalY)
+
+            return fixedLocalX, fixedLocalY, direction, true
+      
+          end
         end
       end
     end
+
+    return normalisedX, normalisedY, direction, isShownInCurrentMap
   end
 
-  return normalisedX, normalisedY, direction, isShownInCurrentMap
+
+
+  local zos_GetMapPlayerWaypoint = GetMapPlayerWaypoint
+  GetMapPlayerWaypoint = function()
+
+    -- this function places a waypoint every time the map changes
+    -- we can override its data based on what we know of the world and of the previous map
+    -- if the previous map was local, and we have set a local waypoint, then we need to convert
+    -- to global
+
+    -- likewise if the previous map was global, and we are local, then we need to convert to local
+
+    -- if the previous map was global, then do nothing
+
+    -- check if the last map was global or local
+    -- if it was global, then do nothing
+
+    -- local to global ONLY works when we are inside that local map, so that has to be calculated BEFORE map switch
+    -- if local to global is nil, then ignorei t
+
+    d("waypoint placed")
+
+    -- get vanilla values
+    normalisedX, normalisedY = zos_GetMapPlayerWaypoint()
+
+    
+    local isGlobal = (isMapTamriel())
+
+    if (AWM.wpData ~= nil) then
+      return AWM.wpData.xN, AWM.wpData.yN
+    else
+      return normalisedX, normalisedY
+    end
+  end
+
 end
 
 
-
-local zos_GetMapPlayerWaypoint = GetMapPlayerWaypoint
-GetMapPlayerWaypoint = function()
-
-  -- this function places a waypoint every time the map changes
-  -- we can override its data based on what we know of the world and of the previous map
-  -- if the previous map was local, and we have set a local waypoint, then we need to convert
-  -- to global
-
-  -- likewise if the previous map was global, and we are local, then we need to convert to local
-
-  -- if the previous map was global, then do nothing
-
-  -- check if the last map was global or local
-  -- if it was global, then do nothing
-
-  -- local to global ONLY works when we are inside that local map, so that has to be calculated BEFORE map switch
-  -- if local to global is nil, then ignorei t
-
-  d("waypoint placed")
-
-  -- get vanilla values
-  normalisedX, normalisedY = zos_GetMapPlayerWaypoint()
-
-  
-  local isGlobal = (isMapTamriel())
-
-  if (AWM.wpData ~= nil) then
-    return AWM.wpData.xN, AWM.wpData.yN
-  else
-    return normalisedX, normalisedY
-  end
-end
 
 

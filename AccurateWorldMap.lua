@@ -12,6 +12,7 @@ Things that need to be done before release:
 
 TJ:
 
+- Remove version number from addon settings header
 - Fix player location being incorrect (and also group pins)
 - Implement proper waypoint and player marker tracking and moving
 - Find a way to move the zone name and clock to be closer to the actual map in K&M mode like gamepad
@@ -25,6 +26,7 @@ Breaux:
 
 - Fix the Aurbis tamriel blob - mismatches with what is there currently
 - Fix Aurbis rings not containing their proper daedric/elven text
+- Fix Dreadsail Reef blob being too big
 
 Fix the following zone colouring and glow issues:
 
@@ -82,6 +84,7 @@ AWM.defaults = {
 local LAM = LibAddonMenu2
 local GPS = LibGPS3
 local LMP = LibMapPing2
+local LZ = LibZone 
 
 -------------------------------------------------------------------------------
 -- Globals
@@ -126,13 +129,6 @@ local function onMapChanged()
   -- parse current map for any custom data
   parseMapData(getCurrentMapID())
 
-
-
-  -- if the current map is a custom one, then prepare to update local to global for the world map
-  -- set prepare to updateplayer flag to true, then put localtoglobal coordinates in a variable
-  -- then in overrides, it'll read that and update the player marker
-
-  -- 
 
 
 
@@ -250,7 +246,7 @@ end
 -------------------------------------------------------------------------------
 
 local function onWorldMapOpened()
-
+  
   if (AWM.canRedrawMap) then
 
     AWM.canRedrawMap = false

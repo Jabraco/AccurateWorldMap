@@ -12,6 +12,7 @@
 
 AWM = AWM or {}
 local LocalCallbackManager = ZO_CallbackObject:Subclass()
+local GPS = LibGPS3
 local LZ = LibZone 
 
 -------------------------------------------------------------------------------
@@ -60,6 +61,14 @@ function join(extra, newWorldspace)
 
   table.insert(mergedTable, extra)
   return mergedTable
+end
+
+-------------------------------------------------------------------------------
+-- Is player tracking enabled function
+-------------------------------------------------------------------------------
+
+function isPlayerTrackingEnabled()
+  return (LZ ~= nil and LZ["GetGeographicalParentMapId"] ~= nil and GPS["GetMapMeasurementByMapId"] ~= nil)
 end
 
 -------------------------------------------------------------------------------
@@ -901,7 +910,7 @@ function getParentMapID(mapID)
 
   local parentMapID
 
-  if (LZ:GetGeographicalParentMapId(mapID) ~= nil ) then
+  if (isPlayerTrackingEnabled()) then    
     parentMapID = LZ:GetGeographicalParentMapId(mapID)
   else
     local _, _, _, zoneIndex, _ = GetMapInfoById(mapID)
@@ -1042,8 +1051,12 @@ function getParentZoneID(zoneID)
 
   local parentZoneID
   
-  if (LZ:GetGeographicalParentMapId() ~= nil and LZ:GetGeographicalParentMapId(mapID) ~= nil ) then
-    parentZoneID = LZ:GetGeographicalParentMapId(mapID)
+  if (isPlayerTrackingEnabled()) then
+
+    if (LZ:GetGeographicalParentMapId(mapID) ~= nil) then
+      parentZoneID = LZ:GetGeographicalParentMapId(mapID)
+    end
+
   else
     parentZoneID = GetParentZoneId(zoneID)
   end
