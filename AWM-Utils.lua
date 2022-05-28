@@ -407,9 +407,6 @@ function navigateToMap(mapInfo)
 
 end
 
-
-
-
 -------------------------------------------------------------------------------
 -- Get current zone info table if it exists
 -------------------------------------------------------------------------------
@@ -725,6 +722,9 @@ function compileMapTextures()
     -- vanilla values by the time this is done
     GPS:ClearMapMeasurements()
     GPS:CalculateMapMeasurement()
+
+    -- force reload map in case user had opened it by now
+    navigateToMap(getCurrentMapID())
 
   end
 end
