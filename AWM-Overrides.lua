@@ -579,19 +579,19 @@ if (isPlayerTrackingEnabled()) then
     local isGlobal = (isMapTamriel())
 
 
-    return normalisedX, normalisedY
 
-    -- if (AWM.lastWaypointMapID ~= nil) then
+    if (AWM.lastWaypointMapID ~= nil) then
 
-    
 
-    -- else
 
-    --   return normalisedX, normalisedY
+      return normalisedX, normalisedY
 
-    -- end
+    else
 
-    -- return normalisedX, normalisedY
+      return normalisedX, normalisedY
+
+    end
+
   end
 end
 

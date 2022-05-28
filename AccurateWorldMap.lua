@@ -349,7 +349,7 @@ local function main()
     else
       AWMWaypointKeybind = {
         {
-          name = "Set Destination",
+          name = ( function() if (not waypointVisible) then return "Set Destination" else return "Move/Remove Destination" end end),
           keybind = "UI_SHORTCUT_TERTIARY",
           callback = function() onWaypointSet(getNormalisedMouseCoordinates()) end,
         },
