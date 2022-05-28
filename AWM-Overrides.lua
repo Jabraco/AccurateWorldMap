@@ -553,41 +553,46 @@ if (isPlayerTrackingEnabled()) then
     return normalisedX, normalisedY, direction, isShownInCurrentMap
   end
 
+  local zos_GetMapPlayerWaypoint = GetMapPlayerWaypoint
+  GetMapPlayerWaypoint = function()
+
+    -- this function places a waypoint every time the map changes
+    -- we can override its data based on what we know of the world and of the previous map
+    -- if the previous map was local, and we have set a local waypoint, then we need to convert
+    -- to global
+
+    -- likewise if the previous map was global, and we are local, then we need to convert to local
+
+    -- if the previous map was global, then do nothing
+
+    -- check if the last map was global or local
+    -- if it was global, then do nothing
+
+    -- local to global ONLY works when we are inside that local map, so that has to be calculated BEFORE map switch
+    -- if local to global is nil, then ignorei t
+
+    d("waypoint placed")
+
+    -- get vanilla values
+    normalisedX, normalisedY = zos_GetMapPlayerWaypoint()
+
+    local isGlobal = (isMapTamriel())
 
 
---   local zos_GetMapPlayerWaypoint = GetMapPlayerWaypoint
---   GetMapPlayerWaypoint = function()
+    return normalisedX, normalisedY
 
---     -- this function places a waypoint every time the map changes
---     -- we can override its data based on what we know of the world and of the previous map
---     -- if the previous map was local, and we have set a local waypoint, then we need to convert
---     -- to global
-
---     -- likewise if the previous map was global, and we are local, then we need to convert to local
-
---     -- if the previous map was global, then do nothing
-
---     -- check if the last map was global or local
---     -- if it was global, then do nothing
-
---     -- local to global ONLY works when we are inside that local map, so that has to be calculated BEFORE map switch
---     -- if local to global is nil, then ignorei t
-
---     d("waypoint placed")
-
---     -- get vanilla values
---     normalisedX, normalisedY = zos_GetMapPlayerWaypoint()
+    -- if (AWM.lastWaypointMapID ~= nil) then
 
     
---     local isGlobal = (isMapTamriel())
 
---     if (AWM.wpData ~= nil) then
---       return AWM.wpData.xN, AWM.wpData.yN
---     else
---       return normalisedX, normalisedY
---     end
---   end
+    -- else
 
+    --   return normalisedX, normalisedY
+
+    -- end
+
+    -- return normalisedX, normalisedY
+  end
 end
 
 

@@ -106,7 +106,7 @@ AWM.blobZoneInfo = {}
 AWM.currentlySelectedPolygon = nil
 polygonData = {}
 
-AWM.wpData = {}
+AWM.lastWaypointMapID = nil
 
 AWM.canRedrawMap = true
 AWM.areTexturesCompiled = false
@@ -161,7 +161,7 @@ local function onMapChanged()
 end
 
 -------------------------------------------------------------------------------
--- On waypoint / map ping added function
+--  Debug Local <> Global coordinate functions
 -------------------------------------------------------------------------------
 
 local function globalToLocal()
@@ -173,6 +173,10 @@ local function localToGlobal()
   print("Local to Global:", true)
   d(GPS:LocalToGlobal(getNormalisedMouseCoordinates()))
 end
+
+-------------------------------------------------------------------------------
+-- On waypoint set function
+-------------------------------------------------------------------------------
 
 local lastXN, lastYN
 local waypointVisible
@@ -186,7 +190,6 @@ local function onWaypointSet(xN, yN)
   else
     if (xN ~= lastXN and yN ~= lastYN or not waypointVisible) then
       LMP:SetMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, MAP_TYPE_LOCATION_CENTERED, xN, yN)
-
       lastXN = xN
       lastYN = yN
       waypointVisible = true
@@ -194,30 +197,11 @@ local function onWaypointSet(xN, yN)
   end
 end
 
--- function onPostWaypointSet(pingType, pingTag, xN, yN, isPingOwner)
-
---   d(pingType, pingTag, xN, yN, isPingOwner)
-
---   --LMP:SetMapPing(MapDisplayPinType pingType, MapDisplayType|number mapTypeOrWorldX, number xOrWorldY, number yOrWorldZ)
-
-
---   print("deez nuts", true)
-
-
---   if (isMapTamriel()) then
---     AWM.wpData.previousMap = "GLOBAL"
---     AWM.wpData.lastWaypointType = "GLOBAL"
---     AWM.wpData.globalYN, AWM.wpData.globalYN = xN, yN
---   else
---     AWM.wpData.previousMap = "LOCAL"
---     AWM.wpData.lastWaypointType = "LOCAL"
---     AWM.wpData.xN, AWM.wpData.yN = GPS:LocalToGlobal(xN, yN)
---   end
-
---   d("\n")
---   d(AWM.wpData.lastWaypointType)
-
--- end
+function onPostWaypointSet(pingType, pingTag, xN, yN, isPingOwner)
+  if (pingType == MAP_PIN_TYPE_PLAYER_WAYPOINT and pingTag == "waypoint" and isPingOwner) then
+    AWM.lastWaypointMapID = getCurrentMapID()
+  end
+end
 
 -------------------------------------------------------------------------------
 -- On mouse clicked function
@@ -359,6 +343,20 @@ local function main()
   
         end
       end
+
+      KEYBIND_STRIP:RemoveKeybindButtonGroup(AWMWaypointKeybind)
+
+    else
+      AWMWaypointKeybind = {
+        {
+          name = "Set Destination",
+          keybind = "UI_SHORTCUT_TERTIARY",
+          callback = function() onWaypointSet(getNormalisedMouseCoordinates()) end,
+        },
+        alignment = KEYBIND_STRIP_ALIGN_CENTER,
+      }
+      
+      KEYBIND_STRIP:AddKeybindButtonGroup(AWMWaypointKeybind)        
     end
 
     if (AWM.currentlySelectedPolygon ~= nil) then
@@ -376,24 +374,6 @@ local function main()
   
       end
     end
-
-    if (AWM.currentlySelectedPolygon ~= nil and not isInGamepadMode()) then
-
-      AWMWaypointKeybind = {
-        {
-          name = "Set Destination",
-          keybind = "UI_SHORTCUT_TERTIARY",
-          callback = function() onWaypointSet(getNormalisedMouseCoordinates()) end,
-        },
-        alignment = KEYBIND_STRIP_ALIGN_CENTER,
-      }
-      
-      KEYBIND_STRIP:AddKeybindButtonGroup(AWMWaypointKeybind)
-
-    else
-      KEYBIND_STRIP:RemoveKeybindButtonGroup(AWMWaypointKeybind)
-    end
-
   else
 
     -- hide mouseover info
