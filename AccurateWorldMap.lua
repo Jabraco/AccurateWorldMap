@@ -24,6 +24,8 @@ Breaux:
 - Fix the Aurbis tamriel blob - mismatches with what is there currently
 - Fix Aurbis rings not containing their proper daedric/elven text
 - Fix Dreadsail Reef blob being too big
+- Fix Dranil-Kir blob being too big
+- Fix Silatar blob being too big
 - Make custom description background for PC
 
 Fix the following zone colouring and glow issues:
@@ -218,13 +220,9 @@ function updateCurrentPolygon(polygon)
 
   -- update with current zone info
   if (not string.match(polygon:GetName(), "duplicate")) then
-
     AWM.blobZoneInfo = getZoneInfoByID(getMapIDFromPolygonName(polygon:GetName()), true)
-
   else
-
     AWM.blobZoneInfo = getZoneInfoByID(getMapIDFromPolygonName(polygon:GetName()))
-
   end
   
 end

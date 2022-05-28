@@ -2374,7 +2374,7 @@ mapData = {
     -- Dranil Kir --
     zoneData = join({
       zoneName = "Dranil Kir",
-      zoneDescription = "This small, stormy isle amongst the Summerset Isles is known by the locals as Dranil Kir. Some have rumoured it have been supernaturally protected by magical means.",
+      zoneDescription = "This small, stormy isle amongst the Summerset Isles is known by the locals as Dranil Kir. Some have rumoured it to have been supernaturally protected by magical means.",
       zoneID = 1325,
       xN = "0.212",
       yN = "0.742",
@@ -2464,7 +2464,22 @@ mapData = {
         { xN = 0.244, yN = 0.739 },                
       }
     }),
-    
+
+    -- Silatar --
+    zoneData = join({
+      zoneName = "Silatar",
+      zoneDescription = "The picturesque island estate of Silatar is rumoured to have been created out of pure Magicka, and has been passed down amongst the nobles of Summerset for generations.",
+      zoneID = 370,
+      xN = "0.255",
+      yN = "0.683",
+      zonePolygonData = {
+        { xN = 0.253, yN = 0.690 },
+        { xN = 0.262, yN = 0.695 },
+        { xN = 0.265, yN = 0.684 },
+        { xN = 0.256, yN = 0.680 },                     
+      }
+    }),
+
     -- Eyevea --
     [215] = { xN = 0.093, yN = 0.600, disabled = false, name = "Eyevea Wayshrine", majorSettlement = true }, -- Eyevea Wayshrine
 
@@ -3030,6 +3045,10 @@ mapData = {
 
   [108] = { -- Eyevea Map 
     [215] = { xN = 0.866, yN = 0.357, disabled = false, name = "Eyevea Wayshrine" }, -- Eyevea Wayshrine
+  },
+
+  [370] = { -- Silatar Map
+    parentMapID = 27,
   },
 
   [2114] = { -- The Systres Map
