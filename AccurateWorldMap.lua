@@ -74,7 +74,6 @@ AWM.defaults = {
   mapStyle = "Vanilla",
   worldMapWayshrines = "All (Default)",
   hideIconGlow = false,
-  movePlayerIcons = false,
 }
 
 -------------------------------------------------------------------------------
@@ -128,8 +127,6 @@ local function onMapChanged()
 
   -- parse current map for any custom data
   parseMapData(getCurrentMapID())
-
-
 
 
 end

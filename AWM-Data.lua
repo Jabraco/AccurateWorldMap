@@ -2506,8 +2506,8 @@ mapData = {
       customTileName = "Eltheric",
       zoomLevel = 5,
       zoneID = 315,
-      xN = "0.018",
-      yN = "0.532",
+      xN = "0.020",
+      yN = "0.524",
       zonePolygonData = {
         { xN = 0.018, yN = 0.555 },
         { xN = 0.027, yN = 0.564 },
