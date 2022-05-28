@@ -556,6 +556,8 @@ function createZoneHitbox(polygonData, zoneInfo)
     end)
 
     polygon:SetHandler("OnMouseUp", function(control, button, upInside, ctrl, alt, shift, command)
+
+      
       
       ZO_WorldMap_MouseUp(control, button, upInside)
 
@@ -583,7 +585,7 @@ function createZoneHitbox(polygonData, zoneInfo)
 
           print(tostring(deltaX))
 
-          if (deltaX <= 10 and deltaX <= 10) then
+          if ( (deltaX <= 10 and deltaX <= 10) and not (shift or ctrl or alt or command) ) then
 
             navigateToMap(AWM.blobZoneInfo)
 

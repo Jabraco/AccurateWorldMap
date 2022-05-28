@@ -124,6 +124,18 @@ local coordinateCount = 0
 
 AWM_MouseOverGrungeTex = CreateControl("AWM_MouseOverGrungeTex", ZO_WorldMap, CT_TEXTURE)
 
+
+
+local function getControlAtPoint()
+
+
+  local tempControl = WINDOW_MANAGER:GetControlAtPoint(getMouseCoordinates())
+
+  print(tempControl:GetName(), true)
+
+end
+
+
 -------------------------------------------------------------------------------
 --  On map change callback function
 -------------------------------------------------------------------------------
@@ -133,7 +145,7 @@ local function onMapChanged()
   -- hide all existing zone blobs
   hideAllZoneBlobs()
 
-  -- hide map blob info
+  -- force previous blob info to hide
   zo_callLater(function()
 
     AWM.currentlySelectedPolygon = nil
@@ -402,6 +414,7 @@ local function initialise(event, addonName)
   SLASH_COMMANDS["/localtoglobal"] = localToGlobal
   SLASH_COMMANDS["/globaltolocal"] = globalToLocal
   SLASH_COMMANDS["/getparentmapid"] = getParentMapID
+  SLASH_COMMANDS["/getcontrolatpoint"] = getControlAtPoint
 
   -- register LAM settings
   local panelName = "AWM_Settings"
