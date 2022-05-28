@@ -897,6 +897,14 @@ function getAurbisMapID()
 end
 
 -------------------------------------------------------------------------------
+-- Get Tamriel map ID function
+-------------------------------------------------------------------------------
+
+function getTamrielMapID()
+  return 27
+end
+
+-------------------------------------------------------------------------------
 -- Get Eltheric map ID function
 -------------------------------------------------------------------------------
 
@@ -1073,4 +1081,60 @@ function getParentZoneID(zoneID)
 
   return parentZoneID
 
+end
+
+-------------------------------------------------------------------------------
+-- Get modded Global to Local coordinates
+-------------------------------------------------------------------------------
+
+local TAMRIEL_VERTICAL_OFFSET = 0.14000000059605
+
+function getModdedGlobalToLocal(mapID, vanillaLocalNX, vanillaLocalNY)
+
+  d("Vanilla local")
+  d(vanillaLocalNX, vanillaLocalNY)
+
+  -- this function is basically taking vanilla local to vanilla global to modded global to modded local
+
+  -- get vanilla global from local
+  local nOffsetX, nOffsetY, nWidth, nHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
+  local globalNX = vanillaLocalNX * nWidth + nOffsetX
+  local globalNY = vanillaLocalNY * nHeight + (nOffsetY + TAMRIEL_VERTICAL_OFFSET)
+
+
+  local measurement = GPS:GetMapMeasurementByMapId(mapID)
+  if (measurement ~= nil) then
+
+
+
+    
+
+
+
+    local moddedLocalNX, moddedLocalNY = measurement:ToLocal(globalNX, globalNY)
+
+    d(moddedLocalNX, moddedLocalNY)
+    return moddedLocalNX, moddedLocalNY
+  end
+end
+
+-------------------------------------------------------------------------------
+-- Reposition tamriel coordinates function
+-------------------------------------------------------------------------------
+
+function getFixedTamrielCoordinatesForMapID(mapID, vanillaGlobalNX, vanillaGlobalNY)
+
+  -- get vanilla blob offsets and position for the provided map
+  local nOffsetX, nOffsetY, nWidth, nHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
+
+  -- use that to get local position of marker in that map
+  local vanillaLocalNX = (vanillaGlobalNX - nOffsetX) / nWidth --nWidth = scale
+  local vanillaLocalNY = (vanillaGlobalNY - (nOffsetY + TAMRIEL_VERTICAL_OFFSET)) / nHeight -- nHeight = scale
+
+  local measurement = GPS:GetMapMeasurementByMapId(mapID)
+  if (measurement ~= nil) then
+    -- then transform marker position inside AWM's fixed blob bounds
+    local moddedGlobalNX, moddedGlobalNY = measurement:ToGlobal(vanillaLocalNX, vanillaLocalNY)
+    return moddedGlobalNX, moddedGlobalNY
+  end
 end

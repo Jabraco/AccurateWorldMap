@@ -14,6 +14,7 @@
 AWM = AWM or {}
 local LZ = LibZone 
 local GPS = LibGPS3
+local LMP = LibMapPing2
 
 
 -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
@@ -416,7 +417,7 @@ end
 
 if (isPlayerTrackingEnabled()) then
 
-  local zos_GetUniversallyNormalizedMapInfo = GetUniversallyNormalizedMapInfo
+  zos_GetUniversallyNormalizedMapInfo = GetUniversallyNormalizedMapInfo
   GetUniversallyNormalizedMapInfo = function(mapID)
 
     local normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
@@ -501,22 +502,8 @@ if (isPlayerTrackingEnabled()) then
 
       -- looking at Tamriel map
       if (isMapTamriel()) then
-
-        -- get vanilla blob offsets and position for a map
-        local nOffsetX, nOffsetY, nWidth, nHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
-
-        -- use that to get where the player is in that map
-        local nLocalX = (normalisedX - nOffsetX) / nWidth --nWidth = scale
-        local nLocalY = (normalisedY - (nOffsetY + 0.14000000059605)) / nHeight -- nHeight = scale
-
-        local measurement = GPS:GetMapMeasurementByMapId(mapID)
-        if (measurement ~= nil) then
-  
-          -- then transform those coordinates inside the bounds of AWM's fixed blob positions
-          local fixedX, fixedY = measurement:ToGlobal(nLocalX, nLocalY)
-          return fixedX, fixedY, direction, isShownInCurrentMap
-
-        end
+        local fixedX, fixedY = getFixedTamrielCoordinatesForMapID(mapID, normalisedX, normalisedY)
+        return fixedX, fixedY, direction, isShownInCurrentMap
       end
 
       -- looking at Eltheric map
@@ -556,42 +543,39 @@ if (isPlayerTrackingEnabled()) then
   local zos_GetMapPlayerWaypoint = GetMapPlayerWaypoint
   GetMapPlayerWaypoint = function()
 
-    -- this function places a waypoint every time the map changes
-    -- we can override its data based on what we know of the world and of the previous map
-    -- if the previous map was local, and we have set a local waypoint, then we need to convert
-    -- to global
-
-    -- likewise if the previous map was global, and we are local, then we need to convert to local
-
-    -- if the previous map was global, then do nothing
-
-    -- check if the last map was global or local
-    -- if it was global, then do nothing
-
-    -- local to global ONLY works when we are inside that local map, so that has to be calculated BEFORE map switch
-    -- if local to global is nil, then ignorei t
-
-    d("waypoint placed")
-
     -- get vanilla values
-    normalisedX, normalisedY = zos_GetMapPlayerWaypoint()
+    nX, nY = zos_GetMapPlayerWaypoint()
 
     local isGlobal = (isMapTamriel())
 
 
+    if (AWM.lastWaypointMapID ~= nil and LMP:HasMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, "waypoint")) then
 
-    if (AWM.lastWaypointMapID ~= nil) then
+      d("waypoint automatically placed")
 
+      -- if we're in tamriel map now, but weren't before
+      if (isGlobal and not isMapTamriel(AWM.lastWaypointMapID)) then
+        nX, nY = getFixedTamrielCoordinatesForMapID(AWM.lastWaypointMapID, nX, nY)
+        AWM.lastWaypointMapID = getTamrielMapID()
+        d("returning modded global!")
+        return nX, nY
 
+      end
 
-      return normalisedX, normalisedY
+      -- if we're in a local map now, but we were in tamriel before
+      if (not isGlobal and isMapTamriel(AWM.lastWaypointMapID)) then
+
+        d("returning modded local!")
+        nX, nY = getModdedGlobalToLocal(getCurrentMapID(), nX, nY)
+        AWM.lastWaypointMapID = getCurrentMapID()
+        return nX, nY
+
+      end
+
 
     else
-
-      return normalisedX, normalisedY
-
+      return nX, nY
     end
-
   end
 end
 

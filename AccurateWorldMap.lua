@@ -198,7 +198,8 @@ local function onWaypointSet(xN, yN)
 end
 
 function onPostWaypointSet(pingType, pingTag, xN, yN, isPingOwner)
-  if (pingType == MAP_PIN_TYPE_PLAYER_WAYPOINT and pingTag == "waypoint" and isPingOwner) then
+  if (pingType == MAP_PIN_TYPE_PLAYER_WAYPOINT and pingTag == "waypoint" and isPingOwner and LMP:HasMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, "waypoint")) then
+    d("waypoint manually set!")
     AWM.lastWaypointMapID = getCurrentMapID()
   end
 end
@@ -274,6 +275,18 @@ end
 -------------------------------------------------------------------------------
 
 local function onWorldMapOpened()
+
+
+  -- * GetMapPlayerWaypoint()
+
+  -- ** _Returns:_ *number* _normalizedX_, *number* _normalizedY_
+
+
+
+
+  -- getModdedGlobalToLocal(mapID, vanillaLocalNX, vanillaLocalNY)
+
+  -- LMP:SetMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, MAP_TYPE_LOCATION_CENTERED, xN, yN)
   
   if (AWM.canRedrawMap) then
 
@@ -389,6 +402,8 @@ end
 -------------------------------------------------------------------------------
 
 local function onPlayerLoaded()
+
+  AWM.lastWaypointMapID = getCurrentMapID()
 
   updateLocationsInfo()
 
