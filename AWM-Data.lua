@@ -314,7 +314,6 @@ mapData = {
     -- The Reach --
     [445] = { xN = 0.377, yN = 0.270, majorSettlement = true }, -- Karthwasten Wayshrine
     [449] = { majorSettlement = true }, -- Markarth Wayshrine
-    [447] = { majorSettlement = true }, -- Rebel's Retreat Wayshrine
 
     zoneData = join({
       zoneName = "The Reach",
@@ -1591,6 +1590,8 @@ mapData = {
       zoneID = 1484,
       xN = "0.682",
       yN = "0.714",
+      debugXN = "0.682",
+      debugYN = "0.714",
       zonePolygonData = {
         { xN = 0.682, yN = 0.752 },
         { xN = 0.686, yN = 0.748 },
@@ -1683,8 +1684,8 @@ mapData = {
       zoneID = 1887,
       xN = "0.570",
       yN = "0.5975",
-      debugXN = "0.6605",
-      debugYN = "0.380",
+      debugXN = "0.5625",
+      debugYN = "0.5945",
       zonePolygonData = {
         { xN = 0.593, yN = 0.708 },
         { xN = 0.583, yN = 0.696 },

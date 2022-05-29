@@ -11,17 +11,16 @@ Accurate World Map is an addon for the Elder Scrolls Online (ESO), that replaces
 ## Comparison
 
 <p align="center">
-  <img src="https://cdn.discordapp.com/attachments/784696154537328643/979614755947966464/accurate_world_map_comparison.gif" width="700" height="700">
+  <img src="https://cdn.discordapp.com/attachments/784696154537328643/979614755947966464/accurate_world_map_comparison.gif" width="650" height="650">
 </p>
-
 
 ## Features
 
 - Remastered, vanilla-style map
-
 - Lore friendly overhaul of the map in line with previous games
-
-- Dungeons in their lore friendly places
+- Zones and Dungeons in their lore accurate places
+- Lore accurate renames of zones and places
+- Customise how wayshrines appear on the world map
 
 ## Notes
 
@@ -52,9 +51,6 @@ This addon works great with the following addons:
 ## Thanks To
 
 - Vylaera, for creating the map
-
 - TPC9000, Votan, Sir Insidiator, Sharlikan, Baertram and the rest of the ESOUI addon community for their coding help and assistance
-
 - The authors of Highly Detailed World Map (MrPikPik), uespLog (daveh), GuildShrines (Valve) and World Map Wayshrines Controller (ErianKalil)
-
 - Emily, for help along the way

@@ -15,7 +15,7 @@ TJ:
 - Find a way to move the zone name and clock to be closer to the actual map in K&M mode like gamepad
 - Add "loading" text to map while blobs are still being compiled
 - Remove debug spam
-
+- Add message to settings indicating whether player tracking is turned on
 
 Breaux:
 
@@ -48,6 +48,7 @@ Fix the following zone colouring and glow issues:
 - Tempest Island
 - Dranil Kir
 - Silatar
+- Firemoth Island (not coloured like a separate blob)
 
 Misc:
 
