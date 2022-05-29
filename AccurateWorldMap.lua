@@ -108,6 +108,11 @@ polygonData = {}
 
 AWM.lastWaypointMapID = nil
 
+AWM.lastGlobalXN = nil
+AWM.lastGlobalYN = nil
+AWM.lastLocalXN = nil
+AWM.lastLocalYN = nil
+
 AWM.canRedrawMap = true
 AWM.areTexturesCompiled = false
 AWM.isInsideBlobHitbox = false
@@ -124,13 +129,9 @@ local coordinateCount = 0
 
 AWM_MouseOverGrungeTex = CreateControl("AWM_MouseOverGrungeTex", ZO_WorldMap, CT_TEXTURE)
 
-
-
 local function getControlAtPoint()
 
-
   local tempControl = WINDOW_MANAGER:GetControlAtPoint(getMouseCoordinates())
-
   print(tempControl:GetName(), true)
 
 end
@@ -184,20 +185,32 @@ local function onWaypointSet(xN, yN)
 
   if (xN == lastXN and yN == lastYN) then
     LMP:RemoveMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT)
-
   else
-    if (xN ~= lastXN and yN ~= lastYN or not LMP:HasMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, "waypoint")) then
+    if (xN ~= lastXN and yN ~= lastYN or not isWaypointPlaced()) then
       LMP:SetMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, MAP_TYPE_LOCATION_CENTERED, xN, yN)
       lastXN = xN
       lastYN = yN
-      
     end
   end
 end
 
 function onPostWaypointSet(pingType, pingTag, xN, yN, isPingOwner)
-  if (pingType == MAP_PIN_TYPE_PLAYER_WAYPOINT and pingTag == "waypoint" and isPingOwner and LMP:HasMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, "waypoint")) then
-    d("waypoint manually set!")
+  if (pingType == MAP_PIN_TYPE_PLAYER_WAYPOINT and pingTag == "waypoint" and isPingOwner and isWaypointPlaced()) then
+
+    -- check to see if we're setting waypoint a local map
+    if (not isMapTamriel()) then
+      d("waypoint set in a local map!")
+      AWM.lastLocalXN = nX
+      AWM.lastLocalYN = nY
+    end
+
+    -- check to see if we're setting waypoint in tamriel
+    if (isMapTamriel()) then
+      d("waypoint set in tamriel map!")
+      AWM.lastGlobalXN = nX
+      AWM.lastGlobalYN = nY
+    end
+
     AWM.lastWaypointMapID = getCurrentMapID()
   end
 end

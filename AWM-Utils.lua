@@ -1116,6 +1116,14 @@ function vanillaLocalToGlobal(mapID, vanillaLocalNX, vanillaLocalNY)
 end
 
 -------------------------------------------------------------------------------
+-- Helper function to determine if there is a waypoint on current map
+-------------------------------------------------------------------------------
+
+function isWaypointPlaced()
+  return LMP:HasMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, "waypoint")
+end
+
+-------------------------------------------------------------------------------
 -- Get modded Global to Local coordinates
 -------------------------------------------------------------------------------
 

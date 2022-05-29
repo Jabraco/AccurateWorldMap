@@ -489,6 +489,7 @@ if (isPlayerTrackingEnabled()) then
 
   end
 
+
   local zos_GetMapPlayerPosition = GetMapPlayerPosition
   GetMapPlayerPosition = function(unitTag)
 
@@ -545,29 +546,43 @@ if (isPlayerTrackingEnabled()) then
 
     -- get vanilla values
     nX, nY = zos_GetMapPlayerWaypoint()
-
     local isGlobal = (isMapTamriel())
 
-
-    if (AWM.lastWaypointMapID == nil and LMP:HasMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, "waypoint")) then
+    -- if lastwaypoint map is nil, and we have a waypoint, then forcefully set it
+    if (AWM.lastWaypointMapID == nil and isWaypointPlaced()) then
       AWM.lastWaypointMapID = getCurrentMapID()
       zo_callLater(function()
+        LMP:SetMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, MAP_TYPE_LOCATION_CENTERED, nX, nY)
+        LMP:UnsuppressPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, "waypoint")
         LMP:RefreshMapPin(MAP_PIN_TYPE_PLAYER_WAYPOINT, "waypoint")
-        -- LMP:RemoveMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT)
-        -- LMP:SetMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, MAP_TYPE_LOCATION_CENTERED, nX, nY)
-      end, 500 )
+      end, 300 )
       return nX, nY
     end
 
-    if (AWM.lastWaypointMapID ~= nil and LMP:HasMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, "waypoint")) then
+    -- if there is a waypoint set somewhere
+    if (AWM.lastWaypointMapID ~= nil and isWaypointPlaced() and not isMapInAurbis(AWM.lastWaypointMapID)) then
+
+      -- if we are in Eltheric or Tamriel and there is a waypointer set in in an aurbis realm
+      if ( (isMapTamriel() or isMapEltheric()) and isMapInAurbis(AWM.lastWaypointMapID)) then
+        return -10, 0 -- return something big to get it out of the way
+      end
+
+      -- if the current map we're in has no modded data, return vanilla
+      -- if the current map we're in has the same parent
 
       d("waypoint being automatically placed")
 
       -- if we're in tamriel map now, but weren't before
       if (isGlobal and not isMapTamriel(AWM.lastWaypointMapID)) then
-        nX, nY = getFixedTamrielCoordinatesForMapID(AWM.lastWaypointMapID, nX, nY)
-        AWM.lastWaypointMapID = getTamrielMapID()
+
         d("returning modded global!")
+        nX, nY = getFixedTamrielCoordinatesForMapID(AWM.lastWaypointMapID, nX, nY)
+
+
+        AWM.lastWaypointMapID = getTamrielMapID()
+        AWM.lastGlobalXN = nX
+        AWM.lastGlobalYN = nY
+
         return nX, nY
 
       end
@@ -577,11 +592,20 @@ if (isPlayerTrackingEnabled()) then
 
         d("returning modded local!")
         nX, nY = getModdedGlobalToLocal(getCurrentMapID(), nX, nY)
-        AWM.lastWaypointMapID = getCurrentMapID()
-        return nX, nY
 
+        AWM.lastWaypointMapID = getCurrentMapID()
+        AWM.lastLocalXN = nX
+        AWM.lastLocalYN = nY
+
+        return nX, nY
       end
 
+      -- if we're in a different local map as before
+      if (not isGlobal and not isMapTamriel(AWM.lastWaypointMapID) and AWM.lastWaypointMapID == getCurrentMapID()) then
+
+        -- do stuff
+
+      end
 
     else
       AWM.lastWaypointMapID = nil
