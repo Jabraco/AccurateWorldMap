@@ -10,12 +10,12 @@ Todo:
 
 TJ:
 
-- Implement proper waypoint and player marker tracking and moving
 - Do the rest of the debug blobs
 - Do waypoint and player tracking for Elthelric
 - Find a way to move the zone name and clock to be closer to the actual map in K&M mode like gamepad
+- Add "loading" text to map while blobs are still being compiled
 - Remove debug spam
-- Add "loading" text to map while blobs are still being compiled, and remove startup debug spam
+
 
 Breaux:
 
