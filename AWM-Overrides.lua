@@ -562,22 +562,33 @@ if (isPlayerTrackingEnabled()) then
     -- if there is a waypoint set somewhere
     if (AWM.lastWaypointMapID ~= nil and isWaypointPlaced() and not isMapInAurbis(AWM.lastWaypointMapID)) then
 
+      d("waypoint being automatically placed")
+
       -- if we are in Eltheric or Tamriel and there is a waypointer set in in an aurbis realm
       if ( (isMapTamriel() or isMapEltheric()) and isMapInAurbis(AWM.lastWaypointMapID)) then
         return -10, 0 -- return something big to get it out of the way
       end
 
       -- if the current map we're in has no modded data, return vanilla
-      -- if the current map we're in has the same parent
+      if (not doesMapHaveCustomZoneData(getCurrentMapID())) then
+        AWM.lastWaypointMapID = getCurrentMapID()
+        return nX, nY
+      end
 
-      d("waypoint being automatically placed")
+      -- if the current map we're in has modded data, but the previous map did not,
+      -- but both were under the same parent zone, return vanilla
+      if (doesMapHaveCustomZoneData(getCurrentMapID()) and not doesMapHaveCustomZoneData(AWM.lastWaypointMapID) and getParentMapID(AWM.lastWaypointMapID) == getParentMapID(getCurrentMapID())) then
+        AWM.lastWaypointMapID = getCurrentMapID()
+        AWM.lastLocalXN = nX
+        AWM.lastLocalYN = nY
+        return nX, nY
+      end
 
       -- if we're in tamriel map now, but weren't before
       if (isGlobal and not isMapTamriel(AWM.lastWaypointMapID)) then
 
         d("returning modded global!")
         nX, nY = getFixedTamrielCoordinatesForMapID(AWM.lastWaypointMapID, nX, nY)
-
 
         AWM.lastWaypointMapID = getTamrielMapID()
         AWM.lastGlobalXN = nX
