@@ -179,20 +179,18 @@ end
 -------------------------------------------------------------------------------
 
 local lastXN, lastYN
-local waypointVisible
 
 local function onWaypointSet(xN, yN)
 
   if (xN == lastXN and yN == lastYN) then
     LMP:RemoveMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT)
-    waypointVisible = false
 
   else
-    if (xN ~= lastXN and yN ~= lastYN or not waypointVisible) then
+    if (xN ~= lastXN and yN ~= lastYN or not LMP:HasMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, "waypoint")) then
       LMP:SetMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, MAP_TYPE_LOCATION_CENTERED, xN, yN)
       lastXN = xN
       lastYN = yN
-      waypointVisible = true
+      
     end
   end
 end
@@ -348,7 +346,7 @@ local function main()
     else
       AWMWaypointKeybind = {
         {
-          name = ( function() if (not waypointVisible) then return "Set Destination" else return "Move/Remove Destination" end end),
+          name = ( function() if (not LMP:HasMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, "waypoint")) then return "Set Destination" else return "Move/Remove Destination" end end),
           keybind = "UI_SHORTCUT_TERTIARY",
           callback = function() onWaypointSet(getNormalisedMouseCoordinates()) end,
         },

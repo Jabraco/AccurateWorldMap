@@ -1085,56 +1085,118 @@ function getParentZoneID(zoneID)
 end
 
 -------------------------------------------------------------------------------
--- Get modded Global to Local coordinates
+-- Get vanilla local coordinates given global ones from a certain map
 -------------------------------------------------------------------------------
 
 local TAMRIEL_VERTICAL_OFFSET = 0.14000000059605
 
+function vanillaGlobalToLocal(mapID, globalNX, globalNY)
+
+  -- get vanilla blob offsets and position for the provided map
+  local nOffsetX, nOffsetY, nWidth, nHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
+  local vanillaLocalNX = (globalNX - nOffsetX) / nWidth --nWidth = scale
+  local vanillaLocalNY = (globalNY - (nOffsetY + TAMRIEL_VERTICAL_OFFSET)) / nHeight -- nHeight = scale
+
+  return vanillaLocalNX, vanillaLocalNY
+
+end
+
+-------------------------------------------------------------------------------
+-- Get vanilla global coordinates given local ones on a certain map
+-------------------------------------------------------------------------------
+
+function vanillaLocalToGlobal(mapID, vanillaLocalNX, vanillaLocalNY)
+
+  local nOffsetX, nOffsetY, nWidth, nHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
+  local globalNX = vanillaLocalNX * nWidth + nOffsetX
+  local globalNY = vanillaLocalNY * nHeight + (nOffsetY + TAMRIEL_VERTICAL_OFFSET)
+
+  return globalNX, globalNY
+
+end
+
+-------------------------------------------------------------------------------
+-- Get modded Global to Local coordinates
+-------------------------------------------------------------------------------
+
 function getModdedGlobalToLocal(mapID, vanillaLocalNX, vanillaLocalNY)
 
-
-
-
-
-
-
-  d("Vanilla local")
   d(vanillaLocalNX, vanillaLocalNY)
 
+  -- if the incoming position is not on the map, then it is either
+  -- from a modded position on the global map, or far away.
+  -- either way, calcuate the modded global based on modded offsets
   if (not LMP:IsPositionOnMap(vanillaLocalNX, vanillaLocalNY)) then
 
-    d("not in map!")
+    -- get vanilla global from local position
+    local globalNX, globalNY = vanillaLocalToGlobal(mapID, vanillaLocalNX, vanillaLocalNY)
+
+    -- transform that vanilla global position to modded local
+    local measurement = GPS:GetMapMeasurementByMapId(mapID)
+    if (measurement ~= nil) then
+
+      local moddedLocalNX, moddedLocalNY = measurement:ToLocal(globalNX, globalNY)
+
+      d(moddedLocalNX, moddedLocalNY)
+      return moddedLocalNX, moddedLocalNY
+    end
 
   else
 
-    d("is already in map!")
+    -- we have been given local coordinates that are inside our current map, 
+    -- but we can't be sure if these are modded or vanilla or not. we need
+    -- to calcuate to determine which
+
+    local unknownLocalNX = vanillaLocalNX
+    local unknownLocalNY = vanillaLocalNY
+
+    -- convert these two local ones into vanilla global and then back to
+    -- vanilla local again, are they the same? then they're vanilla, and 
+    -- should be changed
+
+    -- get vanilla global from local position
+    local globalNX, globalNY = vanillaLocalToGlobal(mapID, unknownLocalNX, unknownLocalNY)
+
+    -- get vanilla local from global position
+
+    local localNX, localNY = vanillaGlobalToLocal(mapID, globalNX, globalNY)
+
+    if (localNX == unknownLocalNX and localNY == unknownLocalNY) then
+
+      d("these are vanilla coordinates")
+
+      -- these are confirmed vanilla coordinates, so we should instead return modded ones
+      -- by converting the previous global coordinates to modded local ones
+
+
+      -- transform that vanilla global position to modded local
+      local measurement = GPS:GetMapMeasurementByMapId(mapID)
+      if (measurement ~= nil) then
+
+        local moddedLocalNX, moddedLocalNY = measurement:ToLocal(globalNX, globalNY)
+
+        if (LMP:IsPositionOnMap(moddedLocalNX, moddedLocalNY)) then
+
+          d(moddedLocalNX, moddedLocalNY)
+          return moddedLocalNX, moddedLocalNY
+
+        else
+
+          return vanillaLocalNX, vanillaLocalNY
+
+        end
+        
+      end
+
+    end
+
+
 
     return vanillaLocalNX, vanillaLocalNY
 
   end
 
-  -- this function is basically taking vanilla local to vanilla global to modded global to modded local
 
-  -- get vanilla global from local
-  local nOffsetX, nOffsetY, nWidth, nHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
-  local globalNX = vanillaLocalNX * nWidth + nOffsetX
-  local globalNY = vanillaLocalNY * nHeight + (nOffsetY + TAMRIEL_VERTICAL_OFFSET)
-
-
-  local measurement = GPS:GetMapMeasurementByMapId(mapID)
-  if (measurement ~= nil) then
-
-
-
-    
-
-
-
-    local moddedLocalNX, moddedLocalNY = measurement:ToLocal(globalNX, globalNY)
-
-    d(moddedLocalNX, moddedLocalNY)
-    return moddedLocalNX, moddedLocalNY
-  end
 end
 
 -------------------------------------------------------------------------------
@@ -1142,6 +1204,9 @@ end
 -------------------------------------------------------------------------------
 
 function getFixedTamrielCoordinatesForMapID(mapID, vanillaGlobalNX, vanillaGlobalNY)
+
+  d("vanilla global:")
+  d(vanillaGlobalNX, vanillaGlobalNY)
 
   -- get vanilla blob offsets and position for the provided map
   local nOffsetX, nOffsetY, nWidth, nHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
@@ -1154,6 +1219,11 @@ function getFixedTamrielCoordinatesForMapID(mapID, vanillaGlobalNX, vanillaGloba
   if (measurement ~= nil) then
     -- then transform marker position inside AWM's fixed blob bounds
     local moddedGlobalNX, moddedGlobalNY = measurement:ToGlobal(vanillaLocalNX, vanillaLocalNY)
+
+    d("modded global:")
+    d(moddedGlobalNX, moddedGlobalNY)
+
     return moddedGlobalNX, moddedGlobalNY
+
   end
 end

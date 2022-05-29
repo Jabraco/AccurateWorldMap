@@ -549,7 +549,6 @@ if (isPlayerTrackingEnabled()) then
     local isGlobal = (isMapTamriel())
 
 
-    -- 
     if (AWM.lastWaypointMapID == nil and LMP:HasMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, "waypoint")) then
       AWM.lastWaypointMapID = getCurrentMapID()
       zo_callLater(function()
