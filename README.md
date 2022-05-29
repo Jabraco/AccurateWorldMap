@@ -1,6 +1,19 @@
+
+
 # Accurate World Map
 
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/30050459/170882975-759bac00-7a94-479a-abf2-146f035e8237.png" width="600">
+</p>
+
 Accurate World Map is an addon for the Elder Scrolls Online (ESO), that replaces the in-game world map with a higher quality, and more lore accurate one.
+
+## Comparison
+
+<p align="center">
+  <img src="https://cdn.discordapp.com/attachments/784696154537328643/979614755947966464/accurate_world_map_comparison.gif" width="700" height="700">
+</p>
+
 
 ## Features
 
