@@ -14,6 +14,7 @@ AWM = AWM or {}
 local LocalCallbackManager = ZO_CallbackObject:Subclass()
 local GPS = LibGPS3
 local LZ = LibZone 
+local LMP = LibMapPing2
 
 -------------------------------------------------------------------------------
 -- Get addon info from addon manifest
@@ -1091,8 +1092,26 @@ local TAMRIEL_VERTICAL_OFFSET = 0.14000000059605
 
 function getModdedGlobalToLocal(mapID, vanillaLocalNX, vanillaLocalNY)
 
+
+
+
+
+
+
   d("Vanilla local")
   d(vanillaLocalNX, vanillaLocalNY)
+
+  if (not LMP:IsPositionOnMap(vanillaLocalNX, vanillaLocalNY)) then
+
+    d("not in map!")
+
+  else
+
+    d("is already in map!")
+
+    return vanillaLocalNX, vanillaLocalNY
+
+  end
 
   -- this function is basically taking vanilla local to vanilla global to modded global to modded local
 

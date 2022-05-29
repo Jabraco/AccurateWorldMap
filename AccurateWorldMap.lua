@@ -251,7 +251,6 @@ end
 
 function updateCurrentPolygon(polygon) 
 
-
   currentMapIndex = getCurrentMapID()
   AWM.isInsideBlobHitbox = true
   AWM.currentlySelectedPolygon = polygon
@@ -259,7 +258,6 @@ function updateCurrentPolygon(polygon)
   if (AWM.options.zoneDescriptions == true) then
     AWM_MouseOverGrungeTex:SetHidden(false)
   end
-
 
   -- update with current zone info
   if (not string.match(polygon:GetName(), "duplicate")) then
