@@ -1554,6 +1554,8 @@ mapData = {
       zoneID = 26,
       xN = "0.691",
       yN = "0.5565",
+      debugXN = "0.6849",
+      debugYN = "0.549",
       zonePolygonData = {
         { xN = 0.692, yN = 0.653 },
         { xN = 0.691, yN = 0.646 },
@@ -1590,8 +1592,8 @@ mapData = {
       zoneID = 1484,
       xN = "0.682",
       yN = "0.714",
-      debugXN = "0.682",
-      debugYN = "0.714",
+      debugXN = "0.676",
+      debugYN = "0.7115",
       zonePolygonData = {
         { xN = 0.682, yN = 0.752 },
         { xN = 0.686, yN = 0.748 },
@@ -1843,9 +1845,12 @@ mapData = {
       zoneName = "Quin'rawl",
       zoneDescription = "Also known as Southern Elsweyr, this land's complex history stretches back into antiquity.",
       blobTexture = "AccurateWorldMap/blobs/blob-southernelsweyr.dds",
+      debugBlobTexture = "AccurateWorldMap/blobs/blob-southernelsweyr-debug.dds",
       zoneID = 1654,
       xN = "0.500",
       yN = "0.6945",
+      debugXN = "0.4895",
+      debugYN = "0.688",
       zonePolygonData = {
         { xN = 0.594, yN = 0.789 },
         { xN = 0.596, yN = 0.780 },

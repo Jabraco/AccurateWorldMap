@@ -710,7 +710,7 @@ function compileMapTextures()
 
               else
 
-                print("The following debug texture failed to load: "..textureDirectory)
+                print("The following debug texture failed to load: "..debugTextureDirectory)
                 hasError = true
 
               end
