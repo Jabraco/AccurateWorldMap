@@ -6,6 +6,7 @@
   <img src="https://user-images.githubusercontent.com/30050459/170882975-759bac00-7a94-479a-abf2-146f035e8237.png" width="600">
 </p>
 
+
 Accurate World Map is an addon for the Elder Scrolls Online (ESO), that replaces the in-game world map with a higher quality, and more lore accurate one.
 
 ## Comparison
@@ -55,3 +56,8 @@ This addon works great with the following addons:
 - TPC9000, Votan, Sir Insidiator, Sharlikan, Baertram and the rest of the ESOUI addon community for their coding help and assistance
 - The authors of Highly Detailed World Map (MrPikPik), uespLog (daveh), GuildShrines (Valve) and World Map Wayshrines Controller (ErianKalil)
 - Emily, for help along the way
+
+<p align="center">
+  <img src="https://cdn.discordapp.com/attachments/919785179101401099/979489941371387995/vylaera_and_thal_circle_banner.png">
+</p>
+
