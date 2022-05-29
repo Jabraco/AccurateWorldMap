@@ -52,10 +52,11 @@ This addon works great with the following addons:
 
 ## Thanks To
 
-- Vylaera, for creating the map
-- TPC9000, Votan, Sir Insidiator, Sharlikan, Baertram and the rest of the ESOUI addon community for their coding help and assistance
+- TPC9000, Votan, Sir Insidiator, Sharlikan, Baertram, IsJustAGhost and the rest of the ESOUI addon community for their coding help
 - The authors of Highly Detailed World Map (MrPikPik), uespLog (daveh), GuildShrines (Valve) and World Map Wayshrines Controller (ErianKalil)
 - Emily, for help along the way
+
+## Made By
 
 <p align="center">
   <img src="https://cdn.discordapp.com/attachments/919785179101401099/979489941371387995/vylaera_and_thal_circle_banner.png">
