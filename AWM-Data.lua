@@ -54,6 +54,8 @@ mapData = {
       zoneID = 74,
       xN = "0.6075",
       yN = "0.223",
+      debugXN = "0.6065",
+      debugYN = "0.2225",
       zonePolygonData = {
         { xN = 0.605, yN = 0.233 },
         { xN = 0.614, yN = 0.244 },
@@ -429,6 +431,8 @@ mapData = {
       zoneID = 16,
       xN = "0.420",
       yN = "0.384",
+      debugXN = "0.410",
+      debugYN = "0.378",
       zonePolygonData = {
         { xN = 0.445, yN = 0.397 },
         { xN = 0.464, yN = 0.400 },
@@ -1775,9 +1779,12 @@ mapData = {
       altZoneName = "Anequina",
       zoneDescription = "The region of Anequina derives its name from the dusty Ne-Quin-Al desert, which lies in its heart.",
       blobTexture = "AccurateWorldMap/blobs/blob-northernelsweyr.dds",
+      debugBlobTexture = "AccurateWorldMap/blobs/blob-northernelsweyr-debug.dds",      
       zoneID = 1555,
       xN = "0.447",
       yN = "0.5805",
+      debugXN = "0.457",
+      debugYN = "0.586",
       zonePolygonData = {
         { xN = 0.584, yN = 0.654 },
         { xN = 0.582, yN = 0.651 },
@@ -1843,7 +1850,7 @@ mapData = {
 
     zoneData = join({
       zoneName = "Quin'rawl",
-      zoneDescription = "Also known as Southern Elsweyr, this land's complex history stretches back into antiquity.",
+      zoneDescription = "Consisting of the southern-most tip of Elsweyr, the Quin'rawl peninsula has a complex history that stretches back into antiquity.",
       blobTexture = "AccurateWorldMap/blobs/blob-southernelsweyr.dds",
       debugBlobTexture = "AccurateWorldMap/blobs/blob-southernelsweyr-debug.dds",
       zoneID = 1654,

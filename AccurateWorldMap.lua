@@ -21,7 +21,6 @@ Breaux:
 
 Need the following tiles:
 
-- Debug tile with Bleakrock Isle on it
 - Updated Eltheric Ocean debug tiles
 
 Need the following blobs resized:
@@ -52,6 +51,7 @@ Fix the following zone colouring and glow issues:
 
 Misc:
 
+- Updated Eastmarch debug blob
 - Fix the Aurbis tamriel blob - mismatches with what is there currently
 - Fix Aurbis rings not containing their proper daedric/elven text
 - Make custom description background for PC
