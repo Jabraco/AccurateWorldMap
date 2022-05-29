@@ -1127,7 +1127,31 @@ end
 -- Get modded Global to Local coordinates
 -------------------------------------------------------------------------------
 
-function getModdedGlobalToLocal(mapID, vanillaLocalNX, vanillaLocalNY)
+function getFixedLocalCoordinates(mapID, vanillaLocalNX, vanillaLocalNY)
+
+
+  if (AWM.lastGlobalXN ~= nil and AWM.lastGlobalYN ~= nil) then
+
+    d("last globals:")
+    d(AWM.lastGlobalXN, AWM.lastGlobalYN)
+
+    local measurement = GPS:GetMapMeasurementByMapId(mapID)
+    if (measurement ~= nil) then
+
+      local moddedLocalNX, moddedLocalNY = measurement:ToLocal(AWM.lastGlobalXN, AWM.lastGlobalYN)
+
+      if (LMP:IsPositionOnMap(moddedLocalNX, moddedLocalNY)) then
+
+        d(moddedLocalNX, moddedLocalNY)
+        return moddedLocalNX, moddedLocalNY
+
+      else
+
+        return vanillaLocalNX, vanillaLocalNY
+
+      end
+    end
+  end
 
   d(vanillaLocalNX, vanillaLocalNY)
 
@@ -1204,14 +1228,14 @@ function getModdedGlobalToLocal(mapID, vanillaLocalNX, vanillaLocalNY)
 
   end
 
-
 end
 
+
 -------------------------------------------------------------------------------
--- Reposition tamriel coordinates function
+-- Reposition global coordinates function
 -------------------------------------------------------------------------------
 
-function getFixedTamrielCoordinatesForMapID(mapID, vanillaGlobalNX, vanillaGlobalNY)
+function getFixedGlobalCoordinates(mapID, vanillaGlobalNX, vanillaGlobalNY)
 
   d("vanilla global:")
   d(vanillaGlobalNX, vanillaGlobalNY)
@@ -1230,6 +1254,29 @@ function getFixedTamrielCoordinatesForMapID(mapID, vanillaGlobalNX, vanillaGloba
 
     d("modded global:")
     d(moddedGlobalNX, moddedGlobalNY)
+
+    return moddedGlobalNX, moddedGlobalNY
+
+  end
+end
+
+-------------------------------------------------------------------------------
+-- Reposition tamriel coordinates function
+-------------------------------------------------------------------------------
+
+function getFixedTamrielCoordinatesForMapID(mapID, vanillaGlobalNX, vanillaGlobalNY)
+
+  -- get vanilla blob offsets and position for the provided map
+  local nOffsetX, nOffsetY, nWidth, nHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
+
+  -- use that to get local position of marker in that map
+  local vanillaLocalNX = (vanillaGlobalNX - nOffsetX) / nWidth --nWidth = scale
+  local vanillaLocalNY = (vanillaGlobalNY - (nOffsetY + TAMRIEL_VERTICAL_OFFSET)) / nHeight -- nHeight = scale
+
+  local measurement = GPS:GetMapMeasurementByMapId(mapID)
+  if (measurement ~= nil) then
+    -- then transform marker position inside AWM's fixed blob bounds
+    local moddedGlobalNX, moddedGlobalNY = measurement:ToGlobal(vanillaLocalNX, vanillaLocalNY)
 
     return moddedGlobalNX, moddedGlobalNY
 

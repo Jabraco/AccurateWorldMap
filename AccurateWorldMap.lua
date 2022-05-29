@@ -10,13 +10,12 @@ Todo:
 
 TJ:
 
-- Fix player location being incorrect (and also group pins)
 - Implement proper waypoint and player marker tracking and moving
+- Do the rest of the debug blobs
+- Do waypoint and player tracking for Elthelric
 - Find a way to move the zone name and clock to be closer to the actual map in K&M mode like gamepad
-- allow setting waypoints on the zone blobs
-- fix zone blobs appearing on map transition
-- Update IsJustaGhost's LibZone PR to explain changes and stuff as per baertram
-
+- Remove debug spam
+- Add "loading" text to map while blobs are still being compiled, and remove startup debug spam
 
 Breaux:
 
@@ -185,6 +184,11 @@ local function onWaypointSet(xN, yN)
 
   if (xN == lastXN and yN == lastYN) then
     LMP:RemoveMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT)
+    AWM.lastLocalXN = nil
+    AWM.lastLocalYN = nil
+    AWM.lastGlobalXN = nil
+    AWM.lastGlobalYN = nil
+    AWM.lastWaypointMapID = nil
   else
     if (xN ~= lastXN and yN ~= lastYN or not isWaypointPlaced()) then
       LMP:SetMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, MAP_TYPE_LOCATION_CENTERED, xN, yN)
@@ -200,15 +204,18 @@ function onPostWaypointSet(pingType, pingTag, xN, yN, isPingOwner)
     -- check to see if we're setting waypoint a local map
     if (not isMapTamriel()) then
       d("waypoint set in a local map!")
-      AWM.lastLocalXN = nX
-      AWM.lastLocalYN = nY
+      AWM.lastLocalXN = xN
+      AWM.lastLocalYN = yN
+      AWM.lastGlobalXN = nil
+      AWM.lastGlobalYN = nil
     end
 
     -- check to see if we're setting waypoint in tamriel
     if (isMapTamriel()) then
       d("waypoint set in tamriel map!")
-      AWM.lastGlobalXN = nX
-      AWM.lastGlobalYN = nY
+      AWM.lastGlobalXN = xN
+      AWM.lastGlobalYN = yN
+      
     end
 
     AWM.lastWaypointMapID = getCurrentMapID()

@@ -587,22 +587,29 @@ if (isPlayerTrackingEnabled()) then
       -- if we're in tamriel map now, but weren't before
       if (isGlobal and not isMapTamriel(AWM.lastWaypointMapID)) then
 
-        d("returning modded global!")
-        nX, nY = getFixedTamrielCoordinatesForMapID(AWM.lastWaypointMapID, nX, nY)
+        if (AWM.lastGlobalXN ~= nil and AWM.lastGlobalYN ~= nil) then
+          AWM.lastWaypointMapID = getTamrielMapID()
+          return AWM.lastGlobalXN, AWM.lastGlobalYN
 
-        AWM.lastWaypointMapID = getTamrielMapID()
-        AWM.lastGlobalXN = nX
-        AWM.lastGlobalYN = nY
+        else
 
-        return nX, nY
+          d("calclating fixed globals")
+          nX, nY = getFixedGlobalCoordinates(AWM.lastWaypointMapID, nX, nY)
+  
+          AWM.lastWaypointMapID = getTamrielMapID()
+          AWM.lastGlobalXN = nX
+          AWM.lastGlobalYN = nY
+  
+          return nX, nY
 
+        end
       end
 
       -- if we're in a local map now, but we were in tamriel before
       if (not isGlobal and isMapTamriel(AWM.lastWaypointMapID)) then
 
         d("returning modded local!")
-        nX, nY = getModdedGlobalToLocal(getCurrentMapID(), nX, nY)
+        nX, nY = getFixedLocalCoordinates(getCurrentMapID(), nX, nY)
 
         AWM.lastWaypointMapID = getCurrentMapID()
         AWM.lastLocalXN = nX
