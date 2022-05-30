@@ -2743,7 +2743,7 @@ mapData = {
       isWorldMap = true,
       isExclusive = true,
       zoneID = 27,
-      xN = "0.237",
+      xN = "0.239",
       yN = "0.229",
       zonePolygonData = {
         { xN = 0.238, yN = 0.678 },
