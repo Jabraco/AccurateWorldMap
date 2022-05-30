@@ -21,6 +21,14 @@ TJ:
 
 Breaux:
 
+- Need updated Aurbis Tiles:
+> Eyevea is in the wrong position
+> Sword's Rest Isle doesn't have an outline on it in the Aurbis map
+
+
+
+Dranil Kir blob is darker than the others
+
 Need the following tiles:
 
 - Updated Eltheric Ocean debug tiles

@@ -301,38 +301,18 @@ GetFastTravelNodeInfo = function(nodeIndex)
       if (zoneData[nodeIndex] == nil or (zoneData[nodeIndex] ~= nil and zoneData[nodeIndex].xN == nil and zoneData[nodeIndex].yN == nil)) then
 
         local zoneIndex, poiIndex = GetFastTravelNodePOIIndicies(nodeIndex)
-
-        d("zone index for wayshrine"..name)
-
         local parentMapID = getParentMapID(GetMapIdByZoneId(GetZoneId(zoneIndex)))
 
         if (doesMapHaveCustomZoneData(parentMapID)) then
 
-          d("this wayshrine also has custom data too!")
-
           local globalXN, globalYN = GetPOIMapInfo(zoneIndex, poiIndex)
 
-          d("global position:")
-          d(globalXN, globalYN)
+          -- d("global position:")
+          -- d(globalXN, globalYN)
 
           normalizedX, normalizedY = getFixedGlobalCoordinates(parentMapID, globalXN, globalYN)
 
-
         end
-
-
-
-
--- -- then pipe that into this function:
-
-
-
--- -- which returns the local normalised X and Y of the wayshrine in its local zone
-
--- -- you can then use that to get the modded global position of where it should be in the world map, using libgps,
--- -- thus automatically moving and transforming all wayshrines relative to the modded locations 
-
-
       end
     end
 

@@ -560,8 +560,8 @@ mapData = {
       zoneName = "Fort Grief",
       zoneDescription = "Fort Grief sits on an island at the mouth of the Niben Bay. It once was a command center for the Imperial Legion, but has since it fell into disuse and disrepair.",
       zoneID = 2066,
-      xN = "0.600",
-      yN = "0.566",
+      xN = "0.6065",
+      yN = "0.567",
       zonePolygonData = {
         { xN = 0.602, yN = 0.570 },
         { xN = 0.612, yN = 0.577 },
@@ -2411,8 +2411,8 @@ mapData = {
       zoneName = "Dranil Kir",
       zoneDescription = "This small, stormy isle amongst the Summerset Isles is known by the locals as Dranil Kir. Some have rumoured it to have been supernaturally protected by magical means.",
       zoneID = 1325,
-      xN = "0.212",
-      yN = "0.742",
+      xN = "0.218",
+      yN = "0.744",
       zonePolygonData = {
         { xN = 0.216, yN = 0.743 },
         { xN = 0.227, yN = 0.744 },
@@ -2503,10 +2503,10 @@ mapData = {
     -- Silatar --
     zoneData = join({
       zoneName = "Silatar",
-      zoneDescription = "The picturesque island estate of Silatar is rumoured to have been created out of pure Magicka, and has been passed down amongst the nobles of Summerset for generations",
+      zoneDescription = "The picturesque island estate of Silatar is rumoured to have been created out of pure Magicka, and has been passed down amongst the nobles of Summerset for generations.",
       zoneID = 370,
       xN = "0.255",
-      yN = "0.683",
+      yN = "0.684",
       zonePolygonData = {
         { xN = 0.253, yN = 0.690 },
         { xN = 0.262, yN = 0.695 },
