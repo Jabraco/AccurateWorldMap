@@ -10,6 +10,9 @@ Todo:
 
 TJ:
 
+- Fix Ethelric ocean clicking out to reapers march on the map on controller
+- add to isgamepadmode: If gamepad cursor texture control is visible, isGamepadMode = true also
+- Fix Northern Elsweyr's and Shadowfen's shrine positions
 - Do the rest of the debug blobs
 - Do waypoint and player tracking for Elthelric
 - Find a way to move the zone name and clock to be closer to the actual map in K&M mode like gamepad
@@ -18,6 +21,11 @@ TJ:
 - Add message to settings indicating whether player tracking is turned on
 
 Breaux:
+
+
+Should this part of the elsweyr zone be cut away? you can't access it in game, and it could be used to give more space to cyrodiil
+
+https://cdn.discordapp.com/attachments/806672739057664034/980786770922852372/unknown.png
 
 Need the following tiles:
 
@@ -51,7 +59,7 @@ Fix the following zone colouring and glow issues:
 
 Misc:
 
-- Updated Eastmarch debug blob
+- Topal Hideaway blob
 - Fix the Aurbis tamriel blob - mismatches with what is there currently
 - Fix Aurbis rings not containing their proper daedric/elven text
 - Make custom description background for PC
@@ -204,7 +212,7 @@ function onPostWaypointSet(pingType, pingTag, xN, yN, isPingOwner)
 
     -- check to see if we're setting waypoint a local map
     if (not isMapTamriel()) then
-      d("waypoint set in a local map!")
+      print("waypoint set in a local map!")
       AWM.lastLocalXN = xN
       AWM.lastLocalYN = yN
       AWM.lastGlobalXN = nil
@@ -213,7 +221,7 @@ function onPostWaypointSet(pingType, pingTag, xN, yN, isPingOwner)
 
     -- check to see if we're setting waypoint in tamriel
     if (isMapTamriel()) then
-      d("waypoint set in tamriel map!")
+      print("waypoint set in tamriel map!")
       AWM.lastGlobalXN = xN
       AWM.lastGlobalYN = yN
       

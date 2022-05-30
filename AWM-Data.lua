@@ -1769,14 +1769,21 @@ mapData = {
     -- ctrl + f aid: elsweyr
 
     -- Northern Elsweyr --
-    [383] = { majorSettlement = true }, -- The Stitches Wayshrine
-    [381] = { majorSettlement = true }, -- Riverhold Wayshrine Wayshrine
-    [382] = { majorSettlement = true }, -- Rimmen Wayshrine
-    [387] = { majorSettlement = true }, -- Hakoshae Wayshrine
+    [381] = { xN = 0.530, yN = 0.615, majorSettlement = true }, -- Riverhold Wayshrine Wayshrine
+    [401] = { xN = 0.533, yN = 0.617 }, -- Jode's Embrace House 
+    [400] = { xN = 0.569, yN = 0.622 }, -- Hall of the Lunar Champion House
+    [382] = { xN = 0.566, yN = 0.627, majorSettlement = true }, -- Rimmen Wayshrine
+    [396] = { xN = 0.565, yN = 0.629 }, -- Sugar Bowl Suite House 
+    [387] = { xN = 0.557, yN = 0.651, majorSettlement = true }, -- Hakoshae Wayshrine
+    [391] = { xN = 0.481, yN = 0.694 }, -- Moongrave Fane Dungeon 
+    [386] = { xN = 0.480, yN = 0.686 }, -- Scar's End Wayshrine 
+    [399] = { xN = 0.505, yN = 0.691 }, -- Sunspire Trial 
+    [384] = { xN = 0.541, yN = 0.680 }, -- Tenmar Temple Wayshrine
+    [383] = { xN = 0.509, yN = 0.655, majorSettlement = true }, -- The Stitches Wayshrine 
+    [397] = { xN = 0.515, yN = 0.623 }, -- Star Haven Wayshrine 
 
     zoneData = join({
       zoneName = "Ne-Quin-Al Desert",
-      altZoneName = "Anequina",
       zoneDescription = "The region of Anequina derives its name from the dusty Ne-Quin-Al desert, which lies in its heart.",
       blobTexture = "AccurateWorldMap/blobs/blob-northernelsweyr.dds",
       debugBlobTexture = "AccurateWorldMap/blobs/blob-northernelsweyr-debug.dds",      
@@ -1784,7 +1791,7 @@ mapData = {
       xN = "0.447",
       yN = "0.5805",
       debugXN = "0.457",
-      debugYN = "0.586",
+      debugYN = "0.58625",
       zonePolygonData = {
         { xN = 0.584, yN = 0.654 },
         { xN = 0.582, yN = 0.651 },

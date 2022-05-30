@@ -59,6 +59,6 @@ This addon works great with the following addons:
 ## Made By
 
 <p align="center">
-  <img src="https://cdn.discordapp.com/attachments/919785179101401099/979489941371387995/vylaera_and_thal_circle_banner.png">
+  <img src="https://media.discordapp.net/attachments/979030537773650013/980727324901277706/vylaera_and_thal_circle_banner.png">
 </p>
 

@@ -433,6 +433,11 @@ end
 
 function updateLocationsInfo()
 
+  -- recalculate normalised info, as will be based on
+  -- vanilla values by the time this is done
+  GPS:ClearMapMeasurements()
+  GPS:CalculateMapMeasurement()
+
   if (VOTANS_IMPROVED_LOCATIONS) then
     VOTANS_IMPROVED_LOCATIONS.mapData = nil
     WORLD_MAP_LOCATIONS:BuildLocationList()
@@ -724,7 +729,7 @@ function compileMapTextures()
   -- if texture compilation has had no issues, then go ahead
   if (hasError == false and not AWM.areTexturesCompiled) then
 
-    print("Successfully loaded.", true)
+    print("Finished loading.", true)
     AWM.areTexturesCompiled = true
 
     -- recalculate normalised info, as will be based on
