@@ -1536,8 +1536,8 @@ mapData = {
     -- ctrl + f aid: black marsh
     
     -- Shadowfen --
-    [48] = { xN = 0.748, yN = 0.584, majorSettlement = true }, -- Stormhold Wayshrine
-    [260] = { xN = 0.712, yN = 0.582 }, -- Ruins of Mazzatun Dungeon 
+    [48] = { xN = 0.749, yN = 0.580, majorSettlement = true }, -- Stormhold Wayshrine
+    [260] = { xN = 0.711, yN = 0.578 }, -- Ruins of Mazzatun Dungeon 
     [171] = { xN = 0.760, yN = 0.593 }, -- Bogmother Wayshrine
     [85] = { xN = 0.777, yN = 0.605 }, -- Forsaken Hamlet Wayshrine 
     [47] = { xN = 0.722, yN = 0.593 }, -- Stillrise Wayshrine
@@ -1549,7 +1549,7 @@ mapData = {
     [192] = { xN = 0.707, yN = 0.622 }, -- Arx Corinium Dungeon
     [52] = { xN = 0.739, yN = 0.639 }, -- Hissmir Wayshrine 
     [53] = { xN = 0.712, yN = 0.641 }, -- Loriasel Wayshrine 
-    [305] = { xN = 0.734, yN = 0.583 }, -- The Ample Domicile House 
+    [305] = { xN = 0.734, yN = 0.579 }, -- The Ample Domicile House 
     [316] = { xN = 0.755, yN = 0.611 }, -- Stay-Moist Mansion House
 
     zoneData = join({
@@ -3051,7 +3051,6 @@ mapData = {
         { xN = 0.032, yN = 0.304 },                    
       }
     }),
-
   },
 
   [22] = { -- Malabal Tor Map
@@ -3086,12 +3085,12 @@ mapData = {
     parentMapID = 27,
   },
 
-  [2114] = { -- The Systres Map
+  [2114] = { -- High Isle Map
     parentMapID = 315
   },
 
   [1719] = { -- Western Skyrim Map 
-    [434] = { xN = 0.442, yN = 0.193 }, -- Kyne's Aegis
+    [434] = { xN = 0.442, yN = 0.193 }, -- Kyne's Aegis Trial
   },
 
   [1737] = { -- Icereach Map 

@@ -22,11 +22,6 @@ TJ:
 
 Breaux:
 
-
-Should this part of the elsweyr zone be cut away? you can't access it in game, and it could be used to give more space to cyrodiil
-
-https://cdn.discordapp.com/attachments/806672739057664034/980786770922852372/unknown.png
-
 Need the following tiles:
 
 - Updated Eltheric Ocean debug tiles
@@ -71,13 +66,30 @@ Optional:
 https://cdn.discordapp.com/attachments/806672739057664034/975049286305861672/unknown.png
 
 
+while in GetFastTravelNodeInfo(nodeIndex):
 
-Interesting events to consider:
-GetDisplayName() returns user id 
+check if that nodeindex is inside the custom data for the current map, and has custom position attribute defined
+
+if yes, then it has custom data, so return that
+
+if no, then return modified vanilla data
+
+to do that, get the zoneIndex and poiIndex from this function:
+
+* GetFastTravelNodePOIIndicies(*luaindex* _nodeIndex_)
+** _Returns:_ *luaindex* _zoneIndex_, *luaindex* _poiIndex_
+
+then pipe that into this function:
+
+* GetPOIMapInfo(*luaindex* _zoneIndex_, *luaindex* _poiIndex_)
+** _Returns:_ *number* _normalizedX_, *number* _normalizedZ_, *[MapDisplayPinType|#MapDisplayPinType]* _poiPinType_, *textureName* _icon_, *bool* _isShownInCurrentMap_, *bool* _linkedCollectibleIsLocked_, *bool* _isDiscovered_, *bool* _isNearby_
+
+which returns the local normalised X and Y of the wayshrine in its local zone
+
+you can then use that to get the modded global position of where it should be in the world map, using libgps,
+thus automatically moving and transforming all wayshrines relative to the modded locations 
 
 
-* GetPlayerActiveZoneName()
-** _Returns:_ *string* _zoneName_
 
 ---------------------------------------------------------------------------]]--
 -- Create root addon object
@@ -191,7 +203,9 @@ local lastXN, lastYN
 
 local function onWaypointSet(xN, yN)
 
-  if (xN == lastXN and yN == lastYN) then
+  local mouseXN, mouseYN = getNormalisedMouseCoordinates()
+
+  if (isWaypointPlaced() and canRemoveWaypoint(mouseXN, mouseYN, lastXN, lastYN)) then
     LMP:RemoveMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT)
     AWM.lastLocalXN = nil
     AWM.lastLocalYN = nil
@@ -199,11 +213,9 @@ local function onWaypointSet(xN, yN)
     AWM.lastGlobalYN = nil
     AWM.lastWaypointMapID = nil
   else
-    if (xN ~= lastXN and yN ~= lastYN or not isWaypointPlaced()) then
-      LMP:SetMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, MAP_TYPE_LOCATION_CENTERED, xN, yN)
-      lastXN = xN
-      lastYN = yN
-    end
+    LMP:SetMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, MAP_TYPE_LOCATION_CENTERED, xN, yN)
+    lastXN = xN
+    lastYN = yN
   end
 end
 

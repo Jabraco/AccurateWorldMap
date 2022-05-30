@@ -313,6 +313,15 @@ function getMapIDFromPolygonName(polygonName)
   return tonumber(string.match (polygonName, "%d+"))
 end
 
+
+-------------------------------------------------------------------------------
+-- Is developer function
+-------------------------------------------------------------------------------
+
+function isDeveloper()
+  return GetDisplayName() == "@Thal-J"
+end
+
 -------------------------------------------------------------------------------
 -- Strip unneeded characters away from zone names
 -------------------------------------------------------------------------------
@@ -1286,4 +1295,33 @@ function getFixedTamrielCoordinatesForMapID(mapID, vanillaGlobalNX, vanillaGloba
     return moddedGlobalNX, moddedGlobalNY
 
   end
+end
+
+
+-------------------------------------------------------------------------------
+-- Can remove waypoint function
+-------------------------------------------------------------------------------
+
+function canRemoveWaypoint(currentXN, currentYN, lastXN, lastYN)
+
+  if (currentXN == nil or currentYN == nil or lastXN == nil or lastYN == nil) then
+    return false
+  end
+  
+  if (lastXN >= currentXN) then
+    deltaX = lastXN - currentXN
+  else 
+    deltaX = currentXN - lastXN
+  end
+
+  if (lastYN >= currentYN) then
+    deltaY = lastYN - currentYN
+  else 
+    deltaY = currentYN - lastYN
+  end
+
+  local allowed_delta_amount = 0.005
+
+  return ( ((currentXN == lastXN and currentYN == lastYN)) or ((deltaX <= allowed_delta_amount) and (deltaX <= allowed_delta_amount)) )
+
 end

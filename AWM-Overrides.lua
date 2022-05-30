@@ -170,7 +170,6 @@ ZO_WorldMap_GetMapTitle = function()
   return getZoneNameFromID(getCurrentMapID())
 end
 
-
 local zos_GetZoneNameByIndex = GetZoneNameByIndex
 GetZoneNameByIndex = function(zoneIndex)
   return getZoneNameFromID(GetMapIdByZoneId(GetZoneId(zoneIndex)))
@@ -193,16 +192,11 @@ GetJournalQuestLocationInfo = function(questIndex)
 
   local zoneName, objectiveName, zoneIndex, poiIndex = zos_GetJournalQuestLocationInfo(questIndex)
 
-  
   zoneName = getZoneNameFromID(GetMapIdByZoneId(GetZoneId(zoneIndex)))
-
 
   return zoneName, objectiveName, zoneIndex, poiIndex
 
 end
-
-
-
 
 -------------------------------------------------------------------------------
 -- Map zoom controller
@@ -275,12 +269,20 @@ GetFastTravelNodeInfo = function(nodeIndex)
     local zoneData = mapData[mapIndex]
 
     if (zoneData[nodeIndex] ~= nil) then 
-      if zoneData[nodeIndex].xN ~= nil then
+      if (zoneData[nodeIndex].xN ~= nil and zoneData[nodeIndex].yN ~= nil) then
         normalizedX = zoneData[nodeIndex].xN
-      end
-
-      if zoneData[nodeIndex].yN ~= nil then
         normalizedY = zoneData[nodeIndex].yN
+
+      else
+          
+        if (isPlayerTrackingEnabled()) then
+
+        -- if tamriel map or elthelric, and
+        -- repositiing is enabled, 
+        -- reposition based on modded positions
+
+        end
+
       end
 
       if (zoneData[nodeIndex].name ~= nil and AWM.options.loreRenames) then
