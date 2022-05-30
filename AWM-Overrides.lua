@@ -537,7 +537,7 @@ if (isPlayerTrackingEnabled()) then
 
       -- looking at Tamriel map
       if (isMapTamriel()) then
-        local fixedX, fixedY = getFixedTamrielCoordinatesForMapID(mapID, normalisedX, normalisedY)
+        local fixedX, fixedY = getFixedGlobalCoordinates(mapID, normalisedX, normalisedY)
         return fixedX, fixedY, direction, isShownInCurrentMap
       end
 

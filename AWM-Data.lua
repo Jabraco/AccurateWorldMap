@@ -1278,6 +1278,8 @@ mapData = {
       zoneID = 1060,
       xN = "0.646",
       yN = "0.221",
+      debugXN = "0.6295",
+      debugYN = "0.210",
       zonePolygonData = {
         { xN = 0.712, yN = 0.218 },
         { xN = 0.710, yN = 0.223 },
@@ -2741,8 +2743,8 @@ mapData = {
       isWorldMap = true,
       isExclusive = true,
       zoneID = 27,
-      xN = "0.196",
-      yN = "0.2045",
+      xN = "0.237",
+      yN = "0.229",
       zonePolygonData = {
         { xN = 0.238, yN = 0.678 },
         { xN = 0.220, yN = 0.630 },

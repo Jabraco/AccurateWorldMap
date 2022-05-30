@@ -12,7 +12,6 @@ TJ:
 
 - Fix Ethelric ocean clicking out to reapers march on the map on controller
 - add to isgamepadmode: If gamepad cursor texture control is visible, isGamepadMode = true also
-- Fix Northern Elsweyr's and Shadowfen's shrine positions
 - Do the rest of the debug blobs
 - Do waypoint and player tracking for Elthelric
 - Find a way to move the zone name and clock to be closer to the actual map in K&M mode like gamepad
