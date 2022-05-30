@@ -2635,8 +2635,8 @@ mapData = {
       zoneID = 2114,
       xN = "0.696",
       yN = "0.6745",
-      debugXN = "0.690",
-      debugYN = "0.658",
+      debugXN = "0.688",
+      debugYN = "0.65325",
       zonePolygonData = {
         { xN = 0.706, yN = 0.725 },
         { xN = 0.731, yN = 0.725 },

@@ -1297,14 +1297,17 @@ function getFixedTamrielCoordinatesForMapID(mapID, vanillaGlobalNX, vanillaGloba
   end
 end
 
-
 -------------------------------------------------------------------------------
 -- Can remove waypoint function
 -------------------------------------------------------------------------------
 
-function canRemoveWaypoint(currentXN, currentYN, lastXN, lastYN)
+function canRemoveWaypoint(currentXN, currentYN, lastXN, lastYN, mapID)
 
   if (currentXN == nil or currentYN == nil or lastXN == nil or lastYN == nil) then
+    return false
+  end
+
+  if (mapID ~= getCurrentMapID()) then
     return false
   end
   
@@ -1323,5 +1326,4 @@ function canRemoveWaypoint(currentXN, currentYN, lastXN, lastYN)
   local allowed_delta_amount = 0.005
 
   return ( ((currentXN == lastXN and currentYN == lastYN)) or ((deltaX <= allowed_delta_amount) and (deltaX <= allowed_delta_amount)) )
-
 end

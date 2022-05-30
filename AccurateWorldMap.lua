@@ -59,37 +59,10 @@ Misc:
 - Fix Aurbis rings not containing their proper daedric/elven text
 - Make custom description background for PC
 
-
 Optional:
 - Add IC Sewers circle to IC map and get blob
 - Rotate IC on the cyrodiil map 45 degrees to be consistent with oblivion (edit the tiles)
 https://cdn.discordapp.com/attachments/806672739057664034/975049286305861672/unknown.png
-
-
-while in GetFastTravelNodeInfo(nodeIndex):
-
-check if that nodeindex is inside the custom data for the current map, and has custom position attribute defined
-
-if yes, then it has custom data, so return that
-
-if no, then return modified vanilla data
-
-to do that, get the zoneIndex and poiIndex from this function:
-
-* GetFastTravelNodePOIIndicies(*luaindex* _nodeIndex_)
-** _Returns:_ *luaindex* _zoneIndex_, *luaindex* _poiIndex_
-
-then pipe that into this function:
-
-* GetPOIMapInfo(*luaindex* _zoneIndex_, *luaindex* _poiIndex_)
-** _Returns:_ *number* _normalizedX_, *number* _normalizedZ_, *[MapDisplayPinType|#MapDisplayPinType]* _poiPinType_, *textureName* _icon_, *bool* _isShownInCurrentMap_, *bool* _linkedCollectibleIsLocked_, *bool* _isDiscovered_, *bool* _isNearby_
-
-which returns the local normalised X and Y of the wayshrine in its local zone
-
-you can then use that to get the modded global position of where it should be in the world map, using libgps,
-thus automatically moving and transforming all wayshrines relative to the modded locations 
-
-
 
 ---------------------------------------------------------------------------]]--
 -- Create root addon object
@@ -205,7 +178,7 @@ local function onWaypointSet(xN, yN)
 
   local mouseXN, mouseYN = getNormalisedMouseCoordinates()
 
-  if (isWaypointPlaced() and canRemoveWaypoint(mouseXN, mouseYN, lastXN, lastYN)) then
+  if (isWaypointPlaced() and canRemoveWaypoint(mouseXN, mouseYN, lastXN, lastYN, getCurrentMapID())) then
     LMP:RemoveMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT)
     AWM.lastLocalXN = nil
     AWM.lastLocalYN = nil

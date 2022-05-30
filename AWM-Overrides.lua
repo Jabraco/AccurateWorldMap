@@ -264,46 +264,78 @@ GetFastTravelNodeInfo = function(nodeIndex)
     glowIcon = nil
   end
 
-  if (mapData[mapIndex] ~= nil and mapData[mapIndex][nodeIndex] ~= nil) then
+  if (mapData[mapIndex] ~= nil) then
 
     local zoneData = mapData[mapIndex]
 
-    if (zoneData[nodeIndex] ~= nil) then 
-      if (zoneData[nodeIndex].xN ~= nil and zoneData[nodeIndex].yN ~= nil) then
-        normalizedX = zoneData[nodeIndex].xN
-        normalizedY = zoneData[nodeIndex].yN
-
-      else
-          
-        if (isPlayerTrackingEnabled()) then
-
-        -- if tamriel map or elthelric, and
-        -- repositiing is enabled, 
-        -- reposition based on modded positions
-
+    if (mapData[mapIndex][nodeIndex] ~= nil) then
+      if (zoneData[nodeIndex] ~= nil) then 
+        if (zoneData[nodeIndex].xN ~= nil and zoneData[nodeIndex].yN ~= nil) then
+          normalizedX = zoneData[nodeIndex].xN
+          normalizedY = zoneData[nodeIndex].yN
         end
-
-      end
-
-      if (zoneData[nodeIndex].name ~= nil and AWM.options.loreRenames) then
-        name = zoneData[nodeIndex].name
-      end
-
-      if zoneData[nodeIndex].disabled ~= nil then
-
-        if (zoneData[nodeIndex].disabled) then
-
-          isLocatedInCurrentMap = false
-          disabled = true
-
-        else
-
-          isLocatedInCurrentMap = true
-          disabled = false
-
+  
+        if (zoneData[nodeIndex].name ~= nil and AWM.options.loreRenames) then
+          name = zoneData[nodeIndex].name
+        end
+  
+        if zoneData[nodeIndex].disabled ~= nil then
+  
+          if (zoneData[nodeIndex].disabled) then
+  
+            isLocatedInCurrentMap = false
+            disabled = true
+  
+          else
+  
+            isLocatedInCurrentMap = true
+            disabled = false
+  
+          end
         end
       end
     end
+
+    -- if position tracking is enabled, we're in a global map, and the current node doesn't have any data, or location data, fallback to modded positioning
+    if ( (isPlayerTrackingEnabled() and isMapTamriel())  and (isLocatedInCurrentMap) ) then
+      if (zoneData[nodeIndex] == nil or (zoneData[nodeIndex] ~= nil and zoneData[nodeIndex].xN == nil and zoneData[nodeIndex].yN == nil)) then
+
+        local zoneIndex, poiIndex = GetFastTravelNodePOIIndicies(nodeIndex)
+
+        d("zone index for wayshrine"..name)
+
+        local parentMapID = getParentMapID(GetMapIdByZoneId(GetZoneId(zoneIndex)))
+
+        if (doesMapHaveCustomZoneData(parentMapID)) then
+
+          d("this wayshrine also has custom data too!")
+
+          local globalXN, globalYN = GetPOIMapInfo(zoneIndex, poiIndex)
+
+          d("global position:")
+          d(globalXN, globalYN)
+
+          normalizedX, normalizedY = getFixedGlobalCoordinates(parentMapID, globalXN, globalYN)
+
+
+        end
+
+
+
+
+-- -- then pipe that into this function:
+
+
+
+-- -- which returns the local normalised X and Y of the wayshrine in its local zone
+
+-- -- you can then use that to get the modded global position of where it should be in the world map, using libgps,
+-- -- thus automatically moving and transforming all wayshrines relative to the modded locations 
+
+
+      end
+    end
+
 
   end
 
