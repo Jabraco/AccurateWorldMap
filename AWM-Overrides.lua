@@ -517,6 +517,12 @@ if (isPlayerTrackingEnabled()) then
       -- looking at Tamriel map
       if (isMapTamriel()) then
         local fixedX, fixedY = getFixedGlobalCoordinates(mapID, normalisedX, normalisedY)
+
+        -- make player visible on the map if they're inside eyevea
+        if (mapID == 108) then
+          isShownInCurrentMap = true
+        end
+
         return fixedX, fixedY, direction, isShownInCurrentMap
       end
 
@@ -554,8 +560,34 @@ if (isPlayerTrackingEnabled()) then
     return normalisedX, normalisedY, direction, isShownInCurrentMap
   end
 
+
+  -- local zos_PingMap = PingMap
+  -- PingMap = function(pingType, mapDisplayType, normalisedX, normalisedZ)
+
+  --   d("ping map called")
+
+  --   d(pingType)
+  --   d(mapDisplayType)
+
+  
+  --   zos_PingMap(pingType, mapDisplayType, normalisedX, normalisedZ)
+
+  -- end
+
+
+  -- SecurePostHook("GetMapPlayerWaypoint", function()
+  --   d("waypoint set")
+
+  --   local xN, yN = GetMapPlayerWaypoint()
+
+  --   PingMap(MAP_PIN_TYPE_PLAYER_WAYPOINT, MAP_TYPE_LOCATION_CENTERED, xN, yN)
+  -- end)
+
+  -- PingMap(*[MapDisplayPinType|#MapDisplayPinType]* _pingType_, *[MapDisplayType|#MapDisplayType]* _mapDisplayType_, *number* _normalizedX_, *number* _normalizedZ_)
+
   local zos_GetMapPlayerWaypoint = GetMapPlayerWaypoint
   GetMapPlayerWaypoint = function()
+
 
     -- get vanilla values
     nX, nY = zos_GetMapPlayerWaypoint()
@@ -568,6 +600,7 @@ if (isPlayerTrackingEnabled()) then
         LMP:SetMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, MAP_TYPE_LOCATION_CENTERED, nX, nY)
         LMP:UnsuppressPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, "waypoint")
         LMP:RefreshMapPin(MAP_PIN_TYPE_PLAYER_WAYPOINT, "waypoint")
+        PingMap(MAP_PIN_TYPE_PLAYER_WAYPOINT, MAP_TYPE_LOCATION_CENTERED, nX, nY)
       end, 300 )
       return nX, nY
     end

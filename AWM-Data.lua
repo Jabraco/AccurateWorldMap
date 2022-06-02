@@ -159,7 +159,7 @@ mapData = {
     [112] = { xN = 0.608, yN = 0.396 }, -- Trollhetta Summit Wayshrine 
     [111] = { xN = 0.616, yN = 0.385 }, -- Trollhetta Wayshrine
     [120] = { xN = 0.620, yN = 0.373 }, -- Fullhelm Fort Wayshrine
-    [187] = { xN = 0.627, yN = 0.379 }, -- Blessed Crucible Dungeon
+    [187] = { xN = 0.630, yN = 0.383 }, -- Blessed Crucible Dungeon
 
     zoneData = join({
       zoneName = "The Rift",
@@ -1989,6 +1989,8 @@ mapData = {
       zoneID = 256,
       xN = "0.397",
       yN = "0.556",
+      debugXN = "0.391",
+      debugYN = "0.546",
       zonePolygonData = {
         { xN = 0.479, yN = 0.558 },
         { xN = 0.473, yN = 0.558 },
@@ -2075,6 +2077,8 @@ mapData = {
       zoneID = 9,
       xN = "0.363",
       yN = "0.671",
+      debugXN = "0.3565",
+      debugYN = "0.6625",
       zonePolygonData = {
         { xN = 0.446, yN = 0.671 },
         { xN = 0.443, yN = 0.673 },
@@ -2158,6 +2162,8 @@ mapData = {
       zoneID = 22,
       xN = "0.301",
       yN = "0.562",
+      debugXN = "0.297",
+      debugYN = "0.558",
       zonePolygonData = {
         { xN = 0.418, yN = 0.568 },
         { xN = 0.411, yN = 0.570 },
@@ -2242,8 +2248,8 @@ mapData = {
     }),
 
     -- Greenshade --
-    [197] = { xN = 0.356, yN = 0.674 }, -- City of Ash I Dungeon
-    [268] = { xN = 0.356, yN = 0.674 }, -- City of Ash II Dungeon 
+    [197] = { xN = 0.348, yN = 0.670 }, -- City of Ash I Dungeon
+    [268] = { xN = 0.348, yN = 0.670 }, -- City of Ash II Dungeon 
     [147] = { majorSettlement = true }, -- Greenheart Wayshrine
     [143] = { majorSettlement = true }, -- Marbruk Wayshrine
     [152] = { majorSettlement = true }, -- Woodhearth Wayshrine
@@ -2254,6 +2260,8 @@ mapData = {
       zoneID = 300,
       xN = "0.273",
       yN = "0.6405",
+      debugXN = "0.2715",
+      debugYN = "0.635",
       zonePolygonData = {
         { xN = 0.375, yN = 0.740 },
         { xN = 0.368, yN = 0.747 },
@@ -2346,6 +2354,8 @@ mapData = {
       zoneID = 1349,
       xN = "0.027",
       yN = "0.612",
+      debugXN = "0.010",
+      debugYN = "0.5875",
       zonePolygonData = {
         { xN = 0.059, yN = 0.801 },
         { xN = 0.069, yN = 0.810 },
@@ -2451,6 +2461,8 @@ mapData = {
       zoneID = 143,
       xN = "0.1395",
       yN = "0.5855",
+      debugXN = "0.136",
+      debugYN = "0.582",
       zonePolygonData = {
         { xN = 0.220, yN = 0.737 },
         { xN = 0.241, yN = 0.744 },
@@ -2522,7 +2534,7 @@ mapData = {
     }),
 
     -- Eyevea --
-    [215] = { xN = 0.093, yN = 0.600, disabled = false, name = "Eyevea Wayshrine", majorSettlement = true }, -- Eyevea Wayshrine
+    [215] = { xN = 0.098, yN = 0.597, disabled = false, name = "Eyevea Wayshrine", majorSettlement = true }, -- Eyevea Wayshrine
 
     zoneData = join({
       zoneName = "Eyevea",
@@ -2530,6 +2542,8 @@ mapData = {
       zoneID = 108,
       xN = "0.0835",
       yN = "0.590",
+      debugXN = "0.0830",
+      debugYN = "0.5905",
       zonePolygonData = {
         { xN = 0.088, yN = 0.610 },
         { xN = 0.101, yN = 0.610 },

@@ -59,6 +59,16 @@ I wasn't able to highlight or click into any of the planes because my mouse was 
 - Right click out not working for some users, override it somehow
 - Gamepad mode relying on mouse still, refactor it to ignore mouse entirely
 
+
+Event handler hooksYou can also hook into event handlers of controls like OnMouseUp e.g.
+Therefor you are able to use the following pre-hook and post-hook functions:
+
+ZO_PreHookHandler(object, handlerName, callbackHandlerFunction)
+ZO_PostHookHandler(object, handlerName, callbackHandlerFunction)
+
+
+
+
 --------
 
 Vylaera TODO:
@@ -174,7 +184,7 @@ local function onMapChanged()
   -- hide all existing zone blobs
   hideAllZoneBlobs()
 
-  -- -- force previous blob info to hide
+  -- force previous blob info to hide
   zo_callLater(function()
 
     AWM.currentlySelectedPolygon = nil
@@ -208,6 +218,7 @@ local function onWaypointSet(xN, yN)
     AWM.lastWaypointMapID = nil
   else
     LMP:SetMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, MAP_TYPE_LOCATION_CENTERED, xN, yN)
+    PingMap(MAP_PIN_TYPE_PLAYER_WAYPOINT, MAP_TYPE_LOCATION_CENTERED, xN, yN)
     lastXN = xN
     lastYN = yN
   end
