@@ -1292,3 +1292,37 @@ function canRemoveWaypoint(currentXN, currentYN, lastXN, lastYN, mapID)
 
   return ( ((currentXN == lastXN and currentYN == lastYN)) or ((deltaX <= allowed_delta_amount) and (deltaX <= allowed_delta_amount)) )
 end
+
+-------------------------------------------------------------------------------
+-- Get fixed Eltheric local coordinates 
+-------------------------------------------------------------------------------
+
+function getFixedElthericCoordinates(mapID, normalisedX, normalisedY)
+
+  -- get the current vanilla global position values from the jodewood (what the eltheric is)
+  local offsetX, offsetY, scaleX, scaleY = zos_GetUniversallyNormalizedMapInfo(getElthericMapID())
+  local globalX = normalisedX * scaleX + offsetX
+  local globalY = normalisedY * scaleY + (offsetY + 0.14000000059605)
+
+  -- get vanilla blob offsets and position for the current map
+  local nOffsetX, nOffsetY, nWidth, nHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
+
+  -- use that to get the localised player coordinates in that map
+  local nLocalX = (globalX - nOffsetX) / nWidth --nWidth = scale
+  local nLocalY = (globalY - (nOffsetY + 0.14000000059605)) / nHeight -- nHeight = scale
+  
+  local measurement = GPS:GetMapMeasurementByMapId(mapID)
+  if (measurement ~= nil) then
+
+    -- then transform those coordinates inside the bounds of AWM's fixed blob positions
+    local fixedGlobalX, fixedGlobalY = measurement:ToGlobal(nLocalX, nLocalY)
+
+    -- and then transform that into the bounds of the custom Eltheric Map and return
+    local elthericMeasurement = GPS:GetMapMeasurementByMapId(getElthericMapID())
+    local fixedLocalX, fixedLocalY = elthericMeasurement:ToLocal(fixedGlobalX, fixedGlobalY)
+
+    return fixedLocalX, fixedLocalY
+
+  end
+
+end

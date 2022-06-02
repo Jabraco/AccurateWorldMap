@@ -10,10 +10,6 @@
 TJ TODO:
 
 
-- Do the rest of the debug blobs
-
-
-
 Bugs:
 - FixHang when going into Champion Point menu due to keybind strip from map
 

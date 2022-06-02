@@ -451,7 +451,7 @@ if (isPlayerTrackingEnabled()) then
 
         if (isMapEltheric(mapID)) then
 
-          --remember: the eltheric height offset already has the -0.14 built in
+          --remember: the eltheric y offset already has the -0.14 built in
           normalisedOffsetX = -0.331420898
           normalisedOffsetY = 0.125502929
           normalisedWidth = 0.462524414
@@ -471,21 +471,32 @@ if (isPlayerTrackingEnabled()) then
               normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight = getMapBoundingBoxByID(mapID)
               normalisedOffsetY = normalisedOffsetY - 0.14000000059605
     
+
+              if (isMapInEltheric(mapID)) then
+
+                -- add back the Y offset
+                normalisedOffsetY = normalisedOffsetY + 0.14000000059605
+
+                -- get the offsets for eltheric map
+                local nOffsetX, nOffsetY, scale = GetUniversallyNormalizedMapInfo(getElthericMapID())
+
+                                -- you have to scale the current map to how it would be if it was in the tamriel map
+
+                -- todo: only do this for custom zones in the eltheric and not everything that's within high isle (inc subzones)
+
+
+                normalisedWidth = normalisedWidth * scale
+                normalisedHeight = normalisedHeight * scale
+  
+                normalisedOffsetX = (((1 - normalisedOffsetX) * nOffsetX) * scale) + normalisedWidth
+                normalisedOffsetY = nOffsetY + (normalisedOffsetY * scale)
+
+
+  
+              end
+
             end
 
-
-            if (isMapInEltheric(mapID)) then
-
-              -- todo: only do this for custom zones in the eltheric and not everything that's within high isle (inc subzones)
-
-              local nOffsetX, nOffsetY, scale = GetUniversallyNormalizedMapInfo(getElthericMapID())
-
-              normalisedOffsetX = ((1 - normalisedOffsetX) * nOffsetX) * scale
-              normalisedOffsetY = nOffsetY + (normalisedOffsetY * scale)
-              -- normalisedWidth = normalisedWidth * scale
-              -- normalisedHeight = normalisedHeight * scale
-
-            end
           end
         end
       end
@@ -529,31 +540,9 @@ if (isPlayerTrackingEnabled()) then
       -- looking at Eltheric map
       if (isMapEltheric()) then
 
-        -- get the current vanilla global position values from the jodewood (what the eltheric is)
-        local offsetX, offsetY, scaleX, scaleY = zos_GetUniversallyNormalizedMapInfo(getElthericMapID())
-        local globalX = normalisedX * scaleX + offsetX
-        local globalY = normalisedY * scaleY + (offsetY + 0.14000000059605)
+        local fixedLocalXN, fixedLocalYN = getFixedElthericCoordinates(mapID, normalisedX, normalisedY)
 
-        -- get vanilla blob offsets and position for the current map
-        local nOffsetX, nOffsetY, nWidth, nHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
-
-        -- use that to get the localised player coordinates in that map
-        local nLocalX = (globalX - nOffsetX) / nWidth --nWidth = scale
-        local nLocalY = (globalY - (nOffsetY + 0.14000000059605)) / nHeight -- nHeight = scale
-        
-        local measurement = GPS:GetMapMeasurementByMapId(mapID)
-        if (measurement ~= nil) then
-
-          -- then transform those coordinates inside the bounds of AWM's fixed blob positions
-          local fixedGlobalX, fixedGlobalY = measurement:ToGlobal(nLocalX, nLocalY)
-
-          -- and then transform that into the bounds of the custom Eltheric Map and return
-          local elthericMeasurement = GPS:GetMapMeasurementByMapId(getElthericMapID())
-          local fixedLocalX, fixedLocalY = elthericMeasurement:ToLocal(fixedGlobalX, fixedGlobalY)
-
-          return fixedLocalX, fixedLocalY, direction, true
-    
-        end
+        return fixedLocalXN, fixedLocalYN, direction, true
       end
     end
 
