@@ -5,12 +5,12 @@
 -- ascii title art done on https://texteditor.com/ascii-art/
 -- https://textfancy.com/multiline-text-art/
 
+-----------
 
-Todo:
-
-TJ:
+TJ TODO:
 
 Bugs:
+- FixHang when going into Champion Point menu due to keybind strip from map
 
 user:/AddOns/AccurateWorldMap/AccurateWorldMap.lua:370: attempt to index a nil value
 stack traceback:
@@ -51,28 +51,38 @@ Rather than just controller
 And mouse takes precedent
 I wasn't able to highlight or click into any of the planes because my mouse was still over tamriel
 
-Vylaera:
+--------
 
-- Need updated Aurbis Tiles:
-> Eyevea is in the wrong position
-> Sword's Rest Isle doesn't have an outline on it in the Aurbis map
+Vylaera TODO:
 
-- add mipmaps to all maps
+- Add mipmaps to all maps
+- Make Sword's Rest Isle smaller on the map
+- Make optional optional river layer.dds to be enabled in the settings
+- Edit High isle and amenos to be solid, get rid of the rivers, make high isle less of a pankor clone
 
-Dranil Kir blob is darker than the others
+- Simplify and reduce certain areas of the map that wouldn't be visible at orbit
+> Axe most of the tiny islands along the coastlines, simplify them and reduce noise
+> Make the Boujlsae thinner and smoother to be less eratic, like how you did the Niben
+> Make firemoth isle smaller, closer to vvardenfell, and fill in the gap that it leaves for stonefalls to connect
+> Fill in this area of valenwood as you wouldnt see that much detail from orbit. also it's solid in vanilla
+https://cdn.discordapp.com/attachments/979030537773650013/981268193412775956/unknown.png
 
-Need the following blobs resized:
+- Fix Summerset (https://cdn.discordapp.com/attachments/979030537773650013/981262088284545104/unknown.png)
+> Reduce the Shimmerene tumour on summerset
+> Fill in summerset's western gaps to be more like anthology
+https://cdn.discordapp.com/attachments/979030537773650013/981261111053668432/unknown.png
+> Delete or shrink sapiarch isle
+> shrink and move Wasten Coraldale closer to coast
 
-- Dreadsail Reef blob (too big)
-
-Misc:
-
-- Topal Hideaway blob
-- Fix Aurbis rings not containing their proper daedric/elven text
-- Make custom description background for PC
+Misc issues:
+- Dranil Kir blob is darker than the others
+- Dreadsail Reef blob is too big
+- Missing Topal Hideaway blob
+- Need custom description background for PC
+- Aurbis rings don't contain their proper daedric/elven text
 
 Optional:
-- Add IC Sewers circle to IC map and get blob
+- Add IC Sewers circle to the imperial city map and make blob
 - Rotate IC on the cyrodiil map 45 degrees to be consistent with oblivion (edit the tiles)
 https://cdn.discordapp.com/attachments/806672739057664034/975049286305861672/unknown.png
 
@@ -141,7 +151,6 @@ local function getControlAtPoint()
 
 end
 
-
 -------------------------------------------------------------------------------
 --  On map change callback function
 -------------------------------------------------------------------------------
@@ -151,7 +160,7 @@ local function onMapChanged()
   -- hide all existing zone blobs
   hideAllZoneBlobs()
 
-  -- force previous blob info to hide
+  -- -- force previous blob info to hide
   zo_callLater(function()
 
     AWM.currentlySelectedPolygon = nil
@@ -164,20 +173,6 @@ local function onMapChanged()
   -- parse current map for any custom data
   parseMapData(getCurrentMapID())
 
-end
-
--------------------------------------------------------------------------------
---  Debug Local <> Global coordinate functions
--------------------------------------------------------------------------------
-
-local function globalToLocal()
-  print("Global to Local:", true)
-  d(GPS:GlobalToLocal(getNormalisedMouseCoordinates()))
-end
-
-local function localToGlobal()
-  print("Local to Global:", true)
-  d(GPS:LocalToGlobal(getNormalisedMouseCoordinates()))
 end
 
 -------------------------------------------------------------------------------
@@ -458,9 +453,6 @@ local function initialise(event, addonName)
   SLASH_COMMANDS["/awm_debug"] = function() AWM.options.isDebug = not AWM.options.isDebug navigateToMap(getCurrentMapID()) end
   SLASH_COMMANDS["/fix_locations"] = fixLocations
   SLASH_COMMANDS["/set_is_developer"] = function() AWM.options.isDeveloper = not AWM.options.isDeveloper end
-  SLASH_COMMANDS["/getboundingbox"] = getBoundingBox
-  SLASH_COMMANDS["/localtoglobal"] = localToGlobal
-  SLASH_COMMANDS["/globaltolocal"] = globalToLocal
   SLASH_COMMANDS["/getparentmapid"] = getParentMapID
   SLASH_COMMANDS["/getcontrolatpoint"] = getControlAtPoint
 
