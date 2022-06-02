@@ -10,6 +10,25 @@ Todo:
 
 TJ:
 
+Bugs:
+
+user:/AddOns/AccurateWorldMap/AccurateWorldMap.lua:370: attempt to index a nil value
+stack traceback:
+user:/AddOns/AccurateWorldMap/AccurateWorldMap.lua:370: in function '(anonymous)'
+(tail call): ?
+/EsoUI/Libraries/ZO_KeybindStrip/ZO_KeybindStrip.lua:321: in function 'GetKeybindDescriptorDebugIdentifier'
+|caaaaaa<Locals> keybindButtonDescriptor = [table:1]{keybind = "UI_SHORTCUT_TERTIARY"} </Locals>|r
+/EsoUI/Libraries/ZO_KeybindStrip/ZO_KeybindStrip.lua:334: in function 'ZO_KeybindStrip:HandleDuplicateAddKeybind'
+|caaaaaa<Locals> self = [table:2]{batchUpdating = T, insertionId = 5, allowDefaultExit = T}, existingButtonOrEtherealDescriptor = ud, keybindButtonDescriptor = [table:1], currentSceneName = "worldMap", existingDescriptor = [table:3]{addedForSceneName = "worldMap", keybind = "UI_SHORTCUT_TERTIARY"}, existingSceneName = "worldMap", existingDescriptorIdentifier = "Set Destination" </Locals>|r
+/EsoUI/Libraries/ZO_KeybindStrip/ZO_KeybindStrip.lua:382: in function 'ZO_KeybindStrip:AddKeybindButton'
+|caaaaaa<Locals> self = [table:2], keybindButtonDescriptor = [table:1], currentSceneName = "worldMap", existingButtonOrEtherealDescriptor = ud </Locals>|r
+/EsoUI/Libraries/ZO_KeybindStrip/ZO_KeybindStrip.lua:574: in function 'ZO_KeybindStrip:AddKeybindButtonGroup'
+|caaaaaa<Locals> self = [table:2], keybindButtonGroupDescriptor = [table:4]{alignment = 2}, i = 1, keybindButtonDescriptor = [table:1] </Locals>|r
+user:/AddOns/AccurateWorldMap/AccurateWorldMap.lua:377: in function 'main'
+
+-whenever you right click to go to a different map, if your cursor finds itself on an existing hitbox,
+ the hitbox and blob won't work. You have to move the cursor entirely off of the hitbox.
+
 - Fix Ethelric ocean clicking out to reapers march on the map on controller
 - add to isgamepadmode: If gamepad cursor texture control is visible, isGamepadMode = true also
 - Do the rest of the debug blobs
@@ -19,50 +38,36 @@ TJ:
 - Remove debug spam
 - Add message to settings indicating whether player tracking is turned on
 
-Breaux:
+Oh I have a bug I found to report
+[15:04]
+On the aurbis map, on gamepad, it uses both the controller and mouse inputs
+
+Thal-J — Today at 15:05
+what does that mean
+
+Vylaera — Today at 15:05
+Rather than just controller
+[15:05]
+And mouse takes precedent
+I wasn't able to highlight or click into any of the planes because my mouse was still over tamriel
+
+Vylaera:
 
 - Need updated Aurbis Tiles:
 > Eyevea is in the wrong position
 > Sword's Rest Isle doesn't have an outline on it in the Aurbis map
 
-
+- add mipmaps to all maps
 
 Dranil Kir blob is darker than the others
-
-Need the following tiles:
-
-- Updated Eltheric Ocean debug tiles
 
 Need the following blobs resized:
 
 - Dreadsail Reef blob (too big)
-- Fort Grief blob (too big)
-- Dranil-Kir blob (too big)
-- Silatar blob (too big)
-- High Isle Debug blob (too small, doesn't fit with debug tiles)
-
-Fix the following zone colouring and glow issues:
-
-- Dreadsail Reef
-- Swords Rest Isle
-- Isle of Balfiera
-- Icereach
-- Greyhome
-- Tideholm (Is now a separate blob)
-- Wasten Coraldale (Is now a separate blob)
-- Eyevea
-- Firemoth
-- Fort Grief
-- Stirk
-- Tempest Island
-- Dranil Kir
-- Silatar
-- Firemoth Island (not coloured like a separate blob)
 
 Misc:
 
 - Topal Hideaway blob
-- Fix the Aurbis tamriel blob - mismatches with what is there currently
 - Fix Aurbis rings not containing their proper daedric/elven text
 - Make custom description background for PC
 

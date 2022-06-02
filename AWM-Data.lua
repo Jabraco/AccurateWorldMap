@@ -3209,4 +3209,22 @@ AWM.optionsData = {
     setFunc = function(value) AWM.options.hideIconGlow = value end
   },
 
+  {
+    type = "header",
+    name = "Status",
+    width = "full",
+  },
+  {
+    type = "description",
+    text = "Check the status indicators of some features.",
+    width = "full",
+  },
+  {
+    type = "checkbox",
+    name = "Correct Player Positioning",
+    disabled = true,
+    tooltip = "Repositions player markers and waypoints according to lore accurate locations. Requires updated libraries.",
+    getFunc = function() return isPlayerTrackingEnabled() end,
+  },
+
 }
