@@ -523,6 +523,8 @@ mapData = {
       zoneID = 1006,
       xN = "0.299",
       yN = "0.515",
+      debugXN = "0.286",
+      debugYN = "0.515",
       zonePolygonData = {
         { xN = 0.384, yN = 0.574 },
         { xN = 0.380, yN = 0.562 },
@@ -632,6 +634,8 @@ mapData = {
       zoneID = 1,
       xN = "0.038",
       yN = "0.281",
+      debugXN = "0.0275",
+      debugYN = "0.2765",
       zonePolygonData = {
         { xN = 0.164, yN = 0.285 },
         { xN = 0.156, yN = 0.283 },
@@ -693,9 +697,12 @@ mapData = {
       zoneName = "Isle of Balfiera",
       zoneDescription = "Balfiera Isle is the ancestral home of Clan Direnni, and the site of the the oldest structure on Tamriel - the Adamantine Tower.",
       blobTexture = "AccurateWorldMap/blobs/blob-balfiera.dds",
+      debugBlobTexture = "AccurateWorldMap/blobs/blob-balfiera-debug.dds",   
       zoneID = 1997,
       xN = "0.1515",
       yN = "0.3295",
+      debugXN = "0.1515",
+      debugYN = "0.3295",
       zonePolygonData = {
         { xN = 0.177, yN = 0.351 },
         { xN = 0.171, yN = 0.351 },
@@ -729,6 +736,8 @@ mapData = {
       zoneID = 12,
       xN = "0.161",
       yN = "0.255",
+      debugXN = "0.146",
+      debugYN = "0.2555",
       zonePolygonData = {
         { xN = 0.163, yN = 0.313 },
         { xN = 0.164, yN = 0.317 },
@@ -809,6 +818,8 @@ mapData = {
       zoneID = 10,
       xN = "0.118",
       yN = "0.1895",
+      debugXN = "0.1235",
+      debugYN = "0.1895",
       zonePolygonData = {
         { xN = 0.222, yN = 0.261 },
         { xN = 0.225, yN = 0.258 },
@@ -875,6 +886,8 @@ mapData = {
       zoneID = 667,
       xN = "0.2065",
       yN = "0.195",
+      debugXN = "0.200",
+      debugYN = "0.1845",
       zonePolygonData = {
         { xN = 0.316, yN = 0.214 },
         { xN = 0.313, yN = 0.205 },
@@ -995,6 +1008,8 @@ mapData = {
       zoneID = 1126,
       xN = "0.3225",
       yN = "0.300",
+      debugXN = "0.3225",
+      debugYN = "0.300",
       zonePolygonData = {
         { xN = 0.441, yN = 0.407 },
         { xN = 0.444, yN = 0.398 },
@@ -1057,6 +1072,8 @@ mapData = {
       zoneID = 20,
       xN = "0.232",
       yN = "0.273",
+      debugXN = "0.230",
+      debugYN = "0.268",
       zonePolygonData = {
         { xN = 0.256, yN = 0.395 },
         { xN = 0.259, yN = 0.395 },
@@ -1134,6 +1151,8 @@ mapData = {
       zoneID = 30,
       xN = "0.1145",
       yN = "0.319",
+      debugXN = "0.104",
+      debugYN = "0.3205",
       zonePolygonData = {
         { xN = 0.120, yN = 0.417 },
         { xN = 0.117, yN = 0.412 },
@@ -1186,6 +1205,8 @@ mapData = {
       zoneID = 994,
       xN = "0.220",
       yN = "0.4765",
+      debugXN = "0.211",
+      debugYN = "0.4585",
       zonePolygonData = {
         { xN = 0.216, yN = 0.486 },
         { xN = 0.226, yN = 0.506 },

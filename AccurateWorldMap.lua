@@ -94,6 +94,9 @@ https://cdn.discordapp.com/attachments/979030537773650013/981261111053668432/unk
 
 Misc issues:
 - Need Stros M'Kai debug blob
+- Need Betnikh debug blob
+- Craglorn debug blob has something wrong with it
+- Balfiera debug blob has something wrong with it
 - Dranil Kir blob is darker than the others
 - Dreadsail Reef blob is too big
 - Missing Topal Hideaway blob
