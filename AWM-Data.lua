@@ -224,6 +224,8 @@ mapData = {
       zoneID = 1719,
       xN = "0.3515",
       yN = "0.166",
+      debugXN = "0.3405",
+      debugYN = "0.157",
       zonePolygonData = {
         { xN = 0.464, yN = 0.279 },
         { xN = 0.469, yN = 0.273 },
@@ -314,7 +316,7 @@ mapData = {
     }),
 
     -- The Reach --
-    [445] = { xN = 0.377, yN = 0.270, majorSettlement = true }, -- Karthwasten Wayshrine
+    [445] = { majorSettlement = true }, -- Karthwasten Wayshrine
     [449] = { majorSettlement = true }, -- Markarth Wayshrine
 
     zoneData = join({
@@ -323,6 +325,8 @@ mapData = {
       zoneID = 1814,
       xN = "0.3315",
       yN = "0.245",
+      debugXN = "0.314",
+      debugYN = "0.2295",
       zonePolygonData = {
         { xN = 0.332, yN = 0.285 },
         { xN = 0.333, yN = 0.282 },
@@ -1940,6 +1944,8 @@ mapData = {
       zoneID = 258,
       xN = "0.4905",
       yN = "0.783",
+      debugXN = "0.489",
+      debugYN = "0.782",
       zonePolygonData = {
         { xN = 0.504, yN = 0.782 },
         { xN = 0.511, yN = 0.782 },

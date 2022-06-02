@@ -9,6 +9,11 @@
 
 TJ TODO:
 
+
+- Do the rest of the debug blobs
+
+
+
 Bugs:
 - FixHang when going into Champion Point menu due to keybind strip from map
 
@@ -31,12 +36,12 @@ user:/AddOns/AccurateWorldMap/AccurateWorldMap.lua:377: in function 'main'
 
 - Fix Ethelric ocean clicking out to reapers march on the map on controller
 - add to isgamepadmode: If gamepad cursor texture control is visible, isGamepadMode = true also
-- Do the rest of the debug blobs
 - Do waypoint and player tracking for Elthelric
 - Find a way to move the zone name and clock to be closer to the actual map in K&M mode like gamepad
 - Add "loading" text to map while blobs are still being compiled
 - Remove debug spam
 - Add message to settings indicating whether player tracking is turned on
+- Copy statusbar munge from darkUI into awm misc texturs
 
 Oh I have a bug I found to report
 [15:04]
@@ -50,6 +55,9 @@ Rather than just controller
 [15:05]
 And mouse takes precedent
 I wasn't able to highlight or click into any of the planes because my mouse was still over tamriel
+
+- Right click out not working for some users, override it somehow
+- Gamepad mode relying on mouse still, refactor it to ignore mouse entirely
 
 --------
 
@@ -75,11 +83,17 @@ https://cdn.discordapp.com/attachments/979030537773650013/981261111053668432/unk
 > shrink and move Wasten Coraldale closer to coast
 
 Misc issues:
+- Need Stros M'Kai debug blob
 - Dranil Kir blob is darker than the others
 - Dreadsail Reef blob is too big
 - Missing Topal Hideaway blob
 - Need custom description background for PC
 - Aurbis rings don't contain their proper daedric/elven text
+- Go over all zone descs
+- Khenarthi's roost is too big on the map to lore scale - it's smaller in quin'rawl's map, also further away
+> perhaps scale it down and move it
+
+- should we rename western skyrim to something lore accurate
 
 Optional:
 - Add IC Sewers circle to the imperial city map and make blob
