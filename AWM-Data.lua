@@ -2681,20 +2681,18 @@ mapData = {
       debugXN = "0.688",
       debugYN = "0.65325",
       zonePolygonData = {
-        { xN = 0.706, yN = 0.725 },
-        { xN = 0.731, yN = 0.725 },
-        { xN = 0.739, yN = 0.712 },
-        { xN = 0.761, yN = 0.709 },
-        { xN = 0.757, yN = 0.699 },
-        { xN = 0.750, yN = 0.695 },
-        { xN = 0.737, yN = 0.694 },
-        { xN = 0.727, yN = 0.689 },
-        { xN = 0.724, yN = 0.680 },
-        { xN = 0.715, yN = 0.676 },
-        { xN = 0.706, yN = 0.674 },
-        { xN = 0.696, yN = 0.682 },
-        { xN = 0.694, yN = 0.691 },
-        { xN = 0.688, yN = 0.707 },
+        { xN = 0.708, yN = 0.725 },
+        { xN = 0.732, yN = 0.721 },
+        { xN = 0.741, yN = 0.713 },
+        { xN = 0.752, yN = 0.710 },
+        { xN = 0.748, yN = 0.697 },
+        { xN = 0.739, yN = 0.695 },
+        { xN = 0.723, yN = 0.679 },
+        { xN = 0.708, yN = 0.673 },
+        { xN = 0.699, yN = 0.678 },
+        { xN = 0.691, yN = 0.694 },
+        { xN = 0.689, yN = 0.709 },
+        { xN = 0.705, yN = 0.723 },
       }
     }, true),
 
@@ -2727,6 +2725,23 @@ mapData = {
         { xN = 0.740, yN = 0.658 },
         { xN = 0.725, yN = 0.654 },
         { xN = 0.716, yN = 0.656 },
+      }
+    }),
+
+    zoneData = join({
+      zoneName = "Dreadsail Reef",
+      zoneDescription = "The fearsome Dreadsail pirates have long been a terror to the people of The Systres and Summerset. The location of their clandestine harbor, however, is a secret no longer.",
+      zoneID = 2164,
+      xN = "0.640",
+      yN = "0.673",
+      zonePolygonData = {
+        { xN = 0.644, yN = 0.695 },
+        { xN = 0.662, yN = 0.695 },
+        { xN = 0.670, yN = 0.683 },
+        { xN = 0.669, yN = 0.672 },
+        { xN = 0.659, yN = 0.666 },
+        { xN = 0.644, yN = 0.669 },
+        { xN = 0.638, yN = 0.685 },
       }
     }),
 
@@ -3129,6 +3144,10 @@ mapData = {
   },
 
   [2114] = { -- High Isle Map
+    parentMapID = 315
+  },
+
+  [2164] = { -- Dreadsail Reef Map
     parentMapID = 315
   },
 

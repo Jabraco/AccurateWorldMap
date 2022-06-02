@@ -474,29 +474,22 @@ if (isPlayerTrackingEnabled()) then
 
               if (isMapInEltheric(mapID)) then
 
-                -- add back the Y offset
-                normalisedOffsetY = normalisedOffsetY + 0.14000000059605
+                -- safety check in case something went wrong and our dataset is nil
+                if (normalisedOffsetX ~= nil and normalisedOffsetY ~= nil and normalisedWidth ~= nil and normalisedHeight ~= nil) then
+                  -- add back the Y offset
+                  normalisedOffsetY = normalisedOffsetY + 0.14000000059605
 
-                -- get the offsets for eltheric map
-                local nOffsetX, nOffsetY, scale = GetUniversallyNormalizedMapInfo(getElthericMapID())
+                  -- get the offsets for eltheric map
+                  local nOffsetX, nOffsetY, scale = GetUniversallyNormalizedMapInfo(getElthericMapID())
 
-                                -- you have to scale the current map to how it would be if it was in the tamriel map
-
-                -- todo: only do this for custom zones in the eltheric and not everything that's within high isle (inc subzones)
-
-
-                normalisedWidth = normalisedWidth * scale
-                normalisedHeight = normalisedHeight * scale
-  
-                normalisedOffsetX = (((1 - normalisedOffsetX) * nOffsetX) * scale) + normalisedWidth
-                normalisedOffsetY = nOffsetY + (normalisedOffsetY * scale)
-
-
-  
+                  -- scale the current map to how it would be if it was in the tamriel map
+                  normalisedWidth = normalisedWidth * scale
+                  normalisedHeight = normalisedHeight * scale
+                  normalisedOffsetX = (((1 - normalisedOffsetX) * nOffsetX) * scale) + normalisedWidth
+                  normalisedOffsetY = nOffsetY + (normalisedOffsetY * scale)
+                end
               end
-
             end
-
           end
         end
       end
