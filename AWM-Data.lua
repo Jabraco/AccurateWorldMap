@@ -946,6 +946,20 @@ mapData = {
       }
     }),
 
+    zoneData = join({
+      zoneName = "Sword's Rest Isle",
+      zoneDescription = "This island, also known as Emeric's Retreat, is used as a getaway by High King Emeric for when he wants to escape the pressures of running the Daggerfall Covenant.",
+      zoneID = 2143,
+      xN = "0.026",
+      yN = "0.415",
+      zonePolygonData = {
+        { xN = 0.035, yN = 0.431 },
+        { xN = 0.048, yN = 0.425 },
+        { xN = 0.042, yN = 0.410 },
+        { xN = 0.028, yN = 0.416 },             
+      }
+    }),
+
     -- Betnikh --
     [182] = { xN = 0.074, yN = 0.435 }, -- Grimfield Wayshrine 
     [181] = { xN = 0.082, yN = 0.436, majorSettlement = true }, -- Stonetooth Wayshrine
@@ -2681,18 +2695,24 @@ mapData = {
       debugXN = "0.688",
       debugYN = "0.65325",
       zonePolygonData = {
-        { xN = 0.708, yN = 0.725 },
-        { xN = 0.732, yN = 0.721 },
-        { xN = 0.741, yN = 0.713 },
-        { xN = 0.752, yN = 0.710 },
-        { xN = 0.748, yN = 0.697 },
-        { xN = 0.739, yN = 0.695 },
-        { xN = 0.723, yN = 0.679 },
-        { xN = 0.708, yN = 0.673 },
-        { xN = 0.699, yN = 0.678 },
-        { xN = 0.691, yN = 0.694 },
-        { xN = 0.689, yN = 0.709 },
-        { xN = 0.705, yN = 0.723 },
+        { xN = 0.689, yN = 0.718 },
+        { xN = 0.699, yN = 0.723 },
+        { xN = 0.704, yN = 0.729 },
+        { xN = 0.724, yN = 0.732 },
+        { xN = 0.736, yN = 0.731 },
+        { xN = 0.741, yN = 0.721 },
+        { xN = 0.754, yN = 0.717 },
+        { xN = 0.766, yN = 0.712 },
+        { xN = 0.763, yN = 0.700 },
+        { xN = 0.758, yN = 0.696 },
+        { xN = 0.741, yN = 0.694 },
+        { xN = 0.728, yN = 0.685 },
+        { xN = 0.722, yN = 0.679 },
+        { xN = 0.708, yN = 0.671 },
+        { xN = 0.697, yN = 0.675 },
+        { xN = 0.691, yN = 0.682 },
+        { xN = 0.691, yN = 0.690 },
+        { xN = 0.686, yN = 0.707 },
       }
     }, true),
 
@@ -2711,20 +2731,18 @@ mapData = {
       xN = "0.7185",
       yN = "0.655",
       zonePolygonData = {
-        { xN = 0.713, yN = 0.663 },
-        { xN = 0.712, yN = 0.668 },
-        { xN = 0.723, yN = 0.678 },
-        { xN = 0.730, yN = 0.682 },
-        { xN = 0.730, yN = 0.688 },
-        { xN = 0.733, yN = 0.691 },
-        { xN = 0.741, yN = 0.693 },
-        { xN = 0.750, yN = 0.692 },
-        { xN = 0.759, yN = 0.688 },
-        { xN = 0.762, yN = 0.679 },
-        { xN = 0.753, yN = 0.663 },
-        { xN = 0.740, yN = 0.658 },
-        { xN = 0.725, yN = 0.654 },
-        { xN = 0.716, yN = 0.656 },
+        { xN = 0.715, yN = 0.659 },
+        { xN = 0.722, yN = 0.649 },
+        { xN = 0.736, yN = 0.652 },
+        { xN = 0.755, yN = 0.657 },
+        { xN = 0.765, yN = 0.670 },
+        { xN = 0.766, yN = 0.686 },
+        { xN = 0.759, yN = 0.695 },
+        { xN = 0.739, yN = 0.693 },
+        { xN = 0.730, yN = 0.686 },
+        { xN = 0.722, yN = 0.678 },
+        { xN = 0.711, yN = 0.670 },
+        { xN = 0.712, yN = 0.665 },
       }
     }),
 

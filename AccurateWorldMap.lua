@@ -88,21 +88,22 @@ https://cdn.discordapp.com/attachments/979030537773650013/981261111053668432/unk
 > Delete or shrink sapiarch isle
 > shrink and move Wasten Coraldale closer to coast
 
-Misc issues:
+Blob issues:
 - Need Stros M'Kai debug blob
 - Need Betnikh debug blob
 - Craglorn debug blob has something wrong with it
 - Balfiera debug blob has something wrong with it
-- Dranil Kir blob is darker than the others
 - Dreadsail Reef blob is too big
+- Sword's Rest Isle blob is too big
 - Missing Topal Hideaway blob
+- Dranil Kir blob is darker than the others
+
+Misc issues:
 - Need custom description background for PC
 - Aurbis rings don't contain their proper daedric/elven text
 - Go over all zone descs
 - Khenarthi's roost is too big on the map to lore scale - it's smaller in quin'rawl's map, also further away
 > perhaps scale it down and move it
-
-- should we rename western skyrim to something lore accurate
 
 Optional:
 - Add IC Sewers circle to the imperial city map and make blob
