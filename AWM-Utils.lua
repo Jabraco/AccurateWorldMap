@@ -97,7 +97,7 @@ local canFireCallback = false
 
 function isWorldMapShown()
 
-  local isMapShown = (not ZO_WorldMapContainer:IsHidden() or ZO_WorldMap_IsWorldMapShowing())
+  local isMapShown = ( (not ZO_WorldMapContainer:IsHidden() or ZO_WorldMap_IsWorldMapShowing()) and ZO_ChampionPerksCanvas:IsHidden())
 
   if (isMapShown and canFireCallback) then
 
@@ -118,6 +118,15 @@ function isWorldMapShown()
   end
 
   return isMapShown
+end
+
+-------------------------------------------------------------------------------
+-- Check if world map window is active
+-------------------------------------------------------------------------------
+
+function isWorldMapActive()
+
+  return ( isWorldMapShown() and isMouseWithinMapWindow() )
 end
   
 -------------------------------------------------------------------------------

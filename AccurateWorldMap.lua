@@ -117,6 +117,7 @@ AWM.isInsideBlobHitbox = false
 local recordCoordinates = false
 local hasDragged = false
 local waitForRelease = false
+local waitToHideKeybind
 
 -- ints
 AWM.lastWaypointMapID = nil
@@ -329,7 +330,22 @@ end
 -------------------------------------------------------------------------------
 
 local function main()
-  if (isWorldMapShown() and isMouseWithinMapWindow()) then
+
+  if (not ZO_ChampionPerksCanvas:IsHidden()) then
+
+    if (waitToHideKeybind == false) then
+      waitToHideKeybind = true
+    end
+
+    else
+      if (ZO_ChampionPerksCanvas:IsHidden()) then
+        if (waitToHideKeybind == nil and not waitToHideKeybind == true) then
+          waitToHideKeybind = false
+        end
+      end
+  end
+
+  if (isWorldMapActive()) then
 
     if (isInGamepadMode()) then
       if (AWM.currentlySelectedPolygon == nil) then
@@ -339,10 +355,8 @@ local function main()
         print(tempPolygon:GetName())
     
         if string.find(tempPolygon:GetName(), "blobHitbox") then
-          updateCurrentPolygon(tempPolygon)
-    
+          updateCurrentPolygon(tempPolygon)    
           print("in hitbox!")
-  
         else
   
           AWM.isInsideBlobHitbox = false
@@ -352,19 +366,21 @@ local function main()
         end
       end
 
-      KEYBIND_STRIP:RemoveKeybindButtonGroup(AWMWaypointKeybind)
-
     else
+
       AWMWaypointKeybind = {
         {
-          name = ( function() if (not LMP:HasMapPing(MAP_PIN_TYPE_PLAYER_WAYPOINT, "waypoint")) then return "Set Destination" else return "Move/Remove Destination" end end),
+          name = ( function() if (not isWaypointPlaced()) then return "Set Destination" else return "Move/Remove Destination" end end),
           keybind = "UI_SHORTCUT_TERTIARY",
           callback = function() onWaypointSet(getNormalisedMouseCoordinates()) end,
         },
         alignment = KEYBIND_STRIP_ALIGN_CENTER,
       }
-      
-      KEYBIND_STRIP:AddKeybindButtonGroup(AWMWaypointKeybind)        
+
+      if (ZO_ChampionPerksCanvas:IsHidden() and (waitToHideKeybind == false)) then
+        KEYBIND_STRIP:AddKeybindButtonGroup(AWMWaypointKeybind)  
+      end
+
     end
 
     if (AWM.currentlySelectedPolygon ~= nil) then
@@ -387,9 +403,31 @@ local function main()
     -- hide mouseover info
     ZO_WorldMapMouseOverDescription:SetText("")
     AWM_MouseOverGrungeTex:SetHidden(true)
-    KEYBIND_STRIP:RemoveKeybindButtonGroup(AWMWaypointKeybind)
 
   end
+
+  if (not isWorldMapActive()) then
+
+    if (waitToHideKeybind == false) then
+
+      KEYBIND_STRIP:RemoveKeybindButtonGroup(AWMWaypointKeybind)
+
+    else
+
+      if (waitToHideKeybind == true) then
+
+        zo_callLater(function()
+
+          KEYBIND_STRIP:RemoveKeybindButtonGroup(AWMWaypointKeybind)
+          waitToHideKeybind = false
+    
+        end, 5000)
+
+      end
+
+    end
+  end
+
 end
 
 -------------------------------------------------------------------------------
