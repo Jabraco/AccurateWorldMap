@@ -229,12 +229,11 @@ GetPOIMapInfo = function(zoneIndex, poiIndex)
 
   if (getCurrentMapID() == 1719) then -- if we are in Western Skyrim
 
-    if (string.match(icon, "poi_raiddungeon_")) then -- and the icon is a Trial, then remove
+    if (string.match(icon, "poi_raiddungeon_")) then -- and the icon is a Trial, then remove (this hides the duplicate Kyne's Aegis icon)
       isShownInCurrentMap = false
       isNearby = false
       icon = nil
     end
-
   end
   return normalisedX, normalisedZ, poiPinType, icon, isShownInCurrentMap, linkedCollectibleIsLocked, isDiscovered, isNearby
 end
@@ -295,7 +294,7 @@ GetFastTravelNodeInfo = function(nodeIndex)
       end
     end
 
-    -- if position tracking is enabled, we're in a global map, and the current node doesn't have any data, or location data, fallback to modded positioning
+    -- if position tracking is enabled, we're in the Tamriel map, and the current node doesn't have any data, (or location data) then fallback to modded positioning
     if ( (isPlayerTrackingEnabled() and isMapTamriel())  and (isLocatedInCurrentMap) ) then
       if (zoneData[nodeIndex] == nil or (zoneData[nodeIndex] ~= nil and zoneData[nodeIndex].xN == nil and zoneData[nodeIndex].yN == nil)) then
 
@@ -304,40 +303,28 @@ GetFastTravelNodeInfo = function(nodeIndex)
 
         if (doesMapHaveCustomZoneData(parentMapID)) then
 
+          -- force correct wayshrine position placement
           local globalXN, globalYN = GetPOIMapInfo(zoneIndex, poiIndex)
-
-          -- d("global position:")
-          -- d(globalXN, globalYN)
-
           normalizedX, normalizedY = getFixedGlobalCoordinates(parentMapID, globalXN, globalYN)
 
         end
       end
     end
-
-
   end
 
   if (getCurrentZoneInfo() ~= nil and getCurrentZoneInfo().isWorldMap) then
 
     if (AWM.options.worldMapWayshrines == "None" or AWM.options.worldMapWayshrines == "Only Major Settlements") then
-
       isLocatedInCurrentMap = false
       disabled = true
-
     end
 
     if (mapData[mapIndex] ~= nil and mapData[mapIndex][nodeIndex] ~= nil) then
-
       if (mapData[mapIndex][nodeIndex].majorSettlement ~= nil and AWM.options.worldMapWayshrines == "Only Major Settlements") then
-
         isLocatedInCurrentMap = true
         disabled = false
-
       end
-
     end
-
   end
 
   return known, name, normalizedX, normalizedY, icon, glowIcon, poiType, isLocatedInCurrentMap, linkedCollectibleIsLocked, disabled
@@ -350,7 +337,7 @@ end
 -- Overrides default tooltip handler to add custom tooltips to Eyevea and Earth 
 -- Forge wayshrines in both gamepad and keyboard & mouse mode.
 
--- Borrowed from GuildShrines addon. 
+-- Borrowed from Valve's GuildShrines addon. 
 
 -------------------------------------------------------------------------------
 
@@ -403,28 +390,25 @@ GetMapTileTexture = function(tileIndex)
   local tileTexture = zos_GetMapTileTexture(tileIndex)
 
   if (tileIndex ~= nil) then
-
     if (getCurrentZoneInfo() ~= nil and getCurrentZoneInfo().customTileName ~= nil) then
 
-      -- Replace tiles with debug version if debug is enabled
+      -- Replace tiles with debug version if debug mode is enabled
       if AWM.options.isDebug then
         tileIndex = tostring(tileIndex) .. "_debug"  
       end
   
       return "AccurateWorldMap/tiles/" .. getCurrentZoneInfo().customTileName .. "_" .. tileIndex .. ".dds"
-  
     end
   end
-  
   return tileTexture
 end
 
 -------------------------------------------------------------------------------
--- Worldmap player pin & waypoint positioning
+-- Worldmap player pin & waypoint repositioning
 -------------------------------------------------------------------------------
 
 -- Override vanilla's player pin and waypoint positioning to be more consistent
--- with AccurateWorldMap's zone positioning
+-- with AWM's zone positioning
 
 -------------------------------------------------------------------------------
 
@@ -460,10 +444,7 @@ if (isPlayerTrackingEnabled()) then
         else
           if (doesMapHaveCustomZoneData(mapID)) then
 
-            -- if this map doesn't have custom data, but its parent does, then scale the current normalised position to inside of the main zone's one
-
-            print("custom data detected")
-        
+            -- if this map doesn't have custom data, but its parent does, then scale the current normalised position to inside of the main zone's one        
             if (getMapBoundingBoxByID(mapID) ~= nil) then
 
               print("custom data loaded")
@@ -471,7 +452,7 @@ if (isPlayerTrackingEnabled()) then
               normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight = getMapBoundingBoxByID(mapID)
               normalisedOffsetY = normalisedOffsetY - 0.14000000059605
     
-
+              -- if we're in the eltheric map, do special stuff
               if (isMapInEltheric(mapID)) then
 
                 -- safety check in case something went wrong and our dataset is nil
@@ -500,12 +481,11 @@ if (isPlayerTrackingEnabled()) then
       normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
     end
 
-    d(("X Offset: " .. normalisedOffsetX), ("Y Offset: " .. normalisedOffsetY), ("Normalised width: " .. normalisedWidth), ("Normalised height: " .. normalisedHeight) )
+    print(("X Offset: " .. normalisedOffsetX), ("Y Offset: " .. normalisedOffsetY), ("Normalised width: " .. normalisedWidth), ("Normalised height: " .. normalisedHeight))
 
     return normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight
 
   end
-
 
   local zos_GetMapPlayerPosition = GetMapPlayerPosition
   GetMapPlayerPosition = function(unitTag)
@@ -659,7 +639,3 @@ if (isPlayerTrackingEnabled()) then
     end
   end
 end
-
-
-
-

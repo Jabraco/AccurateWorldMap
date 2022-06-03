@@ -62,9 +62,6 @@ Therefor you are able to use the following pre-hook and post-hook functions:
 ZO_PreHookHandler(object, handlerName, callbackHandlerFunction)
 ZO_PostHookHandler(object, handlerName, callbackHandlerFunction)
 
-
-
-
 --------
 
 Vylaera TODO:
@@ -145,13 +142,7 @@ AWM.blobZoneInfo = {}
 AWM.currentlySelectedPolygon = nil
 polygonData = {}
 
-AWM.lastWaypointMapID = nil
-
-AWM.lastGlobalXN = nil
-AWM.lastGlobalYN = nil
-AWM.lastLocalXN = nil
-AWM.lastLocalYN = nil
-
+-- bools
 AWM.canRedrawMap = true
 AWM.areTexturesCompiled = false
 AWM.isInsideBlobHitbox = false
@@ -160,6 +151,11 @@ local hasDragged = false
 local waitForRelease = false
 
 -- ints
+AWM.lastWaypointMapID = nil
+AWM.lastGlobalXN = nil
+AWM.lastGlobalYN = nil
+AWM.lastLocalXN = nil
+AWM.lastLocalYN = nil
 local coordinateCount = 0
 
 -------------------------------------------------------------------------------
@@ -268,10 +264,10 @@ local function onMouseClicked()
 end
 
 -------------------------------------------------------------------------------
--- Record new zone polygon function
+-- Record new zone hitbox polygon function
 -------------------------------------------------------------------------------
 
-local function recordPolygon()
+local function recordPolygonBlob()
 
   if recordCoordinates == true then
     d("Coordinates recorded.")
@@ -472,12 +468,10 @@ local function initialise(event, addonName)
 
   -- set up slash commands
   SLASH_COMMANDS["/get_map_id"] = function() print(GetCurrentMapId(), true) end
-  SLASH_COMMANDS["/record_polygon"] = recordPolygon
+  SLASH_COMMANDS["/record_blob"] = recordPolygonBlob
   SLASH_COMMANDS["/get_blobs"] = compileMapTextures
   SLASH_COMMANDS["/set_map_to"] = navigateToMap
   SLASH_COMMANDS["/awm_debug"] = function() AWM.options.isDebug = not AWM.options.isDebug navigateToMap(getCurrentMapID()) end
-  SLASH_COMMANDS["/fix_locations"] = fixLocations
-  SLASH_COMMANDS["/set_is_developer"] = function() AWM.options.isDeveloper = not AWM.options.isDeveloper end
   SLASH_COMMANDS["/getparentmapid"] = getParentMapID
   SLASH_COMMANDS["/getcontrolatpoint"] = getControlAtPoint
 

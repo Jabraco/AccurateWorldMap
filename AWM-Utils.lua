@@ -235,32 +235,21 @@ end
 function getZoneInfoByID(zoneID, optionalIsDuplicate)
 
   if (mapData ~= nil) then
-
     for mapID, mapInfo in pairs(mapData) do
-
       if (mapInfo.zoneData ~= nil) then
-
         local zoneInfo = mapInfo.zoneData
-
           for zoneIndex, zoneInfo in pairs(zoneInfo) do
-
             if (optionalIsDuplicate ~= nil and optionalIsDuplicate) then
-
               if (zoneInfo.zoneID == zoneID and zoneInfo.isDuplicate ~= nil) then
                 return zoneInfo
               end
-
             else
-
-              if (zoneInfo.zoneID == zoneID and zoneInfo.isDuplicate == nil) then
-                return zoneInfo
-              end
-
+            if (zoneInfo.zoneID == zoneID and zoneInfo.isDuplicate == nil) then
+              return zoneInfo
             end
-
           end
+        end
       end
-
     end
   end
 end
@@ -379,7 +368,6 @@ function hideAllZoneBlobs()
       childControl:SetMouseEnabled(false)
 
     end
-
   end
 end
 
@@ -746,7 +734,7 @@ function compileMapTextures()
     GPS:ClearMapMeasurements()
     GPS:CalculateMapMeasurement()
 
-    -- force reload map in case user had opened it
+    -- force reload map in case user has opened it
     navigateToMap(getCurrentMapID())
 
   end
