@@ -34,7 +34,7 @@ Any addon that adds pins to vanilla locations on the world map are not compatibl
 
 The following addons have been tested to be not compatible with Accurate World Map:
 
-- GuildShrines
+
 - Destinations
 - MapPins
 
@@ -49,6 +49,7 @@ This addon works great with the following addons:
 - True Exploration
 - Votan's Improved Locations
 - DarkUI
+- GuildShrines
 
 ## Thanks To
 
