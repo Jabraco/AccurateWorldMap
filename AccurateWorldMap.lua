@@ -23,9 +23,6 @@ TJ TODO:
 - Right click out not working for some users, override it somehow
 - Gamepad mode relying on mouse still, refactor it to ignore mouse entirely
 
-
-
-
 Event handler hooksYou can also hook into event handlers of controls like OnMouseUp e.g.
 Therefor you are able to use the following pre-hook and post-hook functions:
 
