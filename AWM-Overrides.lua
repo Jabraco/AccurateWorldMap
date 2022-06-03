@@ -86,6 +86,42 @@ ZO_PreHook("ZO_WorldMap_MouseUp", function(mapControl, mouseButton, upInside)
 end)
 
 -------------------------------------------------------------------------------
+-- Map mouse enter / exit function
+-------------------------------------------------------------------------------
+
+-- Override what happens when the mouse enters or leaves worldmap
+
+-------------------------------------------------------------------------------
+
+ZO_PreHook("ZO_WorldMap_MouseEnter", function()
+
+  if (not isInGamepadMode()) then
+
+    AWMWaypointKeybind = {
+      {
+        name = "Set / Remove Destination",
+        keybind = "UI_SHORTCUT_TERTIARY",
+        callback = function() onWaypointSet(getNormalisedMouseCoordinates()) end,
+      },
+      alignment = KEYBIND_STRIP_ALIGN_CENTER,
+    }
+
+    if (not isChampionPointWindowShown() and isMouseWithinMapWindow() or AWM.currentlySelectedPolygon ~= nil) then
+      KEYBIND_STRIP:AddKeybindButtonGroup(AWMWaypointKeybind)  
+    end
+  end
+  return true
+end)
+
+ZO_PreHook("ZO_WorldMap_MouseExit", function()
+
+  if (not isInGamepadMode() and not isChampionPointWindowShown() and not isMouseWithinMapWindow() ) then
+    KEYBIND_STRIP:RemoveKeybindButtonGroup(AWMWaypointKeybind)
+  end
+  return true
+end)
+
+-------------------------------------------------------------------------------
 -- Map mouseover info function
 -------------------------------------------------------------------------------
 
@@ -155,48 +191,6 @@ GetMapMouseoverInfo = function(xN, yN)
 
   return locationName, textureFile, widthN, heightN, locXN, locYN
 end
-
-
--------------------------------------------------------------------------------
--- Map mouse enter / exit function
--------------------------------------------------------------------------------
-
--- Override what happens when the mouse enters or leaves worldmap
-
--------------------------------------------------------------------------------
-
-ZO_PreHook("ZO_WorldMap_MouseEnter", function()
-
-  if (not isInGamepadMode()) then
-
-    AWMWaypointKeybind = {
-      {
-        name = "Set / Remove Destination",
-        keybind = "UI_SHORTCUT_TERTIARY",
-        callback = function() onWaypointSet(getNormalisedMouseCoordinates()) end,
-      },
-      alignment = KEYBIND_STRIP_ALIGN_CENTER,
-    }
-
-    if (not isChampionPointWindowShown()) then
-      KEYBIND_STRIP:AddKeybindButtonGroup(AWMWaypointKeybind)  
-    end
-  end
-  return true
-end)
-
-ZO_PreHook("ZO_WorldMap_MouseExit", function()
-
-  if (not isInGamepadMode()) then
-
-    if (not isChampionPointWindowShown()) then
-      KEYBIND_STRIP:RemoveKeybindButtonGroup(AWMWaypointKeybind)
-    end
-
-  end
-  return true
-end)
-
 
 -------------------------------------------------------------------------------
 -- Zone name functions

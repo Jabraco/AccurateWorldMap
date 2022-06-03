@@ -273,6 +273,8 @@ function updateCurrentPolygon(polygon)
   else
     AWM.blobZoneInfo = getZoneInfoByID(getMapIDFromPolygonName(polygon:GetName()))
   end
+
+  ZO_WorldMap_MouseEnter()
   
 end
 
@@ -378,6 +380,15 @@ local function main()
     AWM_MouseOverGrungeTex:SetHidden(true)
 
   end
+
+  if (not isInGamepadMode()) then
+
+    if (isWorldMapShown() and  not isMouseWithinMapWindow()) then
+      KEYBIND_STRIP:RemoveKeybindButtonGroup(AWMWaypointKeybind)
+    end
+  
+  end
+
 end
 
 -------------------------------------------------------------------------------
