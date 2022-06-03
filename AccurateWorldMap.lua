@@ -406,12 +406,10 @@ local function main()
 
   end
 
-  if (not isWorldMapActive()) then
+  if (not isWorldMapActive() and ZO_ChampionPerksCanvas:IsHidden()) then
 
     if (waitToHideKeybind == false) then
-
       KEYBIND_STRIP:RemoveKeybindButtonGroup(AWMWaypointKeybind)
-
     else
 
       if (waitToHideKeybind == true) then

@@ -97,7 +97,7 @@ local canFireCallback = false
 
 function isWorldMapShown()
 
-  local isMapShown = ( (not ZO_WorldMapContainer:IsHidden() or ZO_WorldMap_IsWorldMapShowing()) and ZO_ChampionPerksCanvas:IsHidden())
+  local isMapShown = ( (not ZO_WorldMapContainer:IsHidden() or ZO_WorldMap_IsWorldMapShowing()))
 
   if (isMapShown and canFireCallback) then
 
