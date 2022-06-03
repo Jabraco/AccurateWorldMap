@@ -97,7 +97,7 @@ local canFireCallback = false
 
 function isWorldMapShown()
 
-  local isMapShown = ( (not ZO_WorldMapContainer:IsHidden() or ZO_WorldMap_IsWorldMapShowing()))
+  local isMapShown = ( ((not ZO_WorldMapContainer:IsHidden() and ZO_WorldMapContainer:GetAlpha() == 1) or ZO_WorldMap_IsWorldMapShowing()))
 
   if (isMapShown and canFireCallback) then
 
@@ -125,9 +125,17 @@ end
 -------------------------------------------------------------------------------
 
 function isWorldMapActive()
-
   return ( isWorldMapShown() and isMouseWithinMapWindow() )
 end
+
+-------------------------------------------------------------------------------
+-- Check if champion point window is being shown
+-------------------------------------------------------------------------------
+
+function isChampionPointWindowShown()
+  return ( not ZO_ChampionPerksCanvas:IsHidden() and ZO_ChampionPerksCanvas:GetAlpha() == 1 )
+end
+  
   
 -------------------------------------------------------------------------------
 -- Get world map offsets from the sides of the screen

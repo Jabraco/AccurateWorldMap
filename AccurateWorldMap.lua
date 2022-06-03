@@ -15,7 +15,6 @@ TJ TODO:
 - Add "loading" text to map while blobs are still being compiled
 - Add website (ESOUI page) to options menu
 - Find a way to move the zone name and clock to be closer to the actual map in K&M mode like gamepad
-- Copy statusbar munge from darkUI into awm misc textures
 - Add to isgamepadmode: If gamepad cursor texture control is visible, isGamepadMode = true also
 - Do waypoint and player tracking for Elthelric
 - Remove debug spam
@@ -170,7 +169,7 @@ end
 
 local lastXN, lastYN
 
-local function onWaypointSet(xN, yN)
+function onWaypointSet(xN, yN)
 
   local mouseXN, mouseYN = getNormalisedMouseCoordinates()
 
@@ -330,21 +329,6 @@ end
 -------------------------------------------------------------------------------
 
 local function main()
-
-  if (not ZO_ChampionPerksCanvas:IsHidden()) then
-
-    if (waitToHideKeybind == false) then
-      waitToHideKeybind = true
-    end
-
-    else
-      if (ZO_ChampionPerksCanvas:IsHidden()) then
-        if (waitToHideKeybind == nil and not waitToHideKeybind == true) then
-          waitToHideKeybind = false
-        end
-      end
-  end
-
   if (isWorldMapActive()) then
 
     if (isInGamepadMode()) then
@@ -368,18 +352,7 @@ local function main()
 
     else
 
-      AWMWaypointKeybind = {
-        {
-          name = ( function() if (not isWaypointPlaced()) then return "Set Destination" else return "Move/Remove Destination" end end),
-          keybind = "UI_SHORTCUT_TERTIARY",
-          callback = function() onWaypointSet(getNormalisedMouseCoordinates()) end,
-        },
-        alignment = KEYBIND_STRIP_ALIGN_CENTER,
-      }
 
-      if (ZO_ChampionPerksCanvas:IsHidden() and (waitToHideKeybind == false)) then
-        KEYBIND_STRIP:AddKeybindButtonGroup(AWMWaypointKeybind)  
-      end
 
     end
 
@@ -405,27 +378,6 @@ local function main()
     AWM_MouseOverGrungeTex:SetHidden(true)
 
   end
-
-  if (not isWorldMapActive() and ZO_ChampionPerksCanvas:IsHidden()) then
-
-    if (waitToHideKeybind == false) then
-      KEYBIND_STRIP:RemoveKeybindButtonGroup(AWMWaypointKeybind)
-    else
-
-      if (waitToHideKeybind == true) then
-
-        zo_callLater(function()
-
-          KEYBIND_STRIP:RemoveKeybindButtonGroup(AWMWaypointKeybind)
-          waitToHideKeybind = false
-    
-        end, 5000)
-
-      end
-
-    end
-  end
-
 end
 
 -------------------------------------------------------------------------------
