@@ -9,51 +9,21 @@
 
 TJ TODO:
 
-
-Bugs:
-- FixHang when going into Champion Point menu due to keybind strip from map
-
-user:/AddOns/AccurateWorldMap/AccurateWorldMap.lua:370: attempt to index a nil value
-stack traceback:
-user:/AddOns/AccurateWorldMap/AccurateWorldMap.lua:370: in function '(anonymous)'
-(tail call): ?
-/EsoUI/Libraries/ZO_KeybindStrip/ZO_KeybindStrip.lua:321: in function 'GetKeybindDescriptorDebugIdentifier'
-|caaaaaa<Locals> keybindButtonDescriptor = [table:1]{keybind = "UI_SHORTCUT_TERTIARY"} </Locals>|r
-/EsoUI/Libraries/ZO_KeybindStrip/ZO_KeybindStrip.lua:334: in function 'ZO_KeybindStrip:HandleDuplicateAddKeybind'
-|caaaaaa<Locals> self = [table:2]{batchUpdating = T, insertionId = 5, allowDefaultExit = T}, existingButtonOrEtherealDescriptor = ud, keybindButtonDescriptor = [table:1], currentSceneName = "worldMap", existingDescriptor = [table:3]{addedForSceneName = "worldMap", keybind = "UI_SHORTCUT_TERTIARY"}, existingSceneName = "worldMap", existingDescriptorIdentifier = "Set Destination" </Locals>|r
-/EsoUI/Libraries/ZO_KeybindStrip/ZO_KeybindStrip.lua:382: in function 'ZO_KeybindStrip:AddKeybindButton'
-|caaaaaa<Locals> self = [table:2], keybindButtonDescriptor = [table:1], currentSceneName = "worldMap", existingButtonOrEtherealDescriptor = ud </Locals>|r
-/EsoUI/Libraries/ZO_KeybindStrip/ZO_KeybindStrip.lua:574: in function 'ZO_KeybindStrip:AddKeybindButtonGroup'
-|caaaaaa<Locals> self = [table:2], keybindButtonGroupDescriptor = [table:4]{alignment = 2}, i = 1, keybindButtonDescriptor = [table:1] </Locals>|r
-user:/AddOns/AccurateWorldMap/AccurateWorldMap.lua:377: in function 'main'
-
--whenever you right click to go to a different map, if your cursor finds itself on an existing hitbox,
- the hitbox and blob won't work. You have to move the cursor entirely off of the hitbox.
-
+- Fix hang when going into Champion Point menu due to keybind strip from map
 - Fix Ethelric ocean clicking out to reapers march on the map on controller
-- add to isgamepadmode: If gamepad cursor texture control is visible, isGamepadMode = true also
-- Do waypoint and player tracking for Elthelric
-- Find a way to move the zone name and clock to be closer to the actual map in K&M mode like gamepad
+- Fix custom zones not clicking out to where they should do (perhaps with other addons?)
 - Add "loading" text to map while blobs are still being compiled
+- Add website (ESOUI page) to options menu
+- Find a way to move the zone name and clock to be closer to the actual map in K&M mode like gamepad
+- Copy statusbar munge from darkUI into awm misc textures
+- Add to isgamepadmode: If gamepad cursor texture control is visible, isGamepadMode = true also
+- Do waypoint and player tracking for Elthelric
 - Remove debug spam
-- Add message to settings indicating whether player tracking is turned on
-- Copy statusbar munge from darkUI into awm misc texturs
-
-Oh I have a bug I found to report
-[15:04]
-On the aurbis map, on gamepad, it uses both the controller and mouse inputs
-
-Thal-J — Today at 15:05
-what does that mean
-
-Vylaera — Today at 15:05
-Rather than just controller
-[15:05]
-And mouse takes precedent
-I wasn't able to highlight or click into any of the planes because my mouse was still over tamriel
-
+- Fix zone highlights not working when going to dif map if already on existing hitbox
 - Right click out not working for some users, override it somehow
 - Gamepad mode relying on mouse still, refactor it to ignore mouse entirely
+
+
 
 
 Event handler hooksYou can also hook into event handlers of controls like OnMouseUp e.g.
