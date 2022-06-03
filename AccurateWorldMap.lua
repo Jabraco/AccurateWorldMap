@@ -22,6 +22,7 @@ TJ TODO:
 - Fix zone highlights not working when going to dif map if already on existing hitbox
 - Right click out not working for some users, override it somehow
 - Gamepad mode relying on mouse still, refactor it to ignore mouse entirely
+- Add option and subsection in settings to control dungeons/trials, houses and wayshrines separately
 
 Event handler hooksYou can also hook into event handlers of controls like OnMouseUp e.g.
 Therefor you are able to use the following pre-hook and post-hook functions:
@@ -300,11 +301,12 @@ local function onWorldMapOpened()
   
     -- set up label description background 
     if (isInGamepadMode()) then
+      
       AWM_MouseOverGrungeTex:SetTexture("AccurateWorldMap/misc/gamepadshadow.dds")
       AWM_MouseOverGrungeTex:SetAnchor(TOPLEFT, ZO_WorldMap, TOPLEFT, 0, 0)
       AWM_MouseOverGrungeTex:SetDimensions(mapWidth, mapHeight)
     else
-      AWM_MouseOverGrungeTex:SetTexture("/esoui/art/performance/statusmetermunge.dds")
+      AWM_MouseOverGrungeTex:SetTexture("AccurateWorldMap/misc/statusmetermunge.dds")
       AWM_MouseOverGrungeTex:SetAnchor(TOPLEFT, ZO_WorldMap, TOPLEFT, (mapWidth - (mapWidth*enlargeConst))/2, -(0.47 * mapHeight))
       AWM_MouseOverGrungeTex:SetDimensions(mapWidth*enlargeConst, mapHeight)
     end
