@@ -99,7 +99,7 @@ ZO_PreHook("ZO_WorldMap_MouseEnter", function()
 
     AWMWaypointKeybind = {
       {
-        name = "Set / Remove Destination",
+        name = ( function() if (not isWaypointPlaced()) then return "Set Destination" else return "Move/Remove Destination" end end),
         keybind = "UI_SHORTCUT_TERTIARY",
         callback = function() onWaypointSet(getNormalisedMouseCoordinates()) end,
       },

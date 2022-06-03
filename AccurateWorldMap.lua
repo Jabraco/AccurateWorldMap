@@ -186,6 +186,8 @@ function onWaypointSet(xN, yN)
     lastXN = xN
     lastYN = yN
   end
+
+  ZO_WorldMap_MouseEnter()
 end
 
 function onPostWaypointSet(pingType, pingTag, xN, yN, isPingOwner)
