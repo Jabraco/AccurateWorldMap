@@ -9,25 +9,12 @@
 
 TJ TODO:
 
-- Fix hang when going into Champion Point menu due to keybind strip from map
-- Fix Ethelric ocean clicking out to reapers march on the map on controller
-- Fix custom zones not clicking out to where they should do (perhaps with other addons?)
-- Add "loading" text to map while blobs are still being compiled
-- Add website (ESOUI page) to options menu
-- Find a way to move the zone name and clock to be closer to the actual map in K&M mode like gamepad
-- Add to isgamepadmode: If gamepad cursor texture control is visible, isGamepadMode = true also
 - Do waypoint and player tracking for Elthelric
 - Remove debug spam
-- Fix zone highlights not working when going to dif map if already on existing hitbox
-- Right click out not working for some users, override it somehow
+- Add to isgamepadmode: If gamepad cursor texture control is visible, isGamepadMode = true also
 - Gamepad mode relying on mouse still, refactor it to ignore mouse entirely
+- Fix zone highlights not working when going to dif map if already on existing hitbox
 - Add option and subsection in settings to control dungeons/trials, houses and wayshrines separately
-
-Event handler hooksYou can also hook into event handlers of controls like OnMouseUp e.g.
-Therefor you are able to use the following pre-hook and post-hook functions:
-
-ZO_PreHookHandler(object, handlerName, callbackHandlerFunction)
-ZO_PostHookHandler(object, handlerName, callbackHandlerFunction)
 
 --------
 
@@ -69,7 +56,21 @@ Misc issues:
 - Khenarthi's roost is too big on the map to lore scale - it's smaller in quin'rawl's map, also further away
 > perhaps scale it down and move it
 
-Optional:
+
+POST RELEASE:
+
+- Add "loading" text to map while blobs are still being compiled
+- Find a way to move the zone name and clock to be closer to the actual map in K&M mode like gamepad
+
+- Shrink Tamriel
+- Move it over
+- Delete Etheric Map
+- Move High Isle and Systres over into Tamriel Map
+- Update Aurbis Tamriel Blob
+- Increase Tamriel Map Zoom Level
+- Re-do all blobs and anchor blobs and zone hitboxes
+- Allow for 4k Tamriel Tiles option
+
 - Add IC Sewers circle to the imperial city map and make blob
 - Rotate IC on the cyrodiil map 45 degrees to be consistent with oblivion (edit the tiles)
 https://cdn.discordapp.com/attachments/806672739057664034/975049286305861672/unknown.png
@@ -164,7 +165,7 @@ local function onMapChanged()
 end
 
 -------------------------------------------------------------------------------
--- On waypoint set function
+-- On waypoint set functions
 -------------------------------------------------------------------------------
 
 local lastXN, lastYN
@@ -187,6 +188,7 @@ function onWaypointSet(xN, yN)
     lastYN = yN
   end
 
+  -- update waypoint keybind state
   ZO_WorldMap_MouseEnter()
 end
 

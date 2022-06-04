@@ -99,7 +99,7 @@ ZO_PreHook("ZO_WorldMap_MouseEnter", function()
 
     AWMWaypointKeybind = {
       {
-        name = ( function() if (not isWaypointPlaced()) then return "Set Destination" else return "Move/Remove Destination" end end),
+        name = ( function() if (not isWaypointPlaced()) then return "Set Destination" else return "Move / Remove Destination" end end),
         keybind = "UI_SHORTCUT_TERTIARY",
         callback = function() onWaypointSet(getNormalisedMouseCoordinates()) end,
       },
@@ -550,38 +550,12 @@ if (isPlayerTrackingEnabled()) then
       if (isMapEltheric()) then
 
         local fixedLocalXN, fixedLocalYN = getFixedElthericCoordinates(mapID, normalisedX, normalisedY)
-
         return fixedLocalXN, fixedLocalYN, direction, true
       end
     end
 
     return normalisedX, normalisedY, direction, isShownInCurrentMap
   end
-
-
-  -- local zos_PingMap = PingMap
-  -- PingMap = function(pingType, mapDisplayType, normalisedX, normalisedZ)
-
-  --   d("ping map called")
-
-  --   d(pingType)
-  --   d(mapDisplayType)
-
-  
-  --   zos_PingMap(pingType, mapDisplayType, normalisedX, normalisedZ)
-
-  -- end
-
-
-  -- SecurePostHook("GetMapPlayerWaypoint", function()
-  --   d("waypoint set")
-
-  --   local xN, yN = GetMapPlayerWaypoint()
-
-  --   PingMap(MAP_PIN_TYPE_PLAYER_WAYPOINT, MAP_TYPE_LOCATION_CENTERED, xN, yN)
-  -- end)
-
-  -- PingMap(*[MapDisplayPinType|#MapDisplayPinType]* _pingType_, *[MapDisplayType|#MapDisplayType]* _mapDisplayType_, *number* _normalizedX_, *number* _normalizedZ_)
 
   local zos_GetMapPlayerWaypoint = GetMapPlayerWaypoint
   GetMapPlayerWaypoint = function()
@@ -663,7 +637,37 @@ if (isPlayerTrackingEnabled()) then
       end
 
       -- if we're in a different local map as before
-      if (not isGlobal and not isMapTamriel(AWM.lastWaypointMapID) and AWM.lastWaypointMapID == getCurrentMapID()) then
+      if (not isGlobal and not isMapTamriel(AWM.lastWaypointMapID) and AWM.lastWaypointMapID ~= getCurrentMapID()) then
+
+
+        -- if we're in Eltheric Map and the last map was a map inside Eltheric
+        if (isMapEltheric() and isMapInEltheric(AWM.lastWaypointMapID)) then
+
+          nX, nY = getFixedElthericCoordinates(AWM.lastWaypointMapID, nX, nY)
+
+          AWM.lastWaypointMapID = getCurrentMapID()
+          AWM.lastLocalXN = nX
+          AWM.lastLocalYN = nY
+
+          return nX, nY
+        end
+
+        -- if we're in an Eltheric local map and the last map was Eltheric
+        if (isMapEltheric(AWM.lastWaypointMapID) and isMapInEltheric(getCurrentMapID())) then
+
+          d(nX, nY)
+
+          -- nX, nY = getFixedElthericCoordinates(AWM.lastWaypointMapID, nX, nY)
+
+          -- AWM.lastWaypointMapID = getCurrentMapID()
+          -- AWM.lastLocalXN = nX
+          -- AWM.lastLocalYN = nY
+
+          -- return nX, nY
+
+        end
+
+
 
         -- do stuff
 
@@ -675,3 +679,27 @@ if (isPlayerTrackingEnabled()) then
     end
   end
 end
+
+-- local zos_PingMap = PingMap
+-- PingMap = function(pingType, mapDisplayType, normalisedX, normalisedZ)
+
+--   d("ping map called")
+
+--   d(pingType)
+--   d(mapDisplayType)
+
+
+--   zos_PingMap(pingType, mapDisplayType, normalisedX, normalisedZ)
+
+-- end
+
+
+-- SecurePostHook("GetMapPlayerWaypoint", function()
+--   d("waypoint set")
+
+--   local xN, yN = GetMapPlayerWaypoint()
+
+--   PingMap(MAP_PIN_TYPE_PLAYER_WAYPOINT, MAP_TYPE_LOCATION_CENTERED, xN, yN)
+-- end)
+
+-- PingMap(*[MapDisplayPinType|#MapDisplayPinType]* _pingType_, *[MapDisplayType|#MapDisplayType]* _mapDisplayType_, *number* _normalizedX_, *number* _normalizedZ_)

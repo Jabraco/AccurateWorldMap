@@ -22,13 +22,55 @@ AWM = AWM or {}
 
 -------------------------------------------------------------------------------
 
+-- MapData Key:
+
+-- zoneName: >English-only< lore accurate name, also used to find the zone's 
+-- blob texture automatically by name, unless blobTexture is defined
+
+-- zoneDescription: Lore friendly description of the zone, is seen when "Zone
+-- Descriptions" is turned on
+
+-- zoneID: The map ID of this zone
+
+-- xN/yN: The normalised positions of the highlight blob (the hover effect)
+-- on the map
+
+-- zonePolygonData: The zone's hitbox on the map
+
+-- blobTexture: A manually defined highlight texture (this takes priority over
+-- the automated texture-by-name system)
+
+-- debugBlobTexture: An additional texture blob that is used to sync up player
+-- positioning and waypoints to the visually correct positions
+
+-- debugXN/debugYN: The position of the debug blob in normalised coordinates
+
+-- isDuplicate: Used to tell AWM that this zone is a duplicate of an already defined
+-- one. Used for Amenos / High Isle
+
+
+-- parentMapID: Overwrites the map's parent (the one you right click out to)
+
+-- isExclusive: Controls whether to only allow AWM data on this map (true) or
+-- a hybrid of AWM and vanilla (false)
+
+-- zoomLevel: Overwrites vanilla's defined zoom level for this map.
+
+-- customTileName: Used to tell AWM that this map has custom tiles (EG Aurbis)
+-- and to replace them based on custom textures.
+
+-- isWorldMap: Used as a patch for True Exploration to tell it that this map is 
+-- a world map, so that it doesn't fade it out.
+
+-------------------------------------------------------------------------------
+
 mapData = {
 
 -- █████████████████████████████████████████████████████████████████████████████████████████████████████████████████
 -- █   ████████   █████     ██████        █████   ████████      ███████████   ███████   ███████  ████████        ███
 -- █   ████████   ███   ████   ███   ████   ███   ████████   ███   ████████      ███    ██████     ██████   ████   █
 -- █   ███  ███   █   ████████   █   ████   ███   ████████   ████   ███████   █     █   █████  ██   █████   ████   █
--- █   ██   ███   █   ████████   █      ███████   ████████   ████   ███████   ██   ██   ████   ███   ████        ███
+-- █   ██   ███   █   ████████   █       ██████   ████████   ████   ███████   ██   ██   ████   ███   ████        ███
 -- █   █      █   █   ████████   █   ██   █████   ████████   ████   ███████   ███  ██   ███           ███   ████████
 -- █     ████     ███   ████    ██   ████   ███   ████████   ███   ████████   ███████   ██   ███████   ██   ████████
 -- █   ████████   █████     ██████   ██████   █          █      ███████████   ███████   █   █████████   █   ████████
@@ -74,7 +116,7 @@ mapData = {
     [90] = { xN = 0.565, yN = 0.274 }, -- Voljar Meadery Wayshrine
     [89] = { xN = 0.575, yN = 0.283 }, -- Kynesgrove Wayshrine
     [93] = { xN = 0.569, yN = 0.308 }, -- Wittestadr Wayshrine
-    [97] = { xN = 0.608, yN = 0.306 }, -- Skuldafn Wayshrine
+    [97] = { xN = 0.621, yN = 0.296 }, -- Skuldafn Wayshrine
     [96] = { xN = 0.592, yN = 0.308 }, -- Logging Camp Wayshrine
     [95] = { xN = 0.601, yN = 0.314 }, -- Jorunn's Stand Wayshrine
     [91] = { xN = 0.541, yN = 0.289 }, -- Cradlecrush Wayshrine
