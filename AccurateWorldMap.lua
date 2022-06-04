@@ -27,18 +27,18 @@ Vylaera TODO:
 - Edit High isle and amenos to be solid, get rid of the rivers, make high isle less of a pankor clone
 
 - Simplify and reduce certain areas of the map that wouldn't be visible at orbit
-> Axe most of the tiny islands along the coastlines, simplify them and reduce noise
-> Make the Boujlsae thinner and smoother to be less eratic, like how you did the Niben
-> Make firemoth isle smaller, closer to vvardenfell, and fill in the gap that it leaves for stonefalls to connect
-> Fill in this area of valenwood as you wouldnt see that much detail from orbit. also it's solid in vanilla
+>> Axe most of the tiny islands along the coastlines, simplify them and reduce noise
+>> Make the Boujlsae thinner and smoother to be less eratic, like how you did the Niben
+>> Make firemoth isle smaller, closer to vvardenfell, and fill in the gap that it leaves for stonefalls to connect
+>> Fill in this area of valenwood as you wouldnt see that much detail from orbit. also it's solid in vanilla
 https://cdn.discordapp.com/attachments/979030537773650013/981268193412775956/unknown.png
 
 - Fix Summerset (https://cdn.discordapp.com/attachments/979030537773650013/981262088284545104/unknown.png)
-> Reduce the Shimmerene tumour on summerset
-> Fill in summerset's western gaps to be more like anthology
+>> Reduce the Shimmerene tumour on summerset
+>> Fill in summerset's western gaps to be more like anthology
 https://cdn.discordapp.com/attachments/979030537773650013/981261111053668432/unknown.png
-> Delete or shrink sapiarch isle
-> shrink and move Wasten Coraldale closer to coast
+>> Delete or shrink sapiarch isle
+>> shrink and move Wasten Coraldale closer to coast
 
 Blob issues:
 - Need Stros M'Kai debug blob
@@ -55,10 +55,13 @@ Misc issues:
 - Aurbis rings don't contain their proper daedric/elven text
 - Go over all zone descs
 - Khenarthi's roost is too big on the map to lore scale - it's smaller in quin'rawl's map, also further away
-> perhaps scale it down and move it
+>> perhaps scale it down and move it
 
 
 POST RELEASE:
+
+- Refactor the way names and decs/strings work in the mod to allow for translation
+>> also work on adding translation
 
 - Add "loading" text to map while blobs are still being compiled
 - Find a way to move the zone name and clock to be closer to the actual map in K&M mode like gamepad
