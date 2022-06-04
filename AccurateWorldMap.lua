@@ -1,5 +1,5 @@
 --[[===========================================================================
-                AccurateWorldMap, by BroughBreaux & Thal-J
+                     AccurateWorldMap, by Vylaera & Thal-J
 ===============================================================================
 
 -- ascii title art done on https://texteditor.com/ascii-art/
@@ -9,6 +9,7 @@
 
 TJ TODO:
 
+- Fix using vanilla normalised data for player zone on startup instead of modded
 - Do waypoint and player tracking for Elthelric
 - Remove debug spam
 - Add to isgamepadmode: If gamepad cursor texture control is visible, isGamepadMode = true also
