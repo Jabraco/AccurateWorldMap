@@ -10,13 +10,11 @@
 TJ TODO:
 
 - Add more padding between desc title and desc itself
-- Do debug blobs for stros and betnikh
 
 --------
 
 Vylaera TODO:
 
-- Add mipmaps to all maps
 - Make Sword's Rest Isle smaller on the map
 - Make optional optional river layer.dds to be enabled in the settings
 - Edit High isle and amenos to be solid, get rid of the rivers, make high isle less of a pankor clone
@@ -34,16 +32,6 @@ https://cdn.discordapp.com/attachments/979030537773650013/981268193412775956/unk
 https://cdn.discordapp.com/attachments/979030537773650013/981261111053668432/unknown.png
 >> Delete or shrink sapiarch isle
 >> shrink and move Wasten Coraldale closer to coast
-
-Blob issues:
-- Need Stros M'Kai debug blob
-- Need Betnikh debug blob
-- Craglorn debug blob has something wrong with it
-- Balfiera debug blob has something wrong with it
-- Dreadsail Reef blob is too big
-- Sword's Rest Isle blob is too big
-- Missing Topal Hideaway blob
-- Dranil Kir blob is darker than the others
 
 Misc issues:
 - Need custom description background for PC
@@ -316,7 +304,7 @@ local function onWorldMapOpened()
     ZO_WorldMapMouseOverDescription:SetWrapMode(TEXT_WRAP_MODE_ELLIPSIS)
     ZO_WorldMapMouseOverDescription:ClearAnchors()
     ZO_WorldMapMouseOverDescription:SetAnchor(TOPLEFT, ZO_WorldMapMouseoverName, BOTTOMLEFT, mapDescPaddingAmount, 2)
-    ZO_WorldMapMouseOverDescription:SetAnchor(TOPRIGHT, ZO_WorldMapMouseoverName, BOTTOMRIGHT, -(mapDescPaddingAmount), 2)
+    ZO_WorldMapMouseOverDescription:SetAnchor(TOPRIGHT, ZO_WorldMapMouseoverName, BOTTOMRIGHT, -(mapDescPaddingAmount), 4)
 
     -- set up map description background
     AWM_MouseOverGrungeTex:ClearAnchors()

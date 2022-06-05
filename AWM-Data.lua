@@ -1398,7 +1398,7 @@ mapData = {
       xN = "0.142",
       yN = "0.529",
       debugXN = "0.1475",
-      debugYN = "0.529",
+      debugYN = "0.531",
       zonePolygonData = {
         { xN = 0.140, yN = 0.537 },
         { xN = 0.141, yN = 0.541 },
