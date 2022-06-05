@@ -3344,7 +3344,7 @@ AWM.optionsData = {
     type = "checkbox",
     name = "Correct Player Positioning",
     disabled = true,
-    tooltip = "Repositions player markers, wayshrines and waypoints on the map according to their lore accurate locations. Requires updated libraries.",
+    tooltip = "Moves player location and player waypoints markers to be where they should be on the world map, relative to zones. Requires LibGPS and LibZone libraries.",
     getFunc = function() return isPlayerTrackingEnabled() end,
   },
 
