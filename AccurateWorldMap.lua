@@ -9,8 +9,6 @@
 
 TJ TODO:
 
-- Add more padding between desc title and desc itself
-
 --------
 
 Vylaera TODO:
@@ -34,7 +32,6 @@ https://cdn.discordapp.com/attachments/979030537773650013/981261111053668432/unk
 >> shrink and move Wasten Coraldale closer to coast
 
 Misc issues:
-- Need custom description background for PC
 - Aurbis rings don't contain their proper daedric/elven text
 - Go over all zone descs
 - Khenarthi's roost is too big on the map to lore scale - it's smaller in quin'rawl's map, also further away
@@ -43,9 +40,6 @@ Misc issues:
 POST RELEASE:
 
 - Add option and subsection in settings to control dungeons/trials, houses and wayshrines separately
-
-When Breaux has given you fixed K&M desc background, delete bit that removes map border from K&M to stop
-interfering with minimap mods
 
 - If player is in a house or a dungeon, and is looking at the tamriel map, put the player/waypoint icon where that icon is
 
