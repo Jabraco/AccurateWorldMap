@@ -93,33 +93,38 @@ end)
 
 -------------------------------------------------------------------------------
 
-ZO_PreHook("ZO_WorldMap_MouseEnter", function()
+if (isPlayerTrackingEnabled()) then
 
-  if (not isInGamepadMode()) then
+  ZO_PreHook("ZO_WorldMap_MouseEnter", function()
 
-    AWMWaypointKeybind = {
-      {
-        name = ( function() if (not isWaypointPlaced()) then return "Set Destination" else return "Move / Remove Destination" end end),
-        keybind = "UI_SHORTCUT_TERTIARY",
-        callback = function() onWaypointSet(getNormalisedMouseCoordinates()) end,
-      },
-      alignment = KEYBIND_STRIP_ALIGN_CENTER,
-    }
-
-    if (not isChampionPointWindowShown() and isMouseWithinMapWindow() or AWM.currentlySelectedPolygon ~= nil) then
-      KEYBIND_STRIP:AddKeybindButtonGroup(AWMWaypointKeybind)  
+    if (not isInGamepadMode()) then
+  
+      AWMWaypointKeybind = {
+        {
+          name = ( function() if (not isWaypointPlaced()) then return "Set Destination" else return "Move / Remove Destination" end end),
+          keybind = "UI_SHORTCUT_TERTIARY",
+          callback = function() onWaypointSet(getNormalisedMouseCoordinates()) end,
+        },
+        alignment = KEYBIND_STRIP_ALIGN_CENTER,
+      }
+  
+      if (not isChampionPointWindowShown() and isMouseWithinMapWindow() or AWM.currentlySelectedPolygon ~= nil) then
+        KEYBIND_STRIP:AddKeybindButtonGroup(AWMWaypointKeybind)  
+      end
     end
-  end
-  return true
-end)
+    return true
+  end)
+  
+  ZO_PreHook("ZO_WorldMap_MouseExit", function()
+  
+    if (not isInGamepadMode() and not isChampionPointWindowShown() and not isMouseWithinMapWindow() ) then
+      KEYBIND_STRIP:RemoveKeybindButtonGroup(AWMWaypointKeybind)
+    end
+    return true
+  end)
 
-ZO_PreHook("ZO_WorldMap_MouseExit", function()
+end
 
-  if (not isInGamepadMode() and not isChampionPointWindowShown() and not isMouseWithinMapWindow() ) then
-    KEYBIND_STRIP:RemoveKeybindButtonGroup(AWMWaypointKeybind)
-  end
-  return true
-end)
 
 -------------------------------------------------------------------------------
 -- Map mouseover info function

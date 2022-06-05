@@ -309,25 +309,28 @@ local function onWorldMapOpened()
     local enlargeConst = 1.5
     local mapDescPaddingAmount = mapWidth * 0.10
   
-    AWM_MouseOverGrungeTex:ClearAnchors()
-  
     -- set up map description label control
     ZO_WorldMapMouseOverDescription:SetFont("ZoFontGameLargeBold")
     ZO_WorldMapMouseOverDescription:SetWrapMode(TEXT_WRAP_MODE_ELLIPSIS)
     ZO_WorldMapMouseOverDescription:ClearAnchors()
     ZO_WorldMapMouseOverDescription:SetAnchor(TOPLEFT, ZO_WorldMapMouseoverName, BOTTOMLEFT, mapDescPaddingAmount, 2)
     ZO_WorldMapMouseOverDescription:SetAnchor(TOPRIGHT, ZO_WorldMapMouseoverName, BOTTOMRIGHT, -(mapDescPaddingAmount), 2)
+
+    -- set up map description background
+    AWM_MouseOverGrungeTex:ClearAnchors()
+    AWM_MouseOverGrungeTex:SetAnchor(TOPLEFT, ZO_WorldMap, TOPLEFT, 0, 0)
+    AWM_MouseOverGrungeTex:SetDimensions(mapWidth, mapHeight)
   
     -- set up label description background 
     if (isInGamepadMode()) then
-      
       AWM_MouseOverGrungeTex:SetTexture("AccurateWorldMap/misc/gamepadshadow.dds")
-      AWM_MouseOverGrungeTex:SetAnchor(TOPLEFT, ZO_WorldMap, TOPLEFT, 0, 0)
-      AWM_MouseOverGrungeTex:SetDimensions(mapWidth, mapHeight)
     else
-      AWM_MouseOverGrungeTex:SetTexture("AccurateWorldMap/misc/statusmetermunge.dds")
-      AWM_MouseOverGrungeTex:SetAnchor(TOPLEFT, ZO_WorldMap, TOPLEFT, (mapWidth - (mapWidth*enlargeConst))/2, -(0.47 * mapHeight))
-      AWM_MouseOverGrungeTex:SetDimensions(mapWidth*enlargeConst, mapHeight)
+
+      if (dui) then -- check if DarkUI is installed
+        AWM_MouseOverGrungeTex:SetTexture("AccurateWorldMap/misc/pc_shadow_darkui.dds")
+      else
+        AWM_MouseOverGrungeTex:SetTexture("AccurateWorldMap/misc/pc_shadow.dds")
+      end
     end
 
     AWM_MouseOverGrungeTex:SetDrawTier(DT_PARENT)
@@ -398,7 +401,7 @@ local function main()
 
   end
 
-  if (not isInGamepadMode()) then
+  if (not isInGamepadMode() and isPlayerTrackingEnabled()) then
 
     if (isWorldMapShown() and  not isMouseWithinMapWindow()) then
       KEYBIND_STRIP:RemoveKeybindButtonGroup(AWMWaypointKeybind)
