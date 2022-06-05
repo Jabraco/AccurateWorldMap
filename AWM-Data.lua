@@ -448,7 +448,6 @@ mapData = {
       }
     }),
 
-
     -- Falkreath Hold --
     [332] = { xN = 0.451, yN = 0.356 }, -- Falkreath Hold Dungeon 
 
@@ -600,6 +599,97 @@ mapData = {
         { xN = 0.333, yN = 0.595 },
         { xN = 0.362, yN = 0.591 },
         { xN = 0.383, yN = 0.576 },      
+      }
+    }),
+
+    -- Blackwood --
+    [462] = { xN = 0.671, yN = 0.631 }, -- Bloodrun Wayshrine 
+    [483] = { xN = 0.673, yN = 0.657, majorSettlement = true }, -- Hutan-Tzel Wayshrine
+    [459] = { xN = 0.654, yN = 0.680, majorSettlement = true }, -- Gideon Wayshrine 
+    [464] = { xN = 0.662, yN = 0.721, majorSettlement = true }, -- Stonewastes Wayshrine
+    [484] = { xN = 0.688, yN = 0.714 }, -- Vunalk Wayshrine
+    [468] = { xN = 0.684, yN = 0.742 }, -- Rockgrove Trial
+    [473] = { xN = 0.687, yN = 0.624 }, -- Pantherfang Chapel House 
+    [458] = { xN = 0.597, yN = 0.685, majorSettlement = true }, -- Leyawiin Wayshrine 
+    [467] = { xN = 0.601, yN = 0.677 }, -- Leyawin Outskirts Wayshrine
+    [471] = { xN = 0.600, yN = 0.683 }, -- Pilgrim's Rest House 
+    [469] = { xN = 0.664, yN = 0.610 }, -- The Dread Cellar Dungeon 
+    [481] = { xN = 0.617, yN = 0.627 }, -- Doomvault Vulpinaz Wayshrine 
+    [461] = { xN = 0.611, yN = 0.645 }, -- Fort Redmane Wayshrine 
+    [482] = { xN = 0.630, yN = 0.680 }, -- Blackwood Crosslands Wayshrine
+    [460] = { xN = 0.590, yN = 0.653 }, -- Borderwatch Wayshrine 
+    [463] = { xN = 0.620, yN = 0.703 }, -- Blueblood Wayshrine
+    [472] = { xN = 0.603, yN = 0.687 }, -- Water's Edge House
+
+    zoneData = join({
+      zoneName = "Blackwood",
+      zoneDescription = "Straddling the great Niben River and extending east into the bogs of the Argonian homeland, the Blackwood region serves as the maritime gate to Cyrodiil.",
+      zoneID = 1887,
+      xN = "0.570",
+      yN = "0.5975",
+      debugXN = "0.5625",
+      debugYN = "0.5945",
+      zonePolygonData = {
+        { xN = 0.593, yN = 0.708 },
+        { xN = 0.583, yN = 0.696 },
+        { xN = 0.582, yN = 0.690 },
+        { xN = 0.586, yN = 0.681 },
+        { xN = 0.587, yN = 0.675 },
+        { xN = 0.585, yN = 0.656 },
+        { xN = 0.583, yN = 0.650 },
+        { xN = 0.585, yN = 0.646 },
+        { xN = 0.588, yN = 0.637 },
+        { xN = 0.589, yN = 0.628 },
+        { xN = 0.601, yN = 0.631 },
+        { xN = 0.608, yN = 0.631 },
+        { xN = 0.612, yN = 0.627 },
+        { xN = 0.615, yN = 0.620 },
+        { xN = 0.618, yN = 0.609 },
+        { xN = 0.623, yN = 0.599 },
+        { xN = 0.628, yN = 0.598 },
+        { xN = 0.636, yN = 0.605 },
+        { xN = 0.646, yN = 0.609 },
+        { xN = 0.660, yN = 0.607 },
+        { xN = 0.675, yN = 0.613 },
+        { xN = 0.683, yN = 0.617 },
+        { xN = 0.687, yN = 0.620 },
+        { xN = 0.697, yN = 0.620 },
+        { xN = 0.693, yN = 0.633 },
+        { xN = 0.690, yN = 0.641 },
+        { xN = 0.691, yN = 0.654 },
+        { xN = 0.693, yN = 0.661 },
+        { xN = 0.695, yN = 0.665 },
+        { xN = 0.692, yN = 0.676 },
+        { xN = 0.691, yN = 0.680 },
+        { xN = 0.694, yN = 0.688 },
+        { xN = 0.700, yN = 0.691 },
+        { xN = 0.702, yN = 0.701 },
+        { xN = 0.700, yN = 0.705 },
+        { xN = 0.704, yN = 0.711 },
+        { xN = 0.707, yN = 0.716 },
+        { xN = 0.706, yN = 0.722 },
+        { xN = 0.704, yN = 0.725 },
+        { xN = 0.711, yN = 0.732 },
+        { xN = 0.706, yN = 0.739 },
+        { xN = 0.698, yN = 0.738 },
+        { xN = 0.694, yN = 0.743 },
+        { xN = 0.683, yN = 0.750 },
+        { xN = 0.682, yN = 0.752 },
+        { xN = 0.674, yN = 0.747 },
+        { xN = 0.669, yN = 0.748 },
+        { xN = 0.664, yN = 0.747 },
+        { xN = 0.651, yN = 0.744 },
+        { xN = 0.653, yN = 0.738 },
+        { xN = 0.650, yN = 0.731 },
+        { xN = 0.642, yN = 0.723 },
+        { xN = 0.638, yN = 0.714 },
+        { xN = 0.633, yN = 0.714 },
+        { xN = 0.631, yN = 0.719 },
+        { xN = 0.624, yN = 0.720 },
+        { xN = 0.622, yN = 0.716 },
+        { xN = 0.614, yN = 0.713 },
+        { xN = 0.603, yN = 0.701 },
+        { xN = 0.594, yN = 0.707 },        
       }
     }),
 
@@ -1014,6 +1104,8 @@ mapData = {
       zoneID = 227,
       xN = "0.072",
       yN = "0.425",
+      debugXN = "0.0685",
+      debugYN = "0.4225",
       zonePolygonData = {
         { xN = 0.070, yN = 0.446 },
         { xN = 0.079, yN = 0.449 },
@@ -1305,6 +1397,8 @@ mapData = {
       zoneID = 201,
       xN = "0.142",
       yN = "0.529",
+      debugXN = "0.1475",
+      debugYN = "0.529",
       zonePolygonData = {
         { xN = 0.140, yN = 0.537 },
         { xN = 0.141, yN = 0.541 },
@@ -1746,97 +1840,6 @@ mapData = {
         { xN = 0.804, yN = 0.790 },
         { xN = 0.798, yN = 0.794 },
         { xN = 0.797, yN = 0.796 },        
-      }
-    }),
-
-    -- Blackwood --
-    [462] = { xN = 0.671, yN = 0.631 }, -- Bloodrun Wayshrine 
-    [483] = { xN = 0.673, yN = 0.657, majorSettlement = true }, -- Hutan-Tzel Wayshrine
-    [459] = { xN = 0.654, yN = 0.680, majorSettlement = true }, -- Gideon Wayshrine 
-    [464] = { xN = 0.662, yN = 0.721, majorSettlement = true }, -- Stonewastes Wayshrine
-    [484] = { xN = 0.688, yN = 0.714 }, -- Vunalk Wayshrine
-    [468] = { xN = 0.684, yN = 0.742 }, -- Rockgrove Trial
-    [473] = { xN = 0.687, yN = 0.624 }, -- Pantherfang Chapel House 
-    [458] = { xN = 0.597, yN = 0.685, majorSettlement = true }, -- Leyawiin Wayshrine 
-    [467] = { xN = 0.601, yN = 0.677 }, -- Leyawin Outskirts Wayshrine
-    [471] = { xN = 0.600, yN = 0.683 }, -- Pilgrim's Rest House 
-    [469] = { xN = 0.664, yN = 0.610 }, -- The Dread Cellar Dungeon 
-    [481] = { xN = 0.617, yN = 0.627 }, -- Doomvault Vulpinaz Wayshrine 
-    [461] = { xN = 0.611, yN = 0.645 }, -- Fort Redmane Wayshrine 
-    [482] = { xN = 0.630, yN = 0.680 }, -- Blackwood Crosslands Wayshrine
-    [460] = { xN = 0.590, yN = 0.653 }, -- Borderwatch Wayshrine 
-    [463] = { xN = 0.620, yN = 0.703 }, -- Blueblood Wayshrine
-    [472] = { xN = 0.603, yN = 0.687 }, -- Water's Edge House
-
-    zoneData = join({
-      zoneName = "Blackwood",
-      zoneDescription = "Straddling the great Niben River and extending east into the bogs of the Argonian homeland, the Blackwood region serves as the maritime gate to Cyrodiil.",
-      zoneID = 1887,
-      xN = "0.570",
-      yN = "0.5975",
-      debugXN = "0.5625",
-      debugYN = "0.5945",
-      zonePolygonData = {
-        { xN = 0.593, yN = 0.708 },
-        { xN = 0.583, yN = 0.696 },
-        { xN = 0.582, yN = 0.690 },
-        { xN = 0.586, yN = 0.681 },
-        { xN = 0.587, yN = 0.675 },
-        { xN = 0.585, yN = 0.656 },
-        { xN = 0.583, yN = 0.650 },
-        { xN = 0.585, yN = 0.646 },
-        { xN = 0.588, yN = 0.637 },
-        { xN = 0.589, yN = 0.628 },
-        { xN = 0.601, yN = 0.631 },
-        { xN = 0.608, yN = 0.631 },
-        { xN = 0.612, yN = 0.627 },
-        { xN = 0.615, yN = 0.620 },
-        { xN = 0.618, yN = 0.609 },
-        { xN = 0.623, yN = 0.599 },
-        { xN = 0.628, yN = 0.598 },
-        { xN = 0.636, yN = 0.605 },
-        { xN = 0.646, yN = 0.609 },
-        { xN = 0.660, yN = 0.607 },
-        { xN = 0.675, yN = 0.613 },
-        { xN = 0.683, yN = 0.617 },
-        { xN = 0.687, yN = 0.620 },
-        { xN = 0.697, yN = 0.620 },
-        { xN = 0.693, yN = 0.633 },
-        { xN = 0.690, yN = 0.641 },
-        { xN = 0.691, yN = 0.654 },
-        { xN = 0.693, yN = 0.661 },
-        { xN = 0.695, yN = 0.665 },
-        { xN = 0.692, yN = 0.676 },
-        { xN = 0.691, yN = 0.680 },
-        { xN = 0.694, yN = 0.688 },
-        { xN = 0.700, yN = 0.691 },
-        { xN = 0.702, yN = 0.701 },
-        { xN = 0.700, yN = 0.705 },
-        { xN = 0.704, yN = 0.711 },
-        { xN = 0.707, yN = 0.716 },
-        { xN = 0.706, yN = 0.722 },
-        { xN = 0.704, yN = 0.725 },
-        { xN = 0.711, yN = 0.732 },
-        { xN = 0.706, yN = 0.739 },
-        { xN = 0.698, yN = 0.738 },
-        { xN = 0.694, yN = 0.743 },
-        { xN = 0.683, yN = 0.750 },
-        { xN = 0.682, yN = 0.752 },
-        { xN = 0.674, yN = 0.747 },
-        { xN = 0.669, yN = 0.748 },
-        { xN = 0.664, yN = 0.747 },
-        { xN = 0.651, yN = 0.744 },
-        { xN = 0.653, yN = 0.738 },
-        { xN = 0.650, yN = 0.731 },
-        { xN = 0.642, yN = 0.723 },
-        { xN = 0.638, yN = 0.714 },
-        { xN = 0.633, yN = 0.714 },
-        { xN = 0.631, yN = 0.719 },
-        { xN = 0.624, yN = 0.720 },
-        { xN = 0.622, yN = 0.716 },
-        { xN = 0.614, yN = 0.713 },
-        { xN = 0.603, yN = 0.701 },
-        { xN = 0.594, yN = 0.707 },        
       }
     }),
 

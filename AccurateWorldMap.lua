@@ -341,10 +341,9 @@ local function onWorldMapOpened()
     AWM_MouseOverGrungeTex:SetDrawTier(DT_PARENT)
     AWM_MouseOverGrungeTex:SetDrawLayer(DL_OVERLAY)
     AWM_MouseOverGrungeTex:SetDrawLayer(DL_CONTROLS)
-
     AWM_MouseOverGrungeTex:SetHidden(true)
 
-    -- hide serenated edge if in gamepad or not
+    -- hide serenated edge if not in gamepad
     ZO_WorldMapContainerRaggedEdge:SetHidden(not isInGamepadMode())
 
   end
