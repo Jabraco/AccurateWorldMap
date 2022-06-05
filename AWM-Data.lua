@@ -92,7 +92,7 @@ mapData = {
 
     zoneData = join({
       zoneName = "Bleakrock Isle",
-      zoneDescription = "Sitting at the mouth of the Yorgrim River, this quaint fishing isle's stragetic importance cannot be understated - it acts as a chokepoint for all vessels going in and out of Windhelm.",
+      zoneDescription = "Bleakrock Isle may seem like a quaint fishing island but its strategic importance cannot be understated - sitting in the mouth of the Yorgrim River, it acts as a chokepoint for all vessels entering or leaving the port of Windhelm, and is a gateway east to Morrowind.",
       zoneID = 74,
       xN = "0.6075",
       yN = "0.223",
@@ -924,7 +924,7 @@ mapData = {
     
     zoneData = join({
       zoneName = "Wrothgar",
-      zoneDescription = "The Wrothgar Mountains have been home to northern Tamriel's Orcs since the beginning of recorded history.",
+      zoneDescription = "The Wrothgar Mountains have been home to northern Tamriel's Orcs since the beginning of recorded is history.",
       zoneID = 667,
       xN = "0.2065",
       yN = "0.195",
@@ -988,6 +988,7 @@ mapData = {
       }
     }),
 
+    -- Sword's Rest Isle --
     zoneData = join({
       zoneName = "Sword's Rest Isle",
       zoneDescription = "This island, also known as Emeric's Retreat, is used as a getaway by High King Emeric for when he wants to escape the pressures of running the Daggerfall Covenant.",
@@ -1116,7 +1117,7 @@ mapData = {
       }
     }),
 
-     -- Bangkorai --
+    -- Bangkorai --
     [206] = { xN = 0.305, yN = 0.279 }, -- Halcyon Lake Wayshrine
     [186] = { xN = 0.281, yN = 0.301 }, -- Blackheart Haven Dungeon
     [33] = { majorSettlement = true }, -- Evermore Wayshrine
@@ -1839,10 +1840,6 @@ mapData = {
       }
     }),
 
-    -- Grand Topal Hideaway --
-    [325] = { xN = 0.641, yN = 0.738 }, -- Grand Topal Hideaway House
-
-
     -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
     -- ██░▄▄▄██░█████░▄▄▄░██░███░██░▄▄▄██░███░██░▄▄▀██
     -- ██░▄▄▄██░█████▄▄▄▀▀██░█░█░██░▄▄▄██▄▀▀▀▄██░▀▀▄██
@@ -2011,6 +2008,10 @@ mapData = {
         { xN = 0.614, yN = 0.803 },
       }
     }),
+
+    -- Grand Topal Hideaway --
+    [325] = { xN = 0.641, yN = 0.738 }, -- Grand Topal Hideaway House
+
 
     -- Khenarthi's Roost --
     [142] = { majorSettlement = true }, -- Mistral Wayshrine
@@ -2664,6 +2665,7 @@ mapData = {
     [522] = { disabled = true }, -- Ancient Anchor Berth House
     [523] = { disabled = true }, -- Highhallow Hold House
 
+    -- Eltheric Ocean --
     zoneData = join({
       zoneName = "Eltheric Ocean",
       zoneDescription = "The seas of Western Tamriel are home to the sunken realm of Thras, the Systres Archipelago, and the Yokudan continent.",
@@ -2788,6 +2790,7 @@ mapData = {
       }
     }),
 
+    -- Dreadsail Reef --
     zoneData = join({
       zoneName = "Dreadsail Reef",
       zoneDescription = "The fearsome Dreadsail pirates have long been a terror to the people of The Systres and Summerset. The location of their clandestine harbor, however, is a secret no longer.",

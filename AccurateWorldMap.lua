@@ -9,6 +9,8 @@
 
 TJ TODO:
 
+- Add more padding between desc title and desc itself
+- Do debug blobs for stros and betnikh
 
 --------
 
@@ -307,7 +309,7 @@ local function onWorldMapOpened()
 
     local mapWidth, mapHeight = ZO_WorldMapContainer:GetDimensions()
     local enlargeConst = 1.5
-    local mapDescPaddingAmount = mapWidth * 0.10
+    local mapDescPaddingAmount = mapWidth * 0.11
   
     -- set up map description label control
     ZO_WorldMapMouseOverDescription:SetFont("ZoFontGameLargeBold")
@@ -324,6 +326,7 @@ local function onWorldMapOpened()
     -- set up label description background 
     if (isInGamepadMode()) then
       AWM_MouseOverGrungeTex:SetTexture("AccurateWorldMap/misc/gamepadshadow.dds")
+      AWM_MouseOverGrungeTex:SetAlpha(0.65)
     else
 
       if (dui) then -- check if DarkUI is installed
@@ -331,16 +334,17 @@ local function onWorldMapOpened()
       else
         AWM_MouseOverGrungeTex:SetTexture("AccurateWorldMap/misc/pc_shadow.dds")
       end
+      
+      AWM_MouseOverGrungeTex:SetAlpha(0.45)
     end
 
     AWM_MouseOverGrungeTex:SetDrawTier(DT_PARENT)
     AWM_MouseOverGrungeTex:SetDrawLayer(DL_OVERLAY)
     AWM_MouseOverGrungeTex:SetDrawLayer(DL_CONTROLS)
-    AWM_MouseOverGrungeTex:SetAlpha(0.65)
+
     AWM_MouseOverGrungeTex:SetHidden(true)
 
     -- hide serenated edge if in gamepad or not
-    ZO_WorldMap:SetAutoRectClipChildren(not isInGamepadMode())
     ZO_WorldMapContainerRaggedEdge:SetHidden(not isInGamepadMode())
 
   end
