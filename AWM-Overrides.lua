@@ -455,7 +455,7 @@ if (isPlayerTrackingEnabled()) then
 
     local normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
 
-    d("Requesting normalised map info for map " .. mapID)
+    --d("Requesting normalised map info for map " .. mapID)
 
     if (not isMapTamriel(mapID)) then
 
@@ -483,7 +483,7 @@ if (isPlayerTrackingEnabled()) then
             -- if this map doesn't have custom data, but its parent does, then scale the current normalised position to inside of the main zone's one        
             if (getMapBoundingBoxByID(mapID) ~= nil) then
 
-              print("custom data loaded")
+              --print("custom data loaded")
 
               normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight = getMapBoundingBoxByID(mapID)
               normalisedOffsetY = normalisedOffsetY - 0.14000000059605
@@ -517,7 +517,7 @@ if (isPlayerTrackingEnabled()) then
       normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
     end
 
-    print(("X Offset: " .. normalisedOffsetX), ("Y Offset: " .. normalisedOffsetY), ("Normalised width: " .. normalisedWidth), ("Normalised height: " .. normalisedHeight))
+    --print(("X Offset: " .. normalisedOffsetX), ("Y Offset: " .. normalisedOffsetY), ("Normalised width: " .. normalisedWidth), ("Normalised height: " .. normalisedHeight))
 
     return normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight
 
@@ -580,7 +580,7 @@ if (isPlayerTrackingEnabled()) then
     -- if there is a waypoint set somewhere
     if (AWM.lastWaypointMapID ~= nil and isWaypointPlaced() and not isMapInAurbis(AWM.lastWaypointMapID)) then
 
-      d("waypoint being automatically placed")
+      --d("waypoint being automatically placed")
 
       -- if we are in Eltheric or Tamriel and there is a waypointer set in in an aurbis realm
       if ( (isMapTamriel() or isMapEltheric()) and isMapInAurbis(AWM.lastWaypointMapID)) then
@@ -611,7 +611,7 @@ if (isPlayerTrackingEnabled()) then
 
         else
 
-          d("calclating fixed globals")
+          --d("calclating fixed globals")
           nX, nY = getFixedGlobalCoordinates(AWM.lastWaypointMapID, nX, nY)
   
           AWM.lastWaypointMapID = getTamrielMapID()
@@ -626,7 +626,7 @@ if (isPlayerTrackingEnabled()) then
       -- if we're in a local map now, but we were in tamriel before
       if (not isGlobal and isMapTamriel(AWM.lastWaypointMapID)) then
 
-        d("returning modded local!")
+        --d("returning modded local!")
         nX, nY = getFixedLocalCoordinates(getCurrentMapID(), nX, nY)
 
         AWM.lastWaypointMapID = getCurrentMapID()
@@ -643,6 +643,9 @@ if (isPlayerTrackingEnabled()) then
         -- if we're in Eltheric Map and the last map was a map inside Eltheric
         if (isMapEltheric() and isMapInEltheric(AWM.lastWaypointMapID)) then
 
+          AWM.lastGlobalXN = nX
+          AWM.lastGlobalYN = nY
+
           nX, nY = getFixedElthericCoordinates(AWM.lastWaypointMapID, nX, nY)
 
           AWM.lastWaypointMapID = getCurrentMapID()
@@ -655,21 +658,15 @@ if (isPlayerTrackingEnabled()) then
         -- if we're in an Eltheric local map and the last map was Eltheric
         if (isMapEltheric(AWM.lastWaypointMapID) and isMapInEltheric(getCurrentMapID())) then
 
-          d(nX, nY)
-
-          -- nX, nY = getFixedElthericCoordinates(AWM.lastWaypointMapID, nX, nY)
-
-          -- AWM.lastWaypointMapID = getCurrentMapID()
-          -- AWM.lastLocalXN = nX
-          -- AWM.lastLocalYN = nY
-
-          -- return nX, nY
+          nX, nY = getFixedLocalCoordinates(getCurrentMapID(), nX, nY)
+  
+          AWM.lastWaypointMapID = getCurrentMapID()
+          AWM.lastLocalXN = nX
+          AWM.lastLocalYN = nY
+  
+          return nX, nY
 
         end
-
-
-
-        -- do stuff
 
       end
 

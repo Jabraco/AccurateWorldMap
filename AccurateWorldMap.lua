@@ -9,9 +9,6 @@
 
 TJ TODO:
 
-- Do waypoint and player tracking for Elthelric
-- Remove debug spam
-- Fix blob duplicate name issue
 
 --------
 

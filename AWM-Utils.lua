@@ -1151,8 +1151,8 @@ function getFixedLocalCoordinates(mapID, vanillaLocalNX, vanillaLocalNY)
 
   if (AWM.lastGlobalXN ~= nil and AWM.lastGlobalYN ~= nil) then
 
-    d("last globals:")
-    d(AWM.lastGlobalXN, AWM.lastGlobalYN)
+    -- d("last globals:")
+    -- d(AWM.lastGlobalXN, AWM.lastGlobalYN)
 
     local measurement = GPS:GetMapMeasurementByMapId(mapID)
     if (measurement ~= nil) then
@@ -1161,7 +1161,7 @@ function getFixedLocalCoordinates(mapID, vanillaLocalNX, vanillaLocalNY)
 
       if (LMP:IsPositionOnMap(moddedLocalNX, moddedLocalNY)) then
 
-        d(moddedLocalNX, moddedLocalNY)
+        ---d(moddedLocalNX, moddedLocalNY)
         return moddedLocalNX, moddedLocalNY
 
       else
@@ -1172,7 +1172,7 @@ function getFixedLocalCoordinates(mapID, vanillaLocalNX, vanillaLocalNY)
     end
   end
 
-  d(vanillaLocalNX, vanillaLocalNY)
+  --d(vanillaLocalNX, vanillaLocalNY)
 
   -- if the incoming position is not on the map, then it is either
   -- from a modded position on the global map, or far away.
@@ -1188,7 +1188,7 @@ function getFixedLocalCoordinates(mapID, vanillaLocalNX, vanillaLocalNY)
 
       local moddedLocalNX, moddedLocalNY = measurement:ToLocal(globalNX, globalNY)
 
-      d(moddedLocalNX, moddedLocalNY)
+      --d(moddedLocalNX, moddedLocalNY)
       return moddedLocalNX, moddedLocalNY
     end
 
@@ -1214,7 +1214,7 @@ function getFixedLocalCoordinates(mapID, vanillaLocalNX, vanillaLocalNY)
 
     if (localNX == unknownLocalNX and localNY == unknownLocalNY) then
 
-      d("these are vanilla coordinates")
+      --d("these are vanilla coordinates")
 
       -- these are confirmed vanilla coordinates, so we should instead return modded ones
       -- by converting the previous global coordinates to modded local ones
@@ -1228,7 +1228,7 @@ function getFixedLocalCoordinates(mapID, vanillaLocalNX, vanillaLocalNY)
 
         if (LMP:IsPositionOnMap(moddedLocalNX, moddedLocalNY)) then
 
-          d(moddedLocalNX, moddedLocalNY)
+          --d(moddedLocalNX, moddedLocalNY)
           return moddedLocalNX, moddedLocalNY
 
         else
