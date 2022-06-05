@@ -154,7 +154,7 @@ GetMapMouseoverInfo = function(xN, yN)
 
       local blobInfo = AWM.blobZoneInfo
 
-      if (not string.match(AWM.currentlySelectedPolygon:GetName(), "duplicate")) then
+      if (string.match(AWM.currentlySelectedPolygon:GetName(), "duplicate")) then
         locationName = getZoneNameFromID(blobInfo.zoneID, true)
       else
         locationName = getZoneNameFromID(blobInfo.zoneID)

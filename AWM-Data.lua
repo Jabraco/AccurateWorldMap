@@ -739,7 +739,7 @@ mapData = {
       zoneName = "Isle of Balfiera",
       zoneDescription = "Balfiera Isle is the ancestral home of Clan Direnni, and the site of the the oldest structure on Tamriel - the Adamantine Tower.",
       blobTexture = "AccurateWorldMap/blobs/blob-balfiera.dds",
-      debugBlobTexture = "AccurateWorldMap/blobs/blob-balfiera-debug.dds",   
+      debugBlobTexture = "AccurateWorldMap/blobs/blob-balfiera.dds",   
       zoneID = 1997,
       xN = "0.1515",
       yN = "0.3295",
@@ -992,7 +992,7 @@ mapData = {
       zoneName = "Sword's Rest Isle",
       zoneDescription = "This island, also known as Emeric's Retreat, is used as a getaway by High King Emeric for when he wants to escape the pressures of running the Daggerfall Covenant.",
       zoneID = 2143,
-      xN = "0.026",
+      xN = "0.033",
       yN = "0.415",
       zonePolygonData = {
         { xN = 0.035, yN = 0.431 },
@@ -1066,6 +1066,7 @@ mapData = {
       yN = "0.300",
       debugXN = "0.3225",
       debugYN = "0.300",
+      debugBlobTexture = "AccurateWorldMap/blobs/blob-craglorn.dds", 
       zonePolygonData = {
         { xN = 0.441, yN = 0.407 },
         { xN = 0.444, yN = 0.398 },
@@ -2792,8 +2793,8 @@ mapData = {
       zoneName = "Dreadsail Reef",
       zoneDescription = "The fearsome Dreadsail pirates have long been a terror to the people of The Systres and Summerset. The location of their clandestine harbor, however, is a secret no longer.",
       zoneID = 2164,
-      xN = "0.640",
-      yN = "0.673",
+      xN = "0.6495",
+      yN = "0.676",
       zonePolygonData = {
         { xN = 0.644, yN = 0.695 },
         { xN = 0.662, yN = 0.695 },

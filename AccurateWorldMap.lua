@@ -9,15 +9,9 @@
 
 TJ TODO:
 
-- Fix using vanilla normalised data for player zone on startup instead of modded
 - Do waypoint and player tracking for Elthelric
 - Remove debug spam
-- Fix zone highlights not working when going to dif map if already on existing hitbox
-- Add option and subsection in settings to control dungeons/trials, houses and wayshrines separately
 - Fix blob duplicate name issue
-
-When Breaux has given you fixed K&M desc background, delete bit that removes map border from K&M to stop
-interfering with minimap mods
 
 --------
 
@@ -59,8 +53,14 @@ Misc issues:
 - Khenarthi's roost is too big on the map to lore scale - it's smaller in quin'rawl's map, also further away
 >> perhaps scale it down and move it
 
-
 POST RELEASE:
+
+- Add option and subsection in settings to control dungeons/trials, houses and wayshrines separately
+
+When Breaux has given you fixed K&M desc background, delete bit that removes map border from K&M to stop
+interfering with minimap mods
+
+- If player is in a house or a dungeon, and is looking at the tamriel map, put the player/waypoint icon where that icon is
 
 - Make Lore-Accurate Names English only
 
@@ -288,7 +288,7 @@ function updateCurrentPolygon(polygon)
   end
 
   -- update with current zone info
-  if (not string.match(polygon:GetName(), "duplicate")) then
+  if (string.match(polygon:GetName(), "duplicate")) then
     AWM.blobZoneInfo = getZoneInfoByID(getMapIDFromPolygonName(polygon:GetName()), true)
   else
     AWM.blobZoneInfo = getZoneInfoByID(getMapIDFromPolygonName(polygon:GetName()))

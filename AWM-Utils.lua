@@ -520,9 +520,9 @@ function createZoneHitbox(polygonData, zoneInfo)
   if (zoneInfo ~= nil) then
 
     if (zoneInfo.isDuplicate ~= nil and zoneInfo.isDuplicate) then
-      polygonID = "blobHitbox-"..zoneInfo.zoneID.."-"..zoneInfo.zoneName
-    else
       polygonID = "blobHitbox-"..zoneInfo.zoneID.."-"..zoneInfo.zoneName.."duplicate"
+    else
+      polygonID = "blobHitbox-"..zoneInfo.zoneID.."-"..zoneInfo.zoneName
     end
 
   else
