@@ -12,10 +12,12 @@ TJ TODO:
 - Fix using vanilla normalised data for player zone on startup instead of modded
 - Do waypoint and player tracking for Elthelric
 - Remove debug spam
-- Add to isgamepadmode: If gamepad cursor texture control is visible, isGamepadMode = true also
-- Gamepad mode relying on mouse still, refactor it to ignore mouse entirely
 - Fix zone highlights not working when going to dif map if already on existing hitbox
 - Add option and subsection in settings to control dungeons/trials, houses and wayshrines separately
+- Fix blob duplicate name issue
+
+When Breaux has given you fixed K&M desc background, delete bit that removes map border from K&M to stop
+interfering with minimap mods
 
 --------
 
@@ -60,11 +62,21 @@ Misc issues:
 
 POST RELEASE:
 
+- Make Lore-Accurate Names English only
+
 - Refactor the way names and decs/strings work in the mod to allow for translation
 >> also work on adding translation
 
+As far as I know you only need a folder "lang" with files like de.lua, en.lua, fr.lua etc, containing simple declarations like
+Code:
+
+ZO_CreateStringId("AWM_SOME_NAME", "Localiced Name")
+
+and then use eg. AWM_CRAGLORN in your main.lua instead of "Craglorn". Other users like me could translate your en.lua to their native language.
+
 - Add "loading" text to map while blobs are still being compiled
 - Find a way to move the zone name and clock to be closer to the actual map in K&M mode like gamepad
+https://i.ibb.co/9pvcTjG/blackreach.png
 
 - Shrink Tamriel
 - Move it over
@@ -298,7 +310,7 @@ local function onWorldMapOpened()
 
     local mapWidth, mapHeight = ZO_WorldMapContainer:GetDimensions()
     local enlargeConst = 1.5
-    local mapDescPaddingAmount = mapWidth * 0.15
+    local mapDescPaddingAmount = mapWidth * 0.10
   
     AWM_MouseOverGrungeTex:ClearAnchors()
   

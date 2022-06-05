@@ -92,7 +92,7 @@ mapData = {
 
     zoneData = join({
       zoneName = "Bleakrock Isle",
-      zoneDescription = "Bleakrock may seem like a quaint fishing isle, but its strategic importance cannot be understated - it acts as a checkpoint to every port city in the Ebonheart Pact.",
+      zoneDescription = "Sitting at the mouth of the Yorgrim River, this quaint fishing isle's stragetic importance cannot be understated - it acts as a chokepoint for all vessels going in and out of Windhelm.",
       zoneID = 74,
       xN = "0.6075",
       yN = "0.223",
@@ -205,7 +205,7 @@ mapData = {
 
     zoneData = join({
       zoneName = "The Rift",
-      zoneDescription = "The southeastern hold of Skyrim, The Rift is a temperate region northwest of the intersection between the Velothi Mountains and the Jerall Mountains.",
+      zoneDescription = "The southeastern hold of Skyrim, The Rift is a temperate region northwest of the intersection between the Jerall Mountains and the Velothi Mountains - which house the gateway to Morrowind.",
       zoneID = 125,
       xN = "0.5275",
       yN = "0.31425",

@@ -182,7 +182,7 @@ function isInGamepadMode()
     AWM.canRedrawMap = true
   end
 
-  return IsInGamepadPreferredMode()
+  return (IsInGamepadPreferredMode() and not ZO_WorldMapCenterPoint:IsHidden())
 end
 
 -------------------------------------------------------------------------------
