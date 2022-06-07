@@ -12,7 +12,6 @@
 -------------------------------------------------------------------------------
 
 AWM = AWM or {}
-local LZ = LibZone 
 local GPS = LibGPS3
 local LMP = LibMapPing2
 

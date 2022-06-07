@@ -9,18 +9,22 @@
 
 TJ TODO:
 
-- fix wayshrines on gamepad
-- fix being dependent on mouse
-- fix champ lagging
-- update dependencies
+- fix gamepad being dependent on mouse
+- make it so libzone dependency for parent is unneeded
+- if in a dungeon or a house, put player/waypoint marker where that icon is on the map
+- add topal hideaway blob
+- add option and subsection in settings to control dungeons/trials, houses and wayshrines separately
+- If player is in a house or a dungeon, and is looking at the tamriel map, put the player/waypoint icon where that icon is
+- make Lore-Accurate Names English only
+- Refactor the way names and decs/strings work in the mod to allow for translation
+>> also work on adding translation
+- Add "loading" text to map while blobs are still being compiled
+- Find a way to move the zone name and clock to be closer to the actual map in K&M mode like gamepad
+https://i.ibb.co/9pvcTjG/blackreach.png
 
 --------
 
 Vylaera TODO:
-
-- Make Sword's Rest Isle smaller on the map
-- Make optional optional river layer.dds to be enabled in the settings
-- Edit High isle and amenos to be solid, get rid of the rivers, make high isle less of a pankor clone
 
 - Simplify and reduce certain areas of the map that wouldn't be visible at orbit
 >> Axe most of the tiny islands along the coastlines, simplify them and reduce noise
@@ -28,6 +32,7 @@ Vylaera TODO:
 >> Make firemoth isle smaller, closer to vvardenfell, and fill in the gap that it leaves for stonefalls to connect
 >> Fill in this area of valenwood as you wouldnt see that much detail from orbit. also it's solid in vanilla
 https://cdn.discordapp.com/attachments/979030537773650013/981268193412775956/unknown.png
+>> Edit High isle and amenos to be solid, get rid of the rivers, make high isle less of a pankor clone
 
 - Fix Summerset (https://cdn.discordapp.com/attachments/979030537773650013/981262088284545104/unknown.png)
 >> Reduce the Shimmerene tumour on summerset
@@ -36,6 +41,8 @@ https://cdn.discordapp.com/attachments/979030537773650013/981261111053668432/unk
 >> Delete or shrink sapiarch isle
 >> shrink and move Wasten Coraldale closer to coast
 
+- Make optional optional river layer.dds to be enabled in the settings
+
 Misc issues:
 - Aurbis rings don't contain their proper daedric/elven text
 - Go over all zone descs
@@ -43,27 +50,6 @@ Misc issues:
 >> perhaps scale it down and move it
 
 POST RELEASE:
-
-- Add option and subsection in settings to control dungeons/trials, houses and wayshrines separately
-
-- If player is in a house or a dungeon, and is looking at the tamriel map, put the player/waypoint icon where that icon is
-
-- Make Lore-Accurate Names English only
-
-- Refactor the way names and decs/strings work in the mod to allow for translation
->> also work on adding translation
-
-As far as I know you only need a folder "lang" with files like de.lua, en.lua, fr.lua etc, containing simple declarations like
-Code:
-
-ZO_CreateStringId("AWM_SOME_NAME", "Localiced Name")
-
-and then use eg. AWM_CRAGLORN in your main.lua instead of "Craglorn". Other users like me could translate your en.lua to their native language.
-
-- Add "loading" text to map while blobs are still being compiled
-- Find a way to move the zone name and clock to be closer to the actual map in K&M mode like gamepad
-https://i.ibb.co/9pvcTjG/blackreach.png
-
 - Shrink Tamriel
 - Move it over
 - Delete Etheric Map
@@ -76,6 +62,14 @@ https://i.ibb.co/9pvcTjG/blackreach.png
 - Add IC Sewers circle to the imperial city map and make blob
 - Rotate IC on the cyrodiil map 45 degrees to be consistent with oblivion (edit the tiles)
 https://cdn.discordapp.com/attachments/806672739057664034/975049286305861672/unknown.png
+
+
+As far as I know you only need a folder "lang" with files like de.lua, en.lua, fr.lua etc, containing simple declarations like
+Code:
+
+ZO_CreateStringId("AWM_SOME_NAME", "Localiced Name")
+
+and then use eg. AWM_CRAGLORN in your main.lua instead of "Craglorn". Other users like me could translate your en.lua to their native language.
 
 ---------------------------------------------------------------------------]]--
 -- Create root addon object
@@ -318,7 +312,7 @@ local function onWorldMapOpened()
 
       if (dui) then -- check if DarkUI is installed
         AWM_MouseOverGrungeTex:SetTexture("AccurateWorldMap/misc/pc_shadow_darkui.dds")
-      else
+      else -- if not, return vanilla styled desc background
         AWM_MouseOverGrungeTex:SetTexture("AccurateWorldMap/misc/pc_shadow.dds")
       end
       
@@ -363,8 +357,6 @@ local function main()
       end
 
     else
-
-
 
     end
 
