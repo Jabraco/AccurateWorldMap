@@ -9,6 +9,11 @@
 
 TJ TODO:
 
+- fix wayshrines on gamepad
+- fix being dependent on mouse
+- fix champ lagging
+- update dependencies
+
 --------
 
 Vylaera TODO:
@@ -384,14 +389,6 @@ local function main()
     ZO_WorldMapMouseOverDescription:SetText("")
     AWM_MouseOverGrungeTex:SetHidden(true)
 
-  end
-
-  if (not isInGamepadMode() and isPlayerTrackingEnabled()) then
-
-    if (isWorldMapShown() and  not isMouseWithinMapWindow()) then
-      KEYBIND_STRIP:RemoveKeybindButtonGroup(AWMWaypointKeybind)
-    end
-  
   end
 
 end
