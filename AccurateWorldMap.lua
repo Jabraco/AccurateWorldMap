@@ -9,6 +9,7 @@
 
 TJ TODO:
 
+- Ask Breaux for updated zone descs
 - fix gamepad being dependent on mouse
 - make it so libzone dependency for parent is unneeded
 - if in a dungeon or a house, put player/waypoint marker where that icon is on the map
@@ -21,6 +22,7 @@ TJ TODO:
 - Add "loading" text to map while blobs are still being compiled
 - Find a way to move the zone name and clock to be closer to the actual map in K&M mode like gamepad
 https://i.ibb.co/9pvcTjG/blackreach.png
+- Champion points still lagging for some reason
 
 --------
 
