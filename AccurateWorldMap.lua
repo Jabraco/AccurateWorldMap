@@ -96,7 +96,7 @@ Thank you for this thoughtful gift to the community. It is vastly nicer than the
 -------------------------------------------------------------------------------
 
 -- set saved variable version number
-AWM.variableVersion = 3
+AWM.variableVersion = 4
 
 -- set default options
 AWM.defaults = {
@@ -106,6 +106,7 @@ AWM.defaults = {
   mapStyle = "Vanilla",
   worldMapWayshrines = "All (Default)",
   hideIconGlow = false,
+  iconRepositioning = true,
 }
 
 -------------------------------------------------------------------------------

@@ -66,8 +66,8 @@ end
 -- Is player tracking enabled function
 -------------------------------------------------------------------------------
 
-function isPlayerTrackingEnabled()
-  return (LZ ~= nil and LZ["GetGeographicalParentMapId"] ~= nil and GPS["GetMapMeasurementByMapId"] ~= nil)
+function isIconRepositioningEnabled()
+  return (LZ ~= nil and LZ["GetGeographicalParentMapId"] ~= nil and GPS["GetMapMeasurementByMapId"] ~= nil and AWM.options.iconRepositioning) 
 end
 
 -------------------------------------------------------------------------------
@@ -944,7 +944,7 @@ function getParentMapID(mapID)
 
   local parentMapID
 
-  if (isPlayerTrackingEnabled() and AWM.isLoaded) then    
+  if (isIconRepositioningEnabled() and AWM.isLoaded) then    
     parentMapID = LZ:GetGeographicalParentMapId(mapID)
   else
     local _, _, _, zoneIndex, _ = GetMapInfoById(mapID)
@@ -1085,7 +1085,7 @@ function getParentZoneID(zoneID)
 
   local parentZoneID
   
-  if (isPlayerTrackingEnabled()) then
+  if (isIconRepositioningEnabled()) then
 
     if (LZ:GetGeographicalParentMapId(mapID) ~= nil) then
       parentZoneID = LZ:GetGeographicalParentMapId(mapID)

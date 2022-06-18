@@ -530,7 +530,6 @@ mapData = {
     }),
 
     -- Gold Coast --
-    [390] = { xN = 0.304, yN = 0.559 }, -- Depths of Malatar Dungeon 
     [251] = { majorSettlement = true }, -- Anvil Wayshrine
     [252] = { majorSettlement = true }, -- Kvatch Wayshrine
 
@@ -3149,16 +3148,23 @@ AWM.optionsData = {
   {
     type = "checkbox",
     name = "Zone Descriptions",
-    tooltip = "Toggle adding lore-friendly zone description tooltips when hovering over zones.",
+    tooltip = "ON: Adds a lore-friendly zone description when hovering over every zone on the world map.\n\nOFF (Default): No descriptions show, like vanilla.",
     getFunc = function() return AWM.options.zoneDescriptions end,
     setFunc = function(value) AWM.options.zoneDescriptions = value end
   },
   {
     type = "checkbox",
     name = "Lore Accurate Names",
-    tooltip = "Toggle renaming certain zones and wayshrines to be more lore accurate.",
+    tooltip = "ON (Default): Renames certain zones and wayshrines to be more lore accurate.\n\nOFF: Uses vanilla's names.",
     getFunc = function() return AWM.options.loreRenames end,
     setFunc = function(value) AWM.options.loreRenames = value end
+  },
+  {
+    type = "checkbox",
+    name = "Accurate Map Icon Positions",
+    tooltip = "ON (Default): Moves wayshrines, waypoints, and the player location icons to be where they should be on the world map, relative to zones\n\nOFF: Uses vanilla's icon placement (Only use this if you are getting errors otherwise!)",
+    getFunc = function() return AWM.options.iconRepositioning end,
+    setFunc = function(value) AWM.options.iconRepositioning = value end
   },
 
   {
@@ -3179,30 +3185,12 @@ AWM.optionsData = {
     getFunc = function() return AWM.options.worldMapWayshrines end,
     setFunc = function(value) AWM.options.worldMapWayshrines = value end,
   },
-  {
-    type = "checkbox",
-    name = "Hide Icon Glow",
-    tooltip = "Toggle the glow behind wayshrines and other icons on the world map.",
-    getFunc = function() return AWM.options.hideIconGlow end,
-    setFunc = function(value) AWM.options.hideIconGlow = value end
-  },
-
-  {
-    type = "header",
-    name = "Status",
-    width = "full",
-  },
-  {
-    type = "description",
-    text = "Check the status indicators of some features.",
-    width = "full",
-  },
-  {
-    type = "checkbox",
-    name = "Correct Player Positioning",
-    disabled = true,
-    tooltip = "Moves player location and player waypoints markers to be where they should be on the world map, relative to zones. Requires LibGPS and LibZone libraries.\n\nOFF: You do not have the required updated libraries installed, so player position will be incorrect.\n\nON: You have the updated libraries installled, so player location on the map should be as expected.",
-    getFunc = function() return isPlayerTrackingEnabled() end,
-  },
+  -- {
+  --   type = "checkbox",
+  --   name = "Hide Icon Glow",
+  --   tooltip = "Toggle the glow behind wayshrines and other icons on the world map.",
+  --   getFunc = function() return AWM.options.hideIconGlow end,
+  --   setFunc = function(value) AWM.options.hideIconGlow = value end
+  -- },
 
 }

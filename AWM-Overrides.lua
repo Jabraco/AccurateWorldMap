@@ -92,7 +92,7 @@ end)
 
 -------------------------------------------------------------------------------
 
-if (isPlayerTrackingEnabled()) then
+if (isIconRepositioningEnabled()) then
 
   ZO_PreHook("ZO_WorldMap_MouseEnter", function()
 
@@ -350,7 +350,7 @@ GetFastTravelNodeInfo = function(nodeIndex)
     end
 
     -- if position tracking is enabled, we're in the Tamriel map, and the current node doesn't have any data, (or location data) then fallback to modded positioning
-    if ( (isPlayerTrackingEnabled() and isMapTamriel())  and (isLocatedInCurrentMap) ) then
+    if ( (isIconRepositioningEnabled() and isMapTamriel())  and (isLocatedInCurrentMap) ) then
       if (zoneData[nodeIndex] == nil or (zoneData[nodeIndex] ~= nil and zoneData[nodeIndex].xN == nil and zoneData[nodeIndex].yN == nil)) then
 
         local zoneIndex, poiIndex = GetFastTravelNodePOIIndicies(nodeIndex)
@@ -467,14 +467,12 @@ end
 
 -------------------------------------------------------------------------------
 
-if (isPlayerTrackingEnabled()) then
+zos_GetUniversallyNormalizedMapInfo = GetUniversallyNormalizedMapInfo
+GetUniversallyNormalizedMapInfo = function(mapID)
 
-  zos_GetUniversallyNormalizedMapInfo = GetUniversallyNormalizedMapInfo
-  GetUniversallyNormalizedMapInfo = function(mapID)
+  local normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
 
-    local normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
-
-    --d("Requesting normalised map info for map " .. mapID)
+  if (isIconRepositioningEnabled()) then
 
     if (not isMapTamriel(mapID)) then
 
@@ -538,51 +536,62 @@ if (isPlayerTrackingEnabled()) then
 
     --print(("X Offset: " .. normalisedOffsetX), ("Y Offset: " .. normalisedOffsetY), ("Normalised width: " .. normalisedWidth), ("Normalised height: " .. normalisedHeight))
 
-    return normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight
+
 
   end
 
-  local zos_GetMapPlayerPosition = GetMapPlayerPosition
-  GetMapPlayerPosition = function(unitTag)
 
-    normalisedX, normalisedY, direction, isShownInCurrentMap = zos_GetMapPlayerPosition(unitTag)
+  return normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight
+
+end
+
+local zos_GetMapPlayerPosition = GetMapPlayerPosition
+GetMapPlayerPosition = function(unitTag)
+
+  normalisedX, normalisedY, direction, isShownInCurrentMap = zos_GetMapPlayerPosition(unitTag)
+
+  if (isIconRepositioningEnabled()) then
 
     local zoneID, _, _, _ = GetUnitRawWorldPosition(unitTag)
     zoneID = getParentZoneID(zoneID)
     local mapID = GetMapIdByZoneId(zoneID)
-
+  
     if (mapID ~= nil or mapID ~= 0) then
-
+  
       -- looking at Tamriel map
       if (isMapTamriel()) then
         local fixedX, fixedY = getFixedGlobalCoordinates(mapID, normalisedX, normalisedY)
-
+  
         -- make player visible on the map if they're inside eyevea
         if (mapID == 108) then
           isShownInCurrentMap = true
         end
-
+  
         return fixedX, fixedY, direction, isShownInCurrentMap
       end
-
+  
       -- looking at Eltheric map
       if (isMapEltheric()) then
-
+  
         local fixedLocalXN, fixedLocalYN = getFixedElthericCoordinates(mapID, normalisedX, normalisedY)
         return fixedLocalXN, fixedLocalYN, direction, true
       end
     end
 
-    return normalisedX, normalisedY, direction, isShownInCurrentMap
   end
 
-  local zos_GetMapPlayerWaypoint = GetMapPlayerWaypoint
-  GetMapPlayerWaypoint = function()
+  return normalisedX, normalisedY, direction, isShownInCurrentMap
+end
+
+local zos_GetMapPlayerWaypoint = GetMapPlayerWaypoint
+GetMapPlayerWaypoint = function()
 
 
-    -- get vanilla values
-    nX, nY = zos_GetMapPlayerWaypoint()
-    local isGlobal = (isMapTamriel())
+  -- get vanilla values
+  nX, nY = zos_GetMapPlayerWaypoint()
+  local isGlobal = (isMapTamriel())
+
+  if (isIconRepositioningEnabled()) then
 
     -- if lastwaypoint map is nil, and we have a waypoint, then forcefully set it
     if (AWM.lastWaypointMapID == nil and isWaypointPlaced()) then
@@ -632,11 +641,11 @@ if (isPlayerTrackingEnabled()) then
 
           --d("calclating fixed globals")
           nX, nY = getFixedGlobalCoordinates(AWM.lastWaypointMapID, nX, nY)
-  
+
           AWM.lastWaypointMapID = getTamrielMapID()
           AWM.lastGlobalXN = nX
           AWM.lastGlobalYN = nY
-  
+
           return nX, nY
 
         end
@@ -678,11 +687,11 @@ if (isPlayerTrackingEnabled()) then
         if (isMapEltheric(AWM.lastWaypointMapID) and isMapInEltheric(getCurrentMapID())) then
 
           nX, nY = getFixedLocalCoordinates(getCurrentMapID(), nX, nY)
-  
+
           AWM.lastWaypointMapID = getCurrentMapID()
           AWM.lastLocalXN = nX
           AWM.lastLocalYN = nY
-  
+
           return nX, nY
 
         end
@@ -693,29 +702,10 @@ if (isPlayerTrackingEnabled()) then
       AWM.lastWaypointMapID = nil
       return nX, nY
     end
+
+  else
+
+    return nX, nY
   end
+
 end
-
--- local zos_PingMap = PingMap
--- PingMap = function(pingType, mapDisplayType, normalisedX, normalisedZ)
-
---   d("ping map called")
-
---   d(pingType)
---   d(mapDisplayType)
-
-
---   zos_PingMap(pingType, mapDisplayType, normalisedX, normalisedZ)
-
--- end
-
-
--- SecurePostHook("GetMapPlayerWaypoint", function()
---   d("waypoint set")
-
---   local xN, yN = GetMapPlayerWaypoint()
-
---   PingMap(MAP_PIN_TYPE_PLAYER_WAYPOINT, MAP_TYPE_LOCATION_CENTERED, xN, yN)
--- end)
-
--- PingMap(*[MapDisplayPinType|#MapDisplayPinType]* _pingType_, *[MapDisplayType|#MapDisplayType]* _mapDisplayType_, *number* _normalizedX_, *number* _normalizedZ_)
