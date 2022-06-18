@@ -3162,8 +3162,9 @@ AWM.optionsData = {
   {
     type = "checkbox",
     name = "Accurate Map Icon Positions",
+    disabled = (not getIfCanRepositionIcons()),
     tooltip = "ON (Default): Moves wayshrines, waypoints, and the player location icons to be where they should be on the world map, relative to zones\n\nOFF: Uses vanilla's icon placement (Only use this if you are getting errors otherwise!)",
-    getFunc = function() return isIconRepositioningEnabled() end,
+    getFunc = function() return AWM.options.iconRepositioning end,
     setFunc = function(value) AWM.options.iconRepositioning = value GPS:ClearMapMeasurements() GPS:CalculateMapMeasurement() end
   },
 

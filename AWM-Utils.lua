@@ -63,11 +63,27 @@ function join(extra, newWorldspace)
 end
 
 -------------------------------------------------------------------------------
--- Is player tracking enabled function
+-- Get if can reposition icons function
+-------------------------------------------------------------------------------
+
+function getIfCanRepositionIcons()
+  return (GPS["GetMapMeasurementByMapId"] ~= nil) 
+end
+
+-------------------------------------------------------------------------------
+-- Is icon repositioning enabled function
 -------------------------------------------------------------------------------
 
 function isIconRepositioningEnabled()
-  return (LZ ~= nil and LZ["GetGeographicalParentMapId"] ~= nil and GPS["GetMapMeasurementByMapId"] ~= nil and AWM.options.iconRepositioning) 
+  return (GPS["GetMapMeasurementByMapId"] ~= nil and AWM.options.iconRepositioning) 
+end
+
+-------------------------------------------------------------------------------
+-- Is GeoParent enabled
+-------------------------------------------------------------------------------
+
+function isGeoParentEnabled()
+  return (LZ ~= nil and LZ["GetGeographicalParentMapId"] ~= nil) 
 end
 
 -------------------------------------------------------------------------------
@@ -944,7 +960,7 @@ function getParentMapID(mapID)
 
   local parentMapID
 
-  if (isIconRepositioningEnabled() and AWM.isLoaded) then    
+  if (isGeoParentEnabled() and AWM.isLoaded) then    
     parentMapID = LZ:GetGeographicalParentMapId(mapID)
   else
     local _, _, _, zoneIndex, _ = GetMapInfoById(mapID)
@@ -1085,7 +1101,7 @@ function getParentZoneID(zoneID)
 
   local parentZoneID
   
-  if (isIconRepositioningEnabled()) then
+  if (isGeoParentEnabled()) then
 
     if (LZ:GetGeographicalParentMapId(mapID) ~= nil) then
       parentZoneID = LZ:GetGeographicalParentMapId(mapID)
