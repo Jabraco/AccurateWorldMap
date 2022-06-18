@@ -425,6 +425,7 @@ mapData = {
 
     -- Falkreath Hold --
     [332] = { xN = 0.451, yN = 0.356 }, -- Falkreath Hold Dungeon 
+    [345] = { xN = 0.452, yN = 0.360 }, -- Hakkvild's High Hall House 
 
 
     -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
