@@ -6,7 +6,7 @@
 ## Description: Accurate World Map replaces the in-game world maps with higher quality and more lore accurate ones.
 ## Author: |C42ffbd@Vylaera|r (NA) & |C8587FF@Thal-J|r (EU)
 ## DependsOn: LibAddonMenu-2.0 LibMapPing LibGPS>=68 LibZone>=80
-## Version: 1.1.1
+## Version: 1.2.0
 ## APIVersion: 101034
 ## SavedVariables: AWMVars
 
