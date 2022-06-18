@@ -275,6 +275,21 @@ GetPOIMapInfo = function(zoneIndex, poiIndex)
       icon = nil
     end
   end
+
+  if (getCurrentMapID() == 1349) then -- if we are in Summerset Isle
+
+    local name, _, _, _ = GetPOIInfo(zoneIndex, poiIndex)
+
+    if (name == "Colossal Aldmeri Grotto") then
+      isShownInCurrentMap = false
+      isNearby = false
+      icon = nil
+    end
+
+  end
+
+
+
   return normalisedX, normalisedZ, poiPinType, icon, isShownInCurrentMap, linkedCollectibleIsLocked, isDiscovered, isNearby
 end
 

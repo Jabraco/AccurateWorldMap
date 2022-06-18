@@ -3042,6 +3042,7 @@ mapData = {
 
   [1349] = { -- Summerset Isle Map 
     [497] = { xN = 0.573, yN = 0.173 }, -- Coral Aerie Dungeon
+    [368] = { xN = 0.607, yN = 0.776 }, -- Colossal Aldmeri Grotto House
   },
 
   [1469] = { -- Wasten Coraldale Map
