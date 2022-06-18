@@ -24,6 +24,17 @@ TJ TODO:
 https://i.ibb.co/9pvcTjG/blackreach.png
 - Champion points still lagging for some reason
 
+Gamepad zoom seems to be all kinds of broken on mine, the bumpers do nothing and sometimes when you zoom out with the triggers you can't zoom back in. 
+
+When using a controller, you can zoom out on the map, but you cannot zoom back in. 
+
+When you click on a wayshrine, the description text stays on the screen but the desc black box vanishes. Ideally either both or neither should
+disappear.
+
+Minimaps seem to mess with the loading of the black box; the proportions are often off if I have the minimap enabled and active when I load up a character. Either too small or too big. I'm unsure if this is true for every UI mod, I personally use Bandit's UI, so that's the one I confirm causing issues.
+
+- Transition over to using vanilla eso blobs instead of custom ones
+
 --------
 
 Vylaera TODO:
@@ -73,6 +84,13 @@ ZO_CreateStringId("AWM_SOME_NAME", "Localiced Name")
 
 and then use eg. AWM_CRAGLORN in your main.lua instead of "Craglorn". Other users like me could translate your en.lua to their native language.
 
+
+  The Aurbis view version of Tamriel looks kind of artifact-y/noisy, is this a known issue or something that's only happening at my end? 
+
+  Just wow! Installed this yesterday, and it is amazing. Everytime I open the map I am stunned by it. On gamepad UI I get an addon error, so I need to use wayshrines using keyboard and mouse, but this may be a bug from another addon.
+
+Thank you for this thoughtful gift to the community. It is vastly nicer than the vanilla map. 
+
 ---------------------------------------------------------------------------]]--
 -- Create root addon object
 -------------------------------------------------------------------------------
@@ -112,6 +130,7 @@ polygonData = {}
 AWM.canRedrawMap = true
 AWM.areTexturesCompiled = false
 AWM.isInsideBlobHitbox = false
+AWM.isLoaded = false
 local recordCoordinates = false
 local hasDragged = false
 local waitForRelease = false
@@ -420,6 +439,7 @@ local function initialise(event, addonName)
   
   -- unregister as addon is now loaded
   EVENT_MANAGER:UnregisterForEvent(AWM.name, EVENT_ADD_ON_LOADED)
+  AWM.isLoaded = true
   
   -- compile map textures
   compileMapTextures()

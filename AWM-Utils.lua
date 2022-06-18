@@ -944,7 +944,7 @@ function getParentMapID(mapID)
 
   local parentMapID
 
-  if (isPlayerTrackingEnabled()) then    
+  if (isPlayerTrackingEnabled() and AWM.isLoaded) then    
     parentMapID = LZ:GetGeographicalParentMapId(mapID)
   else
     local _, _, _, zoneIndex, _ = GetMapInfoById(mapID)
