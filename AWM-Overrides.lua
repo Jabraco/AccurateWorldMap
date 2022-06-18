@@ -267,16 +267,18 @@ GetPOIMapInfo = function(zoneIndex, poiIndex)
 
   local normalisedX, normalisedZ, poiPinType, icon, isShownInCurrentMap, linkedCollectibleIsLocked, isDiscovered, isNearby = zos_GetPOIMapInfo(zoneIndex, poiIndex)
 
-  if (getCurrentMapID() == 1719) then -- if we are in Western Skyrim
+  -- hide duplicate Kyne's Aegis POI if in western skyrim
+  if (getCurrentMapID() == 1719) then 
 
-    if (string.match(icon, "poi_raiddungeon_")) then -- and the icon is a Trial, then remove (this hides the duplicate Kyne's Aegis icon)
+    if (string.match(icon, "poi_raiddungeon_")) then
       isShownInCurrentMap = false
       isNearby = false
       icon = nil
     end
   end
 
-  if (getCurrentMapID() == 1349) then -- if we are in Summerset Isle
+  -- hide duplicate Colossal Aldmeri Grotto POI if in Summerset
+  if (getCurrentMapID() == 1349) then
 
     local name, _, _, _ = GetPOIInfo(zoneIndex, poiIndex)
 
@@ -287,8 +289,6 @@ GetPOIMapInfo = function(zoneIndex, poiIndex)
     end
 
   end
-
-
 
   return normalisedX, normalisedZ, poiPinType, icon, isShownInCurrentMap, linkedCollectibleIsLocked, isDiscovered, isNearby
 end
