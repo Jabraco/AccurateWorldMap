@@ -495,8 +495,6 @@ GetUniversallyNormalizedMapInfo = function(mapID)
 
     --print(("X Offset: " .. normalisedOffsetX), ("Y Offset: " .. normalisedOffsetY), ("Normalised width: " .. normalisedWidth), ("Normalised height: " .. normalisedHeight))
 
-
-
   end
 
 

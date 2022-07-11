@@ -96,7 +96,7 @@ Thank you for this thoughtful gift to the community. It is vastly nicer than the
 -------------------------------------------------------------------------------
 
 -- set saved variable version number
-AWM.variableVersion = 4
+AWM.variableVersion = 5
 
 -- set default options
 AWM.defaults = {

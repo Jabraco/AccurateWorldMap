@@ -1,5 +1,4 @@
 
-
 # Accurate World Map
 
 <p align="center">
