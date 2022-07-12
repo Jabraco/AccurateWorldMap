@@ -24,6 +24,14 @@ TJ TODO:
 https://i.ibb.co/9pvcTjG/blackreach.png
 - Champion points still lagging for some reason
 
+I have a suggestion about new wayshrine display option on the world map, an "utilitarian" preset. 
+If it selected only those wayshrines that have guild traders nearby, or those located in zone capitals will be visible on the world map along with all dungeon, trial and arena pins.
+In case similar to the Rift zone when there are two wayshrines nearby one of which is in the capital city itself and second is the closest to the guild traders both should be visible on the map.
+Also if it's possible to show only owned player houses they should also be visible, if it's NOT possible then none should be visible.
+
+- Vvardenfell blob includes a small island that is actually for stonefalls
+https://cdn.discordapp.com/attachments/806672739057664034/996095775849320558/unknown.png
+
 Gamepad zoom seems to be all kinds of broken on mine, the bumpers do nothing and sometimes when you zoom out with the triggers you can't zoom back in. 
 
 When using a controller, you can zoom out on the map, but you cannot zoom back in. 

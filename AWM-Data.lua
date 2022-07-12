@@ -3178,12 +3178,5 @@ AWM.optionsData = {
     getFunc = function() return AWM.options.worldMapWayshrines end,
     setFunc = function(value) AWM.options.worldMapWayshrines = value end,
   },
-  -- {
-  --   type = "checkbox",
-  --   name = "Hide Icon Glow",
-  --   tooltip = "Toggle the glow behind wayshrines and other icons on the world map.",
-  --   getFunc = function() return AWM.options.hideIconGlow end,
-  --   setFunc = function(value) AWM.options.hideIconGlow = value end
-  -- },
 
 }
