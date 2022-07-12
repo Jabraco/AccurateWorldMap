@@ -10,6 +10,15 @@
 TJ TODO:
 
 - Ask Breaux for updated zone descs
+
+Need to fix desc text being too big issue (we confirmed that it overflows on 1080p displays)
+
+options:
+- reduce text size (probably unreadable?)
+- mess around with adding a rezisable description box somewhere
+- maybe on the side of the map window? (for pc)
+- reduce lore text
+
 - fix gamepad being dependent on mouse
 - make it so libzone dependency for parent is unneeded
 - if in a dungeon or a house, put player/waypoint marker where that icon is on the map
@@ -22,7 +31,6 @@ TJ TODO:
 - Add "loading" text to map while blobs are still being compiled
 - Find a way to move the zone name and clock to be closer to the actual map in K&M mode like gamepad
 https://i.ibb.co/9pvcTjG/blackreach.png
-- Champion points still lagging for some reason
 
 I have a suggestion about new wayshrine display option on the world map, an "utilitarian" preset. 
 If it selected only those wayshrines that have guild traders nearby, or those located in zone capitals will be visible on the world map along with all dungeon, trial and arena pins.
@@ -43,26 +51,21 @@ Minimaps seem to mess with the loading of the black box; the proportions are oft
 
 - Transition over to using vanilla eso blobs instead of custom ones
 
+  The Aurbis view version of Tamriel looks kind of artifact-y/noisy, is this a known issue or something that's only happening at my end? 
+
+  Just wow! Installed this yesterday, and it is amazing. Everytime I open the map I am stunned by it. On gamepad UI I get an addon error, 
+  so I need to use wayshrines using keyboard and mouse, but this may be a bug from another addon.
+
+As far as I know you only need a folder "lang" with files like de.lua, en.lua, fr.lua etc, containing simple declarations like
+Code:
+
+ZO_CreateStringId("AWM_SOME_NAME", "Localiced Name")
+
+and then use eg. AWM_CRAGLORN in your main.lua instead of "Craglorn". Other users like me could translate your en.lua to their native language.
+
 --------
 
 Vylaera TODO:
-
-- Simplify and reduce certain areas of the map that wouldn't be visible at orbit
->> Axe most of the tiny islands along the coastlines, simplify them and reduce noise
->> Make the Boujlsae thinner and smoother to be less eratic, like how you did the Niben
->> Make firemoth isle smaller, closer to vvardenfell, and fill in the gap that it leaves for stonefalls to connect
->> Fill in this area of valenwood as you wouldnt see that much detail from orbit. also it's solid in vanilla
-https://cdn.discordapp.com/attachments/979030537773650013/981268193412775956/unknown.png
->> Edit High isle and amenos to be solid, get rid of the rivers, make high isle less of a pankor clone
-
-- Fix Summerset (https://cdn.discordapp.com/attachments/979030537773650013/981262088284545104/unknown.png)
->> Reduce the Shimmerene tumour on summerset
->> Fill in summerset's western gaps to be more like anthology
-https://cdn.discordapp.com/attachments/979030537773650013/981261111053668432/unknown.png
->> Delete or shrink sapiarch isle
->> shrink and move Wasten Coraldale closer to coast
-
-- Make optional optional river layer.dds to be enabled in the settings
 
 Misc issues:
 - Aurbis rings don't contain their proper daedric/elven text
@@ -83,21 +86,6 @@ POST RELEASE:
 - Add IC Sewers circle to the imperial city map and make blob
 - Rotate IC on the cyrodiil map 45 degrees to be consistent with oblivion (edit the tiles)
 https://cdn.discordapp.com/attachments/806672739057664034/975049286305861672/unknown.png
-
-
-As far as I know you only need a folder "lang" with files like de.lua, en.lua, fr.lua etc, containing simple declarations like
-Code:
-
-ZO_CreateStringId("AWM_SOME_NAME", "Localiced Name")
-
-and then use eg. AWM_CRAGLORN in your main.lua instead of "Craglorn". Other users like me could translate your en.lua to their native language.
-
-
-  The Aurbis view version of Tamriel looks kind of artifact-y/noisy, is this a known issue or something that's only happening at my end? 
-
-  Just wow! Installed this yesterday, and it is amazing. Everytime I open the map I am stunned by it. On gamepad UI I get an addon error, so I need to use wayshrines using keyboard and mouse, but this may be a bug from another addon.
-
-Thank you for this thoughtful gift to the community. It is vastly nicer than the vanilla map. 
 
 ---------------------------------------------------------------------------]]--
 -- Create root addon object
