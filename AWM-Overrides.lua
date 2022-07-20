@@ -543,7 +543,6 @@ end
 local zos_GetMapPlayerWaypoint = GetMapPlayerWaypoint
 GetMapPlayerWaypoint = function()
 
-
   -- get vanilla values
   nX, nY = zos_GetMapPlayerWaypoint()
   local isGlobal = (isMapTamriel())
