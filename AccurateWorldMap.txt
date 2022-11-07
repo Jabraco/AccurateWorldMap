@@ -8,7 +8,7 @@
 ## DependsOn: LibAddonMenu-2.0 LibMapPing LibGPS>=68 LibZone>=80
 ## OptionalDependsOn: LoreBooks
 ## Version: 1.2.1
-## APIVersion: 101034
+## APIVersion: 101036
 ## SavedVariables: AWMVars
 
 AccurateWorldMap.xml
