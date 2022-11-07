@@ -2497,6 +2497,9 @@ mapData = {
 -- [x] = { xN = x, yN = y }, -- 
 -- ctrl + f aid: eltheric ocean
 
+    [521] = { xN = 0.102, yN = 0.550 }, -- Graven Deep
+    [520] = { disabled = true }, -- Earthen Root Enclave
+
     -- High Isle --
     [488] = { disabled = true }, -- Dreadsail Reef Trial
     [501] = { disabled = true }, -- Coral Road Wayshrine
@@ -2564,6 +2567,9 @@ mapData = {
   [315] = { -- Eltheric Ocean Map
 
     parentMapID = 27,
+
+    [521] = { xN = 0.938, yN = 0.626, disabled = false }, -- Graven Deep
+    [520] = { xN = 0.692, yN = 0.731, disabled = false }, -- Earthen Root Enclave
 
     -- The Jodewood --
     [156] = { disabled = true }, -- Fort Grimwatch Wayshrine
