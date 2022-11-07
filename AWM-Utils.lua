@@ -685,7 +685,7 @@ function compileMapTextures()
 
           if ( (zoneInfo.blobTexture == nil or zoneInfo.debugBlobTexture == nil) or (zoneInfo.nBlobTextureWidth == nil or zoneInfo.nDebugBlobTextureWidth == nil) ) then
 
-            local mapResolution = 4096
+            local mapResolution = 8704
 
             -- load in textures
 
@@ -708,8 +708,8 @@ function compileMapTextures()
 
               -- save texture name and dimensions
               mapData[mapID].zoneData[zoneIndex].blobTexture = textureDirectory
-              mapData[mapID].zoneData[zoneIndex].nBlobTextureHeight = textureHeight / mapResolution
-              mapData[mapID].zoneData[zoneIndex].nBlobTextureWidth = textureWidth / mapResolution
+              mapData[mapID].zoneData[zoneIndex].nBlobTextureHeight = textureHeight * 2 / mapResolution
+              mapData[mapID].zoneData[zoneIndex].nBlobTextureWidth = textureWidth * 2 / mapResolution
 
             else
 
@@ -740,8 +740,8 @@ function compileMapTextures()
 
                 -- save texture name and dimensions
                 mapData[mapID].zoneData[zoneIndex].debugBlobTexture = debugTextureDirectory
-                mapData[mapID].zoneData[zoneIndex].nDebugBlobTextureWidth = debugTextureWidth / mapResolution
-                mapData[mapID].zoneData[zoneIndex].nDebugBlobTextureHeight = debugTextureHeight / mapResolution
+                mapData[mapID].zoneData[zoneIndex].nDebugBlobTextureWidth = debugTextureWidth * 2/ mapResolution
+                mapData[mapID].zoneData[zoneIndex].nDebugBlobTextureHeight = debugTextureHeight * 2 / mapResolution
 
               else
 

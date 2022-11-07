@@ -2677,6 +2677,14 @@ mapData = {
     }),
 
     -- Galen --
+    [524] = { xN = 0.698, yN = 0.660, disabled = false }, -- Vastyr Outskirts Wayshrine
+    [529] = { xN = 0.695, yN = 0.664, disabled = false }, -- Vastyr Wayshrine
+    [530] = { xN = 0.705, yN = 0.660, disabled = false }, -- Eastern Shores Wayshrine
+    [526] = { xN = 0.703, yN = 0.665, disabled = false }, -- Embervine Wayshrine
+    [527] = { xN = 0.707, yN = 0.650, disabled = false }, -- Llanshara Wayshrine
+    [528] = { xN = 0.692, yN = 0.649, disabled = false }, -- Y'free's Path Wayshrine
+    [525] = { xN = 0.698, yN = 0.643, disabled = false }, -- Glimmertarn Wayshrine
+
     zoneData = join({
       zoneName = "Galen & Y'ffelon",
       blobTexture = "AccurateWorldMap/blobs/blob-galen.dds",
