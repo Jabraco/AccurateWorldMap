@@ -37,6 +37,12 @@ If it selected only those wayshrines that have guild traders nearby, or those lo
 In case similar to the Rift zone when there are two wayshrines nearby one of which is in the capital city itself and second is the closest to the guild traders both should be visible on the map.
 Also if it's possible to show only owned player houses they should also be visible, if it's NOT possible then none should be visible.
 
+<<<<<<< HEAD
+=======
+
+PVP zones are missing their pvp campaign name in the zone name, and in imperial city sewers, it's doing lampant passage incorrectly instead of Sewers
+
+>>>>>>> 980e696 (initial commit)
 - Vvardenfell blob includes a small island that is actually for stonefalls
 https://cdn.discordapp.com/attachments/806672739057664034/996095775849320558/unknown.png
 
@@ -44,9 +50,20 @@ Gamepad zoom seems to be all kinds of broken on mine, the bumpers do nothing and
 
 When using a controller, you can zoom out on the map, but you cannot zoom back in. 
 
+<<<<<<< HEAD
 When you click on a wayshrine, the description text stays on the screen but the desc black box vanishes. Ideally either both or neither should
 disappear.
 
+=======
+I'm using Votans Tamriel Map now because i like the zone names. They are really helpful for new players and even I need them from time to time.
+So would it be much effort to add (optional) Zone Names? This is the only thing keeping me from using AWM.
+
+When you click on a wayshrine, the description text stays on the screen but the desc black box vanishes. Ideally either both or neither should
+disappear.
+
+(Minor nitpick: I don't think Saintsport on Stros M'kai should be counted as a Major Settlement as it overlaps Port Hunding)
+
+>>>>>>> 980e696 (initial commit)
 Minimaps seem to mess with the loading of the black box; the proportions are often off if I have the minimap enabled and active when I load up a character. Either too small or too big. I'm unsure if this is true for every UI mod, I personally use Bandit's UI, so that's the one I confirm causing issues.
 
 - Transition over to using vanilla eso blobs instead of custom ones

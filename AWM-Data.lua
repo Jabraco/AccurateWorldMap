@@ -2518,6 +2518,15 @@ mapData = {
     [522] = { disabled = true }, -- Ancient Anchor Berth House
     [523] = { disabled = true }, -- Highhallow Hold House
 
+    -- Galen --
+    [524] = { disabled = true }, -- Vastyr Outskirts Wayshrine
+    [525] = { disabled = true }, -- Glimmertarn Wayshrine
+    [526] = { disabled = true }, -- Embervine Wayshrine
+    [527] = { disabled = true }, -- Llanshara Wayshrine
+    [528] = { disabled = true }, -- Y'free's Path Wayshrine
+    [529] = { disabled = true }, -- Vastyr Wayshrine
+    [530] = { disabled = true }, -- Eastern Shores Wayshrine
+
     -- Eltheric Ocean --
     zoneData = join({
       zoneName = "Eltheric Ocean",
@@ -2623,23 +2632,23 @@ mapData = {
     zoneData = join({
       zoneName = "Amenos",
       isDuplicate = true,
-      zoneDescription = "Amenos and Y'ffrelon are the second largest isles of the Systres, with the former serving as the archipelago's prison island for exiled dissidents.",
+      zoneDescription = "Amenos is the second largest isle of the Systres, serving as the archipelago's prison island for exiled dissidents.",
       zoneID = 2114,
       xN = "0.7185",
       yN = "0.655",
       zonePolygonData = {
-        { xN = 0.715, yN = 0.659 },
-        { xN = 0.722, yN = 0.649 },
-        { xN = 0.736, yN = 0.652 },
-        { xN = 0.755, yN = 0.657 },
-        { xN = 0.765, yN = 0.670 },
-        { xN = 0.766, yN = 0.686 },
-        { xN = 0.759, yN = 0.695 },
-        { xN = 0.739, yN = 0.693 },
-        { xN = 0.730, yN = 0.686 },
-        { xN = 0.722, yN = 0.678 },
-        { xN = 0.711, yN = 0.670 },
-        { xN = 0.712, yN = 0.665 },
+        { xN = 0.735, yN = 0.689 },
+        { xN = 0.731, yN = 0.685 },
+        { xN = 0.722, yN = 0.676 },
+        { xN = 0.724, yN = 0.674 },
+        { xN = 0.730, yN = 0.673 },
+        { xN = 0.733, yN = 0.660 },
+        { xN = 0.748, yN = 0.662 },
+        { xN = 0.759, yN = 0.678 },
+        { xN = 0.758, yN = 0.686 },
+        { xN = 0.750, yN = 0.691 },
+        { xN = 0.740, yN = 0.692 },
+        { xN = 0.734, yN = 0.688 },
       }
     }),
 
@@ -2658,6 +2667,33 @@ mapData = {
         { xN = 0.659, yN = 0.666 },
         { xN = 0.644, yN = 0.669 },
         { xN = 0.638, yN = 0.685 },
+      }
+    }),
+
+    -- Galen --
+    zoneData = join({
+      zoneName = "Galen & Y'ffelon",
+      blobTexture = "AccurateWorldMap/blobs/blob-galen.dds",
+      debugBlobTexture = "AccurateWorldMap/blobs/blob-galen-debug.dds",
+      zoneDescription = "Galen is the westernmost island of the Systres archipelago, controlled by House Monard. Galen has been the home of the druids for thousands of years after their voluntary exile from High Rock.",
+      zoneID = 2212,
+      xN = "0.6875",
+      yN = "0.6325",
+      debugXN = "0.683",
+      debugYN = "0.631",
+      zonePolygonData = {
+        { xN = 0.723, yN = 0.671 },
+        { xN = 0.729, yN = 0.670 },
+        { xN = 0.730, yN = 0.662 },
+        { xN = 0.725, yN = 0.656 },
+        { xN = 0.717, yN = 0.654 },
+        { xN = 0.718, yN = 0.645 },
+        { xN = 0.712, yN = 0.638 },
+        { xN = 0.692, yN = 0.633 },
+        { xN = 0.684, yN = 0.650 },
+        { xN = 0.693, yN = 0.666 },
+        { xN = 0.710, yN = 0.666 },
+        { xN = 0.720, yN = 0.671 },
       }
     }),
 
@@ -3102,6 +3138,10 @@ mapData = {
 
   [575] = { -- Southern Hammerfell Gate Map
     [199] = { name = "Southern Hammerfell Gate Wayshrine" }, -- Southern Hammerfell Gate Wayshrine
+  },
+
+  [2212] = { -- High Isle Map
+    parentMapID = 315
   },
 
 }
