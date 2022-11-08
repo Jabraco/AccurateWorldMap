@@ -437,12 +437,12 @@ mapData = {
     -- ctrl + f aid: cyrodiil
     
     -- Cyrodiil --
-    [201] = { xN = 0.509, yN = 0.593, name = "Western Elsweyr Gate Wayshrine", majorSettlement = true }, -- Western Elsweyr Wayshrine
-    [200] = { xN = 0.556, yN = 0.594, name = "Eastern Elsweyr Gate Wayshrine", majorSettlement = true }, -- Eastern Elsweyr Wayshrine
-    [202] = { xN = 0.622, yN = 0.410, name = "Northern Morrowind Gate Wayshrine", majorSettlement = true }, -- Northern Morrowind Wayshrine
-    [203] = { xN = 0.643, yN = 0.455, name = "Southern Morrowind Gate Wayshrine", majorSettlement = true }, -- Southern Morrowind Wayshrine
-    [170] = { xN = 0.449, yN = 0.411, name = "Northern Hammerfell Gate Wayshrine", majorSettlement = true }, -- Northern Hammerfell Wayshrine
-    [199] = { xN = 0.429, yN = 0.449, name = "Southern Hammerfell Gate Wayshrine", majorSettlement = true }, -- Southern Hammerfell Wayshrine
+    [201] = { name = "Western Elsweyr Gate Wayshrine", majorSettlement = true }, -- Western Elsweyr Wayshrine
+    [200] = { name = "Eastern Elsweyr Gate Wayshrine", majorSettlement = true }, -- Eastern Elsweyr Wayshrine
+    [202] = { name = "Northern Morrowind Gate Wayshrine", majorSettlement = true }, -- Northern Morrowind Wayshrine
+    [203] = { name = "Southern Morrowind Gate Wayshrine", majorSettlement = true }, -- Southern Morrowind Wayshrine
+    [170] = { name = "Northern Hammerfell Gate Wayshrine", majorSettlement = true }, -- Northern Hammerfell Wayshrine
+    [199] = { name = "Southern Hammerfell Gate Wayshrine", majorSettlement = true }, -- Southern Hammerfell Wayshrine
     [236] = { xN = 0.542, yN = 0.475 }, -- Imperial City Prison Dungeon
     [247] = { xN = 0.536, yN = 0.486 }, -- White Gold Tower Dungeon
 
@@ -2761,7 +2761,6 @@ mapData = {
       zoneName = "Tamriel",
       customTileName = "tamriel",
       zoneDescription = "In the ancient tongues, the land called 'Tamriel' means 'Dawn's Beauty'.",
-      zoomLevel = 4.5,
       isWorldMap = true,
       isExclusive = true,
       zoneID = 27,
