@@ -332,16 +332,10 @@ local function onWorldMapOpened()
   
     -- set up label description background 
     if (isInGamepadMode()) then
-      AWM_MouseOverGrungeTex:SetTexture("AccurateWorldMap/misc/gamepadshadow.dds")
+      AWM_MouseOverGrungeTex:SetTexture("AccurateWorldMap/misc/gamepad_shadow.dds")
       AWM_MouseOverGrungeTex:SetAlpha(0.65)
     else
-
-      if (dui) then -- check if DarkUI is installed
-        AWM_MouseOverGrungeTex:SetTexture("AccurateWorldMap/misc/pc_shadow_darkui.dds")
-      else -- if not, return vanilla styled desc background
-        AWM_MouseOverGrungeTex:SetTexture("AccurateWorldMap/misc/pc_shadow.dds")
-      end
-      
+      AWM_MouseOverGrungeTex:SetTexture("AccurateWorldMap/misc/pc_shadow.dds")
       AWM_MouseOverGrungeTex:SetAlpha(0.45)
     end
 
