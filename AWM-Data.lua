@@ -229,7 +229,7 @@ mapData = {
 
     -- Western Skyrim --
     [424] = { xN = 0.404, yN = 0.157 }, -- Icereach Dungeon
-    [434] = { xN = 0.408, yN = 0.186 }, -- Kyne's Aegis Trial
+    [434] = { xN = 0.4385, yN = 0.202 }, -- Kyne's Aegis Trial
     [418] = { majorSettlement = true }, -- Dragon Bridge Wayshrine
     [417] = { majorSettlement = true }, -- Mor Khazgur Wayshrine
     [416] = { majorSettlement = true }, -- Morthal Wayshrine
@@ -1131,7 +1131,7 @@ mapData = {
     -- Bangkorai --
     [206] = { xN = 0.305, yN = 0.279 }, -- Halcyon Lake Wayshrine
     [313] = { xN = 0.304, yN = 0.275 }, -- Mournmoth Keep House
-    [186] = { xN = 0.281, yN = 0.301 }, -- Blackheart Haven Dungeon
+    [186] = { xN = 0.304, yN = 0.360 }, -- Blackheart Haven Dungeon
     [33] = { majorSettlement = true }, -- Evermore Wayshrine
     [38] = { majorSettlement = true }, -- Hallin's Stand Wayshrine
 
@@ -2111,6 +2111,7 @@ mapData = {
     [107] = { majorSettlement = true }, -- Valeguard Wayshrine
     [100] = { majorSettlement = true }, -- Vulkwasten Wayshrine
     [102] = { majorSettlement = true }, -- Velyn Harbour Wayshrine
+    [188] = { xN = 0.369, yN = 0.603 }, -- Tempest Island Dungeon
 
     zoneData = join({
       zoneName = "Malabal Tor",
@@ -2180,26 +2181,6 @@ mapData = {
         { xN = 0.421, yN = 0.584 },
         { xN = 0.419, yN = 0.573 },
         { xN = 0.419, yN = 0.569 },       
-      }
-    }),
-
-    -- Tempest Island --
-    [188] = { xN = 0.282, yN = 0.604 }, -- Tempest Island Dungeon
-
-    zoneData = join({
-      zoneName = "Tempest Island",
-      zoneDescription = "This island in the Strid estuary has long been a haven for pirates, raiders, and fugitives from law enforcement.",
-      zoneID = 292,
-      xN = "0.275",
-      yN = "0.596",
-      zonePolygonData = {
-        { xN = 0.274, yN = 0.609 },
-        { xN = 0.288, yN = 0.610 },
-        { xN = 0.291, yN = 0.597 },
-        { xN = 0.286, yN = 0.594 },
-        { xN = 0.278, yN = 0.596 },
-        { xN = 0.274, yN = 0.600 },
-        { xN = 0.273, yN = 0.606 },        
       }
     }),
 
@@ -2496,52 +2477,36 @@ mapData = {
     -- High Isle --
     [513] = { majorSettlement = true }, -- Gonfalon Square Wayshrine
     [508] = { majorSettlement = true }, -- Amenos Station
-    [521] = { xN = 0.077, yN = 0.598 }, -- Graven Deep
-    [520] = { xN = 0.054, yN = 0.599 }, -- Earthen Root Enclave
+    [521] = { xN = 0.077, yN = 0.598 }, -- Graven Deep Dungeon
+    [520] = { xN = 0.054, yN = 0.599 }, -- Earthen Root Enclave Dungeon
+    [488] = { xN = 0.025, yN = 0.578 }, -- Dread Sail Reef Trial
 
     zoneData = join({
       zoneName = "High Isle",
       zoneDescription = "High Isle is the largest of the Systres Archipelago, and serves as the center of politics and commerce for the region - predominantly from the port city of Gonfalon Bay.",
       zoneID = 2114,
-      xN = "0.046",
-      yN = "0.570",
+      xN = "0.05230",
+      yN = "0.57155",
       zonePolygonData = {
-        { xN = 0.689, yN = 0.718 },
-        { xN = 0.699, yN = 0.723 },
-        { xN = 0.704, yN = 0.729 },
-        { xN = 0.724, yN = 0.732 },
-        { xN = 0.736, yN = 0.731 },
-        { xN = 0.741, yN = 0.721 },
-        { xN = 0.754, yN = 0.717 },
-        { xN = 0.766, yN = 0.712 },
-        { xN = 0.763, yN = 0.700 },
-        { xN = 0.758, yN = 0.696 },
-        { xN = 0.741, yN = 0.694 },
-        { xN = 0.728, yN = 0.685 },
-        { xN = 0.722, yN = 0.679 },
-        { xN = 0.708, yN = 0.671 },
-        { xN = 0.697, yN = 0.675 },
-        { xN = 0.691, yN = 0.682 },
-        { xN = 0.691, yN = 0.690 },
-        { xN = 0.686, yN = 0.707 },
-      }
-    }),
-
-    -- Dreadsail Reef --
-    zoneData = join({
-      zoneName = "Dreadsail Reef",
-      zoneDescription = "The fearsome Dreadsail pirates have long been a terror to the people of The Systres and Summerset. The location of their clandestine harbor, however, is a secret no longer.",
-      zoneID = 2164,
-      xN = "0.6495",
-      yN = "0.676",
-      zonePolygonData = {
-        { xN = 0.644, yN = 0.695 },
-        { xN = 0.662, yN = 0.695 },
-        { xN = 0.670, yN = 0.683 },
-        { xN = 0.669, yN = 0.672 },
-        { xN = 0.659, yN = 0.666 },
-        { xN = 0.644, yN = 0.669 },
-        { xN = 0.638, yN = 0.685 },
+        { xN = 0.056, yN = 0.596 },
+        { xN = 0.052, yN = 0.594 },
+        { xN = 0.052, yN = 0.590 },
+        { xN = 0.054, yN = 0.582 },
+        { xN = 0.058, yN = 0.579 },
+        { xN = 0.063, yN = 0.579 },
+        { xN = 0.061, yN = 0.573 },
+        { xN = 0.064, yN = 0.570 },
+        { xN = 0.075, yN = 0.573 },
+        { xN = 0.081, yN = 0.580 },
+        { xN = 0.080, yN = 0.583 },
+        { xN = 0.074, yN = 0.587 },
+        { xN = 0.076, yN = 0.591 },
+        { xN = 0.074, yN = 0.594 },
+        { xN = 0.070, yN = 0.595 },
+        { xN = 0.069, yN = 0.597 },
+        { xN = 0.060, yN = 0.599 },
+        { xN = 0.058, yN = 0.598 },
+        { xN = 0.057, yN = 0.596 },        
       }
     }),
 
@@ -2553,8 +2518,8 @@ mapData = {
       blobTexture = "AccurateWorldMap/blobs/blob-galen.dds",
       zoneDescription = "Galen is the westernmost island of the Systres archipelago, controlled by House Monard. Galen has been the home of the druids for thousands of years after their voluntary exile from High Rock.",
       zoneID = 2212,
-      xN = "0.6875",
-      yN = "0.6325",
+      xN = "0.046",
+      yN = "0.560",
       zonePolygonData = {
         { xN = 0.723, yN = 0.671 },
         { xN = 0.729, yN = 0.670 },
@@ -2913,10 +2878,6 @@ mapData = {
 
   [282] = { -- Baandari Trading Post Map
     [106] = { name = "Baandari Trading Post Wayshrine" }, -- Baandari Trading Post Wayshrine
-  },
-
-  [292] = { -- Tempest Island Map
-    parentMapID = 27
   },
 
   [1349] = { -- Summerset Isle Map 
