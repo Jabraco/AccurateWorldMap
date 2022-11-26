@@ -2289,7 +2289,7 @@ mapData = {
     [355] = { majorSettlement = true }, -- Alinor Wayshrine
     [364] = { xN = 0.134, yN = 0.679 }, -- Cloudrest Trial
     [368] = { xN = 0.177, yN = 0.792 }, -- Colossal Aldmeri Grotto House
-    [497] = { xN = 0.160, yN = 0.636 }, -- Coral Aerie Dungeon
+    [497] = { xN = 0.197, yN = 0.599 }, -- Coral Aerie Dungeon
 
     zoneData = join({
       zoneName = "Summerset Isle",
@@ -2485,127 +2485,26 @@ mapData = {
       }
     }),
   
--- ██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
--- █         █   ████████           █   ████   █         █        █████   █████   ██████████   ███████   ███████  ████████        ███
--- █   ███████   ████████████   █████   ████   █   ███████   ████   ███   ██   ██    ███████      ███    ██████     ██████   ████   █
--- █   ███████   ████████████   █████   ████   █   ███████   ████   ███   █   ██████████████   █     █   █████  ██   █████   ████   █
--- █       ███   ████████████   █████          █       ███      ███████   █   ██████████████   ██    █   ████   ███   ████        ███
--- █   ███████   ████████████   █████   ████   █   ███████   ██   █████   █   ██████████████   ███  ██   ███           ███   ████████
--- █   ███████   ████████████   █████   ████   █   ███████   ████   ███   ██   ███   ███████   ███████   ██   ███████   ██   ████████
--- █         █          █████   █████   ████   █         █   ██████   █   ████     █████████   ███████   █   █████████   █   ████████
--- ██████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████
--- [x] = { xN = x, yN = y }, -- 
--- ctrl + f aid: eltheric ocean
-
-    [521] = { xN = 0.102, yN = 0.550 }, -- Graven Deep
-    [520] = { disabled = true }, -- Earthen Root Enclave
+    -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+    -- ██░▄▄▄██░████▄▄░▄▄██░██░██░▄▄▄██░▄▄▀█▄░▄██░▄▄▀████░▄▄▄░██░▄▄▀██░▄▄▄█░▄▄▀██░▀██░██
+    -- ██░▄▄▄██░██████░████░▄▄░██░▄▄▄██░▀▀▄██░███░███████░███░██░█████░▄▄▄█░▀▀░██░█░█░██
+    -- ██░▀▀▀██░▀▀░███░████░██░██░▀▀▀██░██░█▀░▀██░▀▀▄████░▀▀▀░██░▀▀▄██░▀▀▀█░██░██░██▄░██
+    -- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+    -- [x] = { xN = x, yN = y }, -- 
+    -- ctrl + f aid: eltheric ocean
 
     -- High Isle --
-    [488] = { disabled = true }, -- Dreadsail Reef Trial
-    [501] = { disabled = true }, -- Coral Road Wayshrine
-    [502] = { disabled = true }, -- Tor Draioch Wayshrine
-    [503] = { disabled = true }, -- Steadfast Manor Wayshrine
-    [504] = { disabled = true }, -- Castle Navire Wayshrine
-    [505] = { disabled = true }, -- Garick's Rest Wayshrine
-    [506] = { disabled = true }, -- Stonelore Grove Wayshrine
-    [507] = { disabled = true }, -- Dufort Shipyards Wayshrine
-    [508] = { disabled = true }, -- Amenos Station Wayshrine
-    [509] = { disabled = true }, -- Brokerock Wayshrine
-    [510] = { disabled = true }, -- All Flags Wayshrine
-    [511] = { disabled = true }, -- Trappers Peak Wayshrine
-    [512] = { disabled = true }, -- Westbay Wayshrine
-    [513] = { disabled = true }, -- Gonfalon Square Wayshrine
-    [517] = { disabled = true }, -- All Flags Islet Wayshrine
-    [518] = { disabled = true }, -- Serpents Hollow Wayshrine
-    [519] = { disabled = true }, -- Flooded Coast Wayshrine
-    [522] = { disabled = true }, -- Ancient Anchor Berth House
-    [523] = { disabled = true }, -- Highhallow Hold House
-
-    -- Galen --
-    [524] = { disabled = true }, -- Vastyr Outskirts Wayshrine
-    [525] = { disabled = true }, -- Glimmertarn Wayshrine
-    [526] = { disabled = true }, -- Embervine Wayshrine
-    [527] = { disabled = true }, -- Llanshara Wayshrine
-    [528] = { disabled = true }, -- Y'free's Path Wayshrine
-    [529] = { disabled = true }, -- Vastyr Wayshrine
-    [530] = { disabled = true }, -- Eastern Shores Wayshrine
-
-    -- Eltheric Ocean --
-    zoneData = join({
-      zoneName = "Eltheric Ocean",
-      zoneDescription = "The seas of Western Tamriel are home to the sunken realm of Thras, the Systres Archipelago, and the Yokudan continent.",
-      overrideLoreRenames = true,
-      isWorldMap = true,
-      customTileName = "Eltheric",
-      zoomLevel = 5,
-      zoneID = 315,
-      xN = "0.020",
-      yN = "0.524",
-      zonePolygonData = {
-        { xN = 0.018, yN = 0.555 },
-        { xN = 0.027, yN = 0.564 },
-        { xN = 0.030, yN = 0.571 },
-        { xN = 0.039, yN = 0.579 },
-        { xN = 0.052, yN = 0.584 },
-        { xN = 0.065, yN = 0.581 },
-        { xN = 0.076, yN = 0.575 },
-        { xN = 0.081, yN = 0.566 },
-        { xN = 0.082, yN = 0.556 },
-        { xN = 0.081, yN = 0.547 },
-        { xN = 0.073, yN = 0.535 },
-        { xN = 0.067, yN = 0.530 },
-        { xN = 0.054, yN = 0.527 },
-        { xN = 0.041, yN = 0.530 },
-        { xN = 0.031, yN = 0.539 },
-        { xN = 0.028, yN = 0.544 },
-        { xN = 0.028, yN = 0.547 },
-        { xN = 0.019, yN = 0.554 },
-      }
-    }),
-  },
-
-  [315] = { -- Eltheric Ocean Map
-
-    parentMapID = 27,
-
-    [521] = { xN = 0.938, yN = 0.626, disabled = false }, -- Graven Deep
-    [520] = { xN = 0.692, yN = 0.731, disabled = false }, -- Earthen Root Enclave
-
-    -- The Jodewood --
-    [156] = { disabled = true }, -- Fort Grimwatch Wayshrine
-    [371] = { disabled = true }, -- Moon Hunter Keep Dungeon
-    [158] = { disabled = true }, -- Arenthia Wayshrine
-    [157] = { disabled = true }, -- Fort Sphinxmoth Wayshrine
-    [159] = { disabled = true }, -- Dune Wayshrine
-    [397] = { disabled = true }, -- Star Haven Temple Wayshrine
-    [163] = { disabled = true }, -- S'ren-ja Wayshrine
-    [162] = { disabled = true }, -- Fort Grimwatch Wayshrine
-    [311] = { disabled = true }, -- Sleek Creek House
-    [291] = { disabled = true }, -- Serenity Falls Estate House
-    [321] = { disabled = true }, -- Dawnshadow House
-
-    -- High Isle --
-    [488] = { xN = 0.654, yN = 0.681, disabled = false }, -- Dreadsail Reef Trial
-    [510] = { xN = 0.712, yN = 0.700, disabled = false }, -- All Flags Wayshrine
-    [513] = { xN = 0.727, yN = 0.714, disabled = false, majorSettlement = true }, -- Gonfalon Square Wayshrine
-    [522] = { xN = 0.727, yN = 0.713, disabled = false }, -- Ancient Anchor Berth House
-    [512] = { xN = 0.723, yN = 0.715, disabled = false }, -- Westbay Wayshrine
-    [501] = { xN = 0.709, yN = 0.712, disabled = false }, -- Coral Road Wayshrine 
-    [504] = { xN = 0.699, yN = 0.709, disabled = false }, -- Castle Navire Wayshrine
-    [506] = { xN = 0.702, yN = 0.697, disabled = false }, -- Stonelore Grove Wayshrine 
-    [505] = { xN = 0.709, yN = 0.683, disabled = false }, -- Garrick's Rest Wayshrine
-    [507] = { xN = 0.728, yN = 0.694, disabled = false }, -- Dufort Shipyard Wayshrine
-    [502] = { xN = 0.730, yN = 0.705, disabled = false }, -- Tor Draioch Wayshrine 
-    [523] = { xN = 0.728, yN = 0.713, disabled = false }, -- High Hallow Hold House
+    [513] = { majorSettlement = true }, -- Gonfalon Square Wayshrine
+    [508] = { majorSettlement = true }, -- Amenos Station
+    [521] = { xN = 0.077, yN = 0.598 }, -- Graven Deep
+    [520] = { xN = 0.054, yN = 0.599 }, -- Earthen Root Enclave
 
     zoneData = join({
       zoneName = "High Isle",
       zoneDescription = "High Isle is the largest of the Systres Archipelago, and serves as the center of politics and commerce for the region - predominantly from the port city of Gonfalon Bay.",
       zoneID = 2114,
-      xN = "0.696",
-      yN = "0.6745",
-      debugXN = "0.688",
-      debugYN = "0.65325",
+      xN = "0.046",
+      yN = "0.570",
       zonePolygonData = {
         { xN = 0.689, yN = 0.718 },
         { xN = 0.699, yN = 0.723 },
@@ -2625,36 +2524,6 @@ mapData = {
         { xN = 0.691, yN = 0.682 },
         { xN = 0.691, yN = 0.690 },
         { xN = 0.686, yN = 0.707 },
-      }
-    }, true),
-
-    -- Amenos --
-    [508] = { xN = 0.737, yN = 0.688, disabled = false, majorSettlement = true }, -- Amenos Station
-    [511] = { xN = 0.734, yN = 0.677, disabled = false }, -- Trapper's Peak Wayshrine 
-    [518] = { xN = 0.741, yN = 0.679, disabled = false }, -- Serpent's Hollow Wayshrine
-    [519] = { xN = 0.749, yN = 0.669, disabled = false }, -- Flooded Coast Wayshrine 
-    [509] = { xN = 0.753, yN = 0.680, disabled = false }, -- Brokerock Mine Wayshrine
-    
-    zoneData = join({
-      zoneName = "Amenos",
-      isDuplicate = true,
-      zoneDescription = "Amenos is the second largest isle of the Systres, serving as the archipelago's prison island for exiled dissidents.",
-      zoneID = 2114,
-      xN = "0.7185",
-      yN = "0.655",
-      zonePolygonData = {
-        { xN = 0.735, yN = 0.689 },
-        { xN = 0.731, yN = 0.685 },
-        { xN = 0.722, yN = 0.676 },
-        { xN = 0.724, yN = 0.674 },
-        { xN = 0.730, yN = 0.673 },
-        { xN = 0.733, yN = 0.660 },
-        { xN = 0.748, yN = 0.662 },
-        { xN = 0.759, yN = 0.678 },
-        { xN = 0.758, yN = 0.686 },
-        { xN = 0.750, yN = 0.691 },
-        { xN = 0.740, yN = 0.692 },
-        { xN = 0.734, yN = 0.688 },
       }
     }),
 
@@ -2677,24 +2546,15 @@ mapData = {
     }),
 
     -- Galen --
-    [524] = { xN = 0.698, yN = 0.660, disabled = false }, -- Vastyr Outskirts Wayshrine
-    [529] = { xN = 0.695, yN = 0.664, disabled = false }, -- Vastyr Wayshrine
-    [530] = { xN = 0.705, yN = 0.660, disabled = false }, -- Eastern Shores Wayshrine
-    [526] = { xN = 0.703, yN = 0.665, disabled = false }, -- Embervine Wayshrine
-    [527] = { xN = 0.707, yN = 0.650, disabled = false }, -- Llanshara Wayshrine
-    [528] = { xN = 0.692, yN = 0.649, disabled = false }, -- Y'free's Path Wayshrine
-    [525] = { xN = 0.698, yN = 0.643, disabled = false }, -- Glimmertarn Wayshrine
+    [529] = { majorSettlement = true }, -- Vastyr Wayshrine
 
     zoneData = join({
-      zoneName = "Galen & Y'ffelon",
+      zoneName = "Galen",
       blobTexture = "AccurateWorldMap/blobs/blob-galen.dds",
-      debugBlobTexture = "AccurateWorldMap/blobs/blob-galen-debug.dds",
       zoneDescription = "Galen is the westernmost island of the Systres archipelago, controlled by House Monard. Galen has been the home of the druids for thousands of years after their voluntary exile from High Rock.",
       zoneID = 2212,
       xN = "0.6875",
       yN = "0.6325",
-      debugXN = "0.683",
-      debugYN = "0.631",
       zonePolygonData = {
         { xN = 0.723, yN = 0.671 },
         { xN = 0.729, yN = 0.670 },
@@ -2710,36 +2570,7 @@ mapData = {
         { xN = 0.720, yN = 0.671 },
       }
     }),
-
-    -- Tamriel --
-    zoneData = join({
-      zoneName = "Tamriel",
-      zoneDescription = "In the ancient tongues, the land called 'Tamriel' means 'Dawn's Beauty'.",
-      blobTexture = "AccurateWorldMap/blobs/blob-eltherictamriel.dds",
-      isDuplicate = true,
-      zoneID = 27,
-      xN = "0.776",
-      yN = "0.579",
-      zonePolygonData = {
-        { xN = 0.839, yN = 0.710 },
-        { xN = 0.860, yN = 0.705 },
-        { xN = 0.879, yN = 0.690 },
-        { xN = 0.893, yN = 0.678 },
-        { xN = 0.895, yN = 0.665 },
-        { xN = 0.914, yN = 0.647 },
-        { xN = 0.895, yN = 0.631 },
-        { xN = 0.884, yN = 0.609 },
-        { xN = 0.860, yN = 0.590 },
-        { xN = 0.826, yN = 0.588 },
-        { xN = 0.802, yN = 0.599 },
-        { xN = 0.780, yN = 0.620 },
-        { xN = 0.775, yN = 0.644 },
-        { xN = 0.785, yN = 0.677 },
-        { xN = 0.798, yN = 0.694 },                      
-      }
-    }),
   },
-
 
 -- ██████████████████████████████████████████████████████████████████████████████████████████████████████████████████
 -- ███████  ████████   █████   █        █████     █████   ███      █████████   ███████   ███████  ████████        ███
@@ -3089,7 +2920,6 @@ mapData = {
   },
 
   [1349] = { -- Summerset Isle Map 
-    [497] = { xN = 0.573, yN = 0.173 }, -- Coral Aerie Dungeon
     [368] = { xN = 0.607, yN = 0.776 }, -- Colossal Aldmeri Grotto House
   },
 
@@ -3109,12 +2939,8 @@ mapData = {
     parentMapID = 27,
   },
 
-  [2114] = { -- High Isle Map
-    parentMapID = 315
-  },
-
   [2164] = { -- Dreadsail Reef Map
-    parentMapID = 315
+    parentMapID = 27
   },
 
   [1719] = { -- Western Skyrim Map 
@@ -3137,10 +2963,6 @@ mapData = {
     [428] = { xN = 0.170, yN = 0.571, disabled = false }, -- Forgemaster Falls House
   },
 
-  [1248] = { -- Firemoth Island Map
-    parentMapID = 27
-  },
-
   [660] = { -- Imperial City Map
     [236] = { xN = 0.495, yN = 0.132, disabled = false }, -- Imperial City Prison Dungeon
   },
@@ -3151,10 +2973,6 @@ mapData = {
 
   [575] = { -- Southern Hammerfell Gate Map
     [199] = { name = "Southern Hammerfell Gate Wayshrine" }, -- Southern Hammerfell Gate Wayshrine
-  },
-
-  [2212] = { -- High Isle Map
-    parentMapID = 315
   },
 
 }

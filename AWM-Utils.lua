@@ -67,7 +67,7 @@ end
 -------------------------------------------------------------------------------
 
 function getIfCanRepositionIcons()
-  return (GPS["GetMapMeasurementByMapId"] ~= nil) 
+  return (GPS["GetMapMeasurementByMapId"] ~= nil)
 end
 
 -------------------------------------------------------------------------------
@@ -433,7 +433,6 @@ function navigateToMap(mapInfo)
 
     end
 
-
     SetMapToMapId(mapID)
     GPS:SetPlayerChoseCurrentMap()
     hideAllZoneBlobs()
@@ -511,7 +510,6 @@ function doesMapHaveCustomZoneData(mapID)
 
 end
 
-
 -------------------------------------------------------------------------------
 -- Get whether the current map has custom zone data or not
 -------------------------------------------------------------------------------
@@ -521,7 +519,6 @@ function doesCurrentMapHaveCustomZoneData()
   return doesMapHaveCustomZoneData(getCurrentMapID())
 
 end
-
 
 -------------------------------------------------------------------------------
 -- Creates zone hitbox on the map given some coordinates
@@ -566,8 +563,6 @@ function createZoneHitbox(polygonData, zoneInfo)
       if (isDebug) then
 
         d(AWM.polygonData)
-
-        --d(data.xN, data.yN)
 
         polygonCode = polygonCode .. ("{ xN = "..string.format("%.03f", data.xN)..", yN = "..string.format("%.03f", data.yN).." },\n")  
 
@@ -885,22 +880,6 @@ function isMapTamriel(mapID)
 end
 
 -------------------------------------------------------------------------------
--- Is Eltheric Map function
--------------------------------------------------------------------------------
-
-function isMapEltheric(mapID)
-
-  if (mapID == nil) then
-    mapID = getCurrentMapID()
-  end
-
-  local zoneInfo = getZoneInfoByID(mapID)
-
-  return (zoneInfo ~= nil and zoneInfo.zoneName == "Eltheric Ocean")
-
-end
-
--------------------------------------------------------------------------------
 -- Is Map Artaeum function
 -------------------------------------------------------------------------------
 
@@ -938,14 +917,6 @@ end
 
 function getTamrielMapID()
   return 27
-end
-
--------------------------------------------------------------------------------
--- Get Eltheric map ID function
--------------------------------------------------------------------------------
-
-function getElthericMapID()
-  return 315
 end
 
 -------------------------------------------------------------------------------
@@ -1025,47 +996,6 @@ function isMapInAurbis(mapID)
   end
 
   return isInAurbis
-end
-
--------------------------------------------------------------------------------
--- Check if map is inside Eltheric Ocean map
--------------------------------------------------------------------------------
-
-function isMapInEltheric(mapID)
-
-  if (mapID == nil) then
-    mapID = getCurrentMapID()
-  end
-
-  local parentMapID = getParentMapID(mapID)
-  local isInEltheric = false
-
-  -- does this map have custom defined data
-  if (doesMapHaveCustomZoneData(parentMapID)) then
-
-    local elthericMapData = mapData[getElthericMapID()].zoneData
-
-    -- then check if it's in the eltheric
-    for zoneIndex, data in pairs(elthericMapData) do
-
-      local zoneData = mapData[getElthericMapID()].zoneData[zoneIndex]
-
-      if (zoneData.zoneID == parentMapID) then
-
-        isInEltheric = true
-
-      end
-    end
-  end
-
-  local parentMapSetToEltheric = false
-
-  if (isInEltheric) then
-    parentMapSetToEltheric = (mapData[mapID] ~= nil and mapData[mapID].parentMapID ~= nil and mapData[mapID].parentMapID == getElthericMapID() )
-  end
-
-
-  return (isInEltheric or parentMapSetToEltheric)
 end
 
 -------------------------------------------------------------------------------
@@ -1312,38 +1242,4 @@ function canRemoveWaypoint(currentXN, currentYN, lastXN, lastYN, mapID)
   local allowed_delta_amount = 0.005
 
   return ( ((currentXN == lastXN and currentYN == lastYN)) or ((deltaX <= allowed_delta_amount) and (deltaX <= allowed_delta_amount)) )
-end
-
--------------------------------------------------------------------------------
--- Get fixed Eltheric local coordinates 
--------------------------------------------------------------------------------
-
-function getFixedElthericCoordinates(mapID, normalisedX, normalisedY)
-
-  -- get the current vanilla global position values from the jodewood (what the eltheric is)
-  local offsetX, offsetY, scaleX, scaleY = zos_GetUniversallyNormalizedMapInfo(getElthericMapID())
-  local globalX = normalisedX * scaleX + offsetX
-  local globalY = normalisedY * scaleY + (offsetY + 0.14000000059605)
-
-  -- get vanilla blob offsets and position for the current map
-  local nOffsetX, nOffsetY, nWidth, nHeight = zos_GetUniversallyNormalizedMapInfo(mapID)
-
-  -- use that to get the localised player coordinates in that map
-  local nLocalX = (globalX - nOffsetX) / nWidth --nWidth = scale
-  local nLocalY = (globalY - (nOffsetY + 0.14000000059605)) / nHeight -- nHeight = scale
-  
-  local measurement = GPS:GetMapMeasurementByMapId(mapID)
-  if (measurement ~= nil) then
-
-    -- then transform those coordinates inside the bounds of AWM's fixed blob positions
-    local fixedGlobalX, fixedGlobalY = measurement:ToGlobal(nLocalX, nLocalY)
-
-    -- and then transform that into the bounds of the custom Eltheric Map and return
-    local elthericMeasurement = GPS:GetMapMeasurementByMapId(getElthericMapID())
-    local fixedLocalX, fixedLocalY = elthericMeasurement:ToLocal(fixedGlobalX, fixedGlobalY)
-
-    return fixedLocalX, fixedLocalY
-
-  end
-
 end

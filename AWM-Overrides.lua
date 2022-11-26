@@ -15,33 +15,6 @@ AWM = AWM or {}
 local GPS = LibGPS3
 local LMP = LibMapPing2
 
--- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
--- ██░▄▄▀██░▄▄▄░██░▄▀▄░██░▄▄░█░▄▄▀█▄▄░▄▄█▄░▄██░▄▄▀█▄░▄██░████▄░▄█▄▄░▄▄██░███░████░▄▄░█░▄▄▀█▄▄░▄▄██░▄▄▀██░██░██░▄▄▄██░▄▄▄░██
--- ██░█████░███░██░█░█░██░▀▀░█░▀▀░███░████░███░▄▄▀██░███░█████░████░████▄▀▀▀▄████░▀▀░█░▀▀░███░████░█████░▄▄░██░▄▄▄██▄▄▄▀▀██
--- ██░▀▀▄██░▀▀▀░██░███░██░████░██░███░███▀░▀██░▀▀░█▀░▀██░▀▀░█▀░▀███░██████░██████░████░██░███░████░▀▀▄██░██░██░▀▀▀██░▀▀▀░██
--- ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
-
--------------------------------------------------------------------------------
--- Compatibility patch for True Exploration
--------------------------------------------------------------------------------
-
--- Mark the Eltheric Ocean map as a MAPTYPE_WORLD so that True Exploration
--- doesn't fade it out.
-
--------------------------------------------------------------------------------
-
-local zos_GetMapType = GetMapType
-function GetMapType()
-
-  local mapType = zos_GetMapType()
-
-  if (getCurrentMapID() == getElthericMapID()) then
-    return MAPTYPE_WORLD
-  end
-
-  return mapType
-end
-
 -- ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
 -- ██░▄▄▄░██░▄▄▄░██░▄▄▄░████░▄▄▄██░██░██░▀██░██░▄▄▀█▄▄░▄▄█▄░▄██░▄▄▄░██░▀██░██░▄▄▄░██
 -- ██▀▀▀▄▄██░███░██▄▄▄▀▀████░▄▄███░██░██░█░█░██░██████░████░███░███░██░█░█░██▄▄▄▀▀██
@@ -444,45 +417,15 @@ GetUniversallyNormalizedMapInfo = function(mapID)
         normalisedHeight = 0.2
 
       else
+        if (doesMapHaveCustomZoneData(mapID)) then
 
-        if (isMapEltheric(mapID)) then
+          -- if this map doesn't have custom data, but its parent does, then scale the current normalised position to inside of the main zone's one        
+          if (getMapBoundingBoxByID(mapID) ~= nil) then
 
-          --remember: the eltheric y offset already has the -0.14 built in
-          normalisedOffsetX = -0.331420898
-          normalisedOffsetY = 0.125502929
-          normalisedWidth = 0.462524414
-          normalisedHeight = 0.462524414
+            --print("custom data loaded")
 
-        else
-          if (doesMapHaveCustomZoneData(mapID)) then
-
-            -- if this map doesn't have custom data, but its parent does, then scale the current normalised position to inside of the main zone's one        
-            if (getMapBoundingBoxByID(mapID) ~= nil) then
-
-              --print("custom data loaded")
-
-              normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight = getMapBoundingBoxByID(mapID)
-              normalisedOffsetY = normalisedOffsetY - 0.14000000059605
-    
-              -- if we're in the eltheric map, do special stuff
-              if (isMapInEltheric(mapID)) then
-
-                -- safety check in case something went wrong and our dataset is nil
-                if (normalisedOffsetX ~= nil and normalisedOffsetY ~= nil and normalisedWidth ~= nil and normalisedHeight ~= nil) then
-                  -- add back the Y offset
-                  normalisedOffsetY = normalisedOffsetY + 0.14000000059605
-
-                  -- get the offsets for eltheric map
-                  local nOffsetX, nOffsetY, scale = GetUniversallyNormalizedMapInfo(getElthericMapID())
-
-                  -- scale the current map to how it would be if it was in the tamriel map
-                  normalisedWidth = normalisedWidth * scale
-                  normalisedHeight = normalisedHeight * scale
-                  normalisedOffsetX = (((1 - normalisedOffsetX) * nOffsetX) * scale) + normalisedWidth
-                  normalisedOffsetY = nOffsetY + (normalisedOffsetY * scale)
-                end
-              end
-            end
+            normalisedOffsetX, normalisedOffsetY, normalisedWidth, normalisedHeight = getMapBoundingBoxByID(mapID)
+            normalisedOffsetY = normalisedOffsetY - 0.14000000059605
           end
         end
       end
@@ -526,13 +469,6 @@ GetMapPlayerPosition = function(unitTag)
   
         return fixedX, fixedY, direction, isShownInCurrentMap
       end
-  
-      -- looking at Eltheric map
-      if (isMapEltheric()) then
-  
-        local fixedLocalXN, fixedLocalYN = getFixedElthericCoordinates(mapID, normalisedX, normalisedY)
-        return fixedLocalXN, fixedLocalYN, direction, true
-      end
     end
 
   end
@@ -566,8 +502,8 @@ GetMapPlayerWaypoint = function()
 
       --d("waypoint being automatically placed")
 
-      -- if we are in Eltheric or Tamriel and there is a waypointer set in in an aurbis realm
-      if ( (isMapTamriel() or isMapEltheric()) and isMapInAurbis(AWM.lastWaypointMapID)) then
+      -- if we are in Tamriel and there is a waypointer set in in an aurbis realm
+      if ( (isMapTamriel()) and isMapInAurbis(AWM.lastWaypointMapID)) then
         return -10, 0 -- return something big to get it out of the way
       end
 
@@ -622,35 +558,6 @@ GetMapPlayerWaypoint = function()
 
       -- if we're in a different local map as before
       if (not isGlobal and not isMapTamriel(AWM.lastWaypointMapID) and AWM.lastWaypointMapID ~= getCurrentMapID()) then
-
-
-        -- if we're in Eltheric Map and the last map was a map inside Eltheric
-        if (isMapEltheric() and isMapInEltheric(AWM.lastWaypointMapID)) then
-
-          AWM.lastGlobalXN = nX
-          AWM.lastGlobalYN = nY
-
-          nX, nY = getFixedElthericCoordinates(AWM.lastWaypointMapID, nX, nY)
-
-          AWM.lastWaypointMapID = getCurrentMapID()
-          AWM.lastLocalXN = nX
-          AWM.lastLocalYN = nY
-
-          return nX, nY
-        end
-
-        -- if we're in an Eltheric local map and the last map was Eltheric
-        if (isMapEltheric(AWM.lastWaypointMapID) and isMapInEltheric(getCurrentMapID())) then
-
-          nX, nY = getFixedLocalCoordinates(getCurrentMapID(), nX, nY)
-
-          AWM.lastWaypointMapID = getCurrentMapID()
-          AWM.lastLocalXN = nX
-          AWM.lastLocalYN = nY
-
-          return nX, nY
-
-        end
 
       end
 
